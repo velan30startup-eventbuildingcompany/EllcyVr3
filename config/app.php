@@ -51,6 +51,9 @@ if ($configuredOrigin === '') {
 }
 define('APP_ORIGIN', $configuredOrigin);
 define('APP_URL', APP_ORIGIN . $scriptDir);
+// Vercel publishes /public at the domain root. Apache/XAMPP serves it as a
+// normal project directory, so templates use one environment-aware asset URL.
+define('PUBLIC_URL', APP_URL . ($isVercel ? '' : '/public'));
 
 // ── Paths ───────────────────────────────────────────────────────────
 define('ROOT_PATH',    dirname(__DIR__));

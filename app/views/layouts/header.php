@@ -26,11 +26,11 @@
   <meta name="twitter:card" content="summary_large_image"/>
   <?php endif; ?>
   <title><?= Security::e($page_title ?? 'ELLCY | Event Services') ?></title>
-  <link rel="stylesheet" href="<?= APP_URL ?>/public/css/style.css"/>
-  <link rel="stylesheet" href="<?= APP_URL ?>/public/css/cart.css"/>
+  <link rel="stylesheet" href="<?= PUBLIC_URL ?>/css/style.css"/>
+  <link rel="stylesheet" href="<?= PUBLIC_URL ?>/css/cart.css"/>
   <?php if (!empty($extra_css)): ?>
     <?php foreach ((array)$extra_css as $css): ?>
-    <link rel="stylesheet" href="<?= APP_URL ?>/public/css/<?= Security::e($css) ?>"/>
+    <link rel="stylesheet" href="<?= PUBLIC_URL ?>/css/<?= Security::e($css) ?>"/>
     <?php endforeach; ?>
   <?php endif; ?>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" defer></script>

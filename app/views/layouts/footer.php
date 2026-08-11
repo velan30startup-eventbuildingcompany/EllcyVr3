@@ -39,12 +39,12 @@
 </footer>
 
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-<script src="<?= APP_URL ?>/public/js/data.js"></script>
-  <script src="<?= APP_URL ?>/public/js/auth.js?v=20260804.6"></script>
-<script src="<?= APP_URL ?>/public/js/cart.js"></script>
+<script src="<?= PUBLIC_URL ?>/js/data.js"></script>
+  <script src="<?= PUBLIC_URL ?>/js/auth.js?v=20260804.6"></script>
+<script src="<?= PUBLIC_URL ?>/js/cart.js"></script>
 <?php if (!empty($extra_js)): ?>
   <?php foreach ((array)$extra_js as $js): ?>
-  <script src="<?= APP_URL ?>/public/js/<?= Security::e($js) ?>"></script>
+  <script src="<?= PUBLIC_URL ?>/js/<?= Security::e($js) ?>"></script>
   <?php endforeach; ?>
 <?php endif; ?>
 <?php if (!empty($inline_js)): ?>
