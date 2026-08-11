@@ -156,6 +156,7 @@
     style.textContent =
       '@media (max-width:768px){' +
       '.ellcy-hamburger{display:flex!important;order:0!important}' +
+      'header .header-right{order:3!important;margin-left:auto!important;flex-shrink:0!important}' +
       '.ellcy-right-actions{order:3!important;margin-left:auto!important;gap:6px!important;flex-shrink:0!important}' +
       '.ellcy-booking-link{display:none!important}' +
       '.ellcy-acct{display:inline-flex!important}' +
@@ -163,7 +164,8 @@
       '.ellcy-acct-btn{padding:5px!important;background:#fff!important;color:#6a1b9a!important;border-radius:50%!important}' +
       '.ellcy-acct-icon,.ellcy-acct-avatar{width:28px!important;height:28px!important;background:#fff!important;color:#6a1b9a!important;border-color:#fff!important}' +
       'header button[class*="back-btn"],header a[class*="back-btn"]{display:none!important}' +
-      'header .ellcy-mobile-brand,header .ellcy-mobile-context,header .sd-mobile-context{position:static!important;inset:auto!important;transform:none!important;order:1!important;flex:1 1 auto!important;min-width:0!important;max-width:none!important;margin:0 4px!important;padding:0!important;color:#fff!important;text-decoration:none!important;text-align:left!important;font-size:.92rem!important;font-weight:800!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}' +
+      'header .ellcy-mobile-brand-wrap{display:block!important;position:static!important;order:1!important;flex:1 1 auto!important;min-width:0!important;margin:0 4px!important;text-align:left!important}' +
+      'header .ellcy-mobile-brand,header .ellcy-mobile-context,header .sd-mobile-context{display:block!important;position:static!important;inset:auto!important;transform:none!important;order:1!important;flex:1 1 auto!important;min-width:0!important;max-width:none!important;margin:0 4px!important;padding:0!important;color:#fff!important;text-decoration:none!important;text-align:left!important;font-size:.92rem!important;font-weight:800!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;pointer-events:auto!important}' +
       'header .ellcy-mobile-brand{font-size:1.02rem!important}' +
       '.ellcy-drawer-nav a,.ellcy-drawer-nav a i{color:#1a1a2e!important}' +
       '}';
@@ -259,9 +261,16 @@
       /* Detail templates historically used a back button as the mobile title.
          Keep the useful page name next to the hamburger, while navigation now
          follows the site's normal menu and breadcrumbs. */
+      var pageContext = headerEl.querySelector('.hdr-mobile-title');
       var nativeBrand = headerEl.querySelector('.logo, .sd-logo, .footer-logo');
-      if (nativeBrand) nativeBrand.classList.add('ellcy-mobile-brand');
-      if (!nativeBrand && !headerEl.querySelector('.sd-mobile-context, .ellcy-mobile-context')) {
+      if (pageContext) pageContext.classList.add('ellcy-mobile-context');
+      else if (nativeBrand) {
+        nativeBrand.classList.add('ellcy-mobile-brand');
+        if (nativeBrand.parentElement && nativeBrand.parentElement !== headerEl) {
+          nativeBrand.parentElement.classList.add('ellcy-mobile-brand-wrap');
+        }
+      }
+      if (!pageContext && !nativeBrand && !headerEl.querySelector('.sd-mobile-context, .ellcy-mobile-context')) {
         var oldBack = headerEl.querySelector('button[class*="back-btn"], a[class*="back-btn"]');
         var labelNode = oldBack && oldBack.querySelector('span');
         var label = labelNode ? labelNode.textContent.trim() : '';

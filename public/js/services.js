@@ -30,11 +30,6 @@
       window.location.replace('../index.html');
       return;
     }
-    if (type === 'flower-rangoli') {
-      window.location.replace('services.html');
-      return;
-    }
-
     const label = LABEL_MAP[type] || type.replace(/-/g,' ').replace(/\b\w/g, c => c.toUpperCase());
     document.title = 'ELLCY | ' + label;
 
@@ -883,7 +878,7 @@
     SIZES.forEach(function(p) {
       var a = document.createElement('a');
       a.className = 'service-card chenda-pkg-card';
-      a.href      = basePath + p.dir + '/index.html';
+      a.href      = basePath + p.dir + '/';
       a.setAttribute('aria-label', p.label);
       a.innerHTML =
         '<div class="card-image">' +

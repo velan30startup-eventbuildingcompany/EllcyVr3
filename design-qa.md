@@ -36,3 +36,12 @@ The combined comparison isolates the header and package-card regions because the
 ## Final result
 
 final result: passed
+
+## Rangoli and shared mobile-header regression check — 2026-08-12
+
+- Tested at 393 × 852 CSS px on the local PHP/XAMPP routes `/`, `/category?type=wedding`, `/services?type=flower-rangoli`, and `/services/flower-rangoli/3x3-feet/`.
+- ELLCY begins 8 px after the hamburger on Home; Categories and Services begin 4 px after the hamburger on their respective pages. Cart and account remain grouped on the right.
+- Flower Rangoli appears as an active Wedding category, renders all four size cards with loaded imagery, and the 3 × 3 Feet card opens its working PHP-rendered detail page with the correct title and ₹2,999 price.
+- No horizontal overlap or centered-title regression was observed.
+
+final result: passed

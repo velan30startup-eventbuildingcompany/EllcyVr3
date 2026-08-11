@@ -383,6 +383,7 @@ const LABEL_MAP = {
   'real-flowers-reception':   'Real Flowers — Reception',
   'real-flowers-marriage':    'Real Flowers — Marriage',
   'fake-jewellery':           'Fake Jewellery',
+  'flower-rangoli':           'Flower Rangoli',
   'car-entry':                'Car Entry',
   'aarthi-plate':             'Aarthi Plate',
   'bridal-groom-styling':     'Bridal & Groom Make Up',
@@ -471,6 +472,7 @@ const CATEGORY_MAPPINGS = {
     { name:'Car Entry',                     slug:'car-entry',                img:'../uploads/services/car-entry-luxury.jpg' },
     { name:'Bridal & Groom Make Up',        slug:'bridal-groom-styling',     img:'../uploads/services/bridal.png' },
     { name:'Plates Decoration',             slug:'plates-decoration',        img:'../uploads/services/decoration-stage-hotel.jpg' },
+    { name:'Flower Rangoli',                 slug:'flower-rangoli',            img:'../uploads/services/flowers-decoration-2.jpg' },
   ],
   food: [
     { name:'Breakfast', slug:'food-breakfast', img:'../uploads/services/food-veg.jpg' },

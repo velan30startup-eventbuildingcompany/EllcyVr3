@@ -64,9 +64,6 @@ RewriteRule ^vendor-signup/?$ index.php [L,QSA]
     # Block PHP app internals and the archived static frontend.
     RewriteRule ^(app|config|storage|sql|index_old)(/|$) - [F,L]
 
-    # Obsolete customer-facing Rangoli URLs are intentionally gone.
-    RewriteRule ^services/flower-rangoli(?:/.*)?$ - [G,L,NC]
-
     # Every customer-facing document is handled by the root PHP front
     # controller, even when a matching legacy HTML file or physical service
     # directory exists. Static assets remain direct Apache responses.

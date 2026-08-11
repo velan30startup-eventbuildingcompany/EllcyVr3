@@ -37,10 +37,11 @@ final class LegacyPage
                 'photography/photo-package',
                 'photography/photo-video',
                 'real-flowers',
+                'flower-rangoli',
             ], true) || preg_match(
                 '#^plates-decoration/(?:aarti|seer)-plates/(?:9|11|15|21)-plates$#',
                 $serviceRoute
-            );
+            ) || preg_match('#^flower-rangoli/(?:3x3|4x4|5x5|6x6)-feet$#', $serviceRoute);
 
             if ($usesPhpDetail) {
                 require VIEWS_PATH . '/public/service_detail.php';

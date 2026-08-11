@@ -85,10 +85,10 @@ SET s.status = 'inactive'
 WHERE c.slug = 'entertainment-activities'
   AND s.slug = 'entertainment-activities-service';
 
--- Flower Rangoli is retired from all customer surfaces but retained for history.
-UPDATE service_categories SET status='inactive', hidden=1 WHERE slug='flower-rangoli';
+-- Flower Rangoli is an active customer-facing category.
+UPDATE service_categories SET status='active', hidden=0 WHERE slug='flower-rangoli';
 UPDATE services s JOIN service_categories c ON c.id=s.category_id
-SET s.status='inactive' WHERE c.slug='flower-rangoli';
+SET s.status='active' WHERE c.slug='flower-rangoli';
 
 -- DJ is one service with seven centrally managed packages.
 INSERT INTO services

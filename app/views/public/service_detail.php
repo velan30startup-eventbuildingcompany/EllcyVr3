@@ -137,6 +137,33 @@ if ($serviceRoute === 'enter-show-down') {
         'overviewHtml'=>'<div class="sd-rich-overview"><h2>Beautifully coordinated for your ceremony</h2><p>This '.$count.'-plate '.$categoryLabel.' arrangement is styled as one complete presentation with coordinated colours, floral accents and traditional finishing. The set arrives ready for your wedding or family ceremony.</p><div class="sd-feature-list"><span><i class="fa-solid fa-palette"></i> Coordinated styling</span><span><i class="fa-solid fa-seedling"></i> Floral accents</span><span><i class="fa-solid fa-circle-check"></i> Ready to present</span></div></div>',
         'packages'=>[['key'=>(string)$count,'label'=>$count.' Plates','price'=>$prices[$kind][$count],'img'=>$asset('aarthi-plates.jpg'),'desc'=>'A coordinated '.$count.'-plate '.$categoryLabel.' presentation for weddings and ceremonies.']],
     ]);
+} elseif ($serviceRoute === 'flower-rangoli' || preg_match('#^flower-rangoli/(3x3|4x4|5x5|6x6)-feet$#', $serviceRoute, $rangoliMatch)) {
+    $categoryLabel = 'Flower Rangoli';
+    $categorySlug = 'flower-rangoli';
+    $sizeKey = $rangoliMatch[1] ?? Security::sanitizeString($_GET['size'] ?? '3x3', 10);
+    $sizes = [
+        '3x3' => ['3 × 3 Feet', 2999, 'Compact fresh-flower rangoli for entrances and small courtyards.'],
+        '4x4' => ['4 × 4 Feet', 4499, 'A medium floral rangoli with richer detailing for main entrances.'],
+        '5x5' => ['5 × 5 Feet', 6499, 'A large statement rangoli for wedding halls and grand entryways.'],
+        '6x6' => ['6 × 6 Feet', 8999, 'A premium extra-large rangoli for major celebrations.'],
+    ];
+    if (!isset($sizes[$sizeKey])) $sizeKey = '3x3';
+    $rangoli = $sizes[$sizeKey];
+    $cfg = array_replace($common, [
+        'serviceKey'=>'flower-rangoli-'.$sizeKey,
+        'adminSlug'=>'flower-rangoli-'.$sizeKey,
+        'serviceName'=>'Flower Rangoli — '.$rangoli[0],
+        'slug'=>'flower-rangoli-'.$sizeKey,
+        'img'=>$asset('flowers-decoration-2.jpg'),
+        'rating'=>'4.8',
+        'availability'=>'Available for Weddings, Receptions & Celebrations',
+        'subtags'=>'Fresh Flowers | Custom Colours | Venue Ready',
+        'priceMeta'=>'Fresh | Traditional | Handcrafted',
+        'showPkgPills'=>false,
+        'catalogCards'=>true,
+        'overviewHtml'=>'<div class="sd-rich-overview"><h2>A fresh floral welcome for your celebration</h2><p>'.$rangoli[2].' Our decorators coordinate the colours and flower selection, then prepare the complete design at your venue.</p><div class="sd-feature-list"><span><i class="fa-solid fa-seedling"></i> Fresh flowers</span><span><i class="fa-solid fa-palette"></i> Coordinated colours</span><span><i class="fa-solid fa-circle-check"></i> On-site setup</span></div></div>',
+        'packages'=>[['key'=>$sizeKey,'label'=>$rangoli[0],'price'=>$rangoli[1],'img'=>$asset('flowers-decoration-2.jpg'),'desc'=>$rangoli[2]]],
+    ]);
 } elseif ($serviceRoute === 'real-flowers') {
     $categoryLabel = 'Real Flowers';
     $categorySlug = 'real-flowers';

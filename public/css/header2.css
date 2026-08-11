@@ -189,7 +189,7 @@
 
 /* ── Responsive ──────────────────────────────────────────────── */
 @media (max-width: 768px) {
-  .new-header { padding: 0 16px; height: 56px; --hdr-h: 56px; }
+  .new-header { padding: 0 12px; height: 56px; --hdr-h: 56px; justify-content: flex-start; gap: 8px; }
   .hdr-nav    { display: none; }        /* hide desktop nav */
   .hdr-cta    { display: none; }        /* hide desktop CTA */
   .hdr-hamburger { display: inline-flex; }
@@ -198,9 +198,20 @@
   .desktop-only { display: none !important; }
   .enquiry-btn  { display: none; }
 
-  /* Back button replaces the logo on mobile inner pages */
+  /* Keep the page context beside the menu at the top-left. */
   .new-header .logo { display: none; }
-  .hdr-back-btn      { display: inline-flex; }
+  .hdr-back-btn      { display: none; }
+  .hdr-mobile-title {
+    display: block;
+    position: static;
+    transform: none;
+    order: 1;
+    flex: 1 1 auto;
+    min-width: 0;
+    margin: 0;
+    text-align: left;
+    pointer-events: auto;
+  }
   /* The text breadcrumb is redundant now that a real back
      button exists — keep it desktop-only. */
   .breadcrumb         { display: none; }
