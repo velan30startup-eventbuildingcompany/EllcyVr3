@@ -163,7 +163,7 @@
       '.ellcy-acct-btn{padding:5px!important;background:#fff!important;color:#6a1b9a!important;border-radius:50%!important}' +
       '.ellcy-acct-icon,.ellcy-acct-avatar{width:28px!important;height:28px!important;background:#fff!important;color:#6a1b9a!important;border-color:#fff!important}' +
       'header button[class*="back-btn"],header a[class*="back-btn"]{display:none!important}' +
-      'header .ellcy-mobile-brand,header .ellcy-mobile-context,header .sd-mobile-context{position:static!important;inset:auto!important;transform:none!important;order:1!important;margin:0!important;padding:0!important;color:#fff!important;text-decoration:none!important;text-align:left!important;font-size:.92rem!important;font-weight:800!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;max-width:min(42vw,190px)!important}' +
+      'header .ellcy-mobile-brand,header .ellcy-mobile-context,header .sd-mobile-context{position:static!important;inset:auto!important;transform:none!important;order:1!important;flex:1 1 auto!important;min-width:0!important;max-width:none!important;margin:0 4px!important;padding:0!important;color:#fff!important;text-decoration:none!important;text-align:left!important;font-size:.92rem!important;font-weight:800!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}' +
       'header .ellcy-mobile-brand{font-size:1.02rem!important}' +
       '.ellcy-drawer-nav a,.ellcy-drawer-nav a i{color:#1a1a2e!important}' +
       '}';
@@ -380,6 +380,26 @@
     });
   }
 
+  function injectVendorSignup() {
+    var footer = document.querySelector('footer.site-footer');
+    if (!footer || footer.querySelector('.ellcy-vendor-cta')) return;
+    var divider = footer.querySelector('.footer-divider, .footer-bottom');
+    var card = document.createElement('section');
+    card.className = 'ellcy-vendor-cta';
+    card.setAttribute('aria-label', 'Sell services on ELLCY');
+    card.innerHTML =
+      '<div><span class="ellcy-vendor-kicker">ELLCY for vendors</span>' +
+      '<h3>Grow your event business with ELLCY</h3>' +
+      '<p>Reach customers, manage enquiries and build a trusted service profile.</p></div>' +
+      '<a href="' + ROOT_PREFIX + 'vendor-signup"><i class="fa-solid fa-store"></i> Vendor Sign Up</a>';
+    if (divider) footer.insertBefore(card, divider); else footer.appendChild(card);
+  }
+
+  function initialiseSharedUi() {
+    injectAuthWidget();
+    injectVendorSignup();
+  }
+
   /* ── Public API — used by cart.js and available to any other
      script that needs to know "who is the user" or where the
      account/login/booking/cart pages live. ────────────────── */
@@ -398,9 +418,9 @@
 
   /* ── Run on DOM ready ─────────────────────────────────────── */
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', injectAuthWidget);
+    document.addEventListener('DOMContentLoaded', initialiseSharedUi);
   } else {
-    injectAuthWidget();
+    initialiseSharedUi();
   }
 
 })();

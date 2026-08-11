@@ -126,7 +126,14 @@ class Security {
             );
             return true;
         } catch (Exception $e) {
-            return true; // Fail open if DB issue
+            // Keep abuse protection active during a temporary DB outage.
+            $key = hash('sha256', $action . '|' . $ip);
+            $now = time();
+            $bucket = $_SESSION['_rate_fallback'][$key] ?? ['start' => $now, 'attempts' => 0];
+            if (($now - (int)$bucket['start']) >= RATE_LIMIT_WINDOW) $bucket = ['start' => $now, 'attempts' => 0];
+            $bucket['attempts']++;
+            $_SESSION['_rate_fallback'][$key] = $bucket;
+            return $bucket['attempts'] <= RATE_LIMIT_REQUESTS;
         }
     }
 
@@ -181,7 +188,9 @@ class Security {
 
     // ── IP address ──────────────────────────────────────────────────
     public static function getIp(): string {
-        foreach (['HTTP_CF_CONNECTING_IP','HTTP_X_FORWARDED_FOR','REMOTE_ADDR'] as $key) {
+        $trustedProxy = getenv('ELLCY_TRUST_PROXY') === '1' || getenv('VERCEL') === '1';
+        $keys = $trustedProxy ? ['HTTP_CF_CONNECTING_IP','HTTP_X_FORWARDED_FOR','REMOTE_ADDR'] : ['REMOTE_ADDR'];
+        foreach ($keys as $key) {
             if (!empty($_SERVER[$key])) {
                 $ip = trim(explode(',', $_SERVER[$key])[0]);
                 if (filter_var($ip, FILTER_VALIDATE_IP)) return $ip;

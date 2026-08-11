@@ -663,9 +663,14 @@ body.ellcy-drawer-locked { overflow: hidden; }
 }
 .ellcy-loginreq-btn:hover { background: #58157f; }
 .ellcy-loginreq-later {
-  border: 0; background: transparent; color: #888;
-  font-size: .82rem; font-weight: 600; cursor: pointer; padding: 6px;
+  width: 100%; border: 0; border-radius: 10px; background: #3e165b; color: #fff;
+  font-size: .82rem; font-weight: 700; cursor: pointer; padding: 11px 14px;
 }
+
+/* Vr2 shared actions */
+.bnc-btn-buynow{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;border:0;border-radius:999px;background:#ffa81f;color:#171327;font:inherit;font-weight:800;cursor:pointer;box-shadow:0 7px 18px rgba(255,168,31,.25)}
+.ellcy-loginreq-btn,.ellcy-loginreq-btn:visited,.ellcy-loginreq-later{color:#fff!important}
+.ellcy-vendor-cta{max-width:1320px;margin:8px auto 28px;padding:22px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px;border:1px solid rgba(255,255,255,.16);border-radius:16px;background:linear-gradient(135deg,#2a103f,#6a1b9a);color:#fff}.ellcy-vendor-cta h3{margin:4px 0 5px;color:#fff;font-size:1.15rem}.ellcy-vendor-cta p{margin:0;color:#eee1f8;line-height:1.5}.ellcy-vendor-kicker{color:#e7c5ff;font-size:.72rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em}.ellcy-vendor-cta>a{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:10px;background:#fff;color:#6a1b9a!important;text-decoration:none;font-weight:900;white-space:nowrap}@media(max-width:768px){.ellcy-vendor-cta{margin:10px 16px 24px;padding:20px;align-items:flex-start;flex-direction:column}.ellcy-vendor-cta>a{width:100%}.bnc-btn-buynow{flex:1;min-width:130px}}
 
 /* ── "Sign in to book" modal ─────────────────────────────────── */
 .ellcy-loginreq-overlay {
@@ -716,6 +721,10 @@ body.ellcy-drawer-locked { overflow: hidden; }
 .hdr-cart-right {
   margin-left: 0;
 }
+
+/* Final Vr2 modal contrast override (legacy file contains older duplicate rules). */
+.ellcy-loginreq-btn,.ellcy-loginreq-btn:visited{color:#fff!important}
+.ellcy-loginreq-later{width:100%;padding:11px 14px;border:0;border-radius:10px;background:#3e165b!important;color:#fff!important;font-weight:700}
 
 /* NOTE: .cm-cart-btn (Chenda Melam mobile cart button) is styled
    in css/chenda-melam.css, which loads after this file on that page.

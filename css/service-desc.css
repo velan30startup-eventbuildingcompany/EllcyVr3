@@ -741,6 +741,9 @@
   .catalog-card-detail-page .sd-cards-grid { grid-template-columns: 1fr; gap: 18px; }
   .catalog-card-detail-page .sd-card-img { height: 210px; }
   .catalog-card-detail-page .sd-card-desc { display: -webkit-box; }
+  .catalog-card-detail-page .sd-catalog-title-row { display:grid; grid-template-columns:minmax(0,1fr); gap:7px; }
+  .catalog-card-detail-page .sd-card-name { min-width:0; font-size:1rem; overflow-wrap:anywhere; }
+  .catalog-card-detail-page .sd-catalog-rating { justify-self:start; }
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

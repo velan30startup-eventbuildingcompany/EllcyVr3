@@ -46,7 +46,8 @@ Options +FollowSymLinks
 
 # ── URL Rewriting ─────────────────────────────────────────────────────
 <IfModule mod_rewrite.c>
-    RewriteEngine On
+RewriteEngine On
+RewriteRule ^vendor-signup/?$ index.php [L,QSA]
 
     # ── PRODUCTION (ellcy.in): the app is installed at the web root,
     # so RewriteBase is "/". A mismatch here is exactly what breaks

@@ -27,6 +27,10 @@
       </a>
     </div>
   </div>
+  <section class="ellcy-vendor-cta" aria-label="Sell services on ELLCY">
+    <div><span class="ellcy-vendor-kicker">ELLCY for vendors</span><h3>Grow your event business with ELLCY</h3><p>Reach customers, manage enquiries and build a trusted service profile.</p></div>
+    <a href="<?= APP_URL ?>/vendor-signup"><i class="fa-solid fa-store" aria-hidden="true"></i> Vendor Sign Up</a>
+  </section>
   <div class="footer-divider"></div>
   <div class="footer-bottom">
     <p><span id="year"></span> &copy; ELLCY &mdash; All Rights Reserved.</p>
@@ -40,7 +44,7 @@
 
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 <script src="<?= PUBLIC_URL ?>/js/data.js"></script>
-  <script src="<?= PUBLIC_URL ?>/js/auth.js?v=20260804.6"></script>
+  <script src="<?= PUBLIC_URL ?>/js/auth.js?v=20260812.1"></script>
 <script src="<?= PUBLIC_URL ?>/js/cart.js"></script>
 <?php if (!empty($extra_js)): ?>
   <?php foreach ((array)$extra_js as $js): ?>

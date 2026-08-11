@@ -35,6 +35,7 @@ require_once __DIR__ . '/app/controllers/AdminController.php';
 require_once __DIR__ . '/app/controllers/EnquiryController.php';
 require_once __DIR__ . '/app/controllers/AuthController.php';
 require_once __DIR__ . '/app/controllers/UploadController.php';
+require_once __DIR__ . '/app/controllers/VendorController.php';
 
 // ── Maintenance mode ────────────────────────────────────────────────
 try {
@@ -169,6 +170,7 @@ $router->get('/cart', function () use ($serveLegacyHtml) {
 $router->any('/booking', function () {
     (new BookingController())->show();
 });
+$router->any('/vendor-signup', fn() => (new VendorController())->signup());
 
 // ── REQUEST FOR CALL: PHP form handler ──────────────────────────────
 $router->any('/request-for-call', function () {

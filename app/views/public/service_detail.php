@@ -38,8 +38,14 @@ if ($serviceRoute === 'enter-show-down') {
         'availability' => 'Available for Weddings, Receptions & Grand Entries',
         'subtags' => 'Safe Setup | Trained Crew | Perfect Timing',
         'priceMeta' => 'Dramatic | Celebratory | Unforgettable',
-        'catalogCards' => true,
-        'pillLabel' => 'Select Entry Effect',
+        'catalogCards' => false,
+        'showPkgPills' => false,
+        'hideCards' => true,
+        'showQty' => true,
+        'qtyLabel' => 'Number of Entry Effects',
+        'minQty' => 15,
+        'defaultQty' => 15,
+        'maxQty' => 50,
         'overviewHtml' => '<div class="sd-rich-overview"><h2>Make your entrance the moment everyone remembers</h2><p>Choose a professionally managed celebration effect for the couple entry, first dance, stage reveal or special announcement. Our trained team handles positioning, timing and safe operation at the venue.</p><div class="sd-feature-list"><span><i class="fa-solid fa-shield-halved"></i> Safety-checked equipment</span><span><i class="fa-solid fa-stopwatch"></i> Cue-perfect coordination</span><span><i class="fa-solid fa-people-group"></i> On-site trained crew</span></div></div>',
         'packages' => [
             ['key'=>'pyro-show','label'=>'Pyro Show','price'=>299,'adminSlug'=>'pyro-show','img'=>$asset('entershow-pyro-show.jpg'),'desc'=>'A choreographed cold-pyro burst for grand entries and stage highlights.'],
@@ -199,10 +205,12 @@ $metaDescription = mb_substr(preg_replace('/\s+/', ' ', $metaDescription) ?? '',
   <meta property="og:image" content="<?= $e($fallbackImage) ?>"/>
   <link rel="canonical" href="<?= $e($base . '/services/' . trim($serviceRoute, '/') . '/') ?>"/>
   <title>ELLCY | <?= $e((string)$cfg['serviceName']) ?></title>
+  <script type="application/ld+json"><?= json_encode(['@context'=>'https://schema.org','@type'=>'Service','name'=>(string)$cfg['serviceName'],'description'=>$metaDescription,'image'=>$fallbackImage,'areaServed'=>['@type'=>'City','name'=>'Chennai'],'provider'=>['@type'=>'Organization','name'=>'ELLCY','url'=>$base],'offers'=>['@type'=>'Offer','priceCurrency'=>'INR','price'=>(float)($cfg['packages'][0]['price'] ?? 0),'availability'=>'https://schema.org/InStock','url'=>$base.'/services/'.trim($serviceRoute,'/').'/']], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_HEX_TAG) ?></script>
+  <script type="application/ld+json"><?= json_encode(['@context'=>'https://schema.org','@type'=>'BreadcrumbList','itemListElement'=>[['@type'=>'ListItem','position'=>1,'name'=>'Home','item'=>$base.'/'],['@type'=>'ListItem','position'=>2,'name'=>$categoryLabel,'item'=>$base.'/services?type='.$categorySlug],['@type'=>'ListItem','position'=>3,'name'=>(string)$cfg['serviceName'],'item'=>$base.'/services/'.trim($serviceRoute,'/').'/']]], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_HEX_TAG) ?></script>
   <link rel="stylesheet" href="<?= $e($base) ?>/css/style.css"/>
-  <link rel="stylesheet" href="<?= $e($base) ?>/css/service-desc.css?v=20260811.6"/>
+  <link rel="stylesheet" href="<?= $e($base) ?>/css/service-desc.css?v=20260812.1"/>
   <link rel="stylesheet" href="<?= $e($base) ?>/css/media-gallery.css?v=20260811.5"/>
-  <link rel="stylesheet" href="<?= $e($base) ?>/css/cart.css?v=20260811.5"/>
+  <link rel="stylesheet" href="<?= $e($base) ?>/css/cart.css?v=20260812.1"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" defer></script>
 </head>
 <body class="sd-body <?= $portfolio ? 'photo-detail-page' : '' ?> <?= !empty($cfg['catalogCards']) ? 'catalog-card-detail-page' : '' ?>">
@@ -280,10 +288,10 @@ $metaDescription = mb_substr(preg_replace('/\s+/', ' ', $metaDescription) ?? '',
 
 <script>window.SD_CONFIG = <?= json_encode($cfg, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?>;</script>
 <script src="<?= $e($base) ?>/services/data.js"></script>
-<script src="<?= $e($base) ?>/js/auth.js?v=20260811.5"></script>
+<script src="<?= $e($base) ?>/js/auth.js?v=20260812.1"></script>
 <script src="<?= $e($base) ?>/js/cart.js"></script>
 <?php if ($showReferenceUpload): ?><script>window.ELLCY_JEWELLERY_SERVICE = <?= json_encode((string)$cfg['serviceKey']) ?>;</script><script src="<?= $e($base) ?>/js/jewellery-reference.js?v=20260811.2"></script><?php endif; ?>
 <script src="<?= $e($base) ?>/js/media-gallery.js?v=20260811.5"></script>
-<script src="<?= $e($base) ?>/js/service-desc.js?v=20260811.6"></script>
+<script src="<?= $e($base) ?>/js/service-desc.js?v=20260812.1"></script>
 </body>
 </html>

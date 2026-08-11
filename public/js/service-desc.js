@@ -42,6 +42,8 @@
  *   // exactly as before this feature was added.
  *   showQty  : true,
  *   qtyLabel : 'Number of Human Dolls',   // defaults to 'Quantity'
+ *   minQty   : 1,                         // defaults to 1
+ *   defaultQty: 1,                        // defaults to minQty
  *   maxQty   : 20,                        // defaults to 20
  * };
  */
@@ -55,8 +57,9 @@
 
   /* ── Quantity / count (optional) ──────────────────────────── */
   var HAS_QTY = C.showQty === true;
-  var MAX_QTY = C.maxQty || 20;
-  var qty     = 1;
+  var MIN_QTY = Math.max(1, parseInt(C.minQty || '1', 10));
+  var MAX_QTY = Math.max(MIN_QTY, parseInt(C.maxQty || '20', 10));
+  var qty     = Math.max(MIN_QTY, Math.min(MAX_QTY, parseInt(C.defaultQty || MIN_QTY, 10)));
 
   /* ── Groups (optional two-tier selector) ──────────────────── */
   var GROUPS      = C.groups || [];
@@ -265,6 +268,10 @@
     if (!cardsGrid) return;
     cardsGrid.innerHTML = '';
     var sec = cardsGrid.closest('.sd-cards-section');
+    if (C.hideCards === true) {
+      if (sec) sec.style.display = 'none';
+      return;
+    }
     if (!PACKAGES.length) {
       if (sec) sec.style.display = 'none';
       return;
@@ -362,7 +369,7 @@
           '<label class="sd-qty-label">' + esc(label) + '</label>' +
           '<div class="sd-qty-ctrl">' +
             '<button type="button" class="sd-qty-minus" aria-label="Decrease">−</button>' +
-            '<input type="number" class="sd-qty-inp" value="1" min="1" max="' + MAX_QTY + '" aria-label="' + esc(label) + '"/>' +
+            '<input type="number" class="sd-qty-inp" value="' + qty + '" min="' + MIN_QTY + '" max="' + MAX_QTY + '" aria-label="' + esc(label) + '"/>' +
             '<button type="button" class="sd-qty-plus" aria-label="Increase">+</button>' +
           '</div>' +
         '</div>';
@@ -373,7 +380,7 @@
       var plus  = card.querySelector('.sd-qty-plus');
 
       function setQty(v) {
-        qty = Math.max(1, Math.min(MAX_QTY, parseInt(v, 10) || 1));
+        qty = Math.max(MIN_QTY, Math.min(MAX_QTY, parseInt(v, 10) || MIN_QTY));
         document.querySelectorAll('.sd-qty-inp').forEach(function (el) { el.value = qty; });
         updateAll();
       }

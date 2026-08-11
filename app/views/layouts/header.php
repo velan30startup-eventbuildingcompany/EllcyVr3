@@ -38,5 +38,9 @@
     '@context'=>'https://schema.org','@type'=>'Organization','name'=>'ELLCY',
     'url'=>APP_URL,'logo'=>rtrim(APP_URL, '/').'/uploads/services/stage.png'
   ], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE) ?></script>
+  <script type="application/ld+json"><?= json_encode([
+    '@context'=>'https://schema.org','@type'=>'WebSite','name'=>'ELLCY','url'=>APP_URL,
+    'potentialAction'=>['@type'=>'SearchAction','target'=>rtrim(APP_URL,'/').'/services?q={search_term_string}','query-input'=>'required name=search_term_string']
+  ], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE) ?></script>
 </head>
 <body class="<?= Security::e($body_class ?? '') ?>">

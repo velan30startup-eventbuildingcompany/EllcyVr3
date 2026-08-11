@@ -573,6 +573,7 @@
             color: #aaa;
             margin-top: 12px;
         }
+        .bk-calendar{margin-top:10px;border:1px solid #e2d4ef;border-radius:16px;background:#fff;box-shadow:0 10px 30px rgba(54,24,79,.08);overflow:hidden}.bk-cal-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:#f8f1ff}.bk-cal-title{font-weight:900;color:#23152e}.bk-cal-nav{width:36px;height:36px;border:1px solid #d9c4ea;border-radius:50%;background:#fff;color:#6a1b9a;cursor:pointer}.bk-cal-week,.bk-cal-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;padding:0 12px}.bk-cal-week{padding-top:12px;color:#776b80;font-size:.7rem;font-weight:900;text-align:center;text-transform:uppercase}.bk-cal-days{padding-bottom:14px}.bk-cal-day{aspect-ratio:1;border:0;border-radius:10px;background:transparent;color:#211728;font:inherit;font-size:.8rem;cursor:pointer}.bk-cal-day:hover:not(:disabled){background:#f1e3fb;color:#6a1b9a}.bk-cal-day.is-selected{background:#6a1b9a!important;color:#fff!important;font-weight:900}.bk-cal-day:disabled{color:#c8c2cc;cursor:not-allowed}.bk-cal-day.is-empty{visibility:hidden}.bk-date-summary{display:flex;align-items:center;gap:8px;margin-top:10px;color:#6a1b9a;font-size:.82rem;font-weight:800}#bkDate{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}@media(max-width:600px){.bk-calendar{border-radius:13px}.bk-cal-day{font-size:.76rem;border-radius:8px}}
     </style>
 </head>
 
@@ -659,7 +660,13 @@
                 <div class="bk-row">
                     <div class="bk-field">
                         <label for="bkDate">Event Date *</label>
-                        <input type="date" id="bkDate" />
+                        <input type="date" id="bkDate" required />
+                        <div class="bk-calendar" id="bkCalendar" aria-label="Choose event date">
+                            <div class="bk-cal-head"><button type="button" class="bk-cal-nav" id="bkCalPrev" aria-label="Previous month"><i class="fa-solid fa-chevron-left"></i></button><span class="bk-cal-title" id="bkCalTitle"></span><button type="button" class="bk-cal-nav" id="bkCalNext" aria-label="Next month"><i class="fa-solid fa-chevron-right"></i></button></div>
+                            <div class="bk-cal-week"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
+                            <div class="bk-cal-days" id="bkCalDays"></div>
+                        </div>
+                        <div class="bk-date-summary" id="bkDateSummary"><i class="fa-regular fa-calendar"></i> Select your event date</div>
                     </div>
                     <div class="bk-field">
                         <label for="bkGuests">Expected Guests</label>
@@ -794,7 +801,40 @@
             /* ── Min date: 2 days from today ── */
             var minDate = new Date();
             minDate.setDate(minDate.getDate() + 2);
-            document.getElementById('bkDate').setAttribute('min', minDate.toISOString().split('T')[0]);
+            minDate.setHours(0, 0, 0, 0);
+            var dateInput = document.getElementById('bkDate');
+            dateInput.setAttribute('min', minDate.toISOString().split('T')[0]);
+            var calendarMonth = new Date(minDate.getFullYear(), minDate.getMonth(), 1);
+            var selectedDate = null;
+            var calTitle = document.getElementById('bkCalTitle');
+            var calDays = document.getElementById('bkCalDays');
+            function isoLocal(d) { return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+            function renderCalendar() {
+                calTitle.textContent = calendarMonth.toLocaleDateString('en-IN', {month:'long', year:'numeric'});
+                calDays.innerHTML = '';
+                var first = new Date(calendarMonth.getFullYear(), calendarMonth.getMonth(), 1);
+                var count = new Date(calendarMonth.getFullYear(), calendarMonth.getMonth() + 1, 0).getDate();
+                for (var blank = 0; blank < first.getDay(); blank++) { var spacer = document.createElement('span'); spacer.className = 'bk-cal-day is-empty'; calDays.appendChild(spacer); }
+                for (var day = 1; day <= count; day++) {
+                    (function(dayNumber){
+                        var candidate = new Date(calendarMonth.getFullYear(), calendarMonth.getMonth(), dayNumber);
+                        var button = document.createElement('button');
+                        button.type = 'button'; button.className = 'bk-cal-day'; button.textContent = dayNumber; button.disabled = candidate < minDate;
+                        button.setAttribute('aria-label', candidate.toLocaleDateString('en-IN', {weekday:'long',day:'numeric',month:'long',year:'numeric'}));
+                        if (selectedDate && isoLocal(candidate) === isoLocal(selectedDate)) button.classList.add('is-selected');
+                        button.addEventListener('click', function(){
+                            selectedDate = candidate; dateInput.value = isoLocal(candidate); dateInput.classList.remove('error');
+                            document.getElementById('bkDateSummary').innerHTML = '<i class="fa-solid fa-circle-check"></i> ' + candidate.toLocaleDateString('en-IN', {weekday:'short',day:'numeric',month:'long',year:'numeric'});
+                            renderCalendar();
+                        });
+                        calDays.appendChild(button);
+                    })(day);
+                }
+                document.getElementById('bkCalPrev').disabled = calendarMonth.getFullYear() === minDate.getFullYear() && calendarMonth.getMonth() === minDate.getMonth();
+            }
+            document.getElementById('bkCalPrev').addEventListener('click', function(){ calendarMonth.setMonth(calendarMonth.getMonth()-1); renderCalendar(); });
+            document.getElementById('bkCalNext').addEventListener('click', function(){ calendarMonth.setMonth(calendarMonth.getMonth()+1); renderCalendar(); });
+            renderCalendar();
 
             /* ── Render cart summary ── */
             renderSummary();

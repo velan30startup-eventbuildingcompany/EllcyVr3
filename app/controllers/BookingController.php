@@ -57,6 +57,11 @@ class BookingController {
                 if (!$parsed || $parsed->format('Y-m-d') !== $eventDate) {
                     echo json_encode(['success'=>false,'message'=>'Choose a valid event date.']); exit;
                 }
+                $minimumDate = new DateTime('today +2 days');
+                $parsed->setTime(0, 0);
+                if ($parsed < $minimumDate) {
+                    echo json_encode(['success'=>false,'message'=>'Event dates must be at least two days from today.']); exit;
+                }
             }
 
             [$venueImages, $uploadError] = $this->handleVenueImages();

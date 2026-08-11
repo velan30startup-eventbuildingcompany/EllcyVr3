@@ -24,7 +24,12 @@ class Router {
 
     public function dispatch(): void {
         $method = strtoupper((string)($_SERVER['REQUEST_METHOD'] ?? 'GET'));
-        $uri    = (string)(parse_url((string)($_SERVER['REQUEST_URI'] ?? '/'), PHP_URL_PATH) ?: '/');
+        $rawRequestUri = (string)($_SERVER['REQUEST_URI'] ?? '/');
+        if (strlen($rawRequestUri) > 2048) { http_response_code(414); echo 'Request URI too long.'; return; }
+        if (preg_match('/[\x00-\x1F\x7F]/', $rawRequestUri) || preg_match('/%(?![0-9A-Fa-f]{2})/', $rawRequestUri)) {
+            http_response_code(400); echo 'Bad request.'; return;
+        }
+        $uri    = (string)(parse_url($rawRequestUri, PHP_URL_PATH) ?: '/');
         if ($this->basePath !== '' && ($uri === $this->basePath || str_starts_with($uri, $this->basePath . '/'))) {
             $uri = substr($uri, strlen($this->basePath));
         }

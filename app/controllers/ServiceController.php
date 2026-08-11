@@ -4,6 +4,23 @@
  */
 class ServiceController {
 
+    private static function publicService(array $row): array {
+        return array_intersect_key($row, array_flip(['id','category_id','title','slug','short_description','description','price','price_unit','page_template','image','rating','tags','availability','featured','category_name','category_slug','packages','images','reviews']));
+    }
+    private static function publicPackage(array $row): array {
+        return array_intersect_key($row, array_flip(['id','service_id','pkg_key','label','slug','price','description','image','sort_order']));
+    }
+    private static function publicImage(array $row): array {
+        return array_intersect_key($row, array_flip(['id','service_id','path','thumbnail','alt','media_type','is_primary','sort_order']));
+    }
+    private static function publicReview(array $row): array {
+        return array_intersect_key($row, array_flip(['reviewer','rating','review_text']));
+    }
+    private static function publicApiHeaders(): void {
+        header('Content-Type: application/json; charset=UTF-8');
+        header('Cache-Control: public, max-age=60, stale-while-revalidate=300');
+    }
+
     // Every image path stored in the DB (admin uploads, seed data) is
     // root-relative, e.g. "/uploads/services/svc_xxx.png". That is only
     // correct if the app is installed at the domain root. If it's
@@ -48,7 +65,7 @@ class ServiceController {
 
     // GET /search — AJAX JSON endpoint
     public function search(): void {
-        header('Content-Type: application/json');
+        self::publicApiHeaders();
         $q     = Security::sanitizeString($_GET['q'] ?? '', 100);
         $limit = Security::sanitizeInt($_GET['limit'] ?? 10, 1, 30);
         if (strlen($q) < 2) {
@@ -61,14 +78,14 @@ class ServiceController {
 
     // GET /services/by-category/:slug — JSON for JS renderer
     public function byCategory(string $slug): void {
-        header('Content-Type: application/json');
+        self::publicApiHeaders();
         $cat = Database::fetchOne(
-            'SELECT * FROM service_categories WHERE slug = ? AND status = "active"',
+            'SELECT id, parent_id, name, slug, description, image FROM service_categories WHERE slug = ? AND status = "active"',
             [Security::sanitizeString($slug)]
         );
         if (!$cat) { echo json_encode(['services'=>[]]); return; }
         $services = Service::getByCategory((int)$cat['id']);
-        echo json_encode(['category' => $cat, 'services' => $services]);
+        echo json_encode(['category' => $cat, 'services' => array_map([self::class, 'publicService'], $services)]);
     }
 
     // ── Public JSON API ──────────────────────────────────────────────
@@ -77,7 +94,7 @@ class ServiceController {
 
     // GET /api/categories — full category tree (parents + children)
     public function apiCategories(): void {
-        header('Content-Type: application/json');
+        self::publicApiHeaders();
         $rows = Database::fetchAll(
             "SELECT id, parent_id, name, slug, description, image, sort_order, hidden
              FROM service_categories WHERE status='active' ORDER BY sort_order, name"
@@ -110,7 +127,7 @@ class ServiceController {
     // GET /api/services — all active services, optionally filtered by
     // ?category=<slug>, with their packages and gallery images attached.
     public function apiServices(): void {
-        header('Content-Type: application/json');
+        self::publicApiHeaders();
         $categorySlug = Security::sanitizeString($_GET['category'] ?? '', 120);
         $filters = [];
         if ($categorySlug) $filters['category_slug'] = $categorySlug;
@@ -122,22 +139,22 @@ class ServiceController {
         if ($ids) {
             $placeholders = implode(',', array_fill(0, count($ids), '?'));
             foreach (Database::fetchAll(
-                "SELECT * FROM service_packages WHERE service_id IN ($placeholders) AND status='active' ORDER BY sort_order",
+                "SELECT id,service_id,pkg_key,label,slug,price,description,image,sort_order FROM service_packages WHERE service_id IN ($placeholders) AND status='active' ORDER BY sort_order",
                 $ids
             ) as $pkg) {
                 $packagesByService[$pkg['service_id']][] = $pkg;
             }
             foreach (Database::fetchAll(
-                "SELECT * FROM service_images WHERE service_id IN ($placeholders) AND status='active' ORDER BY sort_order",
+                "SELECT id,service_id,path,thumbnail,alt,media_type,is_primary,sort_order FROM service_images WHERE service_id IN ($placeholders) AND status='active' ORDER BY sort_order",
                 $ids
             ) as $img) {
                 $imagesByService[$img['service_id']][] = $img;
             }
         }
         foreach ($services as &$s) {
-            $s['packages'] = $packagesByService[$s['id']] ?? [];
-            $s['images']   = $imagesByService[$s['id']] ?? [];
-            $s = self::applyBaseToService($s);
+            $s['packages'] = array_map([self::class, 'publicPackage'], $packagesByService[$s['id']] ?? []);
+            $s['images']   = array_map([self::class, 'publicImage'], $imagesByService[$s['id']] ?? []);
+            $s = self::applyBaseToService(self::publicService($s));
         }
         unset($s);
         echo json_encode(['services' => $services]);
@@ -146,7 +163,8 @@ class ServiceController {
     // GET /api/catering-staff?style=banana_leaf|buffet&guest_count=N&dish_band=0-10
     // Excel-sourced lookup — see app/models/CateringStaffCalculator.php
     public function apiCateringStaff(): void {
-        header('Content-Type: application/json');
+        self::publicApiHeaders();
+        header('Cache-Control: no-store');
         $style = Security::sanitizeString($_GET['style'] ?? '', 20);
         $guest = Security::sanitizeInt($_GET['guest_count'] ?? 0, 0, 100000);
         $band  = Security::sanitizeString($_GET['dish_band'] ?? '', 10);
@@ -162,14 +180,17 @@ class ServiceController {
 
     // GET /api/services/:slug — single service with packages, images, reviews
     public function apiServiceDetail(string $slug): void {
-        header('Content-Type: application/json');
+        self::publicApiHeaders();
         $service = Service::getBySlug(Security::sanitizeString($slug, 220));
         if (!$service) {
             http_response_code(404);
             echo json_encode(['error' => 'Service not found']);
             return;
         }
-        echo json_encode(['service' => self::applyBaseToService($service)]);
+        $service['packages'] = array_map([self::class, 'publicPackage'], $service['packages'] ?? []);
+        $service['images'] = array_map([self::class, 'publicImage'], $service['images'] ?? []);
+        $service['reviews'] = array_map([self::class, 'publicReview'], $service['reviews'] ?? []);
+        echo json_encode(['service' => self::applyBaseToService(self::publicService($service))]);
     }
 
     private function getSettings(): array {

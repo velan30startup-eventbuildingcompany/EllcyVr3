@@ -42,6 +42,55 @@
 
   function fmt(n) { return Number(n).toLocaleString('en-IN'); }
 
+  function getSelection(prefix) {
+    var guestSel = document.getElementById(prefix + 'GuestCount');
+    var dishSel = document.getElementById(prefix + 'DishCount');
+    var readout = document.getElementById(prefix + 'StaffReadout');
+    return {
+      guest: guestSel ? parseInt(guestSel.value || '0', 10) : 0,
+      dish: dishSel ? dishSel.value : '',
+      staff: readout ? parseInt(readout.getAttribute('data-workers') || '0', 10) : 0
+    };
+  }
+
+  function selectionMessage(prefix, message) {
+    var id = prefix + 'CateringStatus';
+    var status = document.getElementById(id);
+    var button = document.getElementById(prefix + 'Book');
+    if (!status && button && button.parentNode) {
+      status = document.createElement('p');
+      status.id = id;
+      status.setAttribute('role', 'status');
+      status.style.cssText = 'width:100%;margin:8px 0 0;color:#b42318;font-size:.82rem;font-weight:700;';
+      button.parentNode.appendChild(status);
+    }
+    if (status) status.textContent = message || '';
+  }
+
+  function buildItem(prefix) {
+    var selected = getSelection(prefix);
+    if (!selected.guest || !selected.dish || !selected.staff) {
+      selectionMessage(prefix, 'Select both guest count and dish count before continuing.');
+      return null;
+    }
+    selectionMessage(prefix, '');
+    var heading = document.querySelector('h1');
+    var image = document.querySelector('.bnc-mosaic img, .bnc-mobile-gallery img, main img');
+    var styleLabel = STYLE === 'banana_leaf' ? 'Banana Leaf Style' : 'Buffet Style';
+    var id = 'catering-' + STYLE + '-' + selected.guest + '-' + selected.dish;
+    return {
+      uid: id,
+      id: id,
+      title: heading ? heading.textContent.trim() : 'Catering Boys',
+      price: RATE * selected.guest,
+      image: image ? image.getAttribute('src') : '',
+      slug: 'catering-boys',
+      package: styleLabel + ' · ' + selected.guest + ' guests · ' + selected.dish + ' dishes · ' + selected.staff + ' staff',
+      slot: '',
+      page: window.location.href
+    };
+  }
+
   function rebuildSelect(sel, options, placeholder) {
     if (!sel) return;
     var current = sel.value;
@@ -87,6 +136,7 @@
     var dish  = dishSel.value;
     updateTotal(prefix, guest);
     if (!guest || !dish) {
+      readout.removeAttribute('data-workers');
       readout.innerHTML = '<span style="color:#999;font-weight:600;font-size:.8rem;">Select guest &amp; dish count</span>';
       return;
     }
@@ -96,12 +146,14 @@
       .then(function (r) { return r.json(); })
       .then(function (data) {
         if (data.success) {
+          readout.setAttribute('data-workers', String(data.workers));
           readout.innerHTML = data.workers + ' People';
         } else {
           readout.innerHTML = '<span style="color:#c0392b;font-size:.8rem;">' + (data.message || 'Unable to calculate') + '</span>';
         }
       })
       .catch(function () {
+        readout.removeAttribute('data-workers');
         readout.innerHTML = '<span style="color:#c0392b;font-size:.8rem;">Calculation unavailable</span>';
       });
   }
@@ -129,13 +181,32 @@
     setupPrefix('m');
     setupPrefix('d');
 
-    // The primary CTA becomes an auth-gated "Book Now" (handled centrally
-    // by cart.js's EllcyCart.buyNow once wired); we only need to make sure
-    // the button reflects the currently selected guest/dish/staff choice.
+    // Catering pages originally rendered a single inert button. Keep it as
+    // the persistent-cart action and add a separate auth-gated Book Now CTA.
     ['mBook', 'dBook'].forEach(function (id) {
       var btn = document.getElementById(id);
       if (!btn) return;
-      btn.innerHTML = '<i class="fa-solid fa-bolt"></i> Book Now';
+      var prefix = id.charAt(0);
+      btn.type = 'button';
+      btn.innerHTML = '<i class="fa-solid fa-cart-shopping"></i> Add to Cart';
+      btn.addEventListener('click', function (event) {
+        event.preventDefault();
+        var item = buildItem(prefix);
+        if (item && window.EllcyCart) window.EllcyCart.add(item);
+      });
+
+      if (btn.parentNode && !btn.parentNode.querySelector('.bnc-btn-buynow')) {
+        var book = document.createElement('button');
+        book.type = 'button';
+        book.className = 'bnc-btn-buynow';
+        book.innerHTML = '<i class="fa-solid fa-bolt"></i> Book Now';
+        book.addEventListener('click', function (event) {
+          event.preventDefault();
+          var item = buildItem(prefix);
+          if (item && window.EllcyCart) window.EllcyCart.buyNow(item);
+        });
+        btn.insertAdjacentElement('afterend', book);
+      }
     });
   }
 

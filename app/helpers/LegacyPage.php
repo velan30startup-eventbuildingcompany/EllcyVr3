@@ -69,11 +69,11 @@ final class LegacyPage
 
         /* Force the latest shared responsive and calculator assets after an
            update; several legacy templates otherwise reuse a stale browser copy. */
-        foreach (['cart.css', 'auth.js', 'catering-staff-calc.js'] as $assetName) {
+        foreach (['cart.css', 'auth.js', 'catering-staff-calc.js', 'service-desc.css', 'service-desc.js'] as $assetName) {
             $assetPattern = preg_quote($assetName, '/');
             $html = preg_replace_callback(
                 '/(?<url>[^"\']*\/' . $assetPattern . ')(?:\?[^"\']*)?/i',
-                static fn(array $match): string => $match['url'] . '?v=20260811.5',
+                static fn(array $match): string => $match['url'] . '?v=20260812.1',
                 $html
             ) ?? $html;
         }

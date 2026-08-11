@@ -1,44 +1,38 @@
-# Design QA
+# ELLCY Vr2 Design QA
 
-- Source visual truth: `C:\Users\Akash\AppData\Local\Temp\codex-clipboard-7aacf124-7c7b-4dab-8e87-7aff092b79e3.png`
-- Browser-rendered implementation: `C:\Users\Akash\OneDrive\Documents\ellcy.chatgpt.com\enter-show-cards-final.png`
-- Combined focused comparison: `C:\Users\Akash\OneDrive\Documents\ellcy.chatgpt.com\design-qa-comparison.png`
-- Responsive evidence: `C:\Users\Akash\OneDrive\Documents\ellcy.chatgpt.com\real-flowers-mobile-final.png`, `C:\Users\Akash\OneDrive\Documents\ellcy.chatgpt.com\mobile-account-drawer-2.png`
-- Desktop viewport: 1518 x 900 CSS pixels at 1x density
-- Source dimensions: 1518 x 590 pixels
-- Implementation dimensions: 1518 x 900 pixels
-- Focused comparison normalization: source y=60..590 and implementation y=220..750, each 1518 x 530 pixels, aligned at 1x
-- State: Packages & Pricing visible, first card selected, guest signed out
+- Source visual truth: `C:\Users\Akash\AppData\Local\Temp\codex-clipboard-094042ba-0546-4303-b89e-181813713d72.png` (703 × 86 px) and `C:\Users\Akash\AppData\Local\Temp\codex-clipboard-38f20a7a-842d-41d4-bb30-db356d026d5d.png` (718 × 515 px).
+- Implementation screenshots: `C:\Users\Akash\OneDrive\Documents\ellcy.chatgpt.com\dj-mobile.png`, `dj-mobile-cards.png` (378 × 819 px each), `enter-showdown-desktop.png` (1425 × 866 px), and `vendor-mobile.png` (378 × 819 px).
+- Combined comparison: `C:\Users\Akash\OneDrive\Documents\ellcy.chatgpt.com\design-qa-comparison.png`.
+- Viewports: mobile 393 × 852 CSS px (378 px content width after browser scrollbar), desktop 1440 × 900 CSS px. Device scale factor 1; no density resampling was needed for implementation captures. Reference images were proportionally contained in the combined comparison without judging canvas padding.
+- State: logged-out customer; DJ package list, Enter Show Down default quantity 15, catering selection at 50 guests / 0–10 dishes, and vendor signup initial state.
+
+## Full-view comparison evidence
+
+The mobile header keeps the violet/white ELLCY visual system, puts the current service title immediately beside the hamburger as requested, and keeps Cart/account controls grouped on the right. The package grid no longer clips or hides service names: all DJ package titles, prices and actions remain legible in the 393 px viewport, with no horizontal overflow.
+
+## Focused region comparison evidence
+
+The combined comparison isolates the header and package-card regions because these were the two reported failures. Typography is readable with stable wrapping, spacing between controls is preserved, brand violet and white tokens are consistent, DJ imagery remains sharp after optimization, Font Awesome icons remain aligned, and customer-facing package copy is complete. The requested title alignment intentionally differs from the older centered ELLCY screenshot.
 
 ## Findings
 
-No actionable P0, P1, or P2 differences remain.
+- No actionable P0, P1 or P2 visual differences remain for the supplied header/card targets.
+- P3: the source package card screenshot contains more supporting description/experience text per card, while the live DJ mobile template uses a denser image/title/action card. This is an existing template choice and was retained to avoid unrelated redesign; the reported clipping defect is resolved.
 
-- Typography: Urbanist hierarchy, title weight, supporting copy, price emphasis, and review metadata match the reference card language.
-- Spacing and layout: four-column desktop grid, card widths, image proportions, internal rhythm, dashed divider, price row, badge, radius, and shadow are aligned with the reference. Mobile resolves to one readable card per row without horizontal overflow.
-- Colours and tokens: violet price/badge treatment, dark copy, muted metadata, white cards, and subtle borders match the reference while retaining the existing ELLCY light-violet page background.
-- Image quality: existing service photography is used at the correct crop and aspect ratio; no placeholders or code-drawn image substitutes are present.
-- Copy and content: each requested service retains its original package names, prices, and descriptions. The reference's Popular label is reproduced on the second and third multi-package cards.
-- Responsive navigation: back controls are absent on mobile, the page context sits beside the hamburger, Cart and the white/violet account control remain visible, and the drawer matches the supplied dark-header/white-body reference.
+## Interaction and engineering checks
 
-## Interaction and Runtime Checks
+- Catering guest/dish selection returned 4 required staff, Add to Cart increased the cart count, and Book Now displayed the sign-in-required modal.
+- Both login-modal actions render white text; “Maybe later” uses a high-contrast violet surface.
+- Enter Show Down hides package filters/cards and initializes its working counter at 15 with a maximum of 50.
+- Vendor signup has six required fields, no horizontal overflow and no browser console errors.
+- Checked routes emitted no browser console errors; HTTP route/header checks passed for home, services, category, Enter Show Down, vendor signup and public category API.
 
-- Package-card selection updates the active card, selected package pill, and displayed price.
-- Real Flowers Reception/Marriage filtering swaps the package cards and price correctly.
-- Catering Guest Count and Dish Count selectors are ordered correctly and the workbook-driven staff result updates after both values are selected.
-- Browser console errors checked: none.
-- Requested detail routes checked: all returned HTTP 200.
+## Comparison history
 
-## Comparison History
+- Initial issue from source evidence: centered/gapped mobile title and clipped/invisible package names (P1).
+- Fix: mobile title now uses a flexible left-aligned context slot; card title layout and responsive grid constraints prevent clipping.
+- Post-fix evidence: `design-qa-comparison.png` shows readable titles and stable header/action alignment at the same mobile state.
 
-1. P1: the desktop gallery could refuse to shrink and clip the information panel at laptop widths. Fixed the gallery and detail panel flex constraints; post-fix evidence shows both columns contained within the viewport.
-2. P1: an older cached stylesheet could keep the mobile account control transparent. Added targeted asset versioning plus a responsive header fallback; post-fix evidence shows a white control with violet icon/text.
-3. P2: the original package cards were shorter and lacked the reference's review, divider, starting-price, experience-badge, and Popular hierarchy. Added a scoped catalogue-card variant only to Enter Show Down, Fake Jewellery, Plate Decoration, and Real Flowers; the focused comparison shows the intended hierarchy and proportions.
-4. Final pass: no actionable P0/P1/P2 mismatches found.
-
-## Follow-up Polish
-
-- P3: the implementation keeps ELLCY's existing light-violet page canvas instead of the reference's pure white canvas; this is intentional brand continuity and does not affect card fidelity.
-- P3: the selected card keeps a subtle violet outline/check so package selection remains clear on detail pages.
+## Final result
 
 final result: passed
