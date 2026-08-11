@@ -1,0 +1,89 @@
+/* ============================================================
+   ELLCY — Shared "Request for Call" form design system (rfc-*)
+   Extracted from pages/request-for-call.html so other pages
+   (Stage Decoration, Light Decoration enquiry forms) can reuse
+   the exact same look, spacing, and validation states instead
+   of maintaining a separate design.
+   ============================================================ */
+
+.rfc-page-hdr { text-align: center; padding: 28px 0 8px; }
+.rfc-icon-circle {
+  width: 64px; height: 64px;
+  background: var(--primary-light);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 16px;
+  color: var(--primary);
+  font-size: 1.6rem;
+}
+.rfc-page-title { font-size: 1.45rem; font-weight: 800; color: #1a1a2e; margin: 0 0 6px; }
+.rfc-page-sub { font-size: .9rem; color: #666; line-height: 1.6; margin: 0 0 28px; }
+.rfc-page-sub strong { color: var(--primary); }
+
+.rfc-card {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  padding: 28px 24px;
+}
+
+.rfc-field { margin-bottom: 18px; }
+.rfc-label { display: block; font-weight: 700; font-size: .85rem; color: #1a1a2e; margin-bottom: 6px; letter-spacing: .01em; }
+.rfc-label .rfc-req { color: var(--primary); margin-left: 2px; }
+.rfc-req { color: var(--primary); margin-left: 2px; }
+.rfc-input, .rfc-select, .rfc-textarea {
+  width: 100%; padding: 12px 14px; border: 1.5px solid #e0d5f0; border-radius: 10px;
+  background: #fafafa; font-size: .92rem; font-family: inherit; color: #1a1a2e;
+  outline: none; transition: border-color .18s, box-shadow .18s; box-sizing: border-box;
+}
+.rfc-input:focus, .rfc-select:focus, .rfc-textarea:focus {
+  border-color: var(--primary); box-shadow: 0 0 0 3px rgba(106,27,154,.1); background: #fff;
+}
+.rfc-input.error, .rfc-select.error { border-color: #e53e3e; }
+.rfc-err-msg { display: none; font-size: .78rem; color: #e53e3e; margin-top: 4px; font-weight: 600; }
+.rfc-err-msg.show { display: block; }
+.rfc-select {
+  appearance: none; cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236a1b9a' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 14px center; padding-right: 38px;
+}
+.rfc-textarea { min-height: 90px; resize: vertical; }
+
+.rfc-phone-row { display: flex; gap: 8px; }
+.rfc-phone-prefix {
+  flex-shrink: 0; width: 72px; padding: 12px 10px; border: 1.5px solid #e0d5f0; border-radius: 10px;
+  background: #f4e9ff; font-size: .9rem; font-weight: 700; color: var(--primary); text-align: center;
+}
+.rfc-phone-row .rfc-input { flex: 1; }
+
+.rfc-submit {
+  width: 100%; padding: 14px; background: var(--primary); color: #fff; border: none; border-radius: 10px;
+  font-family: inherit; font-size: 1rem; font-weight: 800; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 8px;
+  transition: background .18s, transform .14s, box-shadow .18s;
+  box-shadow: 0 4px 16px rgba(106,27,154,.3);
+}
+.rfc-submit:hover { background: var(--primary-dark); transform: translateY(-1px); }
+.rfc-submit:active { transform: translateY(0); }
+.rfc-submit:disabled { background: #bbb; box-shadow: none; cursor: not-allowed; }
+
+.rfc-trust-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
+.rfc-trust-badge { display: flex; align-items: center; gap: 6px; font-size: .78rem; font-weight: 700; color: #666; }
+.rfc-trust-badge i { color: var(--primary); font-size: .85rem; }
+
+.rfc-success { display: none; text-align: center; padding: 32px 20px; }
+.rfc-success.show { display: block; }
+.rfc-success-icon {
+  width: 72px; height: 72px; background: #d1fae5; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;
+  color: #059669; font-size: 2rem;
+}
+.rfc-success-title { font-size: 1.3rem; font-weight: 800; color: #1a1a2e; margin-bottom: 8px; }
+.rfc-success-sub { font-size: .9rem; color: #666; line-height: 1.6; margin-bottom: 24px; }
+.rfc-home-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--primary); color: #fff; padding: 12px 28px; border-radius: 10px;
+  font-weight: 700; font-size: .9rem; text-decoration: none; transition: background .18s;
+}
+.rfc-home-btn:hover { background: var(--primary-dark); }

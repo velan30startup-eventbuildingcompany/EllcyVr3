@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="robots" content="index, follow"/>
+  <meta name="referrer" content="strict-origin-when-cross-origin"/>
+  <meta http-equiv="X-Content-Type-Options" content="nosniff"/>
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()"/>
+<title>ELLCY | My Cart</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <link rel="stylesheet" href="../css/header2.css"/>
+  <link rel="stylesheet" href="../css/cart.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" defer></script>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header new-header" role="banner">
+  <button class="hdr-back-btn" onclick="history.back()" aria-label="Go back">
+    <i class="fa-solid fa-arrow-left" aria-hidden="true"></i><span>Back</span>
+  </button>
+  <span class="hdr-mobile-title">Your Cart</span>
+  <a class="logo" href="../index.html" aria-label="ELLCY Home">ELLCY</a>
+  <a href="cart.html" class="cart-header-btn hdr-cart-right" aria-label="View cart">
+    <i class="fa-solid fa-cart-shopping"></i>
+    <span class="cart-btn-label">Cart</span>
+    <span class="cart-badge" style="display:none">0</span>
+  </a>
+</header>
+<div class="cart-page-wrap">
+
+  <!-- LEFT: Items -->
+  <div class="cart-items-col">
+    <h2 id="cartHeading">My Cart</h2>
+    <div id="cartItemsList"></div>
+  </div>
+
+  <!-- RIGHT: Summary -->
+  <aside class="cart-summary" id="cartSummary">
+    <h3>Order Summary</h3>
+    <div id="cartSummaryRows"></div>
+    <div class="cart-summary-row total">
+      <span>Total</span>
+      <span id="cartTotal">₹0</span>
+    </div>
+    <a id="cartCheckoutBtn" href="booking.html" class="cart-checkout-btn">
+      <i class="fa-solid fa-paper-plane"></i> Proceed to Booking
+    </a>
+    <p class="cart-enquiry-note">Our team will call you back within <strong>2 hours</strong> to confirm your slot and pricing.</p>
+    <a class="cart-continue-link" href="../index.html">← Continue Browsing</a>
+    <div class="cart-trust">
+      <div class="cart-trust-item"><i class="fa-solid fa-shield-halved"></i> Secure Booking</div>
+      <div class="cart-trust-item"><i class="fa-solid fa-headset"></i> 2-hr Response</div>
+      <div class="cart-trust-item"><i class="fa-solid fa-star"></i> 320+ Happy Clients</div>
+    </div>
+  </aside>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">ELLCY</div>
+      <p class="footer-text">Creating unforgettable moments — weddings, birthdays, college events and temple celebrations across Chennai.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="services.html?type=photography">Event Services</a></li>
+        <li><a href="category.html?type=wedding">Categories</a></li>
+        <li><a href="booking.html">Book Now</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p class="footer-contact-item">+91 123-456-789</p>
+      <p class="footer-contact-item">info@ellcy.in</p>
+      <p class="footer-contact-item">Chennai, Tamil Nadu</p>
+    </div>
+    <div class="footer-col">
+      <h4>Get a Quote</h4>
+      <p class="footer-quote-text">Have an event in mind? Let us help you plan it.</p>
+      <a class="footer-enquiry-btn" href="booking.html">
+        <i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Book Now
+      </a>
+    </div>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="footer-bottom">
+    <p><span id="year"></span> &copy; ELLCY &mdash; All Rights Reserved.</p>
+    <div class="footer-social">
+      <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" aria-label="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/data.js"></script>
+  <script src="../js/auth.js"></script>
+<script src="../js/cart.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  renderCart();
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  window.addEventListener('ellcy:cartchange', renderCart);
+});
+
+function fmt(n) {
+  return '₹' + Number(n).toLocaleString('en-IN');
+}
+
+function renderCart() {
+  var items   = EllcyCart.getItems();
+  var list    = document.getElementById('cartItemsList');
+  var rowsEl  = document.getElementById('cartSummaryRows');
+  var totalEl = document.getElementById('cartTotal');
+  var heading = document.getElementById('cartHeading');
+  var summary = document.getElementById('cartSummary');
+
+  heading.textContent = 'My Cart (' + items.length + ' item' + (items.length !== 1 ? 's' : '') + ')';
+
+  if (!items.length) {
+    list.innerHTML =
+      '<div class="cart-empty">' +
+        '<i class="fa-solid fa-cart-shopping"></i>' +
+        '<h3>Your cart is empty</h3>' +
+        '<p>Browse our services and add what you need for your event.</p>' +
+        '<a href="../index.html">Explore Services</a>' +
+      '</div>';
+    rowsEl.innerHTML = '';
+    totalEl.textContent = '₹0';
+    summary.style.display = 'none';
+    return;
+  }
+
+  summary.style.display = '';
+
+  /* Items */
+  list.innerHTML = '';
+  var total = 0;
+  items.forEach(function(item) {
+    total += item.price || 0;
+    var div = document.createElement('div');
+    div.className = 'cart-item';
+
+    /* Fix image path: items can arrive from any folder depth
+       (../uploads/, ../../uploads/, ../../../uploads/, uploads/, etc.)
+       Normalize to what's valid from /pages/ by keeping everything
+       from "uploads/" onward and prefixing a single "../". */
+    var img = item.image || '';
+    var m = img.match(/uploads\/.*$/);
+    img = m ? ('../' + m[0]) : (img || '../uploads/services/stage.png');
+
+    div.innerHTML =
+      '<img class="cart-item-img" src="' + img + '" alt="' + esc(item.title) + '" loading="lazy" onerror="this.src=\'../uploads/services/stage.png\'"/>' +
+      '<div class="cart-item-body">' +
+        '<div class="cart-item-title">' + esc(item.title) + '</div>' +
+        '<div class="cart-item-meta">' +
+          (item.package ? '<span class="cart-item-tag">' + esc(item.package) + '</span>' : '') +
+          (item.slot    ? '<span class="cart-item-tag">' + esc(item.slot) + '</span>' : '') +
+        '</div>' +
+        '<div class="cart-item-price">' + (item.price > 0 ? fmt(item.price) : 'On Request') + '</div>' +
+        '<button class="cart-item-remove" data-uid="' + esc(item.uid) + '">' +
+          '<i class="fa fa-trash-alt"></i> Remove' +
+        '</button>' +
+      '</div>';
+
+    div.querySelector('.cart-item-remove').addEventListener('click', function() {
+      EllcyCart.remove(item.uid);
+      renderCart();
+    });
+
+    list.appendChild(div);
+  });
+
+  /* Summary rows */
+  rowsEl.innerHTML = '';
+  items.forEach(function(item) {
+    var row = document.createElement('div');
+    row.className = 'cart-summary-row';
+    row.innerHTML =
+      '<span style="max-width:190px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="' + esc(item.title) + '">' + esc(item.title) + '</span>' +
+      '<span>' + (item.price > 0 ? fmt(item.price) : '—') + '</span>';
+    rowsEl.appendChild(row);
+  });
+
+  totalEl.textContent = fmt(total);
+
+  /* Pass selected services to enquiry link */
+  var svcNames = items.map(function(i){ return i.title; }).join(', ');
+  document.getElementById('cartCheckoutBtn').href =
+    'booking.html?services=' + encodeURIComponent(svcNames);
+}
+
+function esc(str) {
+  var d = document.createElement('div');
+  d.textContent = String(str == null ? '' : str);
+  return d.innerHTML;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,834 @@
+/* ================================================================
+   service-desc.css — ELLCY Service Description Pages
+   One clean stylesheet for all 14 service pages.
+   Mobile-first | Urbanist font | Purple design system
+   ================================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900&display=swap');
+
+/* ── Reset & tokens ───────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --pri:       #6b21a8;
+  --pri-dark:  #4e0d7a;
+  --pri-light: #f4e9ff;
+  --pri-mid:   #9c3ed6;
+  --border:    #e0d5f5;
+  --txt:       #111;
+  --txt-2:     #444;
+  --txt-3:     #888;
+  --bg:        #f7f3ff;
+  --white:     #fff;
+  --gold:      #f59e0b;
+  --r-sm:      8px;
+  --r-md:      14px;
+  --r-lg:      20px;
+  --shadow:    0 4px 18px rgba(107,33,168,.10);
+}
+
+/* ── Base ─────────────────────────────────────────────────── */
+.sd-body {
+  font-family: 'Urbanist', sans-serif;
+  background: var(--bg);
+  color: var(--txt);
+  min-height: 100vh;
+  line-height: 1.55;
+}
+.sd-body a   { color: var(--pri); text-decoration: none; }
+.sd-body img { display: block; max-width: 100%; }
+
+/* ── Visibility helpers ───────────────────────────────────── */
+.sd-mob { display: block; }
+.sd-dsk { display: none;  }
+
+/* ================================================================
+   MOBILE TOP-BAR
+   Purple sticky bar: [← Back]  ...  [🛒 Cart badge]
+   ================================================================ */
+.sd-topbar {
+  position: sticky; top: 0; z-index: 200;
+  width: 100%; min-height: 56px; height: auto;
+  background: var(--pri);
+  display: flex; align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 16px;
+  box-sizing: border-box;
+  box-shadow: 0 2px 12px rgba(107,33,168,.35);
+}
+.sd-back-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: none; border: none; color: #fff;
+  font-family: inherit; font-size: .95rem; font-weight: 700;
+  cursor: pointer; padding: 0; white-space: nowrap;
+}
+.sd-mobile-context {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 800;
+}
+.sd-cart-mob {
+  position: relative;
+  display: inline-flex; align-items: center; gap: 7px;
+  background: #fff; border-radius: 9px;
+  color: #6b21a8; font-size: .88rem; font-weight: 700;
+  text-decoration: none; padding: 8px 14px;
+  white-space: nowrap; flex-shrink: 0;
+  transition: background .18s, transform .15s;
+  font-family: inherit;
+}
+.sd-cart-mob:hover { background: #f4e9ff; transform: translateY(-1px); }
+.sd-cart-mob i { font-size: .95rem; }
+.sd-cart-mob .cart-badge {
+  top: -6px; right: -6px; border-color: var(--pri);
+}
+
+/* ================================================================
+   DESKTOP HEADER
+   Purple bar: ELLCY logo left | Cart button right
+   ================================================================ */
+.sd-dsk-hdr {
+  display: none;
+  position: sticky; top: 0; z-index: 200;
+  width: 100%; height: 62px;
+  background: var(--pri);
+  align-items: center; justify-content: space-between;
+  padding: 0 28px;
+  box-shadow: 0 2px 14px rgba(107,33,168,.3);
+}
+.sd-dsk-hdr .sd-logo {
+  font-size: 1.3rem; font-weight: 900;
+  color: #fff; letter-spacing: .04em;
+  text-decoration: none;
+}
+.sd-dsk-hdr .sd-cart-dsk {
+  position: relative;
+  display: inline-flex; align-items: center; gap: 7px;
+  background: #fff;
+  color: var(--pri); border-radius: 9px;
+  padding: 9px 18px;
+  font-family: inherit; font-size: .9rem; font-weight: 700;
+  text-decoration: none;
+  transition: background .2s, transform .15s;
+}
+.sd-dsk-hdr .sd-cart-dsk:hover { background: #f4e9ff; transform: translateY(-1px); }
+.sd-dsk-hdr .sd-cart-dsk .cart-badge {
+  top: -7px; right: -7px;
+  border-color: var(--pri-dark);
+}
+
+/* ================================================================
+   BREADCRUMB
+   "Home / Category" — Category links back to the listing page
+   ================================================================ */
+.breadcrumb {
+  display: none; /* hidden on mobile — shown only on tablet/desktop below */
+  font-size: .85rem;
+  color: var(--txt-3);
+  padding: 12px 16px 0;
+}
+.breadcrumb a {
+  color: var(--pri);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color .15s ease;
+}
+.breadcrumb a:hover { color: var(--pri-dark); text-decoration: underline; }
+.breadcrumb .sd-bc-sep { color: var(--txt-3); padding: 0 4px; }
+.breadcrumb .sd-bc-current { color: var(--txt-2); font-weight: 600; }
+
+/* ================================================================
+   MOBILE HERO IMAGE
+   ================================================================ */
+.sd-hero-mob {
+  position: relative; width: 100%;
+  aspect-ratio: 16 / 9; max-height: 280px;
+  overflow: hidden; background: #1a0a2e;
+}
+.sd-hero-mob img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.sd-hero-rating {
+  position: absolute; top: 10px; right: 10px;
+  background: rgba(0,0,0,.55); color: var(--gold);
+  font-size: .75rem; font-weight: 700;
+  padding: 4px 9px; border-radius: 999px;
+  backdrop-filter: blur(4px);
+}
+
+/* ================================================================
+   DESKTOP HERO  (mosaic + info panel)
+   ================================================================ */
+.sd-dsk-hero {
+  display: none;
+  max-width: 1200px; margin: 0 auto;
+  padding: 24px 28px 0;
+  gap: 32px; align-items: flex-start;
+}
+
+/* Mosaic: 1 large + 2 stacked */
+.sd-mosaic {
+  flex: 1.4; flex-shrink: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 260px 200px;
+  gap: 6px; border-radius: 16px; overflow: hidden;
+}
+.sd-mosaic img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform .32s;
+}
+.sd-mosaic img:hover { transform: scale(1.04); }
+.sd-mosaic-main { grid-column: 1; grid-row: 1 / 3; }
+.sd-mosaic-t1   { grid-column: 2; grid-row: 1; }
+.sd-mosaic-t2   { grid-column: 2; grid-row: 2; }
+
+/* Info panel */
+.sd-info {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex; flex-direction: column;
+  padding-top: 4px;
+}
+
+/* ── Title row ────────────────────────────────────────────── */
+.sd-title-row {
+  display: flex; align-items: flex-start;
+  justify-content: space-between; gap: 10px;
+  margin-bottom: 10px;
+}
+.sd-title {
+  font-size: 1.5rem; font-weight: 800;
+  color: #1a1a2e; line-height: 1.2;
+}
+.sd-rating-chip {
+  flex-shrink: 0;
+  background: var(--pri); color: #fff;
+  font-size: .78rem; font-weight: 700;
+  padding: 4px 10px; border-radius: 6px;
+  margin-top: 4px; white-space: nowrap;
+}
+
+/* ── Availability + sub-tags ──────────────────────────────── */
+.sd-avail {
+  font-size: .82rem; font-weight: 700;
+  color: var(--pri); margin-bottom: 3px;
+}
+.sd-subtags {
+  font-size: .77rem; color: var(--txt-3);
+  font-weight: 500; margin-bottom: 14px;
+}
+
+/* ── Info chips row ───────────────────────────────────────── */
+.sd-chips {
+  display: flex; flex-direction: column;
+  gap: 7px; margin-bottom: 14px;
+}
+.sd-chip {
+  display: flex; align-items: center; gap: 8px;
+  font-size: .83rem; color: var(--txt-2); font-weight: 600;
+}
+.sd-chip i { color: var(--pri); width: 16px; text-align: center; }
+
+/* ── Package pills (+ optional Group/Occasion pills, e.g. Reception
+   vs Marriage — same visuals, separate class so JS can sync their
+   active state independently of the package pills) ──────────── */
+.sd-pkg-section, .sd-group-section  { margin-bottom: 14px; }
+.sd-pkg-label, .sd-group-label {
+  font-size: .74rem; font-weight: 700;
+  color: var(--txt-2); text-transform: uppercase;
+  letter-spacing: .07em; margin-bottom: 8px;
+}
+.sd-pkg-pills, .sd-group-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.sd-pkg-pill, .sd-grp-pill {
+  min-width: 44px; height: 38px; padding: 0 14px;
+  border-radius: var(--r-sm);
+  border: 1.5px solid var(--border);
+  background: var(--white); color: var(--pri);
+  font-size: .86rem; font-weight: 700;
+  font-family: inherit; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: all .18s; white-space: nowrap;
+}
+.sd-pkg-pill:hover, .sd-grp-pill:hover  { border-color: var(--pri); background: var(--pri-light); }
+.sd-pkg-pill.active, .sd-grp-pill.active {
+  background: var(--pri); color: #fff;
+  border-color: var(--pri);
+  box-shadow: 0 2px 8px rgba(107,33,168,.28);
+}
+
+/* ── Time slot pills ──────────────────────────────────────── */
+.sd-slot-section { margin-bottom: 14px; }
+.sd-slot-label {
+  font-size: .74rem; font-weight: 700;
+  color: var(--txt-2); text-transform: uppercase;
+  letter-spacing: .07em; margin-bottom: 8px;
+}
+.sd-slot-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.sd-slot-pill {
+  padding: 8px 20px;
+  border: 1.5px solid var(--border); border-radius: 999px;
+  background: var(--white); color: var(--pri);
+  font-size: .86rem; font-weight: 600;
+  font-family: inherit; cursor: pointer;
+  transition: all .18s; white-space: nowrap;
+}
+.sd-slot-pill:hover  { border-color: var(--pri); background: var(--pri-light); }
+.sd-slot-pill.active { background: var(--pri); color: #fff; border-color: var(--pri); }
+
+/* ── Price block (mobile) ─────────────────────────────────── */
+.sd-price-block {
+  display: flex; align-items: center;
+  justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  padding: 14px 16px;
+  background: var(--pri-light);
+  border: 1px solid var(--border); border-radius: var(--r-md);
+  margin-bottom: 14px;
+}
+.sd-price-val {
+  font-size: 1.9rem; font-weight: 900;
+  color: var(--pri); letter-spacing: -.01em;
+}
+.sd-price-meta { font-size: .76rem; color: var(--txt-3); font-weight: 500; }
+
+/* ── CTA buttons ──────────────────────────────────────────── */
+.sd-cta-row { display: flex; gap: 10px; margin-bottom: 22px; }
+
+.sd-btn-cart {
+  flex: 1; padding: 13px;
+  background: var(--pri); color: #fff; border: none;
+  border-radius: 999px; font-family: inherit;
+  font-size: .92rem; font-weight: 800; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  text-decoration: none;
+  transition: background .18s, transform .14s, box-shadow .18s;
+  box-shadow: 0 4px 14px rgba(107,33,168,.28);
+}
+.sd-btn-cart:hover { background: var(--pri-dark); transform: translateY(-1px); }
+
+.sd-btn-call {
+  flex: 1; padding: 13px;
+  background: var(--white); color: var(--pri);
+  border: 2px solid var(--pri); border-radius: 999px;
+  font-family: inherit; font-size: .92rem; font-weight: 800; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  text-decoration: none; transition: background .18s, color .18s;
+}
+.sd-btn-call:hover { background: var(--pri); color: #fff; }
+
+/* ================================================================
+   MAIN CONTENT AREA (tabs + cards + reviews)
+   ================================================================ */
+.sd-main {
+  width: 100%; max-width: 720px;
+  margin: 0 auto;
+  padding: 18px 16px 48px;
+  background: var(--white);
+}
+
+/* ── Tabs ─────────────────────────────────────────────────── */
+.sd-tabs {
+  display: flex;
+  border-bottom: 2px solid var(--border);
+  margin-bottom: 16px;
+}
+.sd-tab {
+  padding: 10px 22px; border: none;
+  border-bottom: 3px solid transparent;
+  background: transparent; font-family: inherit;
+  font-size: .88rem; font-weight: 700; color: var(--txt-3);
+  cursor: pointer; margin-bottom: -2px;
+  transition: color .18s, border-color .18s;
+}
+.sd-tab:hover  { color: var(--pri); }
+.sd-tab.active { color: var(--pri); border-bottom-color: var(--pri); }
+
+.sd-tab-body {
+  font-size: .87rem; color: var(--txt-2);
+  line-height: 1.7; margin-bottom: 24px;
+}
+.sd-tab-body p + p { margin-top: 10px; }
+.sd-tab-body.hidden { display: none; }
+
+/* Photography detail layout — mirrors the single-image service reference. */
+.photo-detail-page .photo-single-hero {
+  display: block;
+  aspect-ratio: 16 / 10;
+  min-height: 420px;
+  background: var(--pri-light);
+}
+.photo-detail-page .photo-single-hero .sd-mosaic-main {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+.photo-detail-page .sd-inclusions {
+  display: grid;
+  gap: 7px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.photo-portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.photo-portfolio-grid figure {
+  overflow: hidden;
+  margin: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--white);
+}
+.photo-portfolio-grid img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+.photo-portfolio-grid figcaption {
+  padding: 10px 12px;
+  color: var(--txt-2);
+  font-size: .8rem;
+  font-weight: 700;
+}
+.photo-detail-page .photo-package-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 620px;
+}
+.photo-detail-page .active-photo-package {
+  border-color: var(--pri);
+  box-shadow: 0 0 0 3px rgba(107,33,168,.12), 0 8px 24px rgba(24,12,36,.08);
+}
+
+@media (max-width: 768px) {
+  .sd-body { overflow-x: clip; }
+  .sd-body .sd-topbar { gap: 8px; padding-inline: 10px; }
+  .sd-body .sd-mobile-context { flex: 1; min-width: 0; }
+  .sd-body .sd-topbar .ellcy-right-actions { flex-shrink: 0; margin-left: auto; }
+  .sd-body .sd-topbar .ellcy-acct { display: inline-flex; }
+  .photo-portfolio-grid { grid-template-columns: 1fr; }
+  .photo-detail-page .photo-package-grid { grid-template-columns: 1fr 1fr; }
+  .photo-detail-page .sd-topbar,
+  .entertainment-detail-page .sd-topbar { gap: 8px; padding-inline: 10px; }
+  .photo-detail-page .sd-back-btn,
+  .entertainment-detail-page .sd-back-btn { flex: 1; min-width: 0; }
+  .photo-detail-page .sd-back-btn span,
+  .entertainment-detail-page .sd-back-btn span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .photo-detail-page .sd-topbar .ellcy-right-actions,
+  .entertainment-detail-page .sd-topbar .ellcy-right-actions {
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+  .photo-detail-page .sd-topbar .ellcy-acct,
+  .entertainment-detail-page .sd-topbar .ellcy-acct { display: inline-flex; }
+}
+
+@media (max-width: 480px) {
+  .photo-detail-page .sd-tabs { overflow: visible; }
+  .photo-detail-page .sd-tab { flex: 1 1 0; min-width: 0; padding-inline: 6px; }
+  .photo-detail-page .photo-package-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Reviews ──────────────────────────────────────────────── */
+.sd-reviews { display: flex; flex-direction: column; gap: 12px; }
+.sd-review-card {
+  background: var(--pri-light);
+  border: 1px solid var(--border); border-radius: var(--r-md);
+  padding: 12px 14px;
+}
+.sd-review-hdr {
+  display: flex; justify-content: space-between; margin-bottom: 5px;
+}
+.sd-reviewer { font-weight: 700; font-size: .84rem; color: #1a1a2e; }
+.sd-rstars   { color: var(--gold); font-size: .82rem; letter-spacing: 1px; }
+.sd-review-card p { font-size: .81rem; color: #555; line-height: 1.6; }
+
+/* ================================================================
+   PACKAGE CARDS GRID  (replaces "Top Ratings")
+   Mobile: 2 cols | Desktop: 4 cols
+   ================================================================ */
+.sd-cards-section { margin-bottom: 28px; }
+.sd-cards-heading {
+  font-size: 1.05rem; font-weight: 800;
+  color: #1a1a2e; margin-bottom: 14px;
+}
+.sd-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.sd-pkg-card {
+  border: 2px solid var(--border); border-radius: var(--r-md);
+  overflow: hidden; cursor: pointer;
+  background: var(--white); position: relative;
+  transition: border-color .2s, box-shadow .2s, transform .2s;
+}
+.sd-pkg-card:hover {
+  border-color: var(--pri-mid);
+  box-shadow: 0 4px 16px rgba(107,33,168,.15);
+  transform: translateY(-2px);
+}
+.sd-pkg-card.active {
+  border-color: var(--pri);
+  box-shadow: 0 0 0 3px rgba(107,33,168,.18);
+}
+.sd-pkg-card.active::after {
+  content: '✓';
+  position: absolute; top: 7px; right: 7px;
+  background: var(--pri); color: #fff;
+  width: 20px; height: 20px; border-radius: 50%;
+  font-size: .68rem; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+}
+.sd-card-img {
+  position: relative; aspect-ratio: 4 / 3; overflow: hidden;
+  background: var(--pri-light);
+}
+.sd-card-img img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform .28s;
+}
+.sd-pkg-card:hover .sd-card-img img { transform: scale(1.04); }
+.sd-card-rating {
+  position: absolute; top: 6px; left: 6px;
+  background: rgba(0,0,0,.55); color: var(--gold);
+  font-size: .64rem; font-weight: 700;
+  padding: 2px 6px; border-radius: 999px;
+  backdrop-filter: blur(4px);
+}
+.sd-card-price {
+  position: absolute; bottom: 7px; left: 7px;
+  background: var(--pri); color: #fff;
+  font-size: .7rem; font-weight: 800;
+  padding: 3px 8px; border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(107,33,168,.3);
+}
+.sd-card-body { padding: 8px 10px 10px; }
+.sd-card-name {
+  font-size: .84rem; font-weight: 800; color: #1a1a2e;
+  margin-bottom: 3px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.sd-card-desc {
+  font-size: .7rem; color: var(--txt-3);
+  line-height: 1.35; margin-bottom: 7px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.sd-card-add-btn {
+  width: 100%; padding: 7px;
+  background: var(--pri); color: #fff; border: none;
+  border-radius: 999px; font-family: inherit;
+  font-size: .74rem; font-weight: 700; cursor: pointer;
+  transition: background .18s;
+  display: flex; align-items: center; justify-content: center; gap: 5px;
+}
+.sd-card-add-btn:hover { background: var(--pri-dark); }
+
+/* ================================================================
+   DESKTOP LAYOUT  (≥ 769px)
+   ================================================================ */
+@media (min-width: 769px) {
+  .sd-mob { display: none !important; }
+  .sd-dsk { display: block !important; }
+
+  /* Show desktop header */
+  .sd-dsk-hdr { display: flex !important; }
+
+  /* Show desktop hero */
+  .sd-dsk-hero { display: flex !important; }
+
+  /* Breadcrumb aligned with hero container on desktop/tablet */
+  .breadcrumb {
+    display: block;
+    max-width: 1200px; margin: 0 auto;
+    padding: 16px 24px 0;
+    font-size: .9rem;
+  }
+
+  /* Title in desktop info panel */
+  .sd-info .sd-title { font-size: 1.75rem; }
+
+  /* Desktop price + CTAs inline */
+  .sd-dsk-price-block { margin-top: 14px; }
+  .sd-dsk-price-line {
+    display: flex; align-items: baseline;
+    gap: 12px; flex-wrap: wrap; margin-bottom: 12px;
+  }
+  .sd-dsk-price-line .sd-price-val { font-size: 2.1rem; }
+  .sd-price-meta-d { font-size: .8rem; color: var(--txt-3); font-weight: 500; }
+  .sd-dsk-ctas {
+    display: flex;
+    gap: 10px;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    margin-top: 4px;
+  }
+  .sd-dsk-ctas .sd-btn-cart,
+  .sd-dsk-ctas .sd-btn-buynow,
+  .sd-dsk-ctas .sd-btn-call {
+    flex: 1;
+    padding: 12px 16px;
+    font-size: .88rem;
+    min-width: 0;          /* prevent overflow */
+    white-space: nowrap;
+    text-align: center;
+    justify-content: center;
+  }
+
+  /* Main content full width */
+  .sd-main {
+    max-width: 1200px;
+    padding: 28px 32px 80px;
+    background: transparent;
+  }
+
+  /* 4-col cards */
+  .sd-cards-grid { grid-template-columns: repeat(4, 1fr); gap: 16px; }
+}
+
+/* ── Laptop (769–1024px) ──────────────────────────────────── */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .sd-cards-grid { grid-template-columns: repeat(3, 1fr); }
+  .sd-mosaic { grid-template-rows: 220px 165px; }
+}
+
+/* ── Large desktop (≥ 1200px) ─────────────────────────────── */
+@media (min-width: 1200px) {
+  .sd-mosaic { grid-template-rows: 300px 220px; }
+  .sd-main   { padding: 32px 40px 80px; }
+}
+
+/* ── Mobile compact (≤ 480px) ─────────────────────────────── */
+@media (max-width: 480px) {
+  .sd-title   { font-size: 1.28rem; }
+  .sd-price-val { font-size: 1.65rem; }
+  .sd-main    { padding: 14px 12px 60px; }
+  .sd-pkg-pill, .sd-grp-pill { min-width: 36px; height: 34px; font-size: .8rem; }
+  .sd-slot-pill { padding: 6px 14px; font-size: .8rem; }
+  .sd-btn-cart,
+  .sd-btn-call  { font-size: .86rem; padding: 11px 12px; }
+  .sd-tab       { padding: 8px 14px; font-size: .82rem; }
+  .sd-cards-grid { gap: 8px; }
+  .sd-card-name  { font-size: .78rem; }
+  .sd-card-desc  { display: none; }
+  .sd-card-add-btn { font-size: .7rem; padding: 6px; }
+}
+
+/* ── Footer ───────────────────────────────────────────────── */
+.footer-enquiry-btn {
+  display: inline-flex !important; align-items: center; gap: 7px;
+  background: var(--pri); color: #fff !important;
+  border: none; padding: 11px 22px; border-radius: 9px;
+  font-family: inherit; font-size: .9rem; font-weight: 700;
+  cursor: pointer; text-decoration: none; white-space: nowrap;
+  transition: background .2s, transform .15s, box-shadow .2s;
+  box-shadow: 0 4px 14px rgba(107,33,168,.4);
+}
+.footer-enquiry-btn:hover { background: var(--pri-dark); transform: translateY(-1px); }
+@media (max-width: 480px) {
+  .footer-enquiry-btn { width: 100%; justify-content: center; }
+}
+
+/* ── Toast (shared with cart.js) ──────────────────────────── */
+.ellcy-toast {
+  position: fixed; bottom: 24px; left: 50%;
+  transform: translateX(-50%) translateY(16px);
+  background: #1a0d2e; color: #fff;
+  padding: 13px 22px; border-radius: 12px;
+  font-size: .9rem; font-weight: 600;
+  box-shadow: 0 8px 28px rgba(0,0,0,.28);
+  z-index: 9999; opacity: 0; pointer-events: none;
+  transition: opacity .25s, transform .25s;
+  white-space: nowrap; max-width: 90vw; text-align: center;
+}
+.ellcy-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+.ellcy-toast a { color: #d8b4fe; font-weight: 800; text-decoration: underline; margin-left: 6px; }
+.ellcy-toast i { margin-right: 6px; color: #86efac; }
+
+/* Reference card treatment used only by the four requested service families. */
+.catalog-card-detail-page .sd-cards-grid { align-items: stretch; }
+.catalog-card-detail-page .sd-pkg-card {
+  overflow: hidden;
+  border: 1px solid #eee9f4;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(30, 18, 44, .09);
+}
+.catalog-card-detail-page .sd-pkg-card.active {
+  border-color: var(--pri);
+  box-shadow: 0 0 0 3px rgba(107, 33, 168, .1), 0 10px 28px rgba(30, 18, 44, .12);
+}
+.catalog-card-detail-page .sd-card-img { height: 190px; border-radius: 0; }
+.catalog-card-detail-page .sd-card-img img { height: 100%; width: 100%; object-fit: cover; }
+.catalog-card-detail-page .sd-catalog-popular {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 5px 8px;
+  border-radius: 6px;
+  background: rgba(22, 17, 34, .9);
+  color: #fff;
+  font-size: .67rem;
+  font-weight: 800;
+}
+.catalog-card-detail-page .sd-card-body { padding: 16px 16px 18px; }
+.catalog-card-detail-page .sd-catalog-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+.catalog-card-detail-page .sd-card-name {
+  white-space: normal;
+  overflow: visible;
+  font-size: .98rem;
+  line-height: 1.25;
+  margin: 0;
+}
+.catalog-card-detail-page .sd-catalog-rating {
+  flex-shrink: 0;
+  color: #171526;
+  font-size: .74rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.catalog-card-detail-page .sd-catalog-rating span { color: #888195; font-weight: 500; }
+.catalog-card-detail-page .sd-card-desc {
+  display: -webkit-box;
+  min-height: 62px;
+  margin: 14px 0 16px;
+  color: #665f70;
+  font-size: .82rem;
+  line-height: 1.55;
+  -webkit-line-clamp: 3;
+}
+.catalog-card-detail-page .sd-catalog-divider { border-top: 1px dashed #ded6e8; margin-bottom: 14px; }
+.catalog-card-detail-page .sd-catalog-price-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  color: #777080;
+  font-size: .73rem;
+}
+.catalog-card-detail-page .sd-catalog-price-row strong { color: var(--pri); font-size: 1rem; white-space: nowrap; }
+.catalog-card-detail-page .sd-catalog-price-row small { color: #777080; font-size: .68rem; font-weight: 500; }
+.catalog-card-detail-page .sd-catalog-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 14px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #f2e6ff;
+  color: var(--pri);
+  font-size: .72rem;
+  font-weight: 800;
+}
+
+@media (max-width: 600px) {
+  .catalog-card-detail-page .sd-cards-grid { grid-template-columns: 1fr; gap: 18px; }
+  .catalog-card-detail-page .sd-card-img { height: 210px; }
+  .catalog-card-detail-page .sd-card-desc { display: -webkit-box; }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   OPTIONAL QUANTITY/COUNT SELECTOR (opt-in via SD_CONFIG.showQty)
+   Injected by js/service-desc.js right after the price display.
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.sd-qty-card {
+  background: #faf5ff;
+  border: 1px solid var(--border, #e0d5f0);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin: 12px 0;
+}
+.sd-qty-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.sd-qty-label {
+  font-size: .88rem;
+  font-weight: 700;
+  color: var(--txt, #1a1a2e);
+}
+.sd-qty-ctrl {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border: 1px solid var(--pri, #6a1b9a);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.sd-qty-minus, .sd-qty-plus {
+  background: #fff;
+  border: none;
+  width: 34px;
+  height: 34px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--pri, #6a1b9a);
+  cursor: pointer;
+}
+.sd-qty-minus:hover, .sd-qty-plus:hover { background: #f4e9ff; }
+.sd-qty-inp {
+  width: 46px;
+  height: 34px;
+  border: none;
+  border-left: 1px solid var(--border, #e0d5f0);
+  border-right: 1px solid var(--border, #e0d5f0);
+  text-align: center;
+  font-size: .92rem;
+  font-weight: 700;
+  color: var(--txt, #1a1a2e);
+  -moz-appearance: textfield;
+}
+.sd-qty-inp::-webkit-outer-spin-button,
+.sd-qty-inp::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* ── Rich PHP service-detail content ────────────────────────── */
+.sd-rich-overview { max-width: 980px; color: #343044; }
+.sd-rich-overview h2 { margin: 0 0 10px; color: #101225; font-size: clamp(1.15rem, 2vw, 1.45rem); line-height: 1.25; }
+.sd-rich-overview h3 { margin: 22px 0 8px; color: #101225; font-size: 1.05rem; }
+.sd-rich-overview > p { max-width: 900px; margin: 0; line-height: 1.72; }
+.sd-feature-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
+.sd-feature-list span { display: flex; align-items: center; gap: 9px; min-height: 48px; padding: 11px 14px; border: 1px solid #e7daf5; border-radius: 12px; background: #fbf7ff; color: #522070; font-weight: 700; }
+.sd-feature-list svg { color: #7421b5; }
+.sd-inclusions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 24px; margin: 0; padding: 0; list-style: none; }
+.sd-inclusions li { position: relative; padding: 9px 0 9px 26px; border-bottom: 1px solid #eee7f5; }
+.sd-inclusions li::before { content: '✓'; position: absolute; left: 2px; color: #7421b5; font-weight: 900; }
+.jewellery-reference-card { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 18px 28px; margin: 26px 0 10px; padding: 22px; border: 1px solid #e4d3f4; border-radius: 16px; background: linear-gradient(135deg, #fbf7ff 0%, #fff 100%); }
+.jewellery-reference-card h2 { margin: 4px 0 6px; font-size: 1.15rem; color: #171327; }
+.jewellery-reference-card p { margin: 0; line-height: 1.55; color: #696173; }
+.jewellery-optional { display: inline-flex; padding: 3px 9px; border-radius: 999px; background: #efe1fb; color: #6b21a8; font-size: .72rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; }
+.jewellery-upload-control { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 46px; padding: 0 18px; border: 1px solid #7421b5; border-radius: 999px; background: #fff; color: #6b21a8; font-weight: 800; cursor: pointer; }
+.jewellery-upload-control input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.jewellery-reference-preview { grid-column: 1 / -1; display: flex; align-items: center; }
+.jewellery-reference-preview img { width: 110px; height: 110px; object-fit: cover; border-radius: 12px; border: 1px solid #ded2e8; }
+.jewellery-reference-preview button { margin-left: 12px; border: 0; background: transparent; color: #a21d38; font-weight: 700; cursor: pointer; }
+.jewellery-reference-status { grid-column: 1 / -1; font-size: .82rem; }
+.jewellery-reference-status.is-error { color: #a21d38; }
+.jewellery-reference-status.is-success { color: #187545; }
+@media (max-width: 768px) {
+  .sd-feature-list, .sd-inclusions { grid-template-columns: 1fr; }
+  .sd-feature-list { gap: 8px; }
+  .jewellery-reference-card { grid-template-columns: 1fr; padding: 18px; }
+  .jewellery-upload-control { width: 100%; }
+}

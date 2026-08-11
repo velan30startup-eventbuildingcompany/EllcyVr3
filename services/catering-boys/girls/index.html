@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="description" content="Book ELLCY Welcome Girls — choose your meal timing."/>
+    <meta name="robots" content="index, follow"/>
+  <meta name="referrer" content="strict-origin-when-cross-origin"/>
+  <meta http-equiv="X-Content-Type-Options" content="nosniff"/>
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()"/>
+<title>ELLCY | Welcome Girls</title>
+  <link rel="stylesheet" href="../../../css/style.css"/>
+  <link rel="stylesheet" href="../../../css/cart.css"/>
+  <link rel="stylesheet" href="../../../css/service-desc.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" defer></script>
+  <style>
+    .csel-wrap { max-width: 1080px; margin: 0 auto; padding: 24px 18px 60px; }
+    .csel-head { text-align: center; margin-bottom: 24px; }
+    .csel-head h1 { font-size: 1.6rem; font-weight: 800; color: var(--txt); margin-bottom: 6px; }
+    .csel-head p  { color: var(--txt-2); font-size: .95rem; }
+    .meal-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+    .meal-card {
+      display: flex; align-items: center; gap: 16px; text-decoration: none; color: inherit;
+      border: 1px solid var(--border); border-radius: var(--radius-lg, 16px);
+      overflow: hidden; background: #fff; box-shadow: var(--shadow-sm);
+      transition: transform .2s, box-shadow .2s; padding: 14px 18px;
+    }
+    .meal-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+    .meal-card img { width: 76px; height: 76px; border-radius: 12px; object-fit: cover; flex-shrink: 0; }
+    .meal-card-body h3 { font-size: 1.05rem; font-weight: 700; color: var(--txt); margin-bottom: 4px; }
+    .meal-card-body p { font-size: .85rem; color: var(--txt-2); }
+    .meal-cta {
+      margin-left: auto; display: inline-flex; align-items: center; gap: 6px;
+      font-weight: 700; font-size: .85rem; color: var(--pri); flex-shrink: 0;
+    }
+    .meal-cta i { transition: transform .2s; }
+    .meal-card:hover .meal-cta i { transform: translateX(4px); }
+    @media (min-width: 769px) {
+      .meal-grid { grid-template-columns: 1fr 1fr 1fr; }
+      .meal-card { flex-direction: column; align-items: flex-start; text-align: left; padding: 18px; }
+      .meal-card img { width: 100%; height: 140px; border-radius: 12px; margin-bottom: 8px; }
+      .meal-cta { margin-left: 0; margin-top: 8px; }
+    }
+  </style>
+</head>
+<body class="sd-body">
+
+  <header class="sd-topbar sd-mob" role="banner" aria-label="Page navigation">
+    <button class="sd-back-btn" onclick="history.back()" aria-label="Go back">
+      <i class="fa-solid fa-arrow-left"></i>
+      <span>Back</span>
+    </button>
+    <a href="../../../pages/cart.html" class="sd-cart-mob" aria-label="View cart">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <span class="sd-cart-label">Cart</span>
+      <span class="cart-badge" style="display:none">0</span>
+    </a>
+  </header>
+
+  <header class="sd-dsk-hdr sd-dsk" role="banner">
+    <a class="sd-logo" href="../../../index.html" aria-label="ELLCY Home">ELLCY</a>
+    <a href="../../../pages/cart.html" class="sd-cart-dsk" aria-label="View cart">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <span>Cart</span>
+      <span class="cart-badge" style="display:none">0</span>
+    </a>
+  </header>
+  <nav class="breadcrumb sd-dsk" aria-label="Breadcrumb">
+    <a href="../../../index.html">Home</a> /
+    <a href="../index.html">Catering Boys / Welcome Girls</a> /
+    <span class="sd-bc-current">Welcome Girls</span>
+  </nav>
+
+  <main class="csel-wrap" role="main">
+    <div class="csel-head">
+      <h1>Welcome Girls</h1>
+      <p>Choose a meal timing. Pricing is shown on the next step.</p>
+    </div>
+
+    <div class="meal-grid">
+      <a class="meal-card" href="breakfast/index.html" aria-label="Breakfast">
+        <img src="../../../uploads/services/welcomegirls.png" alt="Breakfast"/>
+        <div class="meal-card-body">
+          <h3><i class="fa-solid fa-mug-hot"></i> Breakfast</h3>
+          <p>Welcome girls greeting &amp; welcoming your guests at breakfast.</p>
+        </div>
+        <span class="meal-cta">View Details <i class="fa-solid fa-arrow-right"></i></span>
+      </a>
+      <a class="meal-card" href="lunch/index.html" aria-label="Lunch">
+        <img src="../../../uploads/services/welcomegirls.png" alt="Lunch"/>
+        <div class="meal-card-body">
+          <h3><i class="fa-solid fa-bowl-rice"></i> Lunch</h3>
+          <p>Welcome girls greeting &amp; welcoming your guests at lunch.</p>
+        </div>
+        <span class="meal-cta">View Details <i class="fa-solid fa-arrow-right"></i></span>
+      </a>
+      <a class="meal-card" href="dinner/index.html" aria-label="Dinner">
+        <img src="../../../uploads/services/welcomegirls.png" alt="Dinner"/>
+        <div class="meal-card-body">
+          <h3><i class="fa-solid fa-utensils"></i> Dinner</h3>
+          <p>Welcome girls greeting &amp; welcoming your guests at dinner.</p>
+        </div>
+        <span class="meal-cta">View Details <i class="fa-solid fa-arrow-right"></i></span>
+      </a>
+    </div>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">ELLCY</div>
+        <p class="footer-text">Creating unforgettable moments — weddings, birthdays, college events and temple celebrations across Chennai.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="../../../index.html">Home</a></li>
+          <li><a href="../../../pages/services.html">Event Services</a></li>
+          <li><a href="../../../pages/category.html">Categories</a></li>
+          <li><a href="../../../pages/booking.html">Book Now</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p class="footer-contact-item">+91 123-456-789</p>
+        <p class="footer-contact-item">info@ellcy.in</p>
+        <p class="footer-contact-item">Chennai, Tamil Nadu</p>
+      </div>
+      <div class="footer-col">
+        <h4>Book Your Event</h4>
+        <p class="footer-quote-text">Add services to cart and confirm your booking.</p>
+        <a class="footer-enquiry-btn" href="../../../pages/booking.html">
+          <i class="fa-solid fa-calendar-check"></i> Book Now
+        </a>
+      </div>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-bottom">
+      <p><span id="year"></span> &copy; ELLCY &mdash; All Rights Reserved.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+      </div>
+    </div>
+  </footer>
+
+    <script src="../../../js/auth.js"></script>
+<script src="../../../js/cart.js"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

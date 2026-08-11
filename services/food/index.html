@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <link rel="canonical" href="https://ellcy.in/services/food/"/>
+  <meta name="description" content="ELLCY Food &amp; Catering — breakfast, lunch and dinner catering for weddings, birthdays and events in Chennai."/>
+  <meta name="robots" content="index, follow"/>
+<title>ELLCY | Food &amp; Catering</title>
+  <link rel="stylesheet" href="../../css/style.css"/>
+  <link rel="stylesheet" href="../../css/cart.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" defer></script>
+  <style>
+    .food-hub-wrap { max-width: 960px; margin: 0 auto; padding: 24px 16px 60px; }
+    .food-hub-wrap h1 { font-size: 1.6rem; margin-bottom: 8px; }
+    .food-hub-wrap p.lead { color: #666; margin-bottom: 28px; font-size: .95rem; }
+    .food-hub-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
+    .food-hub-card {
+      display: block; text-decoration: none; color: inherit;
+      border: 1px solid #e5d9f0; border-radius: 14px; padding: 24px 20px;
+      background: linear-gradient(160deg, #faf7ff 0%, #ffffff 60%);
+      transition: box-shadow .2s, transform .2s;
+    }
+    .food-hub-card:hover { box-shadow: 0 10px 28px rgba(106,27,154,.12); transform: translateY(-2px); }
+    .food-hub-card i.food-hub-icon { font-size: 1.8rem; color: #6a1b9a; margin-bottom: 12px; display: block; }
+    .food-hub-card h2 { font-size: 1.1rem; margin: 0 0 6px; }
+    .food-hub-card p { font-size: .85rem; color: #666; margin: 0 0 12px; line-height: 1.5; }
+    .food-hub-card .food-hub-cta { font-size: .82rem; font-weight: 700; color: #6a1b9a; }
+  </style>
+</head>
+<body class="sd-body">
+
+  <header class="header" role="banner">
+    <div class="header-left">
+      <a class="logo" href="../../index.html" aria-label="ELLCY Home">ELLCY</a>
+    </div>
+    <div class="header-center desktop-only"></div>
+    <div class="header-right">
+      <a href="../../pages/cart.html" class="cart-header-btn" aria-label="View cart">
+        <i class="fa-solid fa-cart-shopping"></i> Cart
+        <span class="cart-badge" style="display:none">0</span>
+      </a>
+    </div>
+  </header>
+
+  <div class="food-hub-wrap">
+    <nav aria-label="Breadcrumb" style="font-size:.82rem;color:#888;margin-bottom:16px">
+      <a href="../../index.html" style="color:#888">Home</a> / Food &amp; Catering
+    </nav>
+    <h1>Food &amp; Catering</h1>
+    <p class="lead">Choose the meal you'd like to book — each has its own veg / non-veg and dish-count options.</p>
+
+    <div class="food-hub-grid">
+      <a class="food-hub-card" href="breakfast/index.html">
+        <i class="fa-solid fa-mug-hot food-hub-icon"></i>
+        <h2>Breakfast</h2>
+        <p>Vegetarian breakfast spreads — choose 5, 10, 15 or 20 dishes.</p>
+        <span class="food-hub-cta">View options <i class="fa-solid fa-arrow-right"></i></span>
+      </a>
+      <a class="food-hub-card" href="lunch/index.html">
+        <i class="fa-solid fa-bowl-food food-hub-icon"></i>
+        <h2>Lunch</h2>
+        <p>Veg (5&ndash;20 dishes) or Non-Veg (5&ndash;15 dishes) lunch spreads.</p>
+        <span class="food-hub-cta">View options <i class="fa-solid fa-arrow-right"></i></span>
+      </a>
+      <a class="food-hub-card" href="dinner/index.html">
+        <i class="fa-solid fa-utensils food-hub-icon"></i>
+        <h2>Dinner</h2>
+        <p>Veg or Non-Veg, Buffet or Banana Leaf style, 5&ndash;25 dishes.</p>
+        <span class="food-hub-cta">View options <i class="fa-solid fa-arrow-right"></i></span>
+      </a>
+    </div>
+  </div>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-bottom" style="padding:20px 16px;text-align:center">
+      <p><span id="year"></span> &copy; ELLCY &mdash; All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="../data.js"></script>
+  <script src="../../js/auth.js"></script>
+  <script src="../../js/cart.js"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

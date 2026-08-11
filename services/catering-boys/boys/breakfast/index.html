@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="description" content="ELLCY Catering Boys – Breakfast: choose your serving style."/>
+    <meta name="robots" content="index, follow"/>
+  <meta name="referrer" content="strict-origin-when-cross-origin"/>
+  <meta http-equiv="X-Content-Type-Options" content="nosniff"/>
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()"/>
+<title>ELLCY | Catering Boys – Breakfast</title>
+  <link rel="stylesheet" href="../../../../css/style.css"/>
+  <link rel="stylesheet" href="../../../../css/service-desc.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" defer></script>
+<script>
+  function _ellcySmartBack(fallbackUrl){
+    if(window.history.length>1 && document.referrer && document.referrer.includes(window.location.hostname)){
+      window.history.back();
+    } else {
+      window.location.href = fallbackUrl;
+    }
+  }
+</script>
+  <style>
+    .csel-wrap{max-width:1080px;margin:0 auto;padding:24px 18px 60px;}
+    .csel-head{text-align:center;margin-bottom:28px;}
+    .csel-head h1{font-size:1.6rem;font-weight:800;color:var(--txt);margin-bottom:6px;}
+    .csel-head p{color:var(--txt-2);font-size:.95rem;}
+    .style-grid{display:grid;grid-template-columns:1fr;gap:18px;}
+    .style-card{
+      display:flex;flex-direction:column;text-decoration:none;color:inherit;
+      border:1px solid var(--border);border-radius:var(--radius-lg,18px);
+      overflow:hidden;background:#fff;box-shadow:var(--shadow-sm);
+      transition:transform .2s,box-shadow .2s;
+    }
+    .style-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);}
+    .style-card img{width:100%;height:200px;object-fit:cover;display:block;}
+    .style-card-body{padding:18px 20px 22px;}
+    .style-card-body h2{font-size:1.15rem;font-weight:700;color:var(--pri-dark);margin-bottom:6px;}
+    .style-card-body p{font-size:.88rem;color:var(--txt-2);margin-bottom:10px;line-height:1.6;}
+    .style-badge{
+      display:inline-flex;align-items:center;gap:6px;
+      background:var(--pri-light,#f4e9ff);color:var(--pri);
+      border-radius:999px;padding:4px 12px;font-size:.78rem;font-weight:700;margin-bottom:12px;
+    }
+    .style-cta{
+      display:inline-flex;align-items:center;gap:8px;
+      font-weight:700;font-size:.9rem;color:var(--pri);
+    }
+    .style-cta i{transition:transform .2s;}
+    .style-card:hover .style-cta i{transform:translateX(4px);}
+    @media(min-width:769px){
+      .style-grid{grid-template-columns:1fr 1fr;gap:28px;}
+      .style-card img{height:240px;}
+    }
+  </style>
+</head>
+<body class="sd-body">
+  <header class="sd-topbar sd-mob" role="banner">
+    <button class="sd-back-btn" onclick="_ellcySmartBack('../../../../pages/services.html?type=catering-boys')" aria-label="Go back">
+      <i class="fa-solid fa-arrow-left"></i><span>Back</span>
+    </button>
+    <a href="../../../../pages/cart.html" class="sd-cart-mob" aria-label="View cart">
+      <i class="fa-solid fa-cart-shopping"></i><span class="sd-cart-label">Cart</span>
+      <span class="cart-badge" style="display:none">0</span>
+    </a>
+  </header>
+  <header class="sd-dsk-hdr sd-dsk" role="banner">
+    <a class="sd-logo" href="../../../../index.html" aria-label="ELLCY Home">ELLCY</a>
+    <a href="../../../../pages/cart.html" class="sd-cart-dsk" aria-label="View cart">
+      <i class="fa-solid fa-cart-shopping"></i><span>Cart</span>
+      <span class="cart-badge" style="display:none">0</span>
+    </a>
+  </header>
+  <nav class="breadcrumb sd-dsk" aria-label="Breadcrumb">
+    <a href="../../../../index.html">Home</a> /
+    <a href="../../index.html">Catering Boys / Welcome Girls</a> /
+    <a href="../index.html">Catering Boys</a> /
+    <span class="sd-bc-current">Breakfast</span>
+  </nav>
+  <main class="csel-wrap" role="main">
+    <div class="csel-head">
+      <h1><i class="fa-solid fa-mug-hot"></i> Catering Boys – Breakfast</h1>
+      <p>Choose your preferred serving style. Pricing is shown on the next step.</p>
+    </div>
+    <div class="style-grid">
+      <a class="style-card" href="banana/index.html" aria-label="Banana Leaf Style">
+        <img src="../../../../uploads/services/cateringboys.png" alt="Banana Leaf Style"/>
+        <div class="style-card-body">
+          <span class="style-badge"><i class="fa-solid fa-leaf"></i> Traditional</span>
+          <h2>🍃 Banana Leaf Style</h2>
+          <p>Guests are seated and served a full breakfast on fresh banana leaves. Authentic South Indian style with personal, attentive table service by our uniformed catering boys.</p>
+          <span class="style-cta">View Details <i class="fa-solid fa-arrow-right"></i></span>
+        </div>
+      </a>
+      <a class="style-card" href="buffet/index.html" aria-label="Buffet Style">
+        <img src="../../../../uploads/services/cateringboys.png" alt="Buffet Style"/>
+        <div class="style-card-body">
+          <span class="style-badge"><i class="fa-solid fa-bowl-food"></i> Buffet</span>
+          <h2>🍽️ Buffet Style</h2>
+          <p>A self-serve buffet breakfast setup managed by our catering boys. Counter staff replenish dishes, assist guests, and keep the area clean and welcoming throughout the event.</p>
+          <span class="style-cta">View Details <i class="fa-solid fa-arrow-right"></i></span>
+        </div>
+      </a>
+    </div>
+  </main>
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">ELLCY</div>
+        <p class="footer-text">Creating unforgettable moments — weddings, birthdays, college events and temple celebrations across Chennai.</p>
+      </div>
+      <div class="footer-col"><h4>Quick Links</h4><ul>
+        <li><a href="../../../../index.html">Home</a></li>
+        <li><a href="../../../../pages/services.html">Event Services</a></li>
+        <li><a href="../../../../pages/booking.html">Book Now</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Contact</h4>
+        <p class="footer-contact-item">+91 123-456-789</p>
+        <p class="footer-contact-item">info@ellcy.in</p>
+        <p class="footer-contact-item">Chennai, Tamil Nadu</p>
+      </div>
+      <div class="footer-col"><h4>Get a Quote</h4>
+        <p class="footer-quote-text">Have an event in mind? Let us help you plan it.</p>
+        <a class="footer-enquiry-btn" href="../../../../pages/booking.html"><i class="fa-solid fa-calendar-check"></i> Book Now</a>
+      </div>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-bottom">
+      <p><span id="year"></span> &copy; ELLCY &mdash; All Rights Reserved.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+      </div>
+    </div>
+  </footer>
+    <script src="../../../../js/auth.js"></script>
+<script src="../../../../js/cart.js"></script>
+  <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+</body>
+</html>

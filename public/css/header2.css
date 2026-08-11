@@ -1,0 +1,211 @@
+/* ============================================================
+   header2.css — ELLCY Inner Pages Header (all pages except index)
+   Desktop: Logo + nav links + "Select Date" CTA
+   Mobile:  Logo + hamburger menu
+   ============================================================ */
+
+:root {
+  --hdr-bg:     #6b21a8;
+  --hdr-dark:   #4e0d7a;
+  --hdr-h:      64px;
+}
+
+/* ── Reset ─────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* ── Header shell ────────────────────────────────────────────── */
+.new-header {
+  width: 100%;
+  height: var(--hdr-h);
+  background: var(--hdr-bg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  box-shadow: 0 2px 12px rgba(0,0,0,.25);
+}
+
+/* ── Logo ────────────────────────────────────────────────────── */
+.new-header .logo {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #fff;
+  cursor: pointer;
+  letter-spacing: .4px;
+  user-select: none;
+  white-space: nowrap;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+/* ── Desktop nav ─────────────────────────────────────────────── */
+.hdr-nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  justify-content: center;
+}
+.hdr-nav a {
+  color: rgba(255,255,255,.88);
+  font-size: .9rem;
+  font-weight: 600;
+  padding: 7px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background .18s, color .18s;
+  white-space: nowrap;
+}
+.hdr-nav a:hover,
+.hdr-nav a.active { background: rgba(255,255,255,.15); color: #fff; }
+
+/* ── Select Date CTA ─────────────────────────────────────────── */
+.hdr-cta {
+  background: #fff;
+  color: var(--hdr-bg);
+  border: none;
+  padding: 9px 20px;
+  border-radius: 9px;
+  font-size: .88rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background .18s, transform .14s, box-shadow .18s;
+  box-shadow: 0 2px 8px rgba(0,0,0,.15);
+}
+.hdr-cta:hover {
+  background: #f4e9ff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(0,0,0,.2);
+}
+
+/* Legacy enquiry-btn — same style for backward compat */
+.enquiry-btn {
+  background: #fff;
+  color: var(--hdr-bg);
+  border: none;
+  padding: 9px 18px;
+  font-size: .88rem;
+  font-weight: 700;
+  font-family: inherit;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: background .18s, transform .14s;
+  flex-shrink: 0;
+}
+.enquiry-btn:hover { background: #f4e9ff; transform: translateY(-1px); }
+
+/* ── Hamburger (mobile only) ─────────────────────────────────── */
+.hdr-hamburger {
+  display: none;
+  background: rgba(255,255,255,.15);
+  border: none;
+  color: #fff;
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  transition: background .18s;
+  flex-shrink: 0;
+}
+.hdr-hamburger:hover { background: rgba(255,255,255,.25); }
+
+/* ── Mobile slide-down menu ──────────────────────────────────── */
+.hdr-mobile-menu {
+  display: none;
+  flex-direction: column;
+  background: var(--hdr-dark);
+  position: fixed;
+  top: var(--hdr-h);
+  left: 0;
+  right: 0;
+  z-index: 998;
+  padding: 12px 16px 18px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.3);
+  border-top: 1px solid rgba(255,255,255,.1);
+  animation: slideDown .2s ease;
+}
+.hdr-mobile-menu.open { display: flex; }
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hdr-mobile-menu a {
+  color: rgba(255,255,255,.9);
+  font-size: .95rem;
+  font-weight: 600;
+  padding: 12px 8px;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  transition: color .18s;
+}
+.hdr-mobile-menu a:last-child { border-bottom: none; }
+.hdr-mobile-menu a:hover { color: #fff; }
+.hdr-mobile-menu .mob-cta {
+  margin-top: 10px;
+  background: #fff;
+  color: var(--hdr-bg);
+  border-radius: 9px;
+  font-weight: 800;
+  text-align: center;
+  padding: 12px;
+  border-bottom: none;
+}
+.hdr-mobile-menu .mob-cta:hover { background: #f4e9ff; color: var(--hdr-bg); }
+
+/* ── Mobile back button ──────────────────────────────────────
+   On mobile, inner pages show a tappable "← Back" button
+   instead of the logo (the logo can't navigate anywhere useful
+   once you're inside the app). Desktop keeps the logo + nav.
+   ─────────────────────────────────────────────────────────── */
+.hdr-back-btn {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-family: inherit;
+  font-size: .95rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.hdr-back-btn i { font-size: .95rem; }
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .new-header { padding: 0 16px; height: 56px; --hdr-h: 56px; }
+  .hdr-nav    { display: none; }        /* hide desktop nav */
+  .hdr-cta    { display: none; }        /* hide desktop CTA */
+  .hdr-hamburger { display: inline-flex; }
+  .new-header .logo { font-size: 1.25rem; }
+  /* legacy */
+  .desktop-only { display: none !important; }
+  .enquiry-btn  { display: none; }
+
+  /* Back button replaces the logo on mobile inner pages */
+  .new-header .logo { display: none; }
+  .hdr-back-btn      { display: inline-flex; }
+  /* The text breadcrumb is redundant now that a real back
+     button exists — keep it desktop-only. */
+  .breadcrumb         { display: none; }
+}
+
+@media (min-width: 769px) {
+  .hdr-mobile-menu { display: none !important; }
+}

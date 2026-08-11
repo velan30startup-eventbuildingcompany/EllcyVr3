@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="description" content="Book ELLCY Decoration service — professional venue/Mahal decoration for weddings, birthdays &amp; celebrations in Chennai."/>
+    <meta name="robots" content="index, follow"/>
+  <meta name="referrer" content="strict-origin-when-cross-origin"/>
+  <meta http-equiv="X-Content-Type-Options" content="nosniff"/>
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()"/>
+<title>ELLCY | Decoration</title>
+  <link rel="stylesheet" href="../../css/style.css"/>
+  <link rel="stylesheet" href="../../css/snacks-desc.css"/>
+  <link rel="stylesheet" href="../../css/related-services.css"/>
+  <link rel="stylesheet" href="../../css/cart.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" defer></script>
+  <style>
+    /* ── Decoration Page — Ice Cream / Fruit Salad inspired design ── */
+    .dec-page-header {
+      background: linear-gradient(135deg, #6b21a8 0%, #a855f7 50%, #ec4899 100%);
+      padding: 24px 20px 28px;
+      text-align: center;
+      color: #fff;
+    }
+    .dec-page-header .dec-hero-img {
+      width: 100%; max-height: 260px; object-fit: cover;
+      border-radius: 16px; margin-bottom: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.3);
+    }
+    .dec-page-header h1 {
+      font-size: 1.7rem; font-weight: 900; letter-spacing: -.02em;
+      margin-bottom: 6px;
+    }
+    .dec-page-header .dec-subtitle {
+      font-size: .9rem; font-weight: 500; opacity: .9;
+    }
+    .dec-badges {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      justify-content: center; margin-top: 12px;
+    }
+    .dec-badge {
+      background: rgba(255,255,255,.2);
+      border: 1px solid rgba(255,255,255,.35);
+      border-radius: 999px; padding: 5px 14px;
+      font-size: .78rem; font-weight: 700; color: #fff;
+    }
+
+    .dec-section-head {
+      padding: 24px 20px 12px;
+      font-size: 1.1rem; font-weight: 800; color: #1a1a2e;
+      font-family: 'Urbanist', sans-serif;
+    }
+    .dec-section-subhead {
+      padding: 0 20px 16px;
+      font-size: .83rem; color: #666; margin-top: -10px;
+      font-family: 'Urbanist', sans-serif;
+    }
+
+    /* Package cards grid */
+    .dec-pkg-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      padding: 0 16px 24px;
+    }
+    .dec-pkg-card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 3px 14px rgba(0,0,0,.08);
+      border: 2.5px solid transparent;
+      transition: border-color .2s, transform .18s, box-shadow .18s;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+    }
+    .dec-pkg-card:hover {
+      border-color: #6b21a8;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 28px rgba(107,33,168,.18);
+    }
+    .dec-pkg-img-wrap {
+      position: relative; width: 100%; aspect-ratio: 4/3; overflow: hidden;
+      background: linear-gradient(135deg, #f4e9ff, #fce7f3);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .dec-pkg-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .dec-pkg-emoji {
+      position: absolute; top: 8px; left: 8px;
+      font-size: 1.5rem; line-height: 1;
+    }
+    .dec-pkg-rating {
+      position: absolute; top: 8px; right: 8px;
+      background: rgba(0,0,0,.5); color: #f59e0b;
+      font-size: .7rem; font-weight: 700; padding: 3px 8px; border-radius: 999px;
+    }
+    .dec-pkg-body { padding: 10px 12px 14px; flex: 1; display: flex; flex-direction: column; gap: 4px; }
+    .dec-pkg-name {
+      font-size: .95rem; font-weight: 800; color: #1a1a2e;
+    }
+    .dec-pkg-desc {
+      font-size: .73rem; color: #888; line-height: 1.4; flex: 1;
+    }
+    .dec-pkg-cta {
+      margin-top: 10px;
+      width: 100%; padding: 9px;
+      background: #6b21a8; color: #fff; border: none;
+      border-radius: 999px; font-family: 'Urbanist', sans-serif;
+      font-size: .78rem; font-weight: 700; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      transition: background .18s, transform .14s;
+    }
+    .dec-pkg-cta:hover { background: #4e0d7a; transform: translateY(-1px); }
+
+    /* Overview section */
+    .dec-overview {
+      background: #fff;
+      margin: 0 16px 24px;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.06);
+    }
+    .dec-overview h2 {
+      font-size: 1rem; font-weight: 800; color: #1a1a2e;
+      margin-bottom: 10px;
+      font-family: 'Urbanist', sans-serif;
+    }
+    .dec-overview p {
+      font-size: .85rem; color: #555; line-height: 1.7;
+      font-family: 'Urbanist', sans-serif;
+    }
+    .dec-overview p + p { margin-top: 10px; }
+
+    /* Review section */
+    .dec-reviews-wrap {
+      padding: 0 16px 32px;
+    }
+    .dec-reviews-head {
+      font-size: 1.05rem; font-weight: 800; color: #1a1a2e;
+      margin-bottom: 12px;
+      font-family: 'Urbanist', sans-serif;
+    }
+    .dec-review-list { display: flex; flex-direction: column; gap: 10px; }
+    .dec-review-card {
+      background: #f4e9ff;
+      border: 1px solid #e0d5f5;
+      border-radius: 12px; padding: 12px 14px;
+    }
+    .dec-review-hdr {
+      display: flex; justify-content: space-between; margin-bottom: 5px;
+    }
+    .dec-reviewer { font-weight: 700; font-size: .84rem; color: #1a1a2e; font-family: 'Urbanist', sans-serif; }
+    .dec-rstars   { color: #f59e0b; font-size: .82rem; letter-spacing: 1px; }
+    .dec-review-card p { font-size: .81rem; color: #555; line-height: 1.6; font-family: 'Urbanist', sans-serif; }
+
+    /* Toast */
+    .dec-toast {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+      background: #6b21a8; color: #fff;
+      border-radius: 999px; padding: 12px 28px;
+      font-weight: 700; font-size: .9rem; font-family: 'Urbanist', sans-serif;
+      box-shadow: 0 8px 24px rgba(0,0,0,.2);
+      z-index: 9999; opacity: 0; pointer-events: none;
+      transition: opacity .3s;
+    }
+    .dec-toast.show { opacity: 1; }
+
+    /* Desktop overrides */
+    @media (min-width: 769px) {
+      .dec-page-header {
+        padding: 40px 48px 40px;
+        display: flex; align-items: center; gap: 40px; text-align: left;
+      }
+      .dec-page-header .dec-hero-img {
+        width: 380px; flex-shrink: 0; max-height: 280px; margin-bottom: 0;
+      }
+      .dec-badges { justify-content: flex-start; }
+      .dec-pkg-grid {
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 1100px; margin: 0 auto;
+        padding: 0 28px 40px;
+      }
+      .dec-section-head { padding: 32px 28px 12px; font-size: 1.3rem; max-width: 1100px; margin: 0 auto; }
+      .dec-section-subhead { padding: 0 28px 16px; max-width: 1100px; margin: 0 auto; }
+      .dec-overview { max-width: 1100px; margin: 0 auto 28px; }
+      .dec-reviews-wrap { max-width: 1100px; margin: 0 auto; padding: 0 28px 48px; }
+      .dec-review-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    }
+
+    @media (max-width: 400px) {
+      .dec-pkg-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body class="snk-body">
+
+<!-- MOBILE HEADER -->
+<header class="snk-topbar snk-mob" role="banner">
+  <button class="snk-back-btn" onclick="_ellcySmartBack('../../pages/services.html')" aria-label="Go back">
+    <i class="fa-solid fa-arrow-left"></i>
+    <span>Decoration</span>
+  </button>
+  <a href="../../pages/cart.html" class="snk-cart-mob" aria-label="View cart">
+    <i class="fa-solid fa-cart-shopping"></i>
+    <span>Cart</span>
+    <span class="cart-badge" style="display:none">0</span>
+  </a>
+</header>
+
+<!-- DESKTOP HEADER -->
+<header class="snk-dsk-hdr snk-dsk" role="banner">
+  <a class="snk-logo" href="../../index.html" aria-label="ELLCY Home">ELLCY</a>
+  <a href="../../pages/cart.html" class="snk-cart-dsk" aria-label="View cart">
+    <i class="fa-solid fa-cart-shopping"></i>
+    <span>Cart</span>
+    <span class="cart-badge" style="display:none">0</span>
+  </a>
+</header>
+<nav class="snk-breadcrumb snk-dsk" aria-label="Breadcrumb">
+  <a href="../../index.html">Home</a>
+  <span style="padding:0 4px;">/</span>
+  <span style="color:var(--txt-2);font-weight:600;">Decoration</span>
+</nav>
+<!-- HERO HEADER -->
+<div class="dec-page-header">
+  <img class="dec-hero-img" src="../../uploads/services/decoration-stage-indoor.jpg" alt="Decoration"/>
+  <div>
+    <h1>✨ Decoration</h1>
+    <p class="dec-subtitle">Transform your venue into a breathtaking setting — tailored for your dream event!</p>
+    <div class="dec-badges">
+      <span class="dec-badge">★ 4.7 Rating</span>
+      <span class="dec-badge"><i class="fa-solid fa-users"></i> 320+ Happy Clients</span>
+      <span class="dec-badge"><i class="fa-solid fa-location-dot"></i> Chennai &amp; Areas</span>
+      <span class="dec-badge"><i class="fa-solid fa-calendar-check"></i> All Year Booking</span>
+    </div>
+  </div>
+</div>
+
+<!-- OVERVIEW -->
+<div class="dec-overview">
+  <h2>About Our Decoration Service</h2>
+  <p>ELLCY Decoration transforms any venue — your Mahal, hall or home — into a breathtaking setting. From elegant minimal backdrops and lush floral arches to dramatic LED-lit stage setups, our team handles every detail with precision and creativity.</p>
+  <p>Whether it's an intimate birthday or a grand wedding reception, we offer thoughtfully designed packages to suit every budget — each delivering the same commitment to beauty and quality that our clients trust.</p>
+  <p style="margin-top:12px;padding:12px 16px;background:#faf7ff;border:1px solid #e0d5f0;border-radius:10px;font-size:.9rem">
+    <i class="fa-solid fa-circle-info" style="color:#8b5cf6;margin-right:6px"></i>
+    Tip: When you book, you can add your <b>Mahal / venue name</b> and upload up to
+    <b>4 photos</b> of your event location so our decorators can plan the design in advance.
+  </p>
+</div>
+
+<!-- PACKAGES -->
+<div class="dec-section-head">Explore Our Decoration Packages</div>
+<div class="dec-section-subhead">Choose a package to enquire — our team will get in touch for personalised details</div>
+
+<div class="dec-pkg-grid" id="decorationGrid" role="list"></div>
+
+<!-- REVIEWS -->
+<div class="dec-reviews-wrap">
+  <div class="dec-reviews-head">What Our Clients Say</div>
+  <div class="dec-review-list" id="decReviews"></div>
+</div>
+
+<!-- TOAST -->
+<div class="dec-toast" id="decToast">Enquiry Sent ✓</div>
+
+<!-- RELATED SERVICES -->
+<div id="relatedServices"></div>
+
+<!-- FOOTER -->
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">ELLCY</div>
+      <p class="footer-text">Creating unforgettable moments — weddings, birthdays, college events and temple celebrations across Chennai.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="../../index.html">Home</a></li>
+        <li><a href="../../pages/services.html">Event Services</a></li>
+        <li><a href="../../pages/category.html">Categories</a></li>
+        <li><a href="../../pages/booking.html">Book Now</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p class="footer-contact-item">+91 123-456-789</p>
+      <p class="footer-contact-item">info@ellcy.in</p>
+      <p class="footer-contact-item">Chennai, Tamil Nadu</p>
+    </div>
+    <div class="footer-col">
+      <h4>Book Your Event</h4>
+      <p class="footer-quote-text">Add services to cart and confirm your booking.</p>
+      <a class="footer-enquiry-btn" href="../../pages/booking.html">
+        <i class="fa-solid fa-calendar-check"></i> Book Now
+      </a>
+    </div>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="footer-bottom">
+    <p><span id="year"></span> &copy; ELLCY &mdash; All Rights Reserved.</p>
+    <div class="footer-social">
+      <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" aria-label="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function _ellcySmartBack(fallbackUrl){
+    if(window.history.length>1 && document.referrer && document.referrer.includes(window.location.hostname)){
+      window.history.back();
+    } else {
+      window.location.href = fallbackUrl;
+    }
+  }
+(function(){
+  var PACKAGES = [
+    { key:'p1', label:'Package 1', emoji:'🌸', desc:'Basic entrance decoration with welcome arch and balloon arrangement. Ideal for small indoor events.', rating:'4.6' },
+    { key:'p2', label:'Package 2', emoji:'🎈', desc:'Entry arch + table centrepieces + ambient lighting. Perfect for birthday parties and small functions.', rating:'4.6' },
+    { key:'p3', label:'Package 3', emoji:'💡', desc:'Stage backdrop + balloon setup + LED fairy lights. Great for mid-sized celebrations and receptions.', rating:'4.7' },
+    { key:'p4', label:'Package 4', emoji:'💐', desc:'Full stage decoration + draping + LED wash lighting + floral centrepieces. Suits weddings and large events.', rating:'4.7' },
+    { key:'p5', label:'Package 5', emoji:'🌹', desc:'Premium stage + thematic props + fresh flower arrangements + full venue lighting. Grand event ready.', rating:'4.8' },
+    { key:'p6', label:'Package 6', emoji:'✨', desc:'Luxury venue transformation — stage, ceiling draping, LED truss, floral arches and photo booth backdrop.', rating:'4.8' },
+    { key:'p7', label:'Package 7', emoji:'👑', desc:'Complete grand venue makeover with premium florals, full LED production, and bespoke thematic design.', rating:'4.9' },
+  ];
+
+  var REVIEWS = [
+    { name:'Priya Rajan',     stars:5, text:'The stage decoration was absolutely stunning. Every guest was taking photos all evening!' },
+    { name:'Suresh Kumar',    stars:5, text:'Very creative team. Delivered exactly the theme we wanted. Highly recommended.' },
+    { name:'Anitha M',        stars:4, text:'Good work overall. The floral arrangements were beautiful and fresh.' },
+    { name:'Ramya Krishnan',  stars:5, text:'The balloon arch and light setup completely transformed our venue. Magical!' },
+    { name:'Vijay Annamalai', stars:5, text:'Punctual, professional, and the output was spectacular. Will book again for our anniversary.' },
+  ];
+
+  var grid = document.getElementById('decorationGrid');
+  var toast = document.getElementById('decToast');
+
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(function(){ toast.classList.remove('show'); }, 2500);
+  }
+
+  PACKAGES.forEach(function(pkg){
+    var card = document.createElement('div');
+    card.className = 'dec-pkg-card';
+    card.setAttribute('role', 'listitem');
+    card.innerHTML =
+      '<div class="dec-pkg-img-wrap">' +
+        '<img src="../../uploads/services/decoration-stage-indoor.jpg" alt="' + pkg.label + '" loading="lazy"/>' +
+        '<span class="dec-pkg-emoji">' + pkg.emoji + '</span>' +
+        '<span class="dec-pkg-rating">★ ' + pkg.rating + '</span>' +
+      '</div>' +
+      '<div class="dec-pkg-body">' +
+        '<div class="dec-pkg-name">' + pkg.label + '</div>' +
+        '<div class="dec-pkg-desc">' + pkg.desc + '</div>' +
+        '<button class="dec-pkg-cta" type="button" aria-label="Enquire about ' + pkg.label + '">' +
+          '<i class="fa-solid fa-calendar-check"></i> Enquire Now' +
+        '</button>' +
+      '</div>';
+    card.querySelector('.dec-pkg-cta').addEventListener('click', function(){
+      showToast(pkg.label + ' — Enquiry received! We\'ll contact you soon.');
+    });
+    grid.appendChild(card);
+  });
+
+  var revList = document.getElementById('decReviews');
+  REVIEWS.forEach(function(r){
+    var stars = '';
+    for(var i=0;i<5;i++) stars += (i < r.stars) ? '★' : '☆';
+    var card = document.createElement('div');
+    card.className = 'dec-review-card';
+    card.innerHTML =
+      '<div class="dec-review-hdr">' +
+        '<span class="dec-reviewer">' + r.name + '</span>' +
+        '<span class="dec-rstars">' + stars + '</span>' +
+      '</div>' +
+      '<p>' + r.text + '</p>';
+    revList.appendChild(card);
+  });
+
+  var yr = document.getElementById('year'); if(yr) yr.textContent = new Date().getFullYear();
+})();
+</script>
+<script src="../data.js"></script>
+<script src="../../js/related-services.js"></script>
+<script>
+  if (window.EllcyRelated) {
+    EllcyRelated.render('relatedServices', { exclude: 'decoration', basePath: '../../' });
+  }
+</script>
+  <script src="../../js/auth.js"></script>
+<script src="../../js/cart.js"></script>
+</body>
+</html>

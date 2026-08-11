@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="description" content="ELLCY Ice Cream Stall — Choose from Vanilla, Butter Scotch, Chocolate and more flavours for your event."/>
+    <meta name="robots" content="index, follow"/>
+  <meta name="referrer" content="strict-origin-when-cross-origin"/>
+  <meta http-equiv="X-Content-Type-Options" content="nosniff"/>
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()"/>
+<title>ELLCY | Ice Cream</title>
+  <link rel="stylesheet" href="../../../css/style.css"/>
+  <link rel="stylesheet" href="../../../css/snacks-desc.css"/>
+  <link rel="stylesheet" href="../../../css/cart.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" defer></script>
+  <style>
+    /* ── Ice Cream redesign ─────────────────────────────── */
+    .ic-page-header {
+      background: linear-gradient(135deg, #7c3aed 0%, #c084fc 100%);
+      padding: 24px 20px 28px;
+      text-align: center;
+      color: #fff;
+    }
+    .ic-page-header .ic-hero-img {
+      width: 100%; max-height: 260px; object-fit: cover;
+      border-radius: 16px; margin-bottom: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.3);
+    }
+    .ic-page-header h1 {
+      font-size: 1.7rem; font-weight: 900; letter-spacing: -.02em;
+      margin-bottom: 6px;
+    }
+    .ic-page-header .ic-subtitle {
+      font-size: .9rem; font-weight: 500; opacity: .9;
+    }
+    .ic-badges {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      justify-content: center; margin-top: 12px;
+    }
+    .ic-badge {
+      background: rgba(255,255,255,.2);
+      border: 1px solid rgba(255,255,255,.35);
+      border-radius: 999px; padding: 5px 14px;
+      font-size: .78rem; font-weight: 700; color: #fff;
+    }
+
+    .ic-section-head {
+      padding: 24px 20px 12px;
+      font-size: 1.1rem; font-weight: 800; color: #1a1a2e;
+    }
+    .ic-section-subhead {
+      padding: 0 20px 16px;
+      font-size: .83rem; color: #666; margin-top: -10px;
+    }
+
+    /* ── Type toggle ───────────────────────────────────── */
+    .ic-toggle-wrap {
+      display: flex; justify-content: center;
+      padding: 20px 16px 8px;
+      gap: 0;
+    }
+    .ic-toggle-btn {
+      flex: 1; max-width: 180px;
+      padding: 12px 0; font-size: .95rem; font-weight: 800;
+      border: 2.5px solid #7c3aed; background: #fff;
+      color: #7c3aed; cursor: pointer;
+      font-family: 'Urbanist', sans-serif;
+      transition: background .18s, color .18s;
+    }
+    .ic-toggle-btn:first-child { border-radius: 12px 0 0 12px; }
+    .ic-toggle-btn:last-child  { border-radius: 0 12px 12px 0; border-left: none; }
+    .ic-toggle-btn.active {
+      background: #7c3aed; color: #fff;
+    }
+    .ic-toggle-btn .ic-toggle-icon { margin-right: 6px; }
+
+    .ic-panel { display: none; }
+    .ic-panel.visible { display: block; }
+
+    /* Flavour cards */
+    .ic-flavour-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      padding: 0 16px 24px;
+    }
+    .ic-flavour-card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 3px 14px rgba(0,0,0,.08);
+      border: 2.5px solid transparent;
+      transition: border-color .2s, transform .18s, box-shadow .18s;
+      text-decoration: none;
+      display: block;
+      cursor: pointer;
+    }
+    .ic-flavour-card:hover {
+      border-color: #7c3aed;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 28px rgba(124,58,237,.18);
+    }
+    .ic-flavour-img-wrap {
+      position: relative; width: 100%; aspect-ratio: 1; overflow: hidden;
+      background: linear-gradient(135deg, #f4e9ff, #ede9fe);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .ic-flavour-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .ic-flavour-emoji {
+      position: absolute; top: 8px; left: 8px;
+      font-size: 1.6rem; line-height: 1;
+    }
+    .ic-flavour-rating {
+      position: absolute; top: 8px; right: 8px;
+      background: rgba(0,0,0,.5); color: #f59e0b;
+      font-size: .7rem; font-weight: 700; padding: 3px 8px; border-radius: 999px;
+    }
+    .ic-flavour-body { padding: 10px 12px 14px; }
+    .ic-flavour-name {
+      font-size: .95rem; font-weight: 800; color: #1a1a2e;
+      margin-bottom: 3px;
+    }
+    .ic-flavour-price {
+      font-size: .88rem; font-weight: 700; color: #7c3aed;
+      margin-bottom: 4px;
+    }
+    .ic-flavour-desc {
+      font-size: .73rem; color: #888; line-height: 1.4;
+    }
+
+    @media (min-width: 769px) {
+      .ic-page-header { padding: 40px 48px 40px; display: flex; align-items: center; gap: 40px; text-align: left; }
+      .ic-page-header .ic-hero-img { width: 380px; flex-shrink: 0; max-height: 280px; margin-bottom: 0; }
+      .ic-badges { justify-content: flex-start; }
+      .ic-flavour-grid { grid-template-columns: repeat(3, 1fr); max-width: 900px; margin: 0 auto; padding: 0 28px 40px; }
+      .ic-section-head { padding: 32px 28px 12px; font-size: 1.3rem; }
+      .ic-section-subhead { padding: 0 28px 16px; }
+      .ic-toggle-wrap { padding-top: 32px; }
+    }
+  </style>
+</head>
+<body class="snk-body">
+
+<!-- MOBILE HEADER -->
+<header class="snk-topbar snk-mob" role="banner">
+  <button class="snk-back-btn" onclick="_ellcySmartBack('../../../pages/services.html?type=snacks-stalls')" aria-label="Go back">
+    <i class="fa-solid fa-arrow-left"></i>
+    <span>Ice Cream</span>
+  </button>
+  <a href="../../../pages/cart.html" class="snk-cart-mob" aria-label="View cart">
+    <i class="fa-solid fa-cart-shopping"></i>
+    <span>Cart</span>
+    <span class="cart-badge" style="display:none">0</span>
+  </a>
+</header>
+
+<!-- DESKTOP HEADER -->
+<header class="snk-dsk-hdr snk-dsk" role="banner">
+  <a class="snk-logo" href="../../../index.html" aria-label="ELLCY Home">ELLCY</a>
+  <a href="../../../pages/cart.html" class="snk-cart-dsk" aria-label="View cart">
+    <i class="fa-solid fa-cart-shopping"></i>
+    <span>Cart</span>
+    <span class="cart-badge" style="display:none">0</span>
+  </a>
+</header>
+
+
+<!-- HERO HEADER -->
+<div class="ic-page-header">
+  <img class="ic-hero-img" src="../../../uploads/services/ice-cream.png" alt="Ice Cream Stall"/>
+  <div>
+    <h1>🍦 Ice Cream Parlour</h1>
+    <p class="ic-subtitle">Classic scoops or premium branded flavours — served fresh at your event!</p>
+    <div class="ic-badges">
+      <span class="ic-badge">★ 4.7 Rating</span>
+      <span class="ic-badge"><i class="fa-solid fa-clock"></i> 3–5 Hr Coverage</span>
+      <span class="ic-badge"><i class="fa-solid fa-users"></i> 500+ Guests</span>
+      <span class="ic-badge">From ₹40/scoop</span>
+    </div>
+  </div>
+</div>
+
+<!-- TYPE TOGGLE -->
+<div class="ic-toggle-wrap" role="group" aria-label="Select ice cream type">
+  <button class="ic-toggle-btn active" id="btnNormal" onclick="switchIcPanel('normal')">
+    <span class="ic-toggle-icon">🍦</span>Normal Ice
+  </button>
+  <button class="ic-toggle-btn" id="btnBrand" onclick="switchIcPanel('brand')">
+    <span class="ic-toggle-icon">🏷️</span>Branded Ice
+  </button>
+</div>
+
+<!-- NORMAL ICE PANEL -->
+<div class="ic-panel visible" id="panelNormal">
+  <div class="ic-section-head">🍦 Normal Ice Flavours</div>
+  <div class="ic-section-subhead">Classic everyday favourites, freshly served by the scoop</div>
+  <div class="ic-flavour-grid" id="normalGrid" role="list"></div>
+</div>
+
+<!-- BRANDED ICE PANEL -->
+<div class="ic-panel" id="panelBrand">
+  <div class="ic-section-head">🏷️ Branded Ice Flavours</div>
+  <div class="ic-section-subhead">Premium branded scoops for a richer, indulgent experience</div>
+  <div class="ic-flavour-grid" id="brandGrid" role="list"></div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">ELLCY</div>
+      <p class="footer-text">Creating unforgettable moments across Chennai.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="../../../index.html">Home</a></li>
+        <li><a href="../../../pages/services.html?type=snacks-stalls">Snacks &amp; Stalls</a></li>
+        <li><a href="../../../pages/booking.html">Book Now</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p class="footer-contact-item">+91 123-456-789</p>
+      <p class="footer-contact-item">info@ellcy.in</p>
+      <p class="footer-contact-item">Chennai, Tamil Nadu</p>
+    </div>
+    <div class="footer-col">
+      <h4>Book Your Event</h4>
+      <a class="footer-enquiry-btn" href="../../../pages/booking.html"><i class="fa-solid fa-calendar-check"></i> Book Now</a>
+    </div>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="footer-bottom">
+    <p><span id="year"></span> &copy; ELLCY &mdash; All Rights Reserved.</p>
+    <div class="footer-social">
+      <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" aria-label="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function _ellcySmartBack(fallbackUrl){
+    if(window.history.length>1 && document.referrer && document.referrer.includes(window.location.hostname)){
+      window.history.back();
+    } else {
+      window.location.href = fallbackUrl;
+    }
+  }
+(function(){
+  var NORMAL_ICE = [
+    { key:'normal-vanilla',       label:'Vanilla',       emoji:'🍦', price:40, desc:'Classic creamy Vanilla — simple, smooth and a timeless favourite for all ages.', rating:'4.6' },
+    { key:'normal-strawberry',    label:'Strawberry',    emoji:'🍓', price:40, desc:'Fresh strawberry flavour — light, fruity and refreshing for every guest.', rating:'4.5' },
+    { key:'normal-pista',         label:'Pista',         emoji:'🌿', price:45, desc:'Traditional pista ice cream with a nutty, aromatic finish.', rating:'4.5' },
+    { key:'normal-black-currant', label:'Black Currant', emoji:'🫐', price:40, desc:'Tangy-sweet black currant — a vibrant favourite loved by kids and adults alike.', rating:'4.4' },
+  ];
+  var BRAND_ICE = [
+    { key:'brand-vanilla',         label:'Vanilla',         emoji:'🍦', price:60, desc:'Premium branded Vanilla — extra creamy with a rich dairy taste.', rating:'4.7' },
+    { key:'brand-strawberry',      label:'Strawberry',      emoji:'🍓', price:60, desc:'Premium branded Strawberry — bursting with real fruit flavour.', rating:'4.6' },
+    { key:'brand-alphonso-mango',  label:'Alphonso Mango',  emoji:'🥭', price:75, desc:'Premium Alphonso Mango — rich, tropical and a guest favourite.', rating:'4.8' },
+    { key:'brand-tutti-frutti',    label:'Tutti Frutti',    emoji:'🍨', price:65, desc:'Premium Tutti Frutti — loaded with colourful candied fruit bits.', rating:'4.6' },
+    { key:'brand-chocolate',       label:'Chocolate',       emoji:'🍫', price:65, desc:'Premium branded Chocolate — deep, indulgent and silky smooth.', rating:'4.7' },
+  ];
+
+  function renderCards(data, gridId) {
+    var grid = document.getElementById(gridId);
+    if (!grid) return;
+    data.forEach(function(ic){
+      var a = document.createElement('a');
+      a.className = 'ic-flavour-card';
+      a.href = 'detail.html?type=' + encodeURIComponent(ic.key);
+      a.setAttribute('role', 'listitem');
+      a.setAttribute('aria-label', ic.label);
+      a.innerHTML =
+        '<div class="ic-flavour-img-wrap">' +
+          '<img src="../../../uploads/services/ice-cream.png" alt="' + ic.label + '" loading="lazy"/>' +
+          '<span class="ic-flavour-emoji">' + ic.emoji + '</span>' +
+          '<span class="ic-flavour-rating">★ ' + ic.rating + '</span>' +
+        '</div>' +
+        '<div class="ic-flavour-body">' +
+          '<div class="ic-flavour-name">' + ic.label + '</div>' +
+          '<div class="ic-flavour-price">₹' + ic.price + '/scoop</div>' +
+          '<div class="ic-flavour-desc">' + ic.desc + '</div>' +
+        '</div>';
+      grid.appendChild(a);
+    });
+  }
+
+  renderCards(NORMAL_ICE, 'normalGrid');
+  renderCards(BRAND_ICE, 'brandGrid');
+
+  /* ── Panel switch ───────────────────────────────────── */
+  window.switchIcPanel = function(panel) {
+    document.getElementById('panelNormal').classList.toggle('visible', panel === 'normal');
+    document.getElementById('panelBrand').classList.toggle('visible', panel === 'brand');
+    document.getElementById('btnNormal').classList.toggle('active', panel === 'normal');
+    document.getElementById('btnBrand').classList.toggle('active', panel === 'brand');
+  };
+
+  var yr = document.getElementById('year'); if(yr) yr.textContent = new Date().getFullYear();
+})();
+</script>
+<script src="../../data.js"></script>
+  <script src="../../../js/auth.js"></script>
+<script src="../../../js/cart.js"></script>
+</body>
+</html>

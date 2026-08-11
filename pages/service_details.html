@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="robots" content="index, follow"/>
+  <meta name="referrer" content="strict-origin-when-cross-origin"/>
+  <meta http-equiv="X-Content-Type-Options" content="nosniff"/>
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()"/>
+<title>ELLCY | Service Details</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <link rel="stylesheet" href="../css/header2.css"/>
+  <link rel="stylesheet" href="../css/cart.css"/>
+  <link rel="stylesheet" href="../css/service_details.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" defer></script>
+</head>
+<body>
+
+<header class="header new-header">
+  <div class="header-left">
+    <h1 class="logo" onclick="window.location.href='../index.html'">ELLCY</h1>
+  </div>
+  <div class="header-center desktop-only"></div>
+  <div class="header-right">
+    <button class="enquiry-btn" onclick="window.location.href='booking.html'">Enquiry</button>
+  </div>
+</header>
+
+<main class="container service-details-page">
+  <div class="breadcrumb">
+    <a href="../index.html">Home</a> /
+    <a href="#" id="bc-category">Services</a> /
+    <span id="bc-service">Details</span>
+  </div>
+
+  <section class="details-hero">
+    <h1 class="details-title" id="det-title"></h1>
+    <div class="meta-row">
+      <div class="meta"><span>&#9733; 4.4</span> Coverage: 6&ndash;10 Hours</div>
+      <div class="meta">&#128197; Available All Year</div>
+      <div class="meta">&#128101; 320+ Happy Clients</div>
+    </div>
+    <p class="short-desc">Capture Love | Elegant | Everlasting Memories</p>
+    <p class="short-desc">Available for Engagements, Pre-Weddings &amp; Couple Shoots</p>
+    <div class="price-actions">
+      <div class="price" id="det-price">&#8377;0</div>
+      <div class="actions">
+        <a id="bookNowBtn" href="#" class="btn primary">Select Date</a>
+        <a href="tel:9361011717" class="btn outline">Request for Call</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="gallery-and-info">
+    <div class="gallery">
+      <div class="gallery-main">
+        <img id="mainImage" src="" alt="Service Image"/>
+      </div>
+      <div class="gallery-thumbs" id="galleryThumbs"></div>
+    </div>
+    <div class="info-tabs">
+      <div class="tabs">
+        <button class="tab active" data-tab="overview">Overview</button>
+        <button class="tab" data-tab="reviews">Reviews</button>
+      </div>
+      <div class="tab-content" id="overview">
+        <h3>Overview</h3>
+        <p id="det-description"></p>
+      </div>
+      <div class="tab-content hidden" id="reviews">
+        <p>No reviews yet. Be the first to book and share your experience!</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="top-rated">
+    <h2>Top Rated Services</h2>
+    <div class="top-grid" id="topGrid"></div>
+  </section>
+</main>
+
+<!-- ─── FOOTER ─────────────────────────────────────────────── -->
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">ELLCY</div>
+      <p class="footer-text">Creating unforgettable moments — weddings, birthdays, college events and temple celebrations across Chennai.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="services.html?type=photography">Event Services</a></li>
+        <li><a href="category.html?type=wedding">Categories</a></li>
+        <li><a href="booking.html">Book Now</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p class="footer-contact-item">+91 123-456-789</p>
+      <p class="footer-contact-item">info@ellcy.in</p>
+      <p class="footer-contact-item">Chennai, Tamil Nadu</p>
+    </div>
+    <div class="footer-col">
+      <h4>Get a Quote</h4>
+      <p class="footer-quote-text">Have an event in mind? Let us help you plan it.</p>
+      <a class="footer-enquiry-btn" href="booking.html">
+        <i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Book Now
+      </a>
+    </div>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="footer-bottom">
+    <p><span id="year"></span> &copy; ELLCY &mdash; All Rights Reserved.</p>
+    <div class="footer-social">
+      <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" aria-label="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+    </div>
+  </div>
+</footer>
+<script>
+  (function(){ var yr=document.getElementById('year'); if(yr) yr.textContent=new Date().getFullYear(); })();
+</script>
+
+<script src="../js/data.js"></script>
+<script src="../js/service_details.js"></script>
+  <script src="../js/auth.js"></script>
+<script src="../js/cart.js"></script>
+</body>
+</html>

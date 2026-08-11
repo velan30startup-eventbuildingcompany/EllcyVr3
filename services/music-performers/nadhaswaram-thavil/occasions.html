@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="description" content="Book ELLCY Nadhaswaram & Thavil — Choose your occasion: Reception or Marriage."/>
+    <meta name="robots" content="index, follow"/>
+  <meta name="referrer" content="strict-origin-when-cross-origin"/>
+  <meta http-equiv="X-Content-Type-Options" content="nosniff"/>
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()"/>
+<title>ELLCY | Nadhaswaram &amp; Thavil</title>
+  <link rel="stylesheet" href="../../../css/style.css"/>
+  <link rel="stylesheet" href="../../../css/snacks-desc.css"/>
+  <link rel="stylesheet" href="../../../css/cart.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" defer></script>
+  <style>
+    /* ── Page shell ── */
+    .nt-body {
+      font-family: 'Urbanist', sans-serif;
+      background: #fff;
+      color: #111;
+      min-height: 100vh;
+    }
+
+    /* ── Breadcrumb (desktop) ── */
+    .nt-breadcrumb {
+      display: none;
+      font-size: .82rem;
+      color: #888;
+      padding: 14px 28px 4px;
+      gap: 5px;
+      align-items: center;
+    }
+    .nt-breadcrumb a { color: #6b21a8; text-decoration: none; font-weight: 600; }
+    .nt-breadcrumb a:hover { text-decoration: underline; }
+    .nt-breadcrumb span { color: #444; }
+
+    /* ── Page title ── */
+    .nt-page-title {
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: #1a1a2e;
+      padding: 20px 20px 4px;
+      letter-spacing: -.02em;
+    }
+    .nt-page-sub {
+      font-size: .85rem;
+      color: #777;
+      padding: 0 20px 20px;
+    }
+
+    /* ── Occasion grid — exactly like decoration page ── */
+    .nt-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      padding: 0 16px 32px;
+    }
+
+    .nt-card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,.07);
+      border: 2px solid #e8e0f5;
+      transition: border-color .2s, transform .18s, box-shadow .18s;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      color: #111;
+    }
+    .nt-card:hover, .nt-card:focus {
+      border-color: #6b21a8;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 28px rgba(107,33,168,.16);
+      outline: none;
+    }
+
+    /* Image fills top of card — no aspect-ratio crop on mobile, natural fill */
+    .nt-card-img {
+      width: 100%;
+      aspect-ratio: 16/10;
+      overflow: hidden;
+      background: #f0e8ff;
+    }
+    .nt-card-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .3s;
+    }
+    .nt-card:hover .nt-card-img img { transform: scale(1.04); }
+
+    /* Text below image */
+    .nt-card-body {
+      padding: 14px 16px 18px;
+    }
+    .nt-card-name {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #1a1a2e;
+      margin-bottom: 6px;
+    }
+    .nt-card-desc {
+      font-size: .8rem;
+      color: #666;
+      line-height: 1.5;
+    }
+
+    /* ── Desktop overrides ── */
+    @media (min-width: 769px) {
+      .snk-mob   { display: none !important; }
+      .snk-dsk   { display: flex !important; }
+
+      .nt-breadcrumb { display: flex; }
+
+      .nt-page-title { font-size: 2rem; padding: 24px 28px 6px; }
+      .nt-page-sub   { padding: 0 28px 24px; font-size: .9rem; }
+
+      .nt-grid {
+        grid-template-columns: 1fr 1fr;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 28px 48px;
+        gap: 24px;
+      }
+      .nt-card-name { font-size: 1.2rem; }
+      .nt-card-desc { font-size: .85rem; }
+      .nt-card-body { padding: 18px 20px 22px; }
+    }
+
+    @media (max-width: 400px) {
+      .nt-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body class="nt-body">
+
+<!-- MOBILE HEADER -->
+<header class="snk-topbar snk-mob" role="banner">
+  <button class="snk-back-btn" onclick="history.back()" aria-label="Go back">
+    <i class="fa-solid fa-arrow-left"></i>
+    <span>Back</span>
+  </button>
+  <a href="../../../pages/cart.html" class="snk-cart-mob" aria-label="View cart">
+    <i class="fa-solid fa-cart-shopping"></i>
+    <span>Cart</span>
+    <span class="cart-badge" style="display:none">0</span>
+  </a>
+</header>
+
+<!-- DESKTOP HEADER -->
+<header class="snk-dsk-hdr snk-dsk" role="banner">
+  <a class="snk-logo" href="../../../index.html" aria-label="ELLCY Home">ELLCY</a>
+  <a href="../../../pages/cart.html" class="snk-cart-dsk" aria-label="View cart">
+    <i class="fa-solid fa-cart-shopping"></i>
+    <span>Cart</span>
+    <span class="cart-badge" style="display:none">0</span>
+  </a>
+</header>
+
+<!-- BREADCRUMB (desktop) -->
+<nav class="nt-breadcrumb" aria-label="Breadcrumb">
+  <a href="../../../index.html">Home</a>
+  <span>/</span>
+  <span>Nadhaswaram &amp; Thavil</span>
+</nav>
+
+<!-- PAGE TITLE -->
+<div class="nt-page-title">Nadhaswaram &amp; Thavil</div>
+<div class="nt-page-sub">Choose your occasion to view the available packages</div>
+
+<!-- OCCASION CARDS — matching Decoration page exactly -->
+<div class="nt-grid" role="list">
+
+  <a class="nt-card"
+     href="./index.html?type=reception"
+     role="listitem"
+     aria-label="Reception — 2, 4, 6 and 8 Member packages">
+    <div class="nt-card-img">
+      <img src="../../../uploads/services/light_music.png" alt="Reception ceremony"/>
+    </div>
+    <div class="nt-card-body">
+      <div class="nt-card-name">Reception</div>
+      <div class="nt-card-desc">Elegant Nadhaswaram &amp; Thavil for reception entries and auspicious welcomes. Available in 2, 4, 6 &amp; 8 member ensembles.</div>
+    </div>
+  </a>
+
+  <a class="nt-card"
+     href="./index.html?type=marriage"
+     role="listitem"
+     aria-label="Marriage — 6, 8, 10 and 12 Member packages">
+    <div class="nt-card-img">
+      <img src="../../../uploads/services/musical_band.png" alt="Marriage ceremony"/>
+    </div>
+    <div class="nt-card-body">
+      <div class="nt-card-name">Marriage</div>
+      <div class="nt-card-desc">Grand ensembles for wedding rituals, processions and marriage ceremonies steeped in tradition. Available in 6, 8, 10 &amp; 12 member ensembles.</div>
+    </div>
+  </a>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">ELLCY</div>
+      <p class="footer-text">Creating unforgettable moments — weddings, birthdays, college events and temple celebrations across Chennai.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="../../../index.html">Home</a></li>
+        <li><a href="../../../pages/services.html">Event Services</a></li>
+        <li><a href="../../../pages/category.html">Categories</a></li>
+        <li><a href="../../../pages/booking.html">Book Now</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p class="footer-contact-item">+91 123-456-789</p>
+      <p class="footer-contact-item">info@ellcy.in</p>
+      <p class="footer-contact-item">Chennai, Tamil Nadu</p>
+    </div>
+    <div class="footer-col">
+      <h4>Book Your Event</h4>
+      <p class="footer-quote-text">Add services to cart and confirm your booking.</p>
+      <a class="footer-enquiry-btn" href="../../../pages/booking.html">
+        <i class="fa-solid fa-calendar-check"></i> Book Now
+      </a>
+    </div>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="footer-bottom">
+    <p><span id="year"></span> &copy; ELLCY &mdash; All Rights Reserved.</p>
+    <div class="footer-social">
+      <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" aria-label="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+    </div>
+  </div>
+</footer>
+
+<script src="../../../js/data.js"></script>
+  <script src="../../../js/auth.js"></script>
+<script src="../../../js/cart.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+Options -Indexes
+Options +FollowSymLinks
+
+<IfModule mod_dir.c>
+    # Physical folders must not bypass index.php by adding a slash and
+    # selecting index.html/index.php automatically. The PHP router owns all
+    # document routes and adds a canonical slash where a detail page needs it.
+    DirectorySlash Off
+    DirectoryIndex disabled
+</IfModule>
+
+# ── Security Headers ─────────────────────────────────────────────────
+<IfModule mod_headers.c>
+    # PHP responses may already contain these headers. Clear the normal
+    # response table first so Apache emits one authoritative value rather
+    # than a comma-joined duplicate; static files still receive the same set.
+    Header onsuccess unset X-Content-Type-Options
+    Header onsuccess unset X-Frame-Options
+    Header onsuccess unset X-Permitted-Cross-Domain-Policies
+    Header onsuccess unset Referrer-Policy
+    Header onsuccess unset Permissions-Policy
+    Header onsuccess unset Cross-Origin-Opener-Policy
+    Header onsuccess unset Content-Security-Policy
+    Header onsuccess unset Strict-Transport-Security
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-Permitted-Cross-Domain-Policies "none"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+    Header always set Cross-Origin-Opener-Policy "same-origin"
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; img-src 'self' data: blob: https:; font-src 'self' data: https://cdnjs.cloudflare.com https://fonts.gstatic.com; connect-src 'self'; media-src 'self' blob:; frame-src https://www.youtube-nocookie.com https://www.youtube.com https://player.vimeo.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains" "expr=%{HTTPS} == 'on'"
+    Header unset Server
+    Header unset X-Powered-By
+</IfModule>
+
+# ── Block sensitive files ─────────────────────────────────────────────
+<FilesMatch "\.(env|log|sql|md|lock|sh|bak)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+<FilesMatch "^\.(?!well-known)">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# ── URL Rewriting ─────────────────────────────────────────────────────
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # ── PRODUCTION (ellcy.in): the app is installed at the web root,
+    # so RewriteBase is "/". A mismatch here is exactly what breaks
+    # every PHP-handled route (/login, /register, /account, /api/*,
+    # and — because the post-login redirect target is "/" — the
+    # user landing on a raw Apache error page instead of the
+    # homepage right after signing in).
+    #
+    # >>> LOCAL/XAMPP ONLY: if you run this copy at
+    # http://localhost/ellcy/ (a subfolder), change this back to:
+    # RewriteBase /ellcy/
+    # Relative substitutions make this work both at / and /ellcy/.
+
+    # Block PHP app internals and the archived static frontend.
+    RewriteRule ^(app|config|storage|sql|index_old)(/|$) - [F,L]
+
+    # Obsolete customer-facing Rangoli URLs are intentionally gone.
+    RewriteRule ^services/flower-rangoli(?:/.*)?$ - [G,L,NC]
+
+    # Every customer-facing document is handled by the root PHP front
+    # controller, even when a matching legacy HTML file or physical service
+    # directory exists. Static assets remain direct Apache responses.
+    RewriteRule ^index\.html$ index.php [QSA,L,NC]
+    RewriteRule ^pages(?:/.*)?\.html$ index.php [QSA,L,NC]
+    RewriteRule ^services(?:/.*)?\.html$ index.php [QSA,L,NC]
+    RewriteRule ^(?:admin|services)/index\.php$ index.php [QSA,L,NC]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^services(?:/.*)?/?$ index.php [QSA,L,NC]
+
+    # 1. Let real static assets (CSS, JS, images and fonts) be served directly.
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteRule ^ - [L]
+
+    # 2. Route every PHP-handled path to index.php explicitly.
+    # Listed individually (rather than relying only on the catch-all
+    # below) so a hosting quirk that ignores rule 4 can never again
+    # take down login/register/booking/etc. the way it took down
+    # /login before.
+    RewriteRule ^$ index.php [QSA,L]
+    RewriteRule ^admin(/.*)?$ index.php [QSA,L]
+    RewriteRule ^booking$ index.php [QSA,L]
+    RewriteRule ^request-for-call$ index.php [QSA,L]
+    RewriteRule ^search$ index.php [QSA,L]
+    RewriteRule ^services/?$ index.php [QSA,L]
+    RewriteRule ^api(/.*)?$ index.php [QSA,L]
+    RewriteRule ^enquiry(/.*)?$ index.php [QSA,L]
+    RewriteRule ^cart$ index.php [QSA,L]
+    RewriteRule ^login$ index.php [QSA,L]
+    RewriteRule ^register$ index.php [QSA,L]
+    RewriteRule ^logout$ index.php [QSA,L]
+    RewriteRule ^forgot-password$ index.php [QSA,L]
+    RewriteRule ^reset-password$ index.php [QSA,L]
+    RewriteRule ^account$ index.php [QSA,L]
+
+    # 3. Everything else that isn't a real file or directory also goes
+    # to index.php, so any route added to app routes in the future
+    # keeps working without another .htaccess edit.
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ index.php [QSA,L]
+</IfModule>
+
+# ── MIME Types ────────────────────────────────────────────────────────
+<IfModule mod_mime.c>
+    AddType image/webp        .webp
+    AddType image/svg+xml     .svg
+    AddType application/javascript .js
+    AddType text/css          .css
+</IfModule>
+
+# ── Browser Caching ───────────────────────────────────────────────────
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpeg        "access plus 1 month"
+    ExpiresByType image/png         "access plus 1 month"
+    ExpiresByType image/webp        "access plus 1 month"
+    ExpiresByType text/css          "access plus 1 week"
+    ExpiresByType application/javascript "access plus 1 week"
+</IfModule>
+
+# ── Compression ───────────────────────────────────────────────────────
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css application/javascript
+</IfModule>
+
+# ── PHP settings ──────────────────────────────────────────────────────
+<IfModule mod_php.c>
+    php_value upload_max_filesize 45M
+    php_value post_max_size 50M
+    php_value max_execution_time 60
+    php_value memory_limit 128M
+    php_flag display_errors off
+    php_flag log_errors on
+</IfModule>

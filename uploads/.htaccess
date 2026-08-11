@@ -1,0 +1,10 @@
+# Public uploads are data only. Never execute scripts from this tree.
+Options -Indexes -ExecCGI
+<IfModule mod_php.c>
+    php_flag engine off
+</IfModule>
+<FilesMatch "\.(?:php\d*|phtml|phar|pl|py|cgi|sh|asp|aspx|exe|com|bat|cmd)$">
+    Require all denied
+</FilesMatch>
+RemoveHandler .php .php3 .php4 .php5 .phtml .phar .pl .py .cgi
+RemoveType .php .php3 .php4 .php5 .phtml .phar

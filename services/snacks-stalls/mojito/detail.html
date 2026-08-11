@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="description" content="Book ELLCY Mojito & Tea Stall — Fresh mojitos and hot teas served live at your event in Chennai."/>
+    <meta name="robots" content="index, follow"/>
+  <meta name="referrer" content="strict-origin-when-cross-origin"/>
+  <meta http-equiv="X-Content-Type-Options" content="nosniff"/>
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()"/>
+<title>ELLCY | Mojito &amp; Tea</title>
+  <link rel="stylesheet" href="../../../css/style.css"/>
+  <link rel="stylesheet" href="../../../css/header2.css"/>
+  <link rel="stylesheet" href="../../../css/bouncer.css"/>
+  <link rel="stylesheet" href="../../../css/cart.css"/>
+  <style>
+    /* Description-page header overrides */
+    .bnc-desktop-hdr { display: none; }
+    @media (min-width: 769px) {
+      .bnc-desktop-hdr { display: flex; }
+      .bnc-topbar      { display: none !important; }
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" defer></script>
+</head>
+<body class="bnc-body">
+
+<!-- MOBILE BACK-BAR -->
+<header class="bnc-topbar bnc-mobile-only" role="banner" aria-label="Page navigation">
+  <button class="bnc-back-btn" onclick="_ellcySmartBack('../../../pages/services.html?type=snacks-stalls')" aria-label="Go back">
+    <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+    <span id="mBackLabel">Mojito &amp; Tea</span>
+  </button>
+  <a href="../../../pages/cart.html" class="bnc-cart-btn" aria-label="View cart">
+    <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i>
+    <span class="bnc-cart-label">Cart</span>
+    <span class="cart-badge" style="display:none">0</span>
+  </a>
+</header>
+
+<!-- DESKTOP HEADER -->
+<header class="header new-header bnc-desktop-hdr" role="banner">
+  <a class="logo" href="../../../index.html" aria-label="ELLCY Home">ELLCY</a>
+  <a href="../../../pages/cart.html" class="cart-header-btn" aria-label="View cart">
+    <i class="fa-solid fa-cart-shopping"></i>
+    <span class="cart-btn-label">Cart</span>
+    <span class="cart-badge" style="display:none">0</span>
+  </a>
+</header>
+<nav class="breadcrumb bnc-desktop-hdr" aria-label="Breadcrumb" style="padding:12px 28px 4px;font-size:.85rem;color:#888;align-items:center;height:auto;min-height:auto;background:transparent;box-shadow:none;">
+  <a href="../../../index.html" style="color:#6b21a8;font-weight:600;text-decoration:none;">Home</a>
+  <span style="padding:0 4px;">/</span>
+  <a href="../../../pages/services.html?type=snacks-stalls" style="color:#6b21a8;font-weight:600;text-decoration:none;">Snacks &amp; Stalls</a>
+  <span style="padding:0 4px;">/</span>
+  <a href="index.html" style="color:#6b21a8;font-weight:600;text-decoration:none;">Mojito &amp; Tea</a>
+  <span style="padding:0 4px;">/</span>
+  <span id="dBreadcrumbCurrent" style="color:#444;font-weight:600;">Lemon Mojito</span>
+</nav>
+
+<!-- DESKTOP HERO -->
+<div class="bnc-desktop-wrap">
+  <div class="bnc-desktop-hero">
+    <div class="bnc-img-mosaic">
+      <img class="bnc-mosaic-main" src="../../../uploads/services/mojito.png" alt="Mojito & Tea" loading="eager"/>
+      <img class="bnc-mosaic-t1"   src="../../../uploads/services/mojito.png" alt="Fresh Mojito" loading="lazy"/>
+      <img class="bnc-mosaic-t2"   src="../../../uploads/services/mojito.png" alt="Tea Counter" loading="lazy"/>
+    </div>
+    <div class="bnc-info-panel">
+      <div class="bnc-title-row">
+        <h1 class="bnc-title" id="dTitle">Mojito &amp; Tea</h1>
+        <span class="bnc-rating-chip" id="dRating">★ 4.6</span>
+      </div>
+      <div class="bnc-chips">
+        <span class="bnc-chip"><i class="fa-solid fa-leaf"></i> Fresh Ingredients</span>
+        <span class="bnc-chip"><i class="fa-solid fa-calendar-check"></i> Booking Available All Year</span>
+        <span class="bnc-chip"><i class="fa-solid fa-users"></i> 400+ Happy Guests</span>
+      </div>
+      <p class="bnc-avail" id="dAvail">Available for Weddings, Birthdays, Corporate &amp; College Events</p>
+      <p class="bnc-tags" id="dTags">Fresh | Refreshing | Served Live</p>
+      <div class="bnc-rate-tag" id="dRateTag">₹20 <span>per cup</span></div>
+      <div class="bnc-qty-card">
+        <div class="bnc-qty-header">
+          <label class="bnc-qty-label" id="dQtyLabel">Number of Cups</label>
+          <div class="bnc-qty-ctrl">
+            <button type="button" class="bnc-minus" id="dMinus" aria-label="Decrease">−</button>
+            <input type="number" id="dQty" class="bnc-qty-inp" value="10" min="1" max="1000" aria-label="Cup count"/>
+            <button type="button" class="bnc-plus" id="dPlus" aria-label="Increase">+</button>
+          </div>
+        </div>
+        <div class="bnc-total-row">
+          <span class="bnc-total-lbl">Total Amount</span>
+          <span class="bnc-total-val" id="dTotal">₹20 × 10 = <b>₹200</b></span>
+        </div>
+      </div>
+      <div class="bnc-cta-row">
+        <button class="bnc-btn-book" id="dCart">
+          <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i> Add to Cart
+        </button>
+        <a class="bnc-btn-call" href="../../../pages/request-for-call.html">
+          <i class="fa-solid fa-phone" aria-hidden="true"></i> Call Now
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MOBILE HERO IMAGE -->
+<div class="bnc-mobile-hero bnc-mobile-only">
+  <img src="../../../uploads/services/mojito.png" alt="Mojito &amp; Tea Stall"/>
+</div>
+
+<!-- SHARED MAIN -->
+<main class="bnc-main" role="main">
+  <div class="bnc-mobile-only">
+    <div class="bnc-title-row">
+      <h1 class="bnc-title" id="mTitle">Mojito &amp; Tea</h1>
+      <span class="bnc-rating-chip" id="mRating">★ 4.6</span>
+    </div>
+    <p class="bnc-avail" id="mAvail">Available for Weddings, Birthdays, Corporate &amp; College Events</p>
+    <p class="bnc-tags" id="mTags">Fresh | Refreshing | Served Live</p>
+    <div class="bnc-rate-line">
+      <span class="bnc-rate-price" id="mRatePrice">₹20</span>
+      <span class="bnc-rate-per" id="mRatePer">/ cup</span>
+    </div>
+    <div class="bnc-qty-card">
+      <div class="bnc-qty-header">
+        <label class="bnc-qty-label" id="mQtyLabel">Number of Cups</label>
+        <div class="bnc-qty-ctrl">
+          <button type="button" class="bnc-minus" id="mMinus" aria-label="Decrease">−</button>
+          <input type="number" id="mQty" class="bnc-qty-inp" value="10" min="1" max="1000" aria-label="Cup count"/>
+          <button type="button" class="bnc-plus" id="mPlus" aria-label="Increase">+</button>
+        </div>
+      </div>
+      <div class="bnc-total-row">
+        <span class="bnc-total-lbl">Total Amount</span>
+        <span class="bnc-total-val" id="mTotal">₹20 × 10 = <b>₹200</b></span>
+      </div>
+    </div>
+    <div class="bnc-chips">
+      <span class="bnc-chip"><i class="fa-solid fa-leaf"></i> Fresh Ingredients</span>
+      <span class="bnc-chip"><i class="fa-solid fa-calendar-check"></i> Booking Available All Year</span>
+      <span class="bnc-chip"><i class="fa-solid fa-users"></i> 400+ Happy Guests</span>
+    </div>
+    <div class="bnc-cta-row">
+      <button class="bnc-btn-book" id="mCart">
+        <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i> Add to Cart
+      </button>
+      <a class="bnc-btn-call" href="../../../pages/request-for-call.html">
+        <i class="fa-solid fa-phone" aria-hidden="true"></i> Call Now
+      </a>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="bnc-tabs" role="tablist">
+    <button type="button" class="bnc-tab active" data-tab="overview" role="tab" aria-selected="true">Overview</button>
+    <button type="button" class="bnc-tab" data-tab="reviews" role="tab" aria-selected="false">Reviews</button>
+  </div>
+
+  <div class="bnc-tab-body" id="tabOverview" role="tabpanel">
+    <p id="overviewText">Our fresh mojito and tea counter brings vibrant flavours to your event. Every cup is prepared live with fresh mint, natural fruits and premium ingredients — served chilled or hot as required.</p>
+    <p>Perfect for weddings, birthday parties, corporate events and college functions. Our experienced counter staff ensure speedy service so guests are never kept waiting.</p>
+  </div>
+  <div class="bnc-tab-body hidden" id="tabReviews" role="tabpanel">
+    <div class="bnc-reviews">
+      <div class="bnc-review-card">
+        <div class="bnc-review-hdr">
+          <span class="bnc-reviewer">Kavitha S.</span>
+          <span class="bnc-stars">★★★★★</span>
+        </div>
+        <p>The lemon mojito was a massive hit at our wedding! Guests were lining up for refills. Super refreshing!</p>
+      </div>
+      <div class="bnc-review-card">
+        <div class="bnc-review-hdr">
+          <span class="bnc-reviewer">Rahul M.</span>
+          <span class="bnc-stars">★★★★★</span>
+        </div>
+        <p>Booked the tea counter for our morning reception. Perfect hot chai — aromatic and just right. Highly recommended.</p>
+      </div>
+      <div class="bnc-review-card">
+        <div class="bnc-review-hdr">
+          <span class="bnc-reviewer">Deepa K.</span>
+          <span class="bnc-stars">★★★★☆</span>
+        </div>
+        <p>Great service and fresh ingredients. Strawberry mojito was delicious! Will book again for our next event.</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">ELLCY</div>
+      <p class="footer-text">Creating unforgettable moments — weddings, birthdays, college events and temple celebrations across Chennai.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="../../../index.html">Home</a></li>
+        <li><a href="../../../pages/services.html?type=snacks-stalls">Snacks &amp; Stalls</a></li>
+        <li><a href="index.html">Mojito &amp; Tea</a></li>
+        <li><a href="../../../pages/booking.html">Book Now</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p class="footer-contact-item">+91 123-456-789</p>
+      <p class="footer-contact-item">info@ellcy.in</p>
+      <p class="footer-contact-item">Chennai, Tamil Nadu</p>
+    </div>
+    <div class="footer-col">
+      <h4>Get a Quote</h4>
+      <p class="footer-quote-text">Have an event in mind? Let us help you plan it.</p>
+      <a class="footer-enquiry-btn" href="../../../pages/booking.html">
+        <i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Book Now
+      </a>
+    </div>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="footer-bottom">
+    <p><span id="year"></span> &copy; ELLCY &mdash; All Rights Reserved.</p>
+    <div class="footer-social">
+      <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" aria-label="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function _ellcySmartBack(fallbackUrl){
+    if(window.history.length>1 && document.referrer && document.referrer.includes(window.location.hostname)){
+      window.history.back();
+    } else {
+      window.location.href = fallbackUrl;
+    }
+  }
+(function(){
+  'use strict';
+
+  var DRINKS = {
+    /* Evening mojitos */
+    'strawberry-mojito':  { label:'Strawberry Mojito',  price:20, rating:'4.7', tags:'Fruity | Sweet | Refreshing',    avail:'Available for Weddings, Birthdays, Corporate & College Events', desc:'Sweet strawberry blended with fresh mint and lime — a fruity crowd favourite served chilled at your event.' },
+    'watermelon-mojito':  { label:'Watermelon Mojito',  price:20, rating:'4.6', tags:'Cool | Light | Hydrating',       avail:'Available for Weddings, Birthdays, Corporate & College Events', desc:'Refreshing watermelon with fresh mint — light, cooling and loved by guests of all ages.' },
+    'green-apple-mojito': { label:'Green Apple Mojito', price:20, rating:'4.6', tags:'Tangy | Crisp | Unique',         avail:'Available for Weddings, Birthdays, Corporate & College Events', desc:'Tangy green apple with lime and fresh mint — crisp, uniquely refreshing and utterly crowd-pleasing.' },
+    'lemon-mojito':       { label:'Lemon Mojito',       price:20, rating:'4.8', tags:'Classic | Zesty | Timeless',     avail:'Available for Weddings, Birthdays, Corporate & College Events', desc:'Classic lemon mint mojito — the timeless refreshing favourite that every guest will love.' },
+    'blue-curacao-mojito':{ label:'Blue Curacao Mojito',price:20, rating:'4.5', tags:'Vibrant | Tropical | Stunning',  avail:'Available for Weddings, Birthdays, Corporate & College Events', desc:'Stunning blue curacao with citrus and mint — vibrant colour and tropical taste for a memorable event.' },
+    /* Morning beverages */
+    'tea':    { label:'Tea',    price:15, rating:'4.6', tags:'Aromatic | Warm | Soothing',   avail:'Available for Weddings, Receptions, Corporate & Morning Events', desc:'Freshly brewed hot tea — aromatic, soothing and the perfect companion for morning ceremony guests.' },
+    'coffee': { label:'Coffee', price:15, rating:'4.7', tags:'Bold | Rich | Invigorating',   avail:'Available for Weddings, Receptions, Corporate & Morning Events', desc:'Rich hot coffee brewed fresh — bold and invigorating to keep your morning event guests energised.' },
+  };
+
+  var params  = new URLSearchParams(window.location.search);
+  var typeKey = params.get('type') || 'lemon-mojito';
+  var cfg     = DRINKS[typeKey] || DRINKS['lemon-mojito'];
+
+  var isTea = (typeKey === 'tea' || typeKey === 'coffee');
+
+  function fmt(n){ return Number(n).toLocaleString('en-IN'); }
+  function calcStr(qty){ return '₹' + fmt(cfg.price) + ' × ' + qty + ' = <b>₹' + fmt(cfg.price * qty) + '</b>'; }
+
+  function setTxt(id, v){ var el=document.getElementById(id); if(el) el.textContent=v; }
+  function setHtml(id, v){ var el=document.getElementById(id); if(el) el.innerHTML=v; }
+
+  /* Populate content */
+  document.title = 'ELLCY | ' + cfg.label;
+  setTxt('mBackLabel', isTea ? 'Tea Counter' : 'Mojito Bar');
+  setTxt('mTitle', cfg.label);  setTxt('dTitle', cfg.label);
+  setTxt('dBreadcrumbCurrent', cfg.label);
+  setTxt('mRating', '★ ' + cfg.rating); setTxt('dRating', '★ ' + cfg.rating);
+  setTxt('mAvail', cfg.avail);  setTxt('dAvail', cfg.avail);
+  setTxt('mTags', cfg.tags);    setTxt('dTags', cfg.tags);
+  setTxt('mRatePrice', '₹' + fmt(cfg.price));
+  setTxt('mRatePer', '/ cup');
+  setHtml('dRateTag', '₹' + fmt(cfg.price) + ' <span>per cup</span>');
+
+  var qtyLabel = isTea ? 'Number of Cups' : 'Number of Cups';
+  setTxt('mQtyLabel', qtyLabel); setTxt('dQtyLabel', qtyLabel);
+
+  var ov = document.getElementById('overviewText');
+  if (ov) ov.textContent = cfg.desc + ' Our ' + cfg.label + (isTea ? ' counter' : ' stall') + ' is perfect for intimate celebrations and grand receptions alike. Served live by our trained counter staff, every cup is freshly prepared to delight your guests.';
+
+  /* Qty logic */
+  function syncQty(val){
+    val = Math.max(1, Math.min(1000, parseInt(val)||1));
+    ['mQty','dQty'].forEach(function(id){ var el=document.getElementById(id); if(el) el.value=val; });
+    ['mTotal','dTotal'].forEach(function(id){ var el=document.getElementById(id); if(el) el.innerHTML=calcStr(val); });
+    return val;
+  }
+  function wire(minusId, plusId, inputId){
+    var minus=document.getElementById(minusId), plus=document.getElementById(plusId), inp=document.getElementById(inputId);
+    if(!minus||!plus||!inp) return;
+    minus.addEventListener('click', function(){ syncQty(parseInt(inp.value||1)-1); });
+    plus.addEventListener('click',  function(){ syncQty(parseInt(inp.value||1)+1); });
+    inp.addEventListener('input',   function(){ syncQty(this.value); });
+    inp.addEventListener('change',  function(){ syncQty(this.value); });
+  }
+  wire('mMinus','mPlus','mQty');
+  wire('dMinus','dPlus','dQty');
+
+  function handleCartAdd(){
+    var qtyEl = document.getElementById('mQty') || document.getElementById('dQty');
+    var qty = parseInt((qtyEl && qtyEl.value) || 10);
+    qty = Math.max(1, qty);
+    var total = cfg.price * qty;
+    var cart = JSON.parse(localStorage.getItem('ellcy_cart') || '[]');
+    var cartKey = 'mojito-' + typeKey;
+    var ex = cart.find(function(i){ return i.id === cartKey; });
+    if(ex){ ex.qty += qty; }
+    else { cart.push({ id:cartKey, title:cfg.label, price:cfg.price, qty:qty, image:'../../../uploads/services/mojito.png' }); }
+    localStorage.setItem('ellcy_cart', JSON.stringify(cart));
+    document.querySelectorAll('.cart-badge').forEach(function(b){ b.style.display=''; b.textContent=cart.reduce(function(s,i){return s+i.qty;},0); });
+    alert(cfg.label + ' (' + qty + ' cups = ₹' + fmt(total) + ') added to cart!');
+  }
+  ['mCart','dCart'].forEach(function(id){ var el=document.getElementById(id); if(el) el.addEventListener('click', handleCartAdd); });
+
+  /* Tabs */
+  document.querySelectorAll('.bnc-tab').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      document.querySelectorAll('.bnc-tab').forEach(function(t){ t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+      document.querySelectorAll('.bnc-tab-body').forEach(function(b){ b.classList.add('hidden'); });
+      tab.classList.add('active'); tab.setAttribute('aria-selected','true');
+      var target = document.getElementById('tab' + tab.dataset.tab.charAt(0).toUpperCase() + tab.dataset.tab.slice(1));
+      if(target) target.classList.remove('hidden');
+    });
+  });
+
+  syncQty(10);
+  var yr = document.getElementById('year'); if(yr) yr.textContent = new Date().getFullYear();
+})();
+</script>
+<script src="../../data.js"></script>
+  <script src="../../../js/auth.js"></script>
+<script src="../../../js/cart.js"></script>
+</body>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="description" content="Book ELLCY event services — Professional entertainment for weddings, birthdays &amp; celebrations in Chennai."/>
+    <meta name="robots" content="index, follow"/>
+  <meta name="referrer" content="strict-origin-when-cross-origin"/>
+  <meta http-equiv="X-Content-Type-Options" content="nosniff"/>
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()"/>
+<title>ELLCY | Service</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <link rel="stylesheet" href="../css/service-desc.css"/>
+  <link rel="stylesheet" href="../css/cart.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" defer></script>
+</head>
+<body class="sd-body">
+
+  <!-- ══ MOBILE HEADER ══════════════════════════════════════════ -->
+  <header class="sd-topbar sd-mob" role="banner" aria-label="Page navigation">
+    <button class="sd-back-btn" onclick="history.back()" aria-label="Go back">
+      <i class="fa-solid fa-arrow-left"></i>
+      <span id="sdBackLabel">Back</span>
+    </button>
+    <a href="cart.html" class="sd-cart-mob" aria-label="View cart">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <span class="sd-cart-label">Cart</span>
+      <span class="cart-badge" style="display:none">0</span>
+    </a>
+  </header>
+
+  <!-- ══ DESKTOP HEADER ═════════════════════════════════════════ -->
+  <header class="sd-dsk-hdr sd-dsk" role="banner">
+    <a class="sd-logo" href="../index.html" aria-label="ELLCY Home">ELLCY</a>
+    <a href="cart.html" class="sd-cart-dsk" aria-label="View cart">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <span>Cart</span>
+      <span class="cart-badge" style="display:none">0</span>
+    </a>
+  </header>
+  <nav class="breadcrumb" aria-label="Breadcrumb" id="sdBreadcrumb">
+    <a href="../index.html">Home</a> / <span id="sdBreadcrumbLabel"></span>
+  </nav>
+
+  <!-- ══ MOBILE HERO IMAGE ═══════════════════════════════════════ -->
+  <div class="sd-hero-mob sd-mob">
+    <img id="sdImgMob" src="" alt="Service"/>
+    <span class="sd-hero-rating sd-rating-val"></span>
+  </div>
+
+  <!-- ══ DESKTOP HERO  (mosaic + info panel) ════════════════════ -->
+  <div class="sd-dsk-hero sd-dsk">
+
+    <!-- Image mosaic -->
+    <div class="sd-mosaic">
+      <img class="sd-mosaic-main" id="sdImgMain" src="" alt="Service main" loading="eager"/>
+      <img class="sd-mosaic-t1"   id="sdImgT1"   src="" alt="Service detail" loading="lazy"/>
+      <img class="sd-mosaic-t2"   id="sdImgT2"   src="" alt="Service event" loading="lazy"/>
+    </div>
+
+    <!-- Info panel -->
+    <div class="sd-info">
+      <div class="sd-title-row">
+        <h1 class="sd-title"></h1>
+        <span class="sd-rating-chip sd-rating-val"></span>
+      </div>
+
+      <div class="sd-chips">
+        <span class="sd-chip">
+          <i class="fa-solid fa-calendar-check"></i> Booking Available All Year
+        </span>
+        <span class="sd-chip">
+          <i class="fa-solid fa-users"></i> 320+ Happy Clients
+        </span>
+        <span class="sd-chip">
+          <i class="fa-solid fa-location-dot"></i> Chennai &amp; Surrounding Areas
+        </span>
+      </div>
+
+      <p class="sd-avail"></p>
+      <p class="sd-subtags"></p>
+
+      <!-- Package pills -->
+      <div class="sd-pkg-section">
+        <div class="sd-pkg-label">Select Package</div>
+        <div class="sd-pkg-pills" id="sdPkgPillsD" role="group" aria-label="Select package"></div>
+      </div>
+
+      <!-- Time slot pills -->
+      <div class="sd-slot-section">
+        <div class="sd-slot-label">Preferred Time Slot</div>
+        <div class="sd-slot-pills">
+          <button type="button" class="sd-slot-pill active" data-slot="Morning">Morning</button>
+          <button type="button" class="sd-slot-pill" data-slot="Evening">Evening</button>
+          <button type="button" class="sd-slot-pill" data-slot="Both">Both</button>
+        </div>
+      </div>
+
+      <!-- Price + CTAs -->
+      <div class="sd-dsk-price-block">
+        <div class="sd-dsk-price-line">
+          <span class="sd-price-val">₹<span id="sdPriceD">0</span></span>
+          <span class="sd-price-meta-d"></span>
+        </div>
+        <div class="sd-dsk-ctas">
+          <button class="sd-btn-cart" id="btnCartD" type="button">
+            <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+          </button>
+          <a class="sd-btn-call" href="../pages/request-for-call.html">
+            <i class="fa-solid fa-phone"></i> Call Now
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ MAIN CONTENT ══════════════════════════════════════════ -->
+  <main class="sd-main" role="main">
+
+    <!-- Mobile info block -->
+    <div class="sd-mob">
+      <div class="sd-title-row">
+        <h1 class="sd-title"></h1>
+        <span class="sd-rating-chip sd-rating-val"></span>
+      </div>
+      <p class="sd-avail"></p>
+      <p class="sd-subtags"></p>
+
+      <!-- Package pills (mobile) -->
+      <div class="sd-pkg-section">
+        <div class="sd-pkg-label">Select Package</div>
+        <div class="sd-pkg-pills" id="sdPkgPillsM" role="group" aria-label="Select package"></div>
+      </div>
+
+      <!-- Time slot (mobile) -->
+      <div class="sd-slot-section">
+        <div class="sd-slot-label">Preferred Time Slot</div>
+        <div class="sd-slot-pills">
+          <button type="button" class="sd-slot-pill active" data-slot="Morning">Morning</button>
+          <button type="button" class="sd-slot-pill" data-slot="Evening">Evening</button>
+          <button type="button" class="sd-slot-pill" data-slot="Both">Both</button>
+        </div>
+      </div>
+
+      <!-- Price block -->
+      <div class="sd-price-block">
+        <span class="sd-price-val">₹<span id="sdPrice">0</span></span>
+        <span class="sd-price-meta"></span>
+      </div>
+
+      <!-- Info chips -->
+      <div class="sd-chips" style="margin-bottom:16px">
+        <span class="sd-chip"><i class="fa-solid fa-calendar-check"></i> Booking Available All Year</span>
+        <span class="sd-chip"><i class="fa-solid fa-users"></i> 320+ Happy Clients</span>
+        <span class="sd-chip"><i class="fa-solid fa-location-dot"></i> Chennai &amp; Surrounding Areas</span>
+      </div>
+
+      <!-- Mobile CTAs -->
+      <div class="sd-cta-row">
+        <button class="sd-btn-cart" id="btnCartM" type="button">
+          <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+        </button>
+        <a class="sd-btn-call" href="../pages/request-for-call.html">
+          <i class="fa-solid fa-phone"></i> Call Now
+        </a>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="sd-tabs" role="tablist">
+      <button type="button" class="sd-tab active" data-tab="overview" role="tab" aria-selected="true">Overview</button>
+      <button type="button" class="sd-tab" data-tab="reviews" role="tab" aria-selected="false">Reviews</button>
+    </div>
+
+    <div class="sd-tab-body" id="tabOverview" role="tabpanel">
+      <p>Loading…</p>
+    </div>
+    <div class="sd-tab-body hidden" id="tabReviews" role="tabpanel">
+      <p>No reviews yet.</p>
+    </div>
+
+    <!-- Package / Pricing Cards -->
+    <div class="sd-cards-section">
+      <h2 class="sd-cards-heading">Packages &amp; Pricing</h2>
+      <div class="sd-cards-grid" id="sdCardsGrid" role="list"></div>
+    </div>
+
+  </main>
+
+  <!-- ══ FOOTER ════════════════════════════════════════════════ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">ELLCY</div>
+        <p class="footer-text">Creating unforgettable moments — weddings, birthdays, college events and temple celebrations across Chennai.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="services.html">Event Services</a></li>
+          <li><a href="category.html">Categories</a></li>
+          <li><a href="booking.html">Book Now</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p class="footer-contact-item">+91 123-456-789</p>
+        <p class="footer-contact-item">info@ellcy.in</p>
+        <p class="footer-contact-item">Chennai, Tamil Nadu</p>
+      </div>
+      <div class="footer-col">
+        <h4>Book Your Event</h4>
+        <p class="footer-quote-text">Add services to cart and confirm your booking.</p>
+        <a class="footer-enquiry-btn" href="booking.html">
+          <i class="fa-solid fa-calendar-check"></i> Book Now
+        </a>
+      </div>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-bottom">
+      <p><span id="year"></span> &copy; ELLCY &mdash; All Rights Reserved.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SD_CONFIG injected by individual service pages or query-param loader -->
+  <script src="../js/data.js"></script>
+    <script src="../js/auth.js"></script>
+<script src="../js/cart.js"></script>
+  <script src="../js/service-desc.js"></script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="description" content="ELLCY event services — browse all our wedding, birthday and celebration services."/>
+    <meta name="keywords" content="event services Chennai, wedding services, ELLCY services"/>
+  <meta property="og:title" content="ELLCY | Event Services"/>
+  <meta property="og:description" content="Browse all ELLCY event services — dancers, music performers, catering, photography and more for Chennai events."/>
+  <meta property="og:type" content="website"/>
+  <meta name="robots" content="index, follow"/>
+  <meta name="referrer" content="strict-origin-when-cross-origin"/>
+  <meta http-equiv="X-Content-Type-Options" content="nosniff"/>
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()"/>
+<title>ELLCY | Services</title>
+
+  <link rel="stylesheet" href="../css/style.css"/>
+  <link rel="stylesheet" href="../css/header2.css"/>
+  <link rel="stylesheet" href="../css/cart.css"/>
+  <link rel="stylesheet" href="../css/services.css?v=20260804.8"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" defer></script>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header new-header" role="banner">
+  <button class="hdr-back-btn" onclick="history.back()" aria-label="Go back">
+    <i class="fa-solid fa-arrow-left" aria-hidden="true"></i><span>Back</span>
+  </button>
+  <span class="hdr-mobile-title">Services</span>
+  <a class="logo" href="../index.html" aria-label="ELLCY Home">ELLCY</a>
+  <a href="cart.html" class="cart-header-btn hdr-cart-right" aria-label="View cart">
+    <i class="fa-solid fa-cart-shopping"></i>
+    <span class="cart-btn-label">Cart</span>
+    <span class="cart-badge" style="display:none">0</span>
+  </a>
+</header>
+
+
+<!-- ─── MAIN ─────────────────────────────────────────────── -->
+<main class="container service-page" role="main">
+  <nav class="breadcrumb" aria-label="Breadcrumb" id="breadcrumbNav">
+    <a href="../index.html">Home</a> / <span id="breadcrumb-label">Services</span>
+  </nav>
+
+  <h1 class="page-heading" id="page-heading">Services</h1>
+  <div class="filters" id="filtersContainer" role="group" aria-label="Filter by event type"></div>
+  <div class="service-grid" id="servicesGrid" aria-live="polite"></div>
+</main>
+
+<!-- ─── FOOTER ─────────────────────────────────────────────── -->
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">ELLCY</div>
+      <p class="footer-text">Creating unforgettable moments — weddings, birthdays, college events and temple celebrations across Chennai.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="services.html?type=photography">Event Services</a></li>
+        <li><a href="category.html?type=wedding">Categories</a></li>
+        <li><a href="booking.html">Book Now</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p class="footer-contact-item">+91 123-456-789</p>
+      <p class="footer-contact-item">info@ellcy.in</p>
+      <p class="footer-contact-item">Chennai, Tamil Nadu</p>
+    </div>
+    <div class="footer-col">
+      <h4>Get a Quote</h4>
+      <p class="footer-quote-text">Have an event in mind? Let us help you plan it.</p>
+      <a class="footer-enquiry-btn" href="booking.html">
+        <i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Book Now
+      </a>
+    </div>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="footer-bottom">
+    <p><span id="year"></span> &copy; ELLCY &mdash; All Rights Reserved.</p>
+    <div class="footer-social">
+      <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" aria-label="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+    </div>
+  </div>
+</footer>
+<script>
+  (function(){ var yr=document.getElementById('year'); if(yr) yr.textContent=new Date().getFullYear(); })();
+</script>
+
+  <script src="../js/data.js?v=20260804.4"></script>
+  <script src="../js/services.js?v=20260805.2"></script>
+  <script src="../js/auth.js"></script>
+<script src="../js/cart.js"></script>
+</body>
+</html>

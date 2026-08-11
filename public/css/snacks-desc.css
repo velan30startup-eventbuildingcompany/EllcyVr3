@@ -1,0 +1,441 @@
+/* ================================================================
+   snacks-desc.css — ELLCY Snacks & Stalls Description Pages
+   Covers: Cotton Candy, Pop Corn, Chocolate Fountain,
+           Fruit Salad (sub-types), Ice Cream (sub-types)
+   Mobile-first | Urbanist | Purple design system
+   ================================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --pri:       #6b21a8;
+  --pri-dark:  #4e0d7a;
+  --pri-light: #f4e9ff;
+  --border:    #e0d5f5;
+  --txt:       #111;
+  --txt-2:     #444;
+  --txt-3:     #888;
+  --white:     #fff;
+  --bg:        #f7f3ff;
+  --gold:      #f59e0b;
+}
+
+.snk-body {
+  font-family: 'Urbanist', sans-serif;
+  background: var(--bg);
+  color: var(--txt);
+  min-height: 100vh;
+  line-height: 1.55;
+}
+.snk-body a   { color: var(--pri); text-decoration: none; }
+.snk-body img { display: block; max-width: 100%; }
+
+/* ── Visibility ─────────────────────────────────────────────── */
+.snk-mob { display: block; }
+.snk-dsk { display: none;  }
+.hidden   { display: none !important; }
+
+/* ================================================================
+   MOBILE TOP-BAR
+   ================================================================ */
+.snk-topbar {
+  position: sticky; top: 0; z-index: 200;
+  width: 100%; min-height: 56px; height: auto;
+  background: var(--pri);
+  display: flex; align-items: center;
+  justify-content: space-between;
+  gap: 10px; padding: 8px 16px;
+  box-sizing: border-box;
+  box-shadow: 0 2px 12px rgba(107,33,168,.35);
+}
+.snk-back-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: none; border: none; color: #fff;
+  font-family: inherit; font-size: .95rem; font-weight: 700;
+  cursor: pointer; padding: 0; white-space: nowrap;
+}
+.snk-cart-mob {
+  position: relative;
+  display: inline-flex; align-items: center; gap: 7px;
+  background: #fff; border-radius: 9px;
+  color: #6b21a8; font-size: .88rem; font-weight: 700;
+  text-decoration: none; padding: 8px 14px;
+  white-space: nowrap; flex-shrink: 0;
+  transition: background .18s, transform .15s;
+  font-family: inherit;
+}
+.snk-cart-mob:hover { background: #f4e9ff; transform: translateY(-1px); }
+.snk-cart-mob i { font-size: .95rem; }
+.snk-cart-mob .cart-badge { top: -6px; right: -6px; border-color: var(--pri); }
+
+/* ================================================================
+   DESKTOP HEADER
+   ================================================================ */
+.snk-dsk-hdr {
+  display: none;
+  position: sticky; top: 0; z-index: 200;
+  width: 100%; height: 62px;
+  background: var(--pri);
+  align-items: center; justify-content: space-between;
+  padding: 0 28px;
+  box-shadow: 0 2px 14px rgba(107,33,168,.3);
+}
+.snk-dsk-hdr .snk-logo {
+  font-size: 1.3rem; font-weight: 900;
+  color: #fff; letter-spacing: .04em; text-decoration: none;
+}
+.snk-dsk-hdr .snk-cart-dsk {
+  position: relative;
+  display: inline-flex; align-items: center; gap: 7px;
+  background: #fff; color: var(--pri); border-radius: 9px;
+  padding: 9px 18px;
+  font-family: inherit; font-size: .9rem; font-weight: 700;
+  text-decoration: none;
+  transition: background .2s, transform .15s;
+}
+.snk-dsk-hdr .snk-cart-dsk:hover { background: #f4e9ff; transform: translateY(-1px); }
+.snk-dsk-hdr .snk-cart-dsk .cart-badge { top: -7px; right: -7px; border-color: var(--pri-dark); }
+
+/* ================================================================
+   BREADCRUMB
+   ================================================================ */
+.snk-breadcrumb {
+  display: none;
+  font-size: .85rem; color: var(--txt-3);
+  padding: 12px 28px 0;
+}
+.snk-breadcrumb a { color: var(--pri); font-weight: 600; text-decoration: none; }
+.snk-breadcrumb a:hover { text-decoration: underline; }
+
+/* ================================================================
+   MOBILE HERO IMAGE
+   ================================================================ */
+.snk-hero-mob {
+  position: relative; width: 100%;
+  aspect-ratio: 4 / 3; max-height: 300px;
+  overflow: hidden; background: #1a0a2e;
+}
+.snk-hero-mob img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.snk-hero-rating {
+  position: absolute; top: 10px; right: 10px;
+  background: rgba(0,0,0,.55); color: var(--gold);
+  font-size: .75rem; font-weight: 700;
+  padding: 4px 9px; border-radius: 999px;
+  backdrop-filter: blur(4px);
+}
+
+/* ================================================================
+   DESKTOP HERO — mosaic + info panel
+   ================================================================ */
+.snk-dsk-hero {
+  display: none;
+  max-width: 1200px; margin: 0 auto;
+  padding: 24px 28px 0;
+  gap: 32px; align-items: flex-start;
+}
+.snk-mosaic {
+  flex: 1.4; flex-shrink: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 260px 200px;
+  gap: 6px; border-radius: 16px; overflow: hidden;
+}
+.snk-mosaic img { width: 100%; height: 100%; object-fit: cover; }
+.snk-mosaic-main { grid-column: 1; grid-row: 1 / 3; }
+.snk-mosaic-t1   { grid-column: 2; grid-row: 1; }
+.snk-mosaic-t2   { grid-column: 2; grid-row: 2; }
+.snk-info { flex: 1; display: flex; flex-direction: column; padding-top: 4px; }
+
+/* ================================================================
+   MAIN CONTENT AREA
+   ================================================================ */
+.snk-main {
+  width: 100%; max-width: 720px;
+  margin: 0 auto;
+  padding: 18px 16px 60px;
+  background: var(--white);
+}
+
+/* ── Title row ──────────────────────────────────────────────── */
+.snk-title-row {
+  display: flex; align-items: flex-start;
+  justify-content: space-between; gap: 10px;
+  margin-bottom: 6px;
+}
+.snk-title {
+  font-size: 1.6rem; font-weight: 800;
+  color: #1a1a2e; line-height: 1.2;
+}
+.snk-rating-chip {
+  flex-shrink: 0;
+  background: var(--pri); color: #fff;
+  font-size: .78rem; font-weight: 700;
+  padding: 4px 10px; border-radius: 6px;
+  letter-spacing: .03em; margin-top: 4px; white-space: nowrap;
+}
+
+/* ── Price line ─────────────────────────────────────────────── */
+.snk-price-row {
+  display: flex; align-items: baseline; gap: 10px;
+  margin-bottom: 4px;
+}
+.snk-price-val {
+  font-size: 1.9rem; font-weight: 900;
+  color: var(--pri); letter-spacing: -.01em;
+}
+.snk-price-unit {
+  font-size: .82rem; color: var(--txt-3); font-weight: 600;
+}
+.snk-price-tags {
+  font-size: .77rem; color: var(--txt-3); font-weight: 500;
+  margin-bottom: 14px;
+}
+
+/* ── Info chips ─────────────────────────────────────────────── */
+.snk-chips {
+  display: flex; flex-wrap: wrap; gap: 6px 14px;
+  margin-bottom: 10px;
+}
+.snk-chip {
+  display: flex; align-items: center; gap: 7px;
+  font-size: .82rem; color: var(--txt-2); font-weight: 600;
+}
+.snk-chip i { color: var(--pri); width: 15px; text-align: center; }
+
+/* ── Availability ───────────────────────────────────────────── */
+.snk-avail {
+  font-size: .82rem; font-weight: 700;
+  color: var(--pri); margin-bottom: 16px;
+}
+
+/* ── Quantity card (for per-unit services) ──────────────────── */
+.snk-qty-card {
+  background: var(--pri-light);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px; margin-bottom: 16px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.snk-qty-header {
+  display: flex; align-items: center;
+  justify-content: space-between; flex-wrap: wrap; gap: 10px;
+}
+.snk-qty-label {
+  font-size: .84rem; font-weight: 700;
+  color: var(--txt-2); white-space: nowrap;
+}
+.snk-qty-ctrl {
+  display: flex; align-items: center;
+  border: 1.5px solid var(--border);
+  border-radius: 10px; overflow: hidden; background: var(--white);
+}
+.snk-minus, .snk-plus {
+  width: 40px; height: 40px;
+  background: var(--white); border: none;
+  font-size: 1.3rem; font-weight: 700;
+  color: var(--pri); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: background .15s; font-family: inherit;
+}
+.snk-minus:hover, .snk-plus:hover { background: var(--pri-light); }
+.snk-qty-inp {
+  width: 60px; height: 40px; border: none;
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  text-align: center;
+  font-size: .95rem; font-weight: 700;
+  color: #1a1a2e; font-family: inherit; outline: none;
+  -moz-appearance: textfield; appearance: textfield;
+}
+.snk-qty-inp::-webkit-outer-spin-button,
+.snk-qty-inp::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+.snk-total-row {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  background: var(--white);
+  border: 1px solid var(--border); border-radius: 10px;
+  padding: 11px 14px;
+}
+.snk-total-lbl { font-size: .8rem; font-weight: 700; color: #666; white-space: nowrap; }
+.snk-total-val { font-size: .88rem; color: var(--txt-2); font-weight: 600; }
+.snk-total-val b { color: var(--pri); font-size: 1rem; font-weight: 800; }
+
+/* ── CTA buttons ────────────────────────────────────────────── */
+.snk-cta-row {
+  display: flex; gap: 10px; margin-bottom: 22px;
+}
+.snk-btn-call {
+  flex: 1; padding: 14px;
+  background: var(--white); color: var(--pri);
+  border: 2px solid var(--pri); border-radius: 999px;
+  font-family: inherit; font-size: .92rem; font-weight: 800;
+  cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  text-decoration: none; transition: background .18s, color .18s;
+}
+.snk-btn-call:hover { background: var(--pri); color: #fff; }
+.snk-btn-book {
+  flex: 1; padding: 14px;
+  background: var(--pri); color: #fff;
+  border: none; border-radius: 999px;
+  font-family: inherit; font-size: .92rem; font-weight: 800;
+  cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  text-decoration: none;
+  transition: background .18s, transform .14s, box-shadow .18s;
+  box-shadow: 0 4px 14px rgba(107,33,168,.28);
+}
+.snk-btn-book:hover { background: var(--pri-dark); transform: translateY(-1px); }
+
+.snk-btn-cart {
+  flex: 1; padding: 14px;
+  background: var(--pri); color: #fff;
+  border: none; border-radius: 999px;
+  font-family: inherit; font-size: .92rem; font-weight: 800;
+  cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  text-decoration: none;
+  transition: background .18s, transform .14s, box-shadow .18s;
+  box-shadow: 0 4px 14px rgba(107,33,168,.28);
+}
+.snk-btn-cart:hover { background: var(--pri-dark); transform: translateY(-1px); }
+
+
+/* ── Buy Now — instant checkout (injected by cart.js) ── */
+.snk-btn-buynow {
+  flex: 1;
+  padding: 14px;
+  background: linear-gradient(180deg, #ffb84d, #f59e0b);
+  color: #3a2300;
+  border: none;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: .92rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background .18s, transform .14s, box-shadow .18s;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, .35);
+}
+.snk-btn-buynow:hover {
+  background: linear-gradient(180deg, #f59e0b, #d97706);
+  transform: translateY(-1px);
+}
+.snk-btn-buynow i { font-size: .85em; }
+
+/* On very small screens, stack all 3 buttons full width with Call Now last */
+@media (max-width: 480px) {
+  .snk-cta-row { flex-wrap: wrap; }
+  .snk-btn-call { flex: 1 1 100%; order: 3; }
+  .snk-btn-cart { order: 1; }
+  .snk-btn-buynow { order: 2; }
+}
+
+/* ── Tabs ───────────────────────────────────────────────────── */
+.snk-tabs {
+  display: flex;
+  border-bottom: 2px solid var(--border);
+  margin-bottom: 16px;
+}
+.snk-tab {
+  flex: 1; padding: 11px 0; background: none; border: none;
+  font-family: inherit; font-size: .9rem; font-weight: 700;
+  color: var(--txt-3); cursor: pointer;
+  border-bottom: 3px solid transparent; margin-bottom: -2px;
+  transition: color .18s, border-color .18s;
+}
+.snk-tab.active { color: var(--pri); border-bottom-color: var(--pri); }
+.snk-tab-body { font-size: .9rem; color: var(--txt-2); line-height: 1.7; }
+.snk-tab-body p + p { margin-top: 12px; }
+
+/* ── Reviews ────────────────────────────────────────────────── */
+.snk-reviews { display: flex; flex-direction: column; gap: 12px; margin-top: 4px; }
+.snk-review-card {
+  background: var(--pri-light); border-radius: 12px; padding: 14px;
+  border: 1px solid var(--border);
+}
+.snk-review-hdr { display: flex; justify-content: space-between; margin-bottom: 6px; }
+.snk-reviewer { font-weight: 700; font-size: .88rem; color: #1a1a2e; }
+.snk-rstars { color: var(--gold); font-size: .88rem; }
+
+/* ================================================================
+   SUB-TYPE GRID PAGE (Fruit Salad / Ice Cream listing)
+   ================================================================ */
+.snk-sub-grid-wrap {
+  max-width: 800px; margin: 0 auto;
+  padding: 16px; background: #222;
+  min-height: 100vh;
+}
+.snk-sub-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.snk-sub-card {
+  background: var(--white);
+  border-radius: 14px; overflow: hidden;
+  text-decoration: none; color: var(--txt);
+  display: block;
+  transition: transform .18s, box-shadow .18s;
+}
+.snk-sub-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.15); }
+.snk-sub-img-wrap {
+  position: relative; width: 100%; aspect-ratio: 1;
+  overflow: hidden; background: #eee;
+}
+.snk-sub-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+.snk-sub-rating {
+  position: absolute; top: 7px; right: 7px;
+  background: rgba(0,0,0,.55); color: var(--gold);
+  font-size: .72rem; font-weight: 700;
+  padding: 3px 8px; border-radius: 999px;
+}
+.snk-sub-body { padding: 10px 12px 14px; }
+.snk-sub-name { font-size: .95rem; font-weight: 800; color: #1a1a2e; margin-bottom: 4px; }
+.snk-sub-desc { font-size: .78rem; color: var(--txt-3); font-weight: 500; line-height: 1.4; }
+
+/* ================================================================
+   DESKTOP OVERRIDES
+   ================================================================ */
+@media (min-width: 769px) {
+  .snk-mob { display: none !important; }
+  .snk-dsk { display: block !important; }
+
+  .snk-dsk-hdr { display: flex !important; }
+  .snk-breadcrumb { display: block; }
+  .snk-dsk-hero { display: flex !important; }
+
+  .snk-main {
+    max-width: 1200px;
+    padding: 24px 28px 60px;
+  }
+
+  /* Sub-type grid on desktop: 3 columns */
+  .snk-sub-grid { grid-template-columns: repeat(3, 1fr); }
+  .snk-sub-grid-wrap { background: var(--bg); }
+
+  /* Desktop CTA row — all 3 buttons equal */
+  .snk-cta-row {
+    flex-wrap: nowrap;
+    align-items: stretch;
+  }
+  .snk-cta-row .snk-btn-cart,
+  .snk-cta-row .snk-btn-buynow,
+  .snk-cta-row .snk-btn-call {
+    flex: 1;
+    padding: 12px 14px;
+    font-size: .88rem;
+    min-width: 0;
+    white-space: nowrap;
+    justify-content: center;
+  }
+}

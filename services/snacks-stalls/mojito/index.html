@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="description" content="ELLCY Mojito & Tea Stall — Morning tea & coffee counter and evening mojito bar for your event in Chennai."/>
+    <meta name="robots" content="index, follow"/>
+  <meta name="referrer" content="strict-origin-when-cross-origin"/>
+  <meta http-equiv="X-Content-Type-Options" content="nosniff"/>
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()"/>
+<title>ELLCY | Mojito &amp; Tea</title>
+  <link rel="stylesheet" href="../../../css/style.css"/>
+  <link rel="stylesheet" href="../../../css/snacks-desc.css"/>
+  <link rel="stylesheet" href="../../../css/cart.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" defer></script>
+  <style>
+    /* ── Mojito & Tea redesign ─────────────────────────── */
+    .mt-page-header {
+      background: linear-gradient(135deg, #7c3aed 0%, #059669 100%);
+      padding: 24px 20px 28px;
+      text-align: center;
+      color: #fff;
+    }
+    .mt-page-header .mt-hero-img {
+      width: 100%; max-height: 260px; object-fit: cover;
+      border-radius: 16px; margin-bottom: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.3);
+    }
+    .mt-page-header h1 {
+      font-size: 1.7rem; font-weight: 900; letter-spacing: -.02em;
+      margin-bottom: 6px;
+    }
+    .mt-page-header .mt-subtitle {
+      font-size: .9rem; font-weight: 500; opacity: .9;
+    }
+    .mt-badges {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      justify-content: center; margin-top: 12px;
+    }
+    .mt-badge {
+      background: rgba(255,255,255,.2);
+      border: 1px solid rgba(255,255,255,.35);
+      border-radius: 999px; padding: 5px 14px;
+      font-size: .78rem; font-weight: 700; color: #fff;
+    }
+
+    /* ── Time toggle ──────────────────────────────────── */
+    .mt-toggle-wrap {
+      display: flex; justify-content: center;
+      padding: 20px 16px 8px;
+      gap: 0;
+    }
+    .mt-toggle-btn {
+      flex: 1; max-width: 180px;
+      padding: 12px 0; font-size: .95rem; font-weight: 800;
+      border: 2.5px solid #7c3aed; background: #fff;
+      color: #7c3aed; cursor: pointer;
+      font-family: 'Urbanist', sans-serif;
+      transition: background .18s, color .18s;
+    }
+    .mt-toggle-btn:first-child { border-radius: 12px 0 0 12px; }
+    .mt-toggle-btn:last-child  { border-radius: 0 12px 12px 0; border-left: none; }
+    .mt-toggle-btn.active {
+      background: #7c3aed; color: #fff;
+    }
+    .mt-toggle-btn .mt-toggle-icon { margin-right: 6px; }
+
+    /* ── Section head ─────────────────────────────────── */
+    .mt-section-head {
+      padding: 20px 20px 8px;
+      font-size: 1.1rem; font-weight: 800; color: #1a1a2e;
+    }
+    .mt-section-subhead {
+      padding: 0 20px 16px;
+      font-size: .83rem; color: #666; margin-top: -4px;
+    }
+
+    /* ── Drink cards ──────────────────────────────────── */
+    .mt-drink-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      padding: 0 16px 32px;
+    }
+    .mt-drink-card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 3px 14px rgba(0,0,0,.08);
+      border: 2.5px solid transparent;
+      transition: border-color .2s, transform .18s, box-shadow .18s;
+      cursor: pointer;
+    }
+    .mt-drink-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 28px rgba(124,58,237,.18);
+    }
+    .mt-drink-card.morning-card:hover { border-color: #d97706; }
+    .mt-drink-card.evening-card:hover { border-color: #059669; }
+
+    .mt-drink-img-wrap {
+      position: relative; width: 100%; aspect-ratio: 1; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .morning-card .mt-drink-img-wrap {
+      background: linear-gradient(135deg, #fef3c7, #fde68a);
+    }
+    .evening-card .mt-drink-img-wrap {
+      background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+    }
+    .mt-drink-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .mt-drink-emoji {
+      position: absolute; top: 8px; left: 8px;
+      font-size: 1.6rem; line-height: 1;
+    }
+    .mt-drink-rating {
+      position: absolute; top: 8px; right: 8px;
+      background: rgba(0,0,0,.5); color: #f59e0b;
+      font-size: .7rem; font-weight: 700; padding: 3px 8px; border-radius: 999px;
+    }
+    .mt-drink-body { padding: 10px 12px 14px; }
+    .mt-drink-name {
+      font-size: .95rem; font-weight: 800; color: #1a1a2e;
+      margin-bottom: 3px;
+    }
+    .mt-drink-price {
+      font-size: .88rem; font-weight: 700; margin-bottom: 4px;
+    }
+    .morning-card .mt-drink-price { color: #d97706; }
+    .evening-card .mt-drink-price { color: #059669; }
+    .mt-drink-desc {
+      font-size: .73rem; color: #888; line-height: 1.4;
+    }
+
+    /* ── Add to cart modal overlay ───────────────────── */
+    .mt-modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 500;
+      background: rgba(0,0,0,.5); align-items: flex-end; justify-content: center;
+    }
+    .mt-modal-overlay.open { display: flex; }
+    .mt-modal-box {
+      background: #fff; border-radius: 24px 24px 0 0;
+      width: 100%; max-width: 480px;
+      padding: 24px 20px 32px; text-align: center;
+      animation: slideUp .25s ease;
+    }
+    @keyframes slideUp {
+      from { transform: translateY(60px); opacity: 0; }
+      to   { transform: translateY(0);    opacity: 1; }
+    }
+    .mt-modal-emoji { font-size: 2.5rem; margin-bottom: 8px; }
+    .mt-modal-name  { font-size: 1.2rem; font-weight: 900; color: #1a1a2e; margin-bottom: 4px; }
+    .mt-modal-price { font-size: 1rem; font-weight: 700; color: #7c3aed; margin-bottom: 20px; }
+    .mt-qty-row {
+      display: flex; align-items: center; justify-content: center; gap: 20px;
+      margin-bottom: 20px;
+    }
+    .mt-qty-btn {
+      width: 40px; height: 40px; border-radius: 50%; border: 2px solid #7c3aed;
+      background: #fff; color: #7c3aed; font-size: 1.3rem; font-weight: 900;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      font-family: inherit;
+    }
+    .mt-qty-val { font-size: 1.4rem; font-weight: 900; min-width: 32px; color: #1a1a2e; }
+    .mt-modal-add-btn {
+      width: 100%; padding: 14px; border-radius: 12px;
+      background: #7c3aed; color: #fff; border: none;
+      font-family: inherit; font-size: 1rem; font-weight: 800;
+      cursor: pointer; margin-bottom: 10px;
+    }
+    .mt-modal-cancel {
+      background: none; border: none; color: #888;
+      font-family: inherit; font-size: .9rem; cursor: pointer; padding: 4px;
+    }
+
+    .mt-panel { display: none; }
+    .mt-panel.visible { display: block; }
+
+    @media (min-width: 769px) {
+      .mt-page-header {
+        padding: 40px 48px 40px;
+        display: flex; align-items: center; gap: 40px; text-align: left;
+      }
+      .mt-page-header .mt-hero-img {
+        width: 380px; flex-shrink: 0; max-height: 280px; margin-bottom: 0;
+      }
+      .mt-badges { justify-content: flex-start; }
+      .mt-drink-grid {
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 900px; margin: 0 auto; padding: 0 28px 40px;
+      }
+      .mt-section-head { padding: 32px 28px 12px; font-size: 1.3rem; }
+      .mt-section-subhead { padding: 0 28px 16px; }
+      .mt-toggle-wrap { padding-top: 32px; }
+    }
+  </style>
+</head>
+<body class="snk-body">
+
+<!-- MOBILE HEADER -->
+<header class="snk-topbar snk-mob" role="banner">
+  <button class="snk-back-btn" onclick="_ellcySmartBack('../../../pages/services.html?type=snacks-stalls')" aria-label="Go back">
+    <i class="fa-solid fa-arrow-left"></i>
+    <span>Mojito &amp; Tea</span>
+  </button>
+  <a href="../../../pages/cart.html" class="snk-cart-mob" aria-label="View cart">
+    <i class="fa-solid fa-cart-shopping"></i>
+    <span>Cart</span>
+    <span class="cart-badge" style="display:none">0</span>
+  </a>
+</header>
+
+<!-- DESKTOP HEADER -->
+<header class="snk-dsk-hdr snk-dsk" role="banner">
+  <a class="snk-logo" href="../../../index.html" aria-label="ELLCY Home">ELLCY</a>
+  <a href="../../../pages/cart.html" class="snk-cart-dsk" aria-label="View cart">
+    <i class="fa-solid fa-cart-shopping"></i>
+    <span>Cart</span>
+    <span class="cart-badge" style="display:none">0</span>
+  </a>
+</header>
+
+<!-- HERO HEADER -->
+<div class="mt-page-header">
+  <img class="mt-hero-img" src="../../../uploads/services/mojito.png" alt="Mojito & Tea Stall"/>
+  <div>
+    <h1>🍵 Mojito &amp; Tea Counter</h1>
+    <p class="mt-subtitle">Fresh brews by morning, cool mojitos by evening — all served live at your event!</p>
+    <div class="mt-badges">
+      <span class="mt-badge">★ 4.5 Rating</span>
+      <span class="mt-badge"><i class="fa-solid fa-clock"></i> 3–5 Hr Coverage</span>
+      <span class="mt-badge"><i class="fa-solid fa-users"></i> 400+ Happy Guests</span>
+      <span class="mt-badge">From ₹15/cup</span>
+    </div>
+  </div>
+</div>
+
+<!-- TIME TOGGLE -->
+<div class="mt-toggle-wrap" role="group" aria-label="Select time">
+  <button class="mt-toggle-btn active" id="btnMorning" onclick="switchPanel('morning')">
+    <span class="mt-toggle-icon">☀️</span>Morning
+  </button>
+  <button class="mt-toggle-btn" id="btnEvening" onclick="switchPanel('evening')">
+    <span class="mt-toggle-icon">🌙</span>Evening
+  </button>
+</div>
+
+<!-- MORNING PANEL -->
+<div class="mt-panel visible" id="panelMorning">
+  <div class="mt-section-head">☀️ Morning Beverages</div>
+  <div class="mt-section-subhead">Hot &amp; comforting — freshly brewed for your morning ceremony guests</div>
+  <div class="mt-drink-grid" id="morningGrid" role="list"></div>
+</div>
+
+<!-- EVENING PANEL -->
+<div class="mt-panel" id="panelEvening">
+  <div class="mt-section-head">🌙 Evening Mojitos</div>
+  <div class="mt-section-subhead">Cool, refreshing &amp; vibrant — the perfect evening refreshment</div>
+  <div class="mt-drink-grid" id="eveningGrid" role="list"></div>
+</div>
+
+<!-- ADD TO CART MODAL -->
+<div class="mt-modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-label="Add to cart">
+  <div class="mt-modal-box">
+    <div class="mt-modal-emoji" id="modalEmoji">🍵</div>
+    <div class="mt-modal-name" id="modalName">Drink</div>
+    <div class="mt-modal-price" id="modalPrice">₹15/cup</div>
+    <div class="mt-qty-row">
+      <button class="mt-qty-btn" id="btnQtyMinus" aria-label="Decrease">−</button>
+      <span class="mt-qty-val" id="qtyVal">1</span>
+      <button class="mt-qty-btn" id="btnQtyPlus" aria-label="Increase">+</button>
+    </div>
+    <button class="mt-modal-add-btn" id="btnModalAdd">
+      <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+    </button>
+    <button class="mt-modal-cancel" onclick="closeModal()">Cancel</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">ELLCY</div>
+      <p class="footer-text">Creating unforgettable moments across Chennai.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="../../../index.html">Home</a></li>
+        <li><a href="../../../pages/services.html?type=snacks-stalls">Snacks &amp; Stalls</a></li>
+        <li><a href="../../../pages/booking.html">Book Now</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p class="footer-contact-item">+91 123-456-789</p>
+      <p class="footer-contact-item">info@ellcy.in</p>
+      <p class="footer-contact-item">Chennai, Tamil Nadu</p>
+    </div>
+    <div class="footer-col">
+      <h4>Book Your Event</h4>
+      <a class="footer-enquiry-btn" href="../../../pages/booking.html">
+        <i class="fa-solid fa-calendar-check"></i> Book Now
+      </a>
+    </div>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="footer-bottom">
+    <p><span id="year"></span> &copy; ELLCY &mdash; All Rights Reserved.</p>
+    <div class="footer-social">
+      <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" aria-label="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function _ellcySmartBack(fallbackUrl){
+    if(window.history.length>1 && document.referrer && document.referrer.includes(window.location.hostname)){
+      window.history.back();
+    } else {
+      window.location.href = fallbackUrl;
+    }
+  }
+(function(){
+  /* ── Data ───────────────────────────────────────────── */
+  var MORNING = [
+    { key:'tea',    label:'Tea',    emoji:'🍵', price:15, rating:'4.6', desc:'Freshly brewed hot tea — aromatic, soothing and perfect for morning ceremonies.' },
+    { key:'coffee', label:'Coffee', emoji:'☕', price:15, rating:'4.7', desc:'Rich hot coffee brewed fresh — bold and invigorating to start the day right.' },
+  ];
+  var EVENING = [
+    { key:'strawberry-mojito',  label:'Strawberry Mojito',  emoji:'🍓', price:20, rating:'4.7', desc:'Sweet strawberry with mint and lime — a fruity crowd favourite.' },
+    { key:'watermelon-mojito',  label:'Watermelon Mojito',  emoji:'🍉', price:20, rating:'4.6', desc:'Refreshing watermelon blended with fresh mint — light and hydrating.' },
+    { key:'green-apple-mojito', label:'Green Apple Mojito', emoji:'🍏', price:20, rating:'4.6', desc:'Tangy green apple with lime and mint — crisp and uniquely refreshing.' },
+    { key:'lemon-mojito',       label:'Lemon Mojito',       emoji:'🍋', price:20, rating:'4.8', desc:'Classic lemon mint mojito — the timeless refreshing favourite.' },
+    { key:'blue-curacao-mojito',label:'Blue Curacao Mojito',emoji:'💙', price:20, rating:'4.5', desc:'Stunning blue curacao with citrus — vibrant colour, tropical taste.' },
+  ];
+
+  /* ── Modal state ────────────────────────────────────── */
+  var currentItem = null;
+  var qty = 1;
+
+  /* ── Render cards ───────────────────────────────────── */
+  function renderCards(data, gridId, cardClass) {
+    var grid = document.getElementById(gridId);
+    if (!grid) return;
+    data.forEach(function(item) {
+      var div = document.createElement('div');
+      div.className = 'mt-drink-card ' + cardClass;
+      div.setAttribute('role', 'listitem');
+      div.setAttribute('aria-label', item.label);
+      div.innerHTML =
+        '<div class="mt-drink-img-wrap">' +
+          '<img src="../../../uploads/services/mojito.png" alt="' + item.label + '" loading="lazy"/>' +
+          '<span class="mt-drink-emoji">' + item.emoji + '</span>' +
+          '<span class="mt-drink-rating">★ ' + item.rating + '</span>' +
+        '</div>' +
+        '<div class="mt-drink-body">' +
+          '<div class="mt-drink-name">' + item.label + '</div>' +
+          '<div class="mt-drink-price">₹' + item.price + '/cup</div>' +
+          '<div class="mt-drink-desc">' + item.desc + '</div>' +
+        '</div>';
+      (function(i){
+        div.addEventListener('click', function() {
+          if (cardClass === 'morning-card') {
+            window.location.href = '../tea/index.html';
+          } else {
+            window.location.href = 'detail.html?type=' + encodeURIComponent(i.key);
+          }
+        });
+      })(item);
+      grid.appendChild(div);
+    });
+  }
+
+  renderCards(MORNING, 'morningGrid', 'morning-card');
+  renderCards(EVENING, 'eveningGrid', 'evening-card');
+
+  /* ── Panel switch ───────────────────────────────────── */
+  window.switchPanel = function(panel) {
+    document.getElementById('panelMorning').classList.toggle('visible', panel === 'morning');
+    document.getElementById('panelEvening').classList.toggle('visible', panel === 'evening');
+    document.getElementById('btnMorning').classList.toggle('active', panel === 'morning');
+    document.getElementById('btnEvening').classList.toggle('active', panel === 'evening');
+  };
+
+  /* ── Modal ──────────────────────────────────────────── */
+  function openModal(item) {
+    currentItem = item;
+    qty = 1;
+    document.getElementById('modalEmoji').textContent  = item.emoji;
+    document.getElementById('modalName').textContent   = item.label;
+    document.getElementById('modalPrice').textContent  = '₹' + item.price + '/cup';
+    document.getElementById('qtyVal').textContent      = qty;
+    document.getElementById('modalOverlay').classList.add('open');
+  }
+
+  window.closeModal = function() {
+    document.getElementById('modalOverlay').classList.remove('open');
+    currentItem = null;
+  };
+
+  document.getElementById('btnQtyMinus').addEventListener('click', function() {
+    if (qty > 1) { qty--; document.getElementById('qtyVal').textContent = qty; }
+  });
+  document.getElementById('btnQtyPlus').addEventListener('click', function() {
+    qty++; document.getElementById('qtyVal').textContent = qty;
+  });
+
+  document.getElementById('modalOverlay').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  document.getElementById('btnModalAdd').addEventListener('click', function() {
+    if (!currentItem) return;
+    var cart = JSON.parse(localStorage.getItem('ellcy_cart') || '[]');
+    var cartId = 'mojito-' + currentItem.key;
+    var ex = cart.find(function(i){ return i.id === cartId; });
+    if (ex) { ex.qty += qty; }
+    else { cart.push({ id: cartId, title: currentItem.label, price: currentItem.price, qty: qty, image: '../../../uploads/services/mojito.png' }); }
+    localStorage.setItem('ellcy_cart', JSON.stringify(cart));
+    var total = cart.reduce(function(s,i){ return s + i.qty; }, 0);
+    document.querySelectorAll('.cart-badge').forEach(function(b){ b.style.display = ''; b.textContent = total; });
+    closeModal();
+    alert(qty + ' × ' + currentItem.label + ' added to cart!');
+  });
+
+  var yr = document.getElementById('year'); if(yr) yr.textContent = new Date().getFullYear();
+})();
+</script>
+<script src="../../data.js"></script>
+  <script src="../../../js/auth.js"></script>
+<script src="../../../js/cart.js"></script>
+</body>
+</html>

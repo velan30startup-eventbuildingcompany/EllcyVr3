@@ -1,0 +1,552 @@
+/* ================================================================
+   bouncer.css  —  ELLCY Bouncer / Event Security Description Page
+   Self-contained styles, no dependency on chenda-melam.css
+   Mobile-first | Desktop: breadcrumb + mosaic + info panel
+   ================================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --pri:       #6b21a8;
+  --pri-dark:  #4e0d7a;
+  --pri-light: #f4e9ff;
+  --border:    #e0d5f5;
+  --txt:       #111;
+  --txt-2:     #444;
+  --txt-3:     #888;
+  --white:     #fff;
+  --bg:        #f7f3ff;
+  --gold:      #f59e0b;
+  --success:   #16a34a;
+}
+
+.bnc-body {
+  font-family: 'Urbanist', sans-serif;
+  background: var(--bg);
+  color: var(--txt);
+  min-height: 100vh;
+  line-height: 1.55;
+}
+.bnc-body a { color: var(--pri); text-decoration: none; }
+.bnc-body img { display: block; max-width: 100%; }
+
+/* ── Visibility helpers ──────────────────────────────────────── */
+.bnc-mobile-only  { display: block; }
+.bnc-desktop-wrap { display: none; }    /* full desktop hero area */
+
+/* ================================================================
+   MOBILE TOP-BAR  (≤ 768px)
+   [← Bouncer's]                          [share icon]
+   ================================================================ */
+.bnc-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  width: 100%;
+  min-height: 56px;
+  height: auto;
+  background: var(--pri);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 16px;
+  box-sizing: border-box;
+  box-shadow: 0 2px 12px rgba(107,33,168,.35);
+}
+.bnc-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-family: inherit;
+  font-size: .95rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  padding: 0;
+}
+.bnc-cart-btn {
+  position: relative;
+  flex-shrink: 0;
+  display: inline-flex; align-items: center; gap: 7px;
+  background: #fff; border-radius: 9px;
+  color: #6b21a8; font-size: .88rem; font-weight: 700;
+  text-decoration: none; padding: 8px 14px;
+  white-space: nowrap;
+  font-family: inherit;
+  transition: background .18s, transform .15s;
+}
+.bnc-cart-btn:hover { background: #f4e9ff; transform: translateY(-1px); }
+.bnc-cart-btn i { font-size: .95rem; }
+.bnc-cart-btn .cart-badge { top: -6px; right: -6px; border-color: var(--pri, #6b21a8); }
+
+/* ── Mobile hero image ───────────────────────────────────────── */
+.bnc-mobile-hero {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 280px;
+  overflow: hidden;
+  background: #e8d5ff;
+}
+.bnc-mobile-hero img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+
+/* ================================================================
+   SHARED MAIN CONTENT
+   ================================================================ */
+.bnc-main {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 18px 16px 48px;
+  background: var(--white);
+}
+
+/* ── Title row ───────────────────────────────────────────────── */
+.bnc-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.bnc-title {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #1a1a2e;
+  line-height: 1.2;
+}
+.bnc-rating-chip {
+  flex-shrink: 0;
+  background: var(--pri);
+  color: #fff;
+  font-size: .78rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: .03em;
+  margin-top: 4px;
+  white-space: nowrap;
+}
+
+/* ── Avail / tags ────────────────────────────────────────────── */
+.bnc-avail {
+  font-size: .82rem;
+  font-weight: 700;
+  color: var(--pri);
+  margin-bottom: 3px;
+}
+.bnc-tags {
+  font-size: .77rem;
+  color: var(--txt-3);
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+
+/* ── Info chips ──────────────────────────────────────────────── */
+.bnc-chips {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-bottom: 14px;
+}
+.bnc-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: .83rem;
+  color: var(--txt-2);
+  font-weight: 600;
+}
+.bnc-chip i { color: var(--pri); width: 16px; text-align: center; }
+
+/* ── Rate line (mobile) ──────────────────────────────────────── */
+.bnc-rate-line {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 10px 0 14px;
+}
+.bnc-rate-price {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--pri);
+  letter-spacing: -.01em;
+}
+.bnc-rate-per {
+  font-size: .88rem;
+  color: var(--txt-3);
+  font-weight: 600;
+}
+
+/* ── Desktop rate tag ────────────────────────────────────────── */
+.bnc-rate-tag {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--pri);
+  margin-bottom: 12px;
+  letter-spacing: -.01em;
+}
+.bnc-rate-tag span {
+  font-size: .82rem;
+  font-weight: 500;
+  color: var(--txt-3);
+}
+
+/* ── Quantity card ───────────────────────────────────────────── */
+.bnc-qty-card {
+  background: var(--pri-light);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.bnc-qty-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.bnc-qty-label {
+  font-size: .84rem;
+  font-weight: 700;
+  color: var(--txt-2);
+  white-space: nowrap;
+}
+.bnc-qty-ctrl {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--white);
+}
+.bnc-minus,
+.bnc-plus {
+  width: 40px;
+  height: 40px;
+  background: var(--white);
+  border: none;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--pri);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background .15s;
+  font-family: inherit;
+}
+.bnc-minus:hover,
+.bnc-plus:hover  { background: var(--pri-light); }
+.bnc-qty-inp {
+  width: 56px;
+  height: 40px;
+  border: none;
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  text-align: center;
+  font-size: .95rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  font-family: inherit;
+  outline: none;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+.bnc-qty-inp::-webkit-outer-spin-button,
+.bnc-qty-inp::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+.bnc-total-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 11px 14px;
+}
+.bnc-total-lbl {
+  font-size: .8rem;
+  font-weight: 700;
+  color: #666;
+  white-space: nowrap;
+}
+.bnc-total-val {
+  font-size: .88rem;
+  color: var(--txt-2);
+  font-weight: 600;
+}
+.bnc-total-val b {
+  color: var(--pri);
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+/* ── CTA buttons ─────────────────────────────────────────────── */
+.bnc-cta-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.bnc-btn-call {
+  flex: 1;
+  padding: 13px;
+  background: var(--white);
+  color: var(--pri);
+  border: 2px solid var(--pri);
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: .92rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  text-decoration: none;
+  transition: background .18s, color .18s;
+}
+.bnc-btn-call:hover { background: var(--pri); color: #fff; }
+.bnc-btn-book {
+  flex: 1;
+  padding: 13px;
+  background: var(--pri);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: .92rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  text-decoration: none;
+  transition: background .18s, transform .14s, box-shadow .18s;
+  box-shadow: 0 4px 14px rgba(107,33,168,.28);
+}
+.bnc-btn-book:hover { background: var(--pri-dark); transform: translateY(-1px); }
+
+
+/* ── Buy Now — instant checkout button (injected by inline script) ── */
+.bnc-btn-buynow {
+  flex: 1;
+  padding: 13px;
+  background: linear-gradient(180deg, #ffb84d, #f59e0b);
+  color: #3a2300;
+  border: none;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: .92rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background .18s, transform .14s, box-shadow .18s;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, .35);
+}
+.bnc-btn-buynow:hover {
+  background: linear-gradient(180deg, #f59e0b, #d97706);
+  transform: translateY(-1px);
+}
+.bnc-btn-buynow i { font-size: .85em; }
+
+/* On very small screens: stack with Call Now last */
+@media (max-width: 480px) {
+  .bnc-cta-row { flex-wrap: wrap; }
+  .bnc-btn-call { flex: 1 1 100%; order: 3; }
+  .bnc-btn-book { order: 1; }
+  .bnc-btn-buynow { order: 2; }
+}
+
+/* ── Tabs ────────────────────────────────────────────────────── */
+.bnc-tabs {
+  display: flex;
+  border-bottom: 2px solid var(--border);
+  margin-bottom: 14px;
+}
+.bnc-tab {
+  padding: 10px 22px;
+  border: none;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+  font-family: inherit;
+  font-size: .88rem;
+  font-weight: 700;
+  color: var(--txt-3);
+  cursor: pointer;
+  margin-bottom: -2px;
+  transition: color .18s, border-color .18s;
+}
+.bnc-tab:hover  { color: var(--pri); }
+.bnc-tab.active { color: var(--pri); border-bottom-color: var(--pri); }
+
+.bnc-tab-body {
+  font-size: .87rem;
+  color: var(--txt-2);
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+.bnc-tab-body p + p { margin-top: 10px; }
+.bnc-tab-body.hidden { display: none; }
+
+/* ── Reviews ─────────────────────────────────────────────────── */
+.bnc-reviews { display: flex; flex-direction: column; gap: 12px; }
+.bnc-review-card {
+  background: var(--pri-light);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 13px 15px;
+}
+.bnc-review-hdr {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+.bnc-reviewer { font-weight: 700; font-size: .84rem; color: #1a1a2e; }
+.bnc-stars    { color: var(--gold); font-size: .82rem; letter-spacing: 1px; }
+.bnc-review-card p { font-size: .81rem; color: #555; line-height: 1.6; }
+
+/* ================================================================
+   DESKTOP  (≥ 769px)
+   ================================================================ */
+@media (min-width: 769px) {
+
+  /* Mobile elements hidden on desktop */
+  .bnc-mobile-only { display: none !important; }
+
+  /* Show desktop hero area */
+  .bnc-desktop-wrap { display: block; }
+
+  /* Breadcrumb */
+  .bnc-breadcrumb {
+    display: flex;
+    gap: 6px;
+    font-size: .8rem;
+    color: var(--txt-3);
+    padding: 12px 24px 4px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .bnc-breadcrumb a       { color: var(--txt-3); }
+  .bnc-breadcrumb a:hover { color: var(--pri); }
+  .bnc-breadcrumb span    { color: var(--txt-2); font-weight: 600; }
+
+  /* Desktop hero: mosaic + info */
+  .bnc-desktop-hero {
+    display: flex;
+    gap: 32px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 8px 24px 28px;
+    align-items: flex-start;
+  }
+
+  /* Image mosaic */
+  .bnc-img-mosaic {
+    flex: 1.3;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 260px 200px;
+    gap: 6px;
+    border-radius: 16px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .bnc-img-mosaic img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform .32s;
+  }
+  .bnc-img-mosaic img:hover { transform: scale(1.03); }
+  .bnc-mosaic-main { grid-column: 1; grid-row: 1 / 3; }
+  .bnc-mosaic-t1   { grid-column: 2; grid-row: 1; }
+  .bnc-mosaic-t2   { grid-column: 2; grid-row: 2; }
+
+  /* Info panel */
+  .bnc-info-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding-top: 4px;
+  }
+  .bnc-info-panel .bnc-title { font-size: 1.7rem; }
+
+  /* Desktop chips: horizontal row */
+  .bnc-info-panel .bnc-chips {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px 20px;
+    margin-bottom: 10px;
+  }
+
+  /* Shared main: full width */
+  .bnc-main {
+    max-width: 1200px;
+    padding: 0 24px 56px;
+    background: transparent;
+  }
+
+  /* Desktop CTA row in info panel — 3 equal buttons */
+  .bnc-info-panel .bnc-cta-row {
+    max-width: 460px;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .bnc-info-panel .bnc-cta-row .bnc-btn-book,
+  .bnc-info-panel .bnc-cta-row .bnc-btn-buynow,
+  .bnc-info-panel .bnc-cta-row .bnc-btn-call {
+    flex: 1;
+    padding: 12px 14px;
+    font-size: .88rem;
+    min-width: 0;
+    white-space: nowrap;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+/* ── Laptop (769–1024) ───────────────────────────────────────── */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .bnc-img-mosaic { grid-template-rows: 220px 165px; }
+}
+
+/* ── Mobile compact (≤ 480px) ────────────────────────────────── */
+@media (max-width: 480px) {
+  .bnc-title      { font-size: 1.25rem; }
+  .bnc-rate-price { font-size: 1.65rem; }
+  .bnc-main       { padding: 15px 14px 40px; }
+  .bnc-btn-call,
+  .bnc-btn-book   { font-size: .86rem; padding: 11px 12px; }
+  .bnc-tab        { padding: 8px 14px; font-size: .82rem; }
+}
+
+/* ── XS (≤ 360px) ────────────────────────────────────────────── */
+@media (max-width: 360px) {
+  .bnc-topbar { padding: 0 12px; }
+  .bnc-minus,
+  .bnc-plus   { width: 34px; height: 34px; }
+  .bnc-qty-inp { width: 46px; }
+}

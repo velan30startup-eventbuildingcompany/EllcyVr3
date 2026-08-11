@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="description" content="Request a callback from ELLCY — our team will call you within 2 hours to help plan your event."/>
+  <meta name="robots" content="noindex, follow"/>
+  <meta name="referrer" content="strict-origin-when-cross-origin"/>
+  <meta http-equiv="X-Content-Type-Options" content="nosniff"/>
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()"/>
+  <title>ELLCY | Request for Call</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <link rel="stylesheet" href="../css/header2.css"/>
+  <link rel="stylesheet" href="../css/booking.css"/>
+  <link rel="stylesheet" href="../css/cart.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" defer></script>
+  <style>
+    /* ── Request for Call page styles ─────────────────────────── */
+    .rfc-wrap {
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 28px 20px 60px;
+    }
+
+    /* Mobile back bar */
+    .rfc-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      height: 56px;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 100;
+    }
+    .rfc-back-btn {
+      display: flex; align-items: center; gap: 8px;
+      background: none; border: none; font-family: inherit;
+      font-size: .9rem; font-weight: 700; color: var(--primary);
+      cursor: pointer; padding: 8px 4px;
+    }
+    .rfc-back-btn i { font-size: 1rem; }
+
+    @media (min-width: 769px) {
+      .rfc-topbar { display: none; }
+    }
+
+    /* Desktop breadcrumb */
+    .rfc-breadcrumb {
+      display: none;
+      padding: 14px 28px 4px;
+      font-size: .85rem;
+      color: #888;
+      gap: 6px;
+    }
+    .rfc-breadcrumb a { color: var(--primary); text-decoration: none; font-weight: 600; }
+    @media (min-width: 769px) { .rfc-breadcrumb { display: flex; align-items: center; } }
+
+    /* Page header */
+    .rfc-page-hdr {
+      text-align: center;
+      padding: 28px 0 8px;
+    }
+    .rfc-icon-circle {
+      width: 64px; height: 64px;
+      background: var(--primary-light);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px;
+      color: var(--primary);
+      font-size: 1.6rem;
+    }
+    .rfc-page-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #1a1a2e;
+      margin: 0 0 6px;
+    }
+    .rfc-page-sub {
+      font-size: .9rem;
+      color: #666;
+      line-height: 1.6;
+      margin: 0 0 28px;
+    }
+    .rfc-page-sub strong { color: var(--primary); }
+
+    /* Form card */
+    .rfc-card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      padding: 28px 24px;
+    }
+
+    /* Field styles (reuse booking.css patterns) */
+    .rfc-field { margin-bottom: 18px; }
+    .rfc-label {
+      display: block;
+      font-weight: 700;
+      font-size: .85rem;
+      color: #1a1a2e;
+      margin-bottom: 6px;
+      letter-spacing: .01em;
+    }
+    .rfc-label .rfc-req { color: var(--primary); margin-left: 2px; }
+    .rfc-input,
+    .rfc-select,
+    .rfc-textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid #e0d5f0;
+      border-radius: 10px;
+      background: #fafafa;
+      font-size: .92rem;
+      font-family: inherit;
+      color: #1a1a2e;
+      outline: none;
+      transition: border-color .18s, box-shadow .18s;
+      box-sizing: border-box;
+    }
+    .rfc-input:focus, .rfc-select:focus, .rfc-textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(106,27,154,.1);
+      background: #fff;
+    }
+    .rfc-input.error, .rfc-select.error { border-color: #e53e3e; }
+    .rfc-err-msg {
+      display: none;
+      font-size: .78rem;
+      color: #e53e3e;
+      margin-top: 4px;
+      font-weight: 600;
+    }
+    .rfc-err-msg.show { display: block; }
+    .rfc-select { appearance: none; cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236a1b9a' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 38px; }
+    .rfc-textarea { min-height: 90px; resize: vertical; }
+
+    /* Phone prefix row */
+    .rfc-phone-row { display: flex; gap: 8px; }
+    .rfc-phone-prefix {
+      flex-shrink: 0;
+      width: 72px;
+      padding: 12px 10px;
+      border: 1.5px solid #e0d5f0;
+      border-radius: 10px;
+      background: #f4e9ff;
+      font-size: .9rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-align: center;
+    }
+    .rfc-phone-row .rfc-input { flex: 1; }
+
+    /* Submit button */
+    .rfc-submit {
+      width: 100%;
+      padding: 14px;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 8px;
+      transition: background .18s, transform .14s, box-shadow .18s;
+      box-shadow: 0 4px 16px rgba(106,27,154,.3);
+    }
+    .rfc-submit:hover { background: var(--primary-dark); transform: translateY(-1px); }
+    .rfc-submit:active { transform: translateY(0); }
+    .rfc-submit:disabled { background: #bbb; box-shadow: none; cursor: not-allowed; }
+
+    /* Trust badges */
+    .rfc-trust-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    .rfc-trust-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .78rem;
+      font-weight: 700;
+      color: #666;
+    }
+    .rfc-trust-badge i { color: var(--primary); font-size: .85rem; }
+
+    /* Success state */
+    .rfc-success {
+      display: none;
+      text-align: center;
+      padding: 32px 20px;
+    }
+    .rfc-success.show { display: block; }
+    .rfc-success-icon {
+      width: 72px; height: 72px;
+      background: #d1fae5;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px;
+      color: #059669;
+      font-size: 2rem;
+    }
+    .rfc-success-title { font-size: 1.3rem; font-weight: 800; color: #1a1a2e; margin-bottom: 8px; }
+    .rfc-success-sub { font-size: .9rem; color: #666; line-height: 1.6; margin-bottom: 24px; }
+    .rfc-home-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--primary); color: #fff;
+      padding: 12px 28px; border-radius: 10px;
+      font-weight: 700; font-size: .9rem;
+      text-decoration: none;
+      transition: background .18s;
+    }
+    .rfc-home-btn:hover { background: var(--primary-dark); }
+  </style>
+</head>
+<body>
+
+<!-- MOBILE TOPBAR -->
+<header class="rfc-topbar" role="banner" aria-label="Page navigation">
+  <button class="rfc-back-btn" onclick="history.back()" aria-label="Go back">
+    <i class="fa-solid fa-arrow-left"></i>
+    <span>Request for Call</span>
+  </button>
+  <a href="../pages/cart.html" aria-label="View cart" style="color:var(--primary);font-size:1.3rem;text-decoration:none;position:relative;">
+    <i class="fa-solid fa-cart-shopping"></i>
+    <span class="cart-badge" style="display:none">0</span>
+  </a>
+</header>
+
+<!-- DESKTOP HEADER -->
+<header class="header new-header" style="display:none;" id="dskHdr" role="banner">
+  <a class="logo" href="../index.html" aria-label="ELLCY Home">ELLCY</a>
+  <a href="../pages/cart.html" class="cart-header-btn" aria-label="View cart">
+    <i class="fa-solid fa-cart-shopping"></i>
+    <span class="cart-btn-label">Cart</span>
+    <span class="cart-badge" style="display:none">0</span>
+  </a>
+</header>
+
+<!-- DESKTOP BREADCRUMB -->
+<nav class="rfc-breadcrumb" aria-label="Breadcrumb">
+  <a href="../index.html">Home</a>
+  <span>/</span>
+  <span>Request for Call</span>
+</nav>
+
+<div class="rfc-wrap">
+
+  <!-- Page header -->
+  <div class="rfc-page-hdr">
+    <div class="rfc-icon-circle">
+      <i class="fa-solid fa-phone-volume" aria-hidden="true"></i>
+    </div>
+    <h1 class="rfc-page-title">Request for Call</h1>
+    <p class="rfc-page-sub">
+      Share your number and we'll call you back within <strong>2 hours</strong>.<br/>
+      Our event specialists will help you choose the perfect service for your celebration.
+    </p>
+  </div>
+
+  <!-- Form card -->
+  <div class="rfc-card" id="rfcFormCard">
+    <form id="rfcForm" novalidate autocomplete="on">
+
+      <!-- Phone number -->
+      <div class="rfc-field">
+        <label class="rfc-label" for="rfcPhone">
+          Mobile Number <span class="rfc-req">*</span>
+        </label>
+        <div class="rfc-phone-row">
+          <div class="rfc-phone-prefix">+91</div>
+          <input
+            type="tel"
+            id="rfcPhone"
+            class="rfc-input"
+            placeholder="98765 43210"
+            maxlength="10"
+            pattern="[6-9][0-9]{9}"
+            autocomplete="tel"
+            inputmode="numeric"
+            required
+            aria-required="true"
+            aria-describedby="rfcPhoneErr"
+          />
+        </div>
+        <p class="rfc-err-msg" id="rfcPhoneErr" role="alert">Please enter a valid 10-digit mobile number.</p>
+      </div>
+
+      <!-- Interested service -->
+      <div class="rfc-field">
+        <label class="rfc-label" for="rfcService">
+          Interested Service <span class="rfc-req">*</span>
+        </label>
+        <select id="rfcService" class="rfc-select" required aria-required="true" aria-describedby="rfcServiceErr">
+          <option value="">Select a service…</option>
+          <optgroup label="Dancers">
+            <option value="Male Dance Team">Male Dance Team</option>
+            <option value="Female Dance Team">Female Dance Team</option>
+            <option value="Co-ed Dance Team">Co-ed Men &amp; Women Team</option>
+          </optgroup>
+          <optgroup label="Music Performers">
+            <option value="Chenda Melam">Chenda Melam</option>
+            <option value="Nadhaswaram &amp; Thavil">Nadhaswaram &amp; Thavil</option>
+            <option value="Band Set">Band Set</option>
+            <option value="Melam Set">Melam Set</option>
+          </optgroup>
+          <optgroup label="Photography &amp; DJ">
+            <option value="Photography">Photography</option>
+            <option value="DJ">DJ</option>
+          </optgroup>
+          <optgroup label="Flowers">
+            <option value="Reception — Real Flowers">Reception — Real Flowers</option>
+            <option value="Reception — Artificial Flowers">Reception — Artificial Flowers</option>
+            <option value="Marriage — Real Flowers">Marriage — Real Flowers</option>
+            <option value="Marriage — Artificial Flowers">Marriage — Artificial Flowers</option>
+          </optgroup>
+          <optgroup label="Jewellery">
+            <option value="Fake Jewellery — Gold Style">Fake Jewellery — Gold Style</option>
+            <option value="Fake Jewellery — Silver Style">Fake Jewellery — Silver Style</option>
+            <option value="Fake Jewellery — Kundan Style">Fake Jewellery — Kundan Style</option>
+          </optgroup>
+          <optgroup label="Food &amp; Catering">
+            <option value="Catering — Boys Catering">Catering</option>
+            <option value="Snacks Stalls">Snacks &amp; Stalls</option>
+            <option value="Food Services">Food Services</option>
+          </optgroup>
+          <optgroup label="Event Effects">
+            <option value="Enter Show Down">Enter Show Down (Pyro / Fog / Effects)</option>
+            <option value="Bouncers">Bouncers</option>
+            <option value="Entertainment Activities">Entertainment Activities</option>
+          </optgroup>
+          <optgroup label="Styling &amp; Décor">
+            <option value="Bridal &amp; Groom Styling">Bridal &amp; Groom Styling</option>
+            <option value="Mehendi">Mehendi</option>
+            <option value="Car Entry Decoration">Car Entry</option>
+          </optgroup>
+          <option value="Other">Other / Not Sure</option>
+        </select>
+        <p class="rfc-err-msg" id="rfcServiceErr" role="alert">Please select a service.</p>
+      </div>
+
+      <!-- Best time (optional) -->
+      <div class="rfc-field">
+        <label class="rfc-label" for="rfcTime">Best Time to Call <span style="font-weight:500;color:#888;font-size:.8rem">(optional)</span></label>
+        <select id="rfcTime" class="rfc-select">
+          <option value="">Any time</option>
+          <option value="morning">Morning (9 AM – 12 PM)</option>
+          <option value="afternoon">Afternoon (12 PM – 4 PM)</option>
+          <option value="evening">Evening (4 PM – 8 PM)</option>
+        </select>
+      </div>
+
+      <!-- Note (optional) -->
+      <div class="rfc-field">
+        <label class="rfc-label" for="rfcNote">Additional Note <span style="font-weight:500;color:#888;font-size:.8rem">(optional)</span></label>
+        <textarea id="rfcNote" class="rfc-textarea" placeholder="E.g. Wedding date, venue, number of guests…" maxlength="300"></textarea>
+      </div>
+
+      <button type="submit" class="rfc-submit" id="rfcSubmitBtn">
+        <i class="fa-solid fa-phone-volume" aria-hidden="true"></i>
+        Request for Call
+      </button>
+
+    </form>
+
+    <!-- Success state (shown after submit) -->
+    <div class="rfc-success" id="rfcSuccess" role="status" aria-live="polite">
+      <div class="rfc-success-icon">
+        <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+      </div>
+      <div class="rfc-success-title">Request Received!</div>
+      <p class="rfc-success-sub">
+        Thank you! Our team will call you back on <strong id="rfcSuccessPhone"></strong> within <strong>2 hours</strong>.<br/>
+        We look forward to helping you plan your event.
+      </p>
+      <a class="rfc-home-btn" href="../index.html">
+        <i class="fa-solid fa-house" aria-hidden="true"></i> Back to Home
+      </a>
+    </div>
+  </div>
+
+  <!-- Trust badges -->
+  <div class="rfc-trust-row" aria-label="Trust indicators">
+    <div class="rfc-trust-badge"><i class="fa-solid fa-clock"></i> Response within 2 hours</div>
+    <div class="rfc-trust-badge"><i class="fa-solid fa-shield-halved"></i> No spam calls</div>
+    <div class="rfc-trust-badge"><i class="fa-solid fa-users"></i> 1,000+ happy clients</div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">ELLCY</div>
+      <p class="footer-text">Creating unforgettable moments across Chennai.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../pages/services.html">Event Services</a></li>
+        <li><a href="../pages/booking.html">Book Now</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p class="footer-contact-item">+91 123-456-789</p>
+      <p class="footer-contact-item">info@ellcy.in</p>
+      <p class="footer-contact-item">Chennai, Tamil Nadu</p>
+    </div>
+    <div class="footer-col">
+      <h4>Get a Quote</h4>
+      <a class="footer-enquiry-btn" href="../pages/booking.html">
+        <i class="fa-solid fa-calendar-check"></i> Book Now
+      </a>
+    </div>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="footer-bottom">
+    <p><span id="year"></span> &copy; ELLCY &mdash; All Rights Reserved.</p>
+    <div class="footer-social">
+      <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" aria-label="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/security.js"></script>
+<script>
+(function() {
+  'use strict';
+
+  /* ── Desktop header show/hide ── */
+  if (window.innerWidth >= 769) {
+    var h = document.getElementById('dskHdr');
+    if (h) h.style.display = '';
+  }
+
+  /* ── Auto-fill service from URL ?service= param ── */
+  var params  = new URLSearchParams(window.location.search);
+  var svcParam = params.get('service') || '';
+  if (svcParam) {
+    var sel = document.getElementById('rfcService');
+    if (sel) {
+      /* Try exact match first, then partial */
+      var found = false;
+      for (var i = 0; i < sel.options.length; i++) {
+        var opt = sel.options[i];
+        var slug = svcParam.toLowerCase().replace(/-/g, ' ');
+        if (opt.value.toLowerCase().includes(slug) || opt.text.toLowerCase().includes(slug)) {
+          sel.selectedIndex = i;
+          found = true;
+          break;
+        }
+      }
+      /* If no match, set a readable label as a custom option */
+      if (!found && svcParam) {
+        var customOpt = document.createElement('option');
+        customOpt.value = svcParam;
+        /* Prettify slug → readable */
+        customOpt.text  = svcParam.replace(/-/g,' ').replace(/\b\w/g, function(c){ return c.toUpperCase(); });
+        customOpt.selected = true;
+        sel.insertBefore(customOpt, sel.options[1]);
+      }
+    }
+  }
+
+  /* ── Phone: digits only ── */
+  var phoneInput = document.getElementById('rfcPhone');
+  phoneInput.addEventListener('input', function() {
+    this.value = this.value.replace(/\D/g, '').slice(0, 10);
+    this.classList.remove('error');
+    document.getElementById('rfcPhoneErr').classList.remove('show');
+  });
+
+  /* ── Form validation & submission ── */
+  document.getElementById('rfcForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var valid = true;
+
+    /* Validate phone */
+    var phone = phoneInput.value.trim();
+    var phoneRx = /^[6-9][0-9]{9}$/;
+    if (!phoneRx.test(phone)) {
+      phoneInput.classList.add('error');
+      document.getElementById('rfcPhoneErr').classList.add('show');
+      phoneInput.focus();
+      valid = false;
+    }
+
+    /* Validate service */
+    var svcEl  = document.getElementById('rfcService');
+    var svcVal = svcEl.value.trim();
+    if (!svcVal) {
+      svcEl.classList.add('error');
+      document.getElementById('rfcServiceErr').classList.add('show');
+      if (valid) svcEl.focus();
+      valid = false;
+    } else {
+      svcEl.classList.remove('error');
+      document.getElementById('rfcServiceErr').classList.remove('show');
+    }
+
+    if (!valid) return;
+
+    /* Sanitize inputs */
+    var safeSvc  = svcVal.replace(/[<>"'&]/g, '');
+    var safeTime = document.getElementById('rfcTime').value;
+    var safeNote = document.getElementById('rfcNote').value.trim().slice(0, 300).replace(/[<>"'&]/g, '');
+
+    /* Disable submit to prevent double-click */
+    var submitBtn = document.getElementById('rfcSubmitBtn');
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting…';
+
+    /* Submit to PHP backend */
+    var fd = new FormData();
+    fd.append('phone',    phone);
+    fd.append('service',  safeSvc);
+    fd.append('best_time',safeTime);
+    fd.append('note',     safeNote);
+    var referenceToken = params.get('reference_token') || '';
+    if (/^[a-f0-9]{64}$/.test(referenceToken)) fd.append('reference_token', referenceToken);
+
+    window.EllcySecurity.protectFormData(fd)
+      .then(function(body) { return fetch('../request-for-call', { method: 'POST', credentials: 'same-origin', body: body }); })
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fa-solid fa-phone-volume" aria-hidden="true"></i> Request for Call';
+        if (data.success) {
+          document.getElementById('rfcForm').style.display = 'none';
+          document.getElementById('rfcSuccess').classList.add('show');
+          document.getElementById('rfcSuccessPhone').textContent = '+91 ' + phone.replace(/(\d{5})(\d{5})/, '$1 $2');
+          document.getElementById('rfcFormCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          alert(data.message || 'Something went wrong. Please try again.');
+        }
+      })
+      .catch(function() {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fa-solid fa-phone-volume" aria-hidden="true"></i> Request for Call';
+        alert('Network error. Please try again.');
+      });
+  });
+
+  /* ── Footer year ── */
+  var yr = document.getElementById('year');
+  if (yr) yr.textContent = new Date().getFullYear();
+})();
+</script>
+<script src="../js/data.js"></script>
+  <script src="../js/auth.js"></script>
+<script src="../js/cart.js"></script>
+</body>
+</html>

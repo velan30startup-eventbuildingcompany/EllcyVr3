@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="description" content="Book ELLCY Enter Show Down — Pyro shows, fog effects, confetti & rose blasts for weddings &amp; grand events in Chennai."/>
+    <meta name="robots" content="index, follow"/>
+  <meta name="referrer" content="strict-origin-when-cross-origin"/>
+  <meta http-equiv="X-Content-Type-Options" content="nosniff"/>
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()"/>
+<title>ELLCY | Enter Show Down</title>
+  <link rel="stylesheet" href="../../css/style.css"/>
+  <link rel="stylesheet" href="../../css/header2.css"/>
+  <link rel="stylesheet" href="../../css/cart.css"/>
+  <link rel="stylesheet" href="../../css/bouncer.css"/>
+  <style>
+    .bnc-desktop-hdr { display: none; }
+    @media (min-width: 769px) {
+      .bnc-desktop-hdr { display: flex; }
+      .bnc-topbar      { display: none !important; }
+    }
+    /* Package cards grid */
+    .esd-pkg-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 8px;
+    }
+    @media (min-width: 769px) {
+      .esd-pkg-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    }
+    .esd-pkg-card {
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform .18s, box-shadow .18s, border-color .18s;
+      background: #fff;
+      text-decoration: none;
+      color: inherit;
+      display: flex; flex-direction: column;
+    }
+    .esd-pkg-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--primary); }
+    .esd-pkg-card.active { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(106,27,154,.12); }
+    .esd-pkg-card img { width: 100%; height: 130px; object-fit: cover; display: block; }
+    @media (min-width: 769px) { .esd-pkg-card img { height: 160px; } }
+    .esd-pkg-img-wrap { position: relative; }
+    .esd-pkg-price-badge {
+      position: absolute; bottom: 8px; left: 8px;
+      background: var(--primary); color: #fff;
+      font-size: .82rem; font-weight: 800;
+      padding: 3px 10px; border-radius: 20px;
+    }
+    .esd-pkg-body { padding: 12px 14px 14px; flex: 1; display: flex; flex-direction: column; }
+    .esd-pkg-emoji { font-size: 1.4rem; margin-bottom: 4px; }
+    .esd-pkg-name { font-size: .96rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .esd-pkg-desc { font-size: .82rem; color: var(--text-light); flex: 1; margin-bottom: 10px; line-height: 1.45; }
+    .esd-pkg-add-btn {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      background: var(--primary); color: #fff;
+      border: none; border-radius: 8px; padding: 8px 0; font-size: .85rem; font-weight: 700;
+      cursor: pointer; width: 100%; transition: background .15s;
+    }
+    .esd-pkg-add-btn:hover { background: var(--primary-dark); }
+    /* Time slot pills — consistent with other service pages */
+    .sd-slot-pill {
+      padding: 8px 20px;
+      border: 1.5px solid #e0d5f0;
+      border-radius: 999px;
+      background: #fff;
+      color: #6a1b9a;
+      font-size: .86rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all .18s;
+      white-space: nowrap;
+    }
+    .sd-slot-pill:hover  { border-color: #6a1b9a; background: #f4e9ff; }
+    .sd-slot-pill.active { background: #6a1b9a; color: #fff; border-color: #6a1b9a; }
+    /* Slot section label (matches bouncer.css pattern) */
+    .esd-slot-section { margin: 14px 0; }
+    .esd-qty-section  { margin: 14px 0; }
+    .esd-slot-label {
+      font-size: .82rem;
+      font-weight: 700;
+      color: #666;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .esd-slot-pills-wrap { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    /* Keep the selected-effect panel aligned with Welcome Girls details. */
+    .esd-effect-name {
+      color: var(--primary);
+      font-size: .88rem;
+      font-weight: 800;
+      margin: 4px 0 8px;
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" defer></script>
+</head>
+<body class="bnc-body">
+
+<!-- MOBILE BACK-BAR -->
+<header class="bnc-topbar bnc-mobile-only" role="banner" aria-label="Page navigation">
+  <button class="bnc-back-btn" onclick="_ellcySmartBack('../../pages/services.html?type=enter-show-down')" aria-label="Go back">
+    <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+    <span>Enter Show Down</span>
+  </button>
+  <a href="../../pages/cart.html" class="bnc-cart-btn" aria-label="View cart">
+    <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i>
+    <span class="bnc-cart-label">Cart</span>
+    <span class="cart-badge" style="display:none">0</span>
+  </a>
+</header>
+
+<!-- DESKTOP HEADER -->
+<header class="header new-header bnc-desktop-hdr" role="banner">
+  <a class="logo" href="../../index.html" aria-label="ELLCY Home">ELLCY</a>
+  <a href="../../pages/cart.html" class="cart-header-btn" aria-label="View cart">
+    <i class="fa-solid fa-cart-shopping"></i>
+    <span class="cart-btn-label">Cart</span>
+    <span class="cart-badge" style="display:none">0</span>
+  </a>
+</header>
+
+<!-- DESKTOP BREADCRUMB + HERO -->
+<nav class="breadcrumb bnc-desktop-hdr" aria-label="Breadcrumb" style="padding:12px 28px 4px;font-size:.85rem;color:#888;align-items:center;height:auto;min-height:auto;background:transparent;box-shadow:none;">
+  <a href="../../index.html" style="color:#6b21a8;font-weight:600;text-decoration:none;">Home</a>
+  <span style="padding:0 4px;">/</span>
+  <a href="../../pages/services.html?type=enter-show-down" style="color:#6b21a8;font-weight:600;text-decoration:none;">Enter Show Down</a>
+  <span id="dskBcPkg" style="padding:0 4px;"></span>
+</nav>
+
+<div class="bnc-desktop-wrap">
+  <div class="bnc-desktop-hero">
+    <!-- Left: image -->
+    <div class="bnc-img-mosaic">
+      <img class="bnc-mosaic-main" id="dMosaicMain" src="../../uploads/services/entershow-pyro-show.jpg" alt="Pyro Show" loading="eager"/>
+      <img class="bnc-mosaic-t1" id="dMosaicTop" src="../../uploads/services/entershow-pyro-show.jpg" alt="Pyro Show effect" loading="lazy"/>
+      <img class="bnc-mosaic-t2" id="dMosaicBottom" src="../../uploads/services/entershow-pyro-show.jpg" alt="Pyro Show celebration" loading="lazy"/>
+    </div>
+
+    <!-- Right: info panel -->
+    <div class="bnc-info-panel">
+      <div class="bnc-title-row">
+        <h1 class="bnc-title" id="dTitle">Enter Show Down &ndash; Pyro Show</h1>
+        <span class="bnc-rating-chip">★ 4.8</span>
+      </div>
+      <div class="bnc-chips">
+        <span class="bnc-chip"><i class="fa-solid fa-fire-flame-curved"></i> Certified Effects Crew</span>
+        <span class="bnc-chip"><i class="fa-solid fa-calendar-check"></i> Booking Available All Year</span>
+        <span class="bnc-chip"><i class="fa-solid fa-users"></i> 320+ Events Covered</span>
+      </div>
+      <p class="bnc-avail">Available for Weddings, Receptions &amp; Grand Events</p>
+      <p class="bnc-tags">Pyro | Fog | Confetti | Rose Blast | Balloon</p>
+
+      <div class="esd-effect-name" id="dSelectedName">Pyro Show</div>
+      <div class="bnc-rate-tag" id="dRateTag">₹299 <span>per unit</span></div>
+      <div class="bnc-qty-card">
+        <div class="bnc-qty-header">
+          <label class="bnc-qty-label" for="dQty">Number of Units</label>
+          <div class="bnc-qty-ctrl">
+            <button type="button" class="bnc-minus" id="dQtyMinus" aria-label="Decrease">&minus;</button>
+            <input type="number" id="dQty" class="bnc-qty-inp" value="5" min="5" max="200" aria-label="Unit count"/>
+            <button type="button" class="bnc-plus" id="dQtyPlus" aria-label="Increase">+</button>
+          </div>
+        </div>
+        <div class="bnc-total-row">
+          <span class="bnc-total-lbl">Total Amount</span>
+          <span class="bnc-total-val" id="dTotal">₹299 &times; 5 = <b>₹1,495</b></span>
+        </div>
+      </div>
+
+      <div class="bnc-cta-row" style="margin-top:18px;">
+        <button class="bnc-btn-book" id="dBook">
+          <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i> Add to Cart
+        </button>
+        <a class="bnc-btn-call" href="../../pages/request-for-call.html">
+          <i class="fa-solid fa-phone" aria-hidden="true"></i> Call Now
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MOBILE HERO -->
+<div class="bnc-mobile-hero bnc-mobile-only">
+  <img id="mHeroImage" src="../../uploads/services/entershow-pyro-show.jpg" alt="Pyro Show"/>
+</div>
+
+<!-- SHARED MAIN -->
+<main class="bnc-main" role="main">
+
+  <!-- Mobile info block -->
+  <div class="bnc-mobile-only">
+    <div class="bnc-title-row">
+      <h1 class="bnc-title" id="mTitle">Enter Show Down &ndash; Pyro Show</h1>
+      <span class="bnc-rating-chip">★ 4.8</span>
+    </div>
+    <p class="bnc-avail">Available for Weddings, Receptions &amp; Grand Events</p>
+    <p class="bnc-tags">Pyro | Fog | Confetti | Rose Blast | Balloon</p>
+
+    <div class="esd-effect-name" id="mSelectedName">Pyro Show</div>
+    <div class="bnc-rate-line">
+      <span class="bnc-rate-price" id="mRatePrice">₹299</span>
+      <span class="bnc-rate-per">/ Unit</span>
+    </div>
+
+    <div class="bnc-qty-card">
+      <div class="bnc-qty-header">
+        <label class="bnc-qty-label" for="mQty">Number of Units</label>
+        <div class="bnc-qty-ctrl">
+          <button type="button" class="bnc-minus" id="mQtyMinus" aria-label="Decrease">&minus;</button>
+          <input type="number" id="mQty" class="bnc-qty-inp" value="5" min="5" max="200" aria-label="Unit count"/>
+          <button type="button" class="bnc-plus" id="mQtyPlus" aria-label="Increase">+</button>
+        </div>
+      </div>
+      <div class="bnc-total-row">
+        <span class="bnc-total-lbl">Total Amount</span>
+        <span class="bnc-total-val" id="mTotal">₹299 &times; 5 = <b>₹1,495</b></span>
+      </div>
+    </div>
+
+    <div class="bnc-chips" style="margin-bottom:14px">
+      <span class="bnc-chip"><i class="fa-solid fa-fire-flame-curved"></i> Certified Effects Crew</span>
+      <span class="bnc-chip"><i class="fa-solid fa-calendar-check"></i> All Year Booking</span>
+      <span class="bnc-chip"><i class="fa-solid fa-users"></i> 320+ Events</span>
+    </div>
+
+    <div class="bnc-cta-row">
+      <button class="bnc-btn-book" id="mBook">
+        <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i> Add to Cart
+      </button>
+      <a class="bnc-btn-call" href="../../pages/request-for-call.html">
+        <i class="fa-solid fa-phone" aria-hidden="true"></i> Call Now
+      </a>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="bnc-tabs" role="tablist">
+    <button type="button" class="bnc-tab active" data-tab="overview" role="tab" aria-selected="true">Overview</button>
+    <button type="button" class="bnc-tab" data-tab="reviews" role="tab" aria-selected="false">Reviews</button>
+  </div>
+
+  <div class="bnc-tab-body" id="tabOverview" role="tabpanel">
+    <p>Make your entrance or finale legendary with ELLCY Enter Show Down. We specialise in grand entry productions featuring pyro shows, entry pot fog, paper blasts, rose showers, balloon bursts and stage fog setups.</p>
+    <p>Each effect is handled by our trained crew and is fully safety-compliant. Pick any effect below, choose your time slot, and add it to your event cart — or mix and match multiple effects for a show-stopping sequence.</p>
+  </div>
+  <div class="bnc-tab-body hidden" id="tabReviews" role="tabpanel">
+    <div class="bnc-reviews">
+      <div class="bnc-review-card">
+        <div class="bnc-review-hdr"><span class="bnc-reviewer">Madhan R.</span><span class="bnc-stars">★★★★★</span></div>
+        <p>The pyro show for our bride's entry was absolutely stunning. Every guest had goosebumps!</p>
+      </div>
+      <div class="bnc-review-card">
+        <div class="bnc-review-hdr"><span class="bnc-reviewer">Chandrika S.</span><span class="bnc-stars">★★★★★</span></div>
+        <p>Entry pot fog made our reception look like a movie set. Breathtaking!</p>
+      </div>
+      <div class="bnc-review-card">
+        <div class="bnc-review-hdr"><span class="bnc-reviewer">Balamurugan K.</span><span class="bnc-stars">★★★★★</span></div>
+        <p>Rose blast during the first dance was so romantic. Absolutely worth it.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PACKAGES GRID -->
+  <section style="padding:0 0 40px;">
+    <h2 style="font-size:1.2rem;font-weight:800;color:var(--text);padding:20px 0 14px;">Choose Your Effect</h2>
+    <div class="esd-pkg-grid" id="esdPkgGrid"></div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">ELLCY</div>
+      <p class="footer-text">Creating unforgettable moments — weddings, birthdays, college events and temple celebrations across Chennai.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="../../index.html">Home</a></li>
+        <li><a href="../../pages/services.html">Event Services</a></li>
+        <li><a href="../../pages/category.html">Categories</a></li>
+        <li><a href="../../pages/booking.html">Book Now</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p class="footer-contact-item">+91 123-456-789</p>
+      <p class="footer-contact-item">info@ellcy.in</p>
+      <p class="footer-contact-item">Chennai, Tamil Nadu</p>
+    </div>
+    <div class="footer-col">
+      <h4>Get a Quote</h4>
+      <p class="footer-quote-text">Have an event in mind? Let us help you plan it.</p>
+      <a class="footer-enquiry-btn" href="../../pages/booking.html">
+        <i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Book Now
+      </a>
+    </div>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="footer-bottom">
+    <p><span id="year"></span> &copy; ELLCY &mdash; All Rights Reserved.</p>
+    <div class="footer-social">
+      <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" aria-label="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function _ellcySmartBack(fallbackUrl){
+    if(window.history.length>1 && document.referrer && document.referrer.includes(window.location.hostname)){
+      window.history.back();
+    } else {
+      window.location.href = fallbackUrl;
+    }
+  }
+(function(){
+  'use strict';
+  var EFFECTS = [
+    { key:'pyro-show',       emoji:'🎆', label:'Pyro Show',        price:299,  img:'entershow-pyro-show.jpg',      desc:'Spectacular choreographed pyro burst with colourful aerial effects for grand entries and stage reveals.' },
+    { key:'entry-pot-fag',   emoji:'🌫️', label:'Entry Pot Fog',    price:459,  img:'entershow-entry-pot-fog.jpg',   desc:'Dramatic low-lying fog from entry pots — creates a mystical cinematic entrance for bride and groom.' },
+    { key:'paper-blast',     emoji:'🎊', label:'Paper Blast',      price:299,  img:'entershow-paper-blast.jpg',     desc:'High-energy confetti paper cannon blast for entries, first dance and grand celebration moments.' },
+    { key:'rose-blast',      emoji:'🌹', label:'Rose Blast',       price:299,  img:'entershow-rose-blast.jpg',      desc:'Romantic rose petal blast that showers the couple with fragrant petals during special moments.' },
+    { key:'bollon-blast',    emoji:'🎈', label:'Balloon Blast',    price:599,  img:'entershow-balloon-blast.jpg',   desc:'Exciting balloon blast with hundreds of balloons released simultaneously for celebrations.' },
+    { key:'stage-fog-setup', emoji:'💨', label:'Stage Fog Setup',  price:599,  img:'entershow-stage-fog.jpg',       desc:'Professional stage fog machine that creates dramatic atmospheric effects for performances and entries.' },
+    { key:'gun-paper-blast', emoji:'🎉', label:'Gun Paper Blast',  price:499,  img:'entershow-gun-paper-shot.jpg',  desc:'Handheld confetti gun blast for instant celebration effects — perfect for couple entry and first dance.' },
+  ];
+
+  var params     = new URLSearchParams(window.location.search);
+  var activeKey  = params.get('pkg') || EFFECTS[0].key;
+  var MIN_QTY = 5, MAX_QTY = 200, DEFAULT_QTY = 5;
+  var qty = DEFAULT_QTY;
+
+  function fmt(n){ return '₹' + Number(n).toLocaleString('en-IN'); }
+  function getActive(){ return EFFECTS.find(function(e){ return e.key === activeKey; }) || EFFECTS[0]; }
+
+  function totalMarkup(e){
+    return fmt(e.price) + ' &times; ' + qty + ' = <b>' + fmt(e.price * qty) + '</b>';
+  }
+
+  function updateSelected(){
+    var e = getActive();
+    ['mSelectedName','dSelectedName'].forEach(function(id){
+      var el = document.getElementById(id); if(el) el.textContent = e.emoji + ' ' + e.label;
+    });
+    ['mTitle','dTitle'].forEach(function(id){
+      var el = document.getElementById(id); if(el) el.textContent = 'Enter Show Down – ' + e.label;
+    });
+    ['mTotal','dTotal'].forEach(function(id){
+      var el = document.getElementById(id); if(el) el.innerHTML = totalMarkup(e);
+    });
+    var dRate = document.getElementById('dRateTag');
+    if(dRate) dRate.innerHTML = fmt(e.price) + ' <span>per unit</span>';
+    var mRate = document.getElementById('mRatePrice');
+    if(mRate) mRate.textContent = fmt(e.price);
+
+    var imageUrl = '../../uploads/services/' + e.img;
+    ['dMosaicMain','dMosaicTop','dMosaicBottom','mHeroImage'].forEach(function(id){
+      var img = document.getElementById(id);
+      if(img){ img.src = imageUrl; img.alt = e.label; }
+    });
+    // Highlight active card
+    document.querySelectorAll('.esd-pkg-card').forEach(function(c){
+      c.classList.toggle('active', c.dataset.key === activeKey);
+    });
+    // Update desktop breadcrumb
+    var dbc = document.getElementById('dskBcPkg');
+    if(dbc) dbc.innerHTML = '/ ' + e.label;
+  }
+
+  function syncQty(newQty){
+    qty = Math.max(MIN_QTY, Math.min(MAX_QTY, parseInt(newQty) || DEFAULT_QTY));
+    ['mQty','dQty'].forEach(function(id){
+      var el = document.getElementById(id);
+      if(el) el.value = qty;
+    });
+    updateSelected();
+    return qty;
+  }
+  function wireQtyControls(minusId, plusId, inputId){
+    var minus = document.getElementById(minusId);
+    var plus  = document.getElementById(plusId);
+    var inp   = document.getElementById(inputId);
+    if(!minus||!plus||!inp) return;
+    minus.addEventListener('click', function(){ syncQty(parseInt(inp.value||DEFAULT_QTY) - 1); });
+    plus.addEventListener('click',  function(){ syncQty(parseInt(inp.value||DEFAULT_QTY) + 1); });
+    inp.addEventListener('input',  function(){ syncQty(this.value); });
+    inp.addEventListener('change', function(){ syncQty(this.value); });
+  }
+  wireQtyControls('mQtyMinus','mQtyPlus','mQty');
+  wireQtyControls('dQtyMinus','dQtyPlus','dQty');
+
+  function buildCards(){
+    var grid = document.getElementById('esdPkgGrid');
+    if(!grid) return;
+    EFFECTS.forEach(function(e){
+      var card = document.createElement('div');
+      card.className = 'esd-pkg-card' + (e.key === activeKey ? ' active' : '');
+      card.dataset.key = e.key;
+      card.innerHTML =
+        '<div class="esd-pkg-img-wrap">' +
+          '<img src="../../uploads/services/' + e.img + '" alt="' + e.label + '" loading="lazy"/>' +
+          '<span class="esd-pkg-price-badge">' + fmt(e.price) + '</span>' +
+        '</div>' +
+        '<div class="esd-pkg-body">' +
+          '<div class="esd-pkg-emoji">' + e.emoji + '</div>' +
+          '<div class="esd-pkg-name">' + e.label + '</div>' +
+          '<div class="esd-pkg-desc">' + e.desc + '</div>' +
+          '<button class="esd-pkg-add-btn" type="button"><i class="fa-solid fa-cart-shopping"></i> Add to Cart</button>' +
+        '</div>';
+
+      card.addEventListener('click', function(ev){
+        if(ev.target.closest('.esd-pkg-add-btn')) return;
+        activeKey = e.key;
+        updateSelected();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      card.querySelector('.esd-pkg-add-btn').addEventListener('click', function(ev){
+        ev.stopPropagation();
+        activeKey = e.key;
+        updateSelected();
+        addToCart(e);
+      });
+      grid.appendChild(card);
+    });
+  }
+
+  function addToCart(e){
+    if(typeof window.EllcyCart !== 'undefined'){
+      window.EllcyCart.add({
+        id:       e.key + '-' + qty,
+        uid:      e.key + '-' + qty,
+        slug:     'enter-show-down',
+        title:    'Enter Show Down — ' + e.label + ' \u00d7 ' + qty,
+        package:  e.label + ' (' + qty + ' units)',
+        price:    e.price * qty,
+        image:    '../../uploads/services/' + e.img,
+        slot:     'Full Day'
+      });
+    } else {
+      var cart = [];
+      try { cart = JSON.parse(localStorage.getItem('ellcy_cart') || '[]'); } catch(ex){}
+      cart.push({ id: e.key, slug:'enter-show-down', title:'Enter Show Down — '+e.label, package:e.label, price:e.price * qty, qty:1 });
+      localStorage.setItem('ellcy_cart', JSON.stringify(cart));
+    }
+    window.location.href = '../../pages/booking.html?service=enter-show-down&pkg=' + encodeURIComponent(e.key) + '&label=' + encodeURIComponent(e.label) + '&qty=' + qty;
+  }
+
+  // Book buttons
+  function handleBook(){
+    addToCart(getActive());
+  }
+  ['mBook','dBook'].forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.addEventListener('click', handleBook);
+  });
+  /* Inject Buy Now buttons after Add to Cart */
+  document.addEventListener('DOMContentLoaded', function(){
+    ['mBook','dBook'].forEach(function(id){
+      var btn = document.getElementById(id);
+      if(!btn || !btn.parentNode || btn.parentNode.querySelector('.bnc-btn-buynow')) return;
+      var buyBtn = document.createElement('button');
+      buyBtn.type = 'button';
+      buyBtn.className = 'bnc-btn-buynow';
+      buyBtn.innerHTML = '<i class="fa-solid fa-bolt" aria-hidden="true"></i> Buy Now';
+      buyBtn.addEventListener('click', function(){
+        var e = getActive();
+        if(typeof EllcyCart !== 'undefined'){
+          EllcyCart.buyNow({
+            uid:     e.key + '-' + qty + '-buynow',
+            id:      e.key + '-' + qty,
+            slug:    'enter-show-down',
+            title:   'Enter Show Down — ' + e.label + ' \u00d7 ' + qty,
+            package: e.label + ' (' + qty + ' units)',
+            price:   e.price * qty,
+            image:   '../../uploads/services/' + e.img,
+            slot:    'Full Day',
+            page:    location.href
+          });
+        }
+      });
+      btn.insertAdjacentElement('afterend', buyBtn);
+    });
+  });
+
+  // Tabs
+  document.querySelectorAll('.bnc-tab').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      document.querySelectorAll('.bnc-tab').forEach(function(t){ t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+      document.querySelectorAll('.bnc-tab-body').forEach(function(b){ b.classList.add('hidden'); });
+      tab.classList.add('active'); tab.setAttribute('aria-selected','true');
+      var target = document.getElementById('tab' + tab.dataset.tab.charAt(0).toUpperCase() + tab.dataset.tab.slice(1));
+      if(target) target.classList.remove('hidden');
+    });
+  });
+
+  buildCards();
+  updateSelected();
+  var yr = document.getElementById('year');
+  if(yr) yr.textContent = new Date().getFullYear();
+})();
+</script>
+<script src="../data.js"></script>
+  <script src="../../js/auth.js"></script>
+<script src="../../js/cart.js"></script>
+</body>
+</html>

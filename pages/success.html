@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="robots" content="index, follow"/>
+  <meta name="referrer" content="strict-origin-when-cross-origin"/>
+  <meta http-equiv="X-Content-Type-Options" content="nosniff"/>
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()"/>
+<title>ELLCY | Booking Confirmed</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <link rel="stylesheet" href="../css/header2.css"/>
+  <link rel="stylesheet" href="../css/booking.css"/>
+  <style>
+    .success-wrap{text-align:center;padding:100px 20px;}
+    .success-icon{font-size:80px;margin-bottom:20px;}
+    .success-wrap h2{font-size:2rem;font-weight:800;margin-bottom:12px;color:#5D28AD;}
+    .success-wrap p{color:#666;font-size:1.1rem;margin-bottom:32px;max-width:480px;margin-left:auto;margin-right:auto;}
+    .home-btn{background:#5D28AD;color:#fff;padding:14px 32px;border-radius:10px;font-size:1rem;font-weight:700;display:inline-block;text-decoration:none;}
+    .home-btn:hover{background:#750db1;}
+  </style>
+</head>
+<body>
+<header class="header new-header" role="banner">
+  <button class="hdr-back-btn" onclick="history.back()" aria-label="Go back">
+    <i class="fa-solid fa-arrow-left" aria-hidden="true"></i><span>Back</span>
+  </button>
+  <div class="header-left">
+    <span class="hdr-mobile-title">Booking Confirmed</span>
+  <h1 class="logo" onclick="window.location.href='../index.html'" aria-label="ELLCY Home">ELLCY</h1>
+  </div>
+  <nav class="hdr-nav" aria-label="Main navigation">
+    <a href="../index.html">About Us</a>
+    <a href="services.html?type=photography">Services</a>
+    <a href="category.html?type=wedding">Categories</a>
+    <a href="booking.html">Enquiry</a>
+  </nav>
+  <a class="hdr-cta" href="booking.html">
+    <i class="fa-solid fa-calendar-days" aria-hidden="true"></i> Select Date
+  </a>
+  <button class="hdr-hamburger" id="hdrHamburger" aria-label="Open menu" aria-expanded="false">
+    <i class="fa-solid fa-bars"></i>
+  </button>
+</header>
+<nav class="hdr-mobile-menu" id="hdrMobileMenu">
+  <a href="../index.html">About Us</a>
+  <a href="services.html?type=photography">Services</a>
+  <a href="category.html?type=wedding">Categories</a>
+  <a href="booking.html">Enquiry</a>
+  <a class="mob-cta" href="booking.html">Select Date</a>
+</nav>
+<div class="success-wrap">
+  <div class="success-icon">&#127881;</div>
+  <h2>Booking Confirmed!</h2>
+  <p>Thank you! Our team will contact you shortly to confirm your booking details and next steps.</p>
+  <a href="../index.html" class="home-btn">Back to Home</a>
+</div>
+
+<!-- ─── FOOTER ─────────────────────────────────────────────── -->
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">ELLCY</div>
+      <p class="footer-text">Creating unforgettable moments — weddings, birthdays, college events and temple celebrations across Chennai.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="services.html?type=photography">Event Services</a></li>
+        <li><a href="category.html?type=wedding">Categories</a></li>
+        <li><a href="booking.html">Enquiry</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p class="footer-contact-item">+91 123-456-789</p>
+      <p class="footer-contact-item">info@ellcy.in</p>
+      <p class="footer-contact-item">Chennai, Tamil Nadu</p>
+    </div>
+    <div class="footer-col">
+      <h4>Get a Quote</h4>
+      <p class="footer-quote-text">Have an event in mind? Let us help you plan it.</p>
+      <a class="footer-enquiry-btn" href="booking.html">
+        <i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Book Now
+      </a>
+    </div>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="footer-bottom">
+    <p><span id="year"></span> &copy; ELLCY &mdash; All Rights Reserved.</p>
+    <div class="footer-social">
+      <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" aria-label="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+    </div>
+  </div>
+</footer>
+<script>
+  (function(){
+    var yr = document.getElementById('year'); if (yr) yr.textContent = new Date().getFullYear();
+
+    /* Mobile nav toggle — markup existed but was never wired up */
+    var hamburger = document.getElementById('hdrHamburger');
+    var menu      = document.getElementById('hdrMobileMenu');
+    if (hamburger && menu) {
+      hamburger.addEventListener('click', function(){
+        var isOpen = menu.classList.toggle('open');
+        hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+      menu.querySelectorAll('a').forEach(function(link){
+        link.addEventListener('click', function(){
+          menu.classList.remove('open');
+          hamburger.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,725 @@
+/* ============================================================
+   cart.css — ELLCY Cart Button, Badge & Toast
+   ============================================================ */
+
+/* ── Cart header button (home + inner pages) ──────────────── */
+.cart-header-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: #fff;
+  color: #6b21a8;
+  border: none;
+  padding: 9px 18px;
+  border-radius: 9px;
+  font-size: .9rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background .2s, transform .15s;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.cart-header-btn:hover {
+  background: #f4e9ff;
+  transform: translateY(-1px);
+}
+.cart-header-btn i {
+  font-size: 1rem;
+}
+
+/* ── Badge (red count bubble) ──────────────────────────────── */
+.cart-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 18px;
+  height: 18px;
+  background: #e53935;
+  color: #fff;
+  border-radius: 999px;
+  font-size: .68rem;
+  font-weight: 800;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  line-height: 1;
+  box-shadow: 0 1px 4px rgba(0,0,0,.25);
+  pointer-events: none;
+  border: 2px solid #6b21a8;
+}
+
+/* Mobile topbar cart btn (reuses cm-share-btn style, just add relative for badge) */
+.cart-btn-mobile {
+  position: relative !important;
+}
+.cart-btn-mobile .cart-badge {
+  border-color: #4e0d7a;
+}
+
+/* ── Toast notification ──────────────────────────────────── */
+.ellcy-toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(16px);
+  background: #1a0d2e;
+  color: #fff;
+  padding: 13px 22px;
+  border-radius: 12px;
+  font-size: .9rem;
+  font-weight: 600;
+  box-shadow: 0 8px 28px rgba(0,0,0,.28);
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s, transform .25s;
+  white-space: nowrap;
+  max-width: 90vw;
+  text-align: center;
+}
+.ellcy-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+.ellcy-toast.warn { background: #b71c1c; }
+.ellcy-toast a {
+  color: #d8b4fe;
+  font-weight: 800;
+  text-decoration: underline;
+  margin-left: 6px;
+}
+.ellcy-toast i { margin-right: 6px; color: #86efac; }
+
+/* ── "Add to Cart" button override on desc pages ─────────── */
+.cm-btn-book[data-cart-wired="1"],
+#btnBookD[data-cart-wired="1"],
+#btnBookM[data-cart-wired="1"] {
+  background: #6b21a8;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   "BUY NOW" — Amazon-style instant checkout button.
+   Injected by cart.js / service-desc.js right next to every
+   "Add to Cart" button across the site, so it never needs to
+   be hand-added to individual description pages.
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.sd-btn-buynow,
+.cm-btn-buynow {
+  flex: 1;
+  padding: 13px;
+  background: linear-gradient(180deg, #ffb84d, #f59e0b);
+  color: #3a2300;
+  border: none;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: .92rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  text-decoration: none;
+  white-space: nowrap;
+  min-width: 0;        /* prevent overflow in flex container */
+  box-sizing: border-box;
+  transition: background .18s, transform .14s, box-shadow .18s;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, .35);
+}
+.sd-btn-buynow:hover,
+.cm-btn-buynow:hover {
+  background: linear-gradient(180deg, #f59e0b, #d97706);
+  transform: translateY(-1px);
+}
+.sd-btn-buynow i, .cm-btn-buynow i { font-size: .85em; }
+
+/* Mobile: stack Add-to-Cart + Buy Now on one row, Request for Call below */
+@media (max-width: 480px) {
+  .cm-cta-row, .sd-cta-row { flex-wrap: wrap; }
+  .cm-cta-row .cm-btn-call, .sd-cta-row .sd-btn-call { flex: 1 1 100%; order: 3; }
+  .cm-enquiry-btns { flex-wrap: wrap; }
+  .cm-enquiry-btns .cm-btn-call { order: 3; flex: 1 1 100%; }
+}
+
+/* ── Buy Now single-item checkout banner (pages/booking.html) ── */
+.bn-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff7e6;
+  border: 1px solid #f5c453;
+  color: #7a4a00;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: .86rem;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+.bn-banner i { color: #f59e0b; font-size: 1.05rem; }
+.bn-banner a { color: #6b21a8; text-decoration: underline; font-weight: 800; margin-left: auto; white-space: nowrap; }
+@media (max-width: 480px) {
+  .bn-banner { font-size: .8rem; }
+  .bn-banner a { margin-left: 0; flex: 1 1 100%; }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   CART PAGE  (pages/cart.html)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.cart-page-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 28px 20px 60px;
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 28px;
+  align-items: start;
+}
+@media (max-width: 860px) {
+  .cart-page-wrap {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Left: items list ────────────────────────────────────── */
+.cart-items-col h2 {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #111;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #f0ecf8;
+}
+.cart-item {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 18px 0;
+  border-bottom: 1px solid #f0ecf8;
+}
+.cart-item-img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 10px;
+  flex-shrink: 0;
+  background: #f5f0fc;
+}
+.cart-item-body {
+  flex: 1;
+  min-width: 0;
+}
+.cart-item-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 4px;
+}
+.cart-item-meta {
+  font-size: .82rem;
+  color: #777;
+  margin-bottom: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.cart-item-tag {
+  background: #f4e9ff;
+  color: #6b21a8;
+  border-radius: 999px;
+  padding: 2px 10px;
+  font-size: .78rem;
+  font-weight: 600;
+}
+.cart-item-price {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #6b21a8;
+}
+.cart-item-remove {
+  background: none;
+  border: none;
+  color: #c00;
+  font-size: .82rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 0;
+  transition: color .15s;
+  margin-top: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.cart-item-remove:hover { color: #900; }
+
+/* Empty cart */
+.cart-empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: #aaa;
+}
+.cart-empty i {
+  font-size: 52px;
+  margin-bottom: 16px;
+  display: block;
+  color: #d8b4fe;
+}
+.cart-empty h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #555;
+  margin-bottom: 8px;
+}
+.cart-empty p { font-size: .9rem; margin-bottom: 20px; }
+.cart-empty a {
+  display: inline-block;
+  background: #6b21a8;
+  color: #fff;
+  padding: 11px 26px;
+  border-radius: 9px;
+  font-weight: 700;
+  font-size: .92rem;
+  text-decoration: none;
+  transition: background .2s;
+}
+.cart-empty a:hover { background: #4e0d7a; }
+
+/* ── Right: summary panel ─────────────────────────────────── */
+.cart-summary {
+  background: #fff;
+  border: 1.5px solid #f0ecf8;
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 0 4px 18px rgba(107,33,168,.08);
+  position: sticky;
+  top: 80px;
+}
+.cart-summary h3 {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #111;
+  margin-bottom: 18px;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+.cart-summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: .9rem;
+  color: #555;
+}
+.cart-summary-row.total {
+  font-size: 1.08rem;
+  font-weight: 800;
+  color: #111;
+  border-top: 1.5px solid #f0ecf8;
+  padding-top: 12px;
+  margin-top: 6px;
+}
+.cart-summary-row.total span:last-child {
+  color: #6b21a8;
+}
+.cart-checkout-btn {
+  display: block;
+  width: 100%;
+  background: #6b21a8;
+  color: #fff;
+  border: none;
+  padding: 14px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 800;
+  cursor: pointer;
+  margin-top: 18px;
+  font-family: inherit;
+  text-align: center;
+  text-decoration: none;
+  transition: background .2s, transform .15s, box-shadow .2s;
+  box-shadow: 0 4px 14px rgba(107,33,168,.3);
+}
+.cart-checkout-btn:hover {
+  background: #4e0d7a;
+  transform: translateY(-1px);
+  box-shadow: 0 7px 20px rgba(107,33,168,.4);
+}
+.cart-enquiry-note {
+  font-size: .78rem;
+  color: #999;
+  text-align: center;
+  margin-top: 10px;
+  line-height: 1.5;
+}
+.cart-continue-link {
+  display: block;
+  text-align: center;
+  margin-top: 14px;
+  font-size: .85rem;
+  color: #6b21a8;
+  font-weight: 600;
+  text-decoration: none;
+}
+.cart-continue-link:hover { text-decoration: underline; }
+
+/* ── Trust badges row ────────────────────────────────────── */
+.cart-trust {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+  border-top: 1px solid #f0ecf8;
+  padding-top: 14px;
+}
+.cart-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: .76rem;
+  color: #777;
+  font-weight: 600;
+}
+.cart-trust-item i { color: #6b21a8; font-size: .85rem; }
+
+@media (max-width: 480px) {
+  .cart-item-img { width: 72px; height: 72px; }
+  .cart-item-title { font-size: .92rem; }
+  .cart-summary { position: static; }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   RIGHT-SIDE ACTIONS GROUP — Booking + Cart + Avatar
+   Injected by js/auth.js as a single wrapper around all three so
+   they always move together as one unit, no matter what the
+   surrounding header template's own layout rules are (this is what
+   keeps the Login Avatar permanently glued to Cart — see the
+   comment in auth.js's injectAuthWidget for why this exists).
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.ellcy-right-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ACCOUNT WIDGET — "Hello, sign in" / logged-in avatar
+   Injected by js/cart.js next to the cart icon in every header
+   variant. Amazon-inspired two-line layout, ELLCY branding.
+   Sits immediately AFTER Cart inside .ellcy-right-actions (spacing
+   is handled by that group's `gap`, not by margins here).
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.ellcy-acct {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.ellcy-acct-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 9px;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background .18s;
+  background: transparent;
+  border: none;
+}
+.ellcy-acct-btn:hover { background: rgba(255,255,255,.12); }
+.ellcy-acct-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.16);
+  color: #fff;
+  font-size: .95rem;
+  flex-shrink: 0;
+}
+.ellcy-acct-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #6a1b9a;
+  border: 1.5px solid rgba(255,255,255,.6);
+  color: #fff;
+  font-weight: 800;
+  font-size: .9rem;
+  flex-shrink: 0;
+}
+.ellcy-acct-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+  text-align: left;
+}
+.ellcy-acct-line1 {
+  font-size: .72rem;
+  color: rgba(255,255,255,.8);
+  font-weight: 500;
+  white-space: nowrap;
+}
+.ellcy-acct-line2 {
+  font-size: .82rem;
+  font-weight: 800;
+  color: #fff;
+  white-space: nowrap;
+}
+.ellcy-acct-line2 i { font-size: .7em; margin-left: 2px; }
+
+/* Dropdown menu (guest: Sign In / Create Account — logged in: full menu) */
+.ellcy-acct-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0,0,0,.16);
+  min-width: 195px;
+  padding: 8px;
+  display: none;
+  z-index: 9999;
+}
+.ellcy-acct-menu.open { display: block; }
+.ellcy-acct-menu a {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: #1a1a2e;
+  text-decoration: none;
+  font-size: .85rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.ellcy-acct-menu a:hover { background: #f4e9ff; }
+.ellcy-acct-menu a i { width: 16px; text-align: center; color: #6a1b9a; }
+.ellcy-acct-menu-divider { height: 1px; background: #f0ecf8; margin: 6px 4px; }
+.ellcy-acct-logout { color: #c0392b !important; }
+.ellcy-acct-logout i { color: #c0392b !important; }
+
+/* Desktop: hovering the widget also reveals the menu (mirrors
+   Amazon's "Account & Lists" hover flyout) — touch devices rely
+   on the click/tap toggle wired in JS instead. */
+@media (hover: hover) {
+  .ellcy-acct:hover .ellcy-acct-menu { display: block; }
+}
+
+/* ── "My Booking" header link (our Amazon "Returns & Orders"
+   equivalent) — sits between the Account widget and the Cart icon,
+   always in that fixed order, on desktop. ──────────────────────── */
+.ellcy-booking-link {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.15;
+  padding: 6px 10px;
+  border-radius: 6px;
+  color: #fff;
+  text-decoration: none;
+  font-family: inherit;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.ellcy-booking-link:hover { background: rgba(255,255,255,.08); }
+.ellcy-booking-line1 { font-size: .72rem; opacity: .85; }
+.ellcy-booking-line2 { font-size: .86rem; font-weight: 700; }
+
+/* ── Hamburger button — hidden on desktop, shown on mobile ──── */
+.ellcy-hamburger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 1.15rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  order: -1; /* always the first item in the header row */
+}
+
+/* ── Mobile drawer (Amazon-style slide-out menu) ─────────────── */
+.ellcy-drawer-backdrop {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.45);
+  z-index: 10000;
+}
+.ellcy-drawer-backdrop.open { display: block; }
+.ellcy-drawer {
+  position: fixed; top: 0; left: 0; bottom: 0;
+  width: 82%; max-width: 320px;
+  background: #fff;
+  z-index: 10001;
+  transform: translateX(-100%);
+  transition: transform .22s ease;
+  overflow-y: auto;
+  box-shadow: 2px 0 18px rgba(0,0,0,.25);
+}
+.ellcy-drawer.open { transform: translateX(0); }
+body.ellcy-drawer-locked { overflow: hidden; }
+.ellcy-drawer-head {
+  background: #1a1a2e;
+  color: #fff;
+  padding: 18px 16px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+.ellcy-drawer-account { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.ellcy-drawer-signin {
+  display: flex; align-items: center; gap: 8px;
+  color: #fff; text-decoration: none; font-weight: 700; font-size: 1.05rem;
+}
+.ellcy-drawer-createacct {
+  display: block; color: #ffd54f; text-decoration: none; font-size: .85rem; font-weight: 600;
+  width: 100%;
+}
+.ellcy-drawer-account strong { display: block; font-size: 1.02rem; }
+.ellcy-drawer-account a { color: #ffd54f; font-size: .82rem; text-decoration: none; }
+.ellcy-drawer-close {
+  border: 0; background: transparent; color: #fff; font-size: 1.1rem; cursor: pointer;
+  padding: 4px 6px;
+}
+.ellcy-drawer-nav { display: flex; flex-direction: column; padding: 8px 0; }
+.ellcy-drawer-nav a {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 18px;
+  color: #222;
+  text-decoration: none;
+  font-size: .96rem;
+  border-bottom: 1px solid #f1f1f1;
+}
+.ellcy-drawer-nav a i { width: 18px; text-align: center; color: #6a1b9a; }
+.ellcy-drawer-logout { color: #c0392b !important; }
+.ellcy-drawer-logout i { color: #c0392b !important; }
+
+/* ── Mobile: everything but the cart icon collapses into the
+   hamburger drawer, exactly like the Amazon.in app. Cart stays in
+   the top bar so it's always reachable in one tap. ────────────── */
+@media (max-width: 768px) {
+  .ellcy-hamburger { display: flex; }
+  .ellcy-booking-link { display: none; }
+  .ellcy-right-actions { gap: 6px; }
+  .ellcy-acct { display: inline-flex; }
+  .ellcy-acct-text { display: none; }
+  .ellcy-acct-btn { padding: 6px; }
+}
+@media (min-width: 769px) {
+  .ellcy-hamburger { display: none; }
+  .ellcy-drawer, .ellcy-drawer-backdrop { display: none !important; }
+}
+
+/* ── "Sign in to book" modal ─────────────────────────────────── */
+.ellcy-loginreq-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.5);
+  z-index: 10500;
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+}
+.ellcy-loginreq-box {
+  position: relative;
+  background: #fff;
+  border-radius: 16px;
+  max-width: 340px;
+  width: 100%;
+  padding: 32px 24px 24px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,.3);
+}
+.ellcy-loginreq-close {
+  position: absolute; top: 10px; right: 10px;
+  border: 0; background: transparent; color: #999;
+  font-size: 1.1rem; cursor: pointer; padding: 6px;
+}
+.ellcy-loginreq-emoji { font-size: 2.6rem; margin-bottom: 8px; }
+.ellcy-loginreq-box h3 { margin: 0 0 8px; font-size: 1.15rem; color: #1a1a2e; }
+.ellcy-loginreq-box p { margin: 0 0 20px; font-size: .88rem; color: #666; line-height: 1.5; }
+.ellcy-loginreq-btn {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  background: #6a1b9a; color: #fff; text-decoration: none;
+  font-weight: 700; font-size: .92rem;
+  padding: 12px 18px; border-radius: 10px; margin-bottom: 10px;
+  transition: background .18s;
+}
+.ellcy-loginreq-btn:hover { background: #58157f; }
+.ellcy-loginreq-later {
+  border: 0; background: transparent; color: #888;
+  font-size: .82rem; font-weight: 600; cursor: pointer; padding: 6px;
+}
+
+/* ── "Sign in to book" modal ─────────────────────────────────── */
+.ellcy-loginreq-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.5);
+  z-index: 10500;
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+}
+.ellcy-loginreq-box {
+  position: relative;
+  background: #fff;
+  border-radius: 16px;
+  max-width: 340px;
+  width: 100%;
+  padding: 32px 24px 24px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,.3);
+}
+.ellcy-loginreq-close {
+  position: absolute; top: 10px; right: 10px;
+  border: 0; background: transparent; color: #999;
+  font-size: 1.1rem; cursor: pointer; padding: 6px;
+}
+.ellcy-loginreq-emoji { font-size: 2.6rem; margin-bottom: 8px; }
+.ellcy-loginreq-box h3 { margin: 0 0 8px; font-size: 1.15rem; color: #1a1a2e; }
+.ellcy-loginreq-box p { margin: 0 0 20px; font-size: .88rem; color: #666; line-height: 1.5; }
+.ellcy-loginreq-btn {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  background: #6a1b9a; color: #fff; text-decoration: none;
+  font-weight: 700; font-size: .92rem;
+  padding: 12px 18px; border-radius: 10px; margin-bottom: 10px;
+  transition: background .18s;
+}
+.ellcy-loginreq-btn:hover { background: #58157f; }
+.ellcy-loginreq-later {
+  border: 0; background: transparent; color: #888;
+  font-size: .82rem; font-weight: 600; cursor: pointer; padding: 6px;
+}
+
+/* ── Desktop header: Cart always on the RIGHT ───────────────
+   Previously used margin-left:auto to shove the cart button to the
+   far right of its header row. Cart now lives inside the
+   .ellcy-right-actions group (see auth.js), whose own position in
+   the header determines right-alignment, so no margin hack is
+   needed here anymore — kept as a no-op selector in case any
+   template-specific CSS still targets this class. */
+.hdr-cart-right {
+  margin-left: 0;
+}
+
+/* NOTE: .cm-cart-btn (Chenda Melam mobile cart button) is styled
+   in css/chenda-melam.css, which loads after this file on that page.
+   A duplicate/conflicting rule used to live here (fixed 38x38 icon-only
+   square) and, since it shared equal specificity with the real rule,
+   its unset properties (width/height/justify-content) bled through and
+   squashed the white pill + "Cart" label into a tiny box. Removed. */

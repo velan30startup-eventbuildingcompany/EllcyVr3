@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="description" content="Book ELLCY Chenda Melam — Traditional Kerala percussion ensemble. 6 to 20 performers for weddings, temple festivals & celebrations."/>
+    <meta name="robots" content="index, follow"/>
+  <meta name="referrer" content="strict-origin-when-cross-origin"/>
+  <meta http-equiv="X-Content-Type-Options" content="nosniff"/>
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()"/>
+<title>ELLCY | Chenda Melam</title>
+  <link rel="stylesheet" href="../../../css/style.css"/>
+  <link rel="stylesheet" href="../../../css/header2.css"/>
+  <link rel="stylesheet" href="../../../css/cart.css"/>
+  <link rel="stylesheet" href="../../../css/chenda-melam.css"/>
+  <style>
+    /* Description-page header overrides */
+    .cm-desktop-hdr { display: none; }                     /* hidden on mobile */
+    @media (min-width: 769px) {
+      .cm-desktop-hdr { display: flex; }                   /* shown on desktop */
+      .cm-topbar      { display: none !important; }        /* hide mobile bar  */
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" defer></script>
+</head>
+<body class="cm-body">
+
+<!-- ════════════════════════════════════════════════════════════
+     MOBILE HEADER  —  sticky purple bar
+     [← 6 Members]                          [share icon]
+     (hidden on desktop via .cm-mobile-only)
+════════════════════════════════════════════════════════════════ -->
+<header class="cm-topbar cm-mobile-only" role="banner" aria-label="Page navigation">
+  <button class="cm-back-btn" onclick="_ellcySmartBack('../../../pages/services.html?type=chenda-melam')" aria-label="Go back">
+    <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+    <span class="cm-back-label" id="cmBackLabel">Chenda Melam</span>
+  </button>
+  <a href="../../../pages/cart.html" class="cm-cart-btn" aria-label="View cart">
+    <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i>
+    <span class="cm-cart-label">Cart</span>
+    <span class="cart-badge" style="display:none">0</span>
+  </a>
+</header>
+
+<!-- ─── HEADER (desktop only: Logo + Select Date) ───────── -->
+<header class="header new-header cm-desktop-hdr" role="banner">
+  <a class="logo" href="../../../index.html" aria-label="ELLCY Home">ELLCY</a>
+    <a href="../../../pages/cart.html" class="cart-header-btn" aria-label="View cart">
+    <i class="fa-solid fa-cart-shopping"></i>
+    <span class="cart-btn-label">Cart</span>
+    <span class="cart-badge" style="display:none">0</span>
+  </a>
+</header>
+
+<!-- ════════════════════════════════════════════════════════════
+     DESKTOP BREADCRUMB + MOSAIC HERO  (hidden on mobile)
+════════════════════════════════════════════════════════════════ -->
+<div class="cm-desktop-only">
+
+  <nav class="cm-breadcrumb" aria-label="Breadcrumb">
+    <a href="../../../index.html">Home</a>
+    <span>/</span>
+    <a href="../../../pages/services.html?type=musical-band">Musical Band</a>
+    <span>/</span>
+    <span>Chenda Melam</span>
+  </nav>
+
+  <div class="cm-desktop-hero">
+    <!-- Left: image mosaic -->
+    <div class="cm-img-mosaic">
+      <img class="cm-mosaic-main" id="cmMosaicMain"
+           src="../../../uploads/services/chenda-melam.png"
+           alt="Chenda Melam performance" loading="eager"/>
+      <img class="cm-mosaic-t1"
+           src="../../../uploads/services/chenda-melam.png"
+           alt="Chenda Melam detail" loading="lazy"/>
+      <img class="cm-mosaic-t2"
+           src="../../../uploads/services/chenda-melam.png"
+           alt="Chenda Melam ensemble" loading="lazy"/>
+    </div>
+
+    <!-- Right: info panel -->
+    <div class="cm-desktop-info">
+      <div class="cm-title-row">
+        <h1 class="cm-page-title">Chenda Melam</h1>
+        <span class="cm-rating-chip">★ 4.4</span>
+      </div>
+
+      <div class="cm-chips-row">
+        <span class="cm-chip"><i class="fa-solid fa-clock" aria-hidden="true"></i> Coverage: <span id="cmCoverageD">3–6 Hours</span></span>
+        <span class="cm-chip"><i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Booking Available All Year</span>
+        <span class="cm-chip"><i class="fa-solid fa-users" aria-hidden="true"></i> 320+ Happy Clients</span>
+      </div>
+
+      <p class="cm-avail-tag">Available for Weddings, Temple Processions &amp; Auspicious Ceremonies</p>
+      <p class="cm-sub-tags">Traditional | Devotional | Grand Entrance | Festive Energy</p>
+
+      <!-- Time slot -->
+      <div class="cm-slot-section">
+        <div class="cm-slot-label">Preferred Time Slot</div>
+        <div class="cm-slot-pills" role="group" aria-label="Select time slot">
+          <button type="button" class="cm-slot-pill active" data-slot="Morning">Morning</button>
+          <button type="button" class="cm-slot-pill"        data-slot="Evening">Evening</button>
+          <button type="button" class="cm-slot-pill"        data-slot="Both">Both</button>
+        </div>
+      </div>
+
+      <!-- Price + CTAs -->
+      <div class="cm-desktop-price-block">
+        <div class="cm-desktop-price-line">
+          <span class="cm-price-val">₹<span id="cmPriceD">11,994</span></span>
+          <span class="cm-price-meta-d">Tradition | Powerful | Memorable</span>
+        </div>
+        <div class="cm-desktop-ctas">
+          <button class="cm-btn-book" id="btnBookD">
+            <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i> Add to Cart
+          </button>
+          <a class="cm-btn-call" href="../../../pages/request-for-call.html">
+            <i class="fa-solid fa-phone" aria-hidden="true"></i> Call Now
+          </a>
+        </div>
+      </div>
+    </div><!-- /.cm-desktop-info -->
+  </div><!-- /.cm-desktop-hero -->
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     MOBILE HERO IMAGE  (hidden on desktop)
+════════════════════════════════════════════════════════════════ -->
+<div class="cm-mobile-only">
+  <div class="cm-hero-wrap">
+    <img id="cmHeroImg" src="../../../uploads/services/chenda-melam.png" alt="Chenda Melam Performance"/>
+    <span class="cm-hero-rating">★ 4.4</span>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     SHARED MAIN CONTENT  (both breakpoints)
+════════════════════════════════════════════════════════════════ -->
+<main class="cm-main" role="main">
+
+  <!-- ── Mobile info block ────────────────────────────────── -->
+  <div class="cm-mobile-only">
+    <div class="cm-title-row">
+      <h1 class="cm-page-title">Chenda Melam</h1>
+      <span class="cm-rating-chip">★ 4.4</span>
+    </div>
+
+    <p class="cm-avail-tag">Available for Weddings, Temple Processions &amp; Auspicious Ceremonies</p>
+    <p class="cm-sub-tags">Traditional | Devotional | Grand Entrance | Festive Energy</p>
+
+    <!-- Time slot -->
+    <div class="cm-slot-section">
+      <div class="cm-slot-label">Preferred Time Slot</div>
+      <div class="cm-slot-pills" role="group" aria-label="Select time slot">
+        <button type="button" class="cm-slot-pill active" data-slot="Morning">Morning</button>
+        <button type="button" class="cm-slot-pill"        data-slot="Evening">Evening</button>
+        <button type="button" class="cm-slot-pill"        data-slot="Both">Both</button>
+      </div>
+    </div>
+
+    <!-- Price block -->
+    <div class="cm-price-block">
+      <span class="cm-price-val">₹<span id="cmPrice">11,994</span></span>
+      <span class="cm-price-meta">Tradition | Powerful | Memorable</span>
+    </div>
+
+    <!-- Info chips (vertical list on mobile) -->
+    <div class="cm-chips-row">
+      <span class="cm-chip"><i class="fa-solid fa-clock" aria-hidden="true"></i> Coverage: <span id="cmCoverage">3–6 Hours</span></span>
+      <span class="cm-chip"><i class="fa-solid fa-users" aria-hidden="true"></i> 320+ Happy Clients</span>
+      <span class="cm-chip"><i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Booking Available All Year</span>
+    </div>
+
+    <!-- CTAs -->
+    <div class="cm-cta-row">
+      <button class="cm-btn-book" id="btnBookM">
+        <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i> Add to Cart
+      </button>
+      <a class="cm-btn-call" href="../../../pages/request-for-call.html">
+        <i class="fa-solid fa-phone" aria-hidden="true"></i> Call Now
+      </a>
+    </div>
+  </div><!-- /.cm-mobile-only -->
+
+  <!-- ── TABS (shared) ─────────────────────────────────────── -->
+  <div class="cm-tabs" role="tablist">
+    <button type="button" class="cm-tab active" data-tab="overview" role="tab" aria-selected="true">Overview</button>
+    <button type="button" class="cm-tab" data-tab="reviews" role="tab" aria-selected="false">Reviews</button>
+  </div>
+
+  <div class="cm-tab-body" id="tabOverview" role="tabpanel">
+    <p>Chenda Melam is a powerful traditional percussion ensemble from Kerala, known for its thunderous rhythms and vibrant energy. It brings divine intensity and cultural grandeur to festivals, weddings and temple celebrations.</p>
+    <p>Experience the electrifying beats of Chenda Melam — a centuries-old art form of Kerala. Performed by skilled artists using chenda drums, kombu, elathalam and kuzhal, this ensemble creates an atmosphere that resonates with emotion, culture and celebration, leaving every guest awestruck.</p>
+  </div>
+  <div class="cm-tab-body hidden" id="tabReviews" role="tabpanel">
+    <div class="cm-reviews">
+      <div class="cm-review-card">
+        <div class="cm-review-hdr">
+          <span class="cm-reviewer">Anitha Rajan</span>
+          <span class="cm-rstars">★★★★★</span>
+        </div>
+        <p>Absolutely stunning performance at our wedding! Created an electrifying atmosphere. Highly recommended!</p>
+      </div>
+      <div class="cm-review-card">
+        <div class="cm-review-hdr">
+          <span class="cm-reviewer">Suresh Nambiar</span>
+          <span class="cm-rstars">★★★★★</span>
+        </div>
+        <p>Booked for our temple festival. The entire crowd was mesmerised. True artists!</p>
+      </div>
+      <div class="cm-review-card">
+        <div class="cm-review-hdr">
+          <span class="cm-reviewer">Priya Menon</span>
+          <span class="cm-rstars">★★★★☆</span>
+        </div>
+        <p>Great performance. Arrived on time and very professional. Will book again.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TOP RATINGS (2-col mobile / 4-col desktop) ─────────── -->
+  <div class="cm-top-ratings">
+    <h2 class="cm-tr-heading">Top Ratings</h2>
+    <div class="cm-tr-grid" id="cmTopRatings" role="list"></div>
+  </div>
+</main>
+
+<!-- ════════════════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════════════════════ -->
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">ELLCY</div>
+      <p class="footer-text">Creating unforgettable moments across Chennai &amp; Kerala.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="../../../index.html">Home</a></li>
+        <li><a href="../../../pages/services.html?type=musical-band">Musical Band</a></li>
+        <li><a href="../../../pages/services.html?type=chenda-melam">Chenda Melam</a></li>
+        <li><a href="../../../pages/booking.html">Book Now</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p class="footer-contact-item">+91 123-456-789</p>
+      <p class="footer-contact-item">info@ellcy.in</p>
+      <p class="footer-contact-item">Chennai, Tamil Nadu</p>
+    </div>
+    <div class="footer-col">
+      <h4>Get a Quote</h4>
+      <p class="footer-quote-text">Have an event in mind? Let us help you plan it.</p>
+      <a class="footer-enquiry-btn" href="../../../pages/booking.html">
+        <i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Book Now
+      </a>
+    </div>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="footer-bottom">
+    <p><span id="year"></span> &copy; ELLCY &mdash; All Rights Reserved.</p>
+    <div class="footer-social">
+      <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" aria-label="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+    </div>
+  </div>
+</footer>
+
+<!-- Page scripts below -->
+
+<!-- Main page script -->
+<script>
+  function _ellcySmartBack(fallbackUrl){
+    if(window.history.length>1 && document.referrer && document.referrer.includes(window.location.hostname)){
+      window.history.back();
+    } else {
+      window.location.href = fallbackUrl;
+    }
+  }
+(function(){
+  'use strict';
+
+  /* ── Package data — 7 tiers ordered by demand ── */
+  var PACKAGES = [
+    { key:'6m',  members:6,  label:'6 Members',  price:11994, priceB:23988, hours:'3–6',  desc:'Small performance. Best for pooja / home events.' },
+    { key:'8m',  members:8,  label:'8 Members',  price:15992, priceB:31984, hours:'3–6',  desc:'Medium sound. Suitable for small functions.' },
+    { key:'10m', members:10, label:'10 Members', price:19990, priceB:39980, hours:'4–8',  desc:'Balanced performance. Ideal for weddings.' },
+    { key:'12m', members:12, label:'12 Members', price:23988, priceB:47976, hours:'4–8',  desc:'Medium-large performance. Ideal for weddings & special occasions.' },
+    { key:'15m', members:15, label:'15 Members', price:29985, priceB:59970, hours:'6–10', desc:'High energy performance. Temple & grand events.' },
+    { key:'18m', members:18, label:'18 Members', price:35982, priceB:71964, hours:'6–10', desc:'Powerful traditional setup. Large celebrations.' },
+    { key:'20m', members:20, label:'20 Members', price:39980, priceB:79960, hours:'6–10', desc:'Grand Chenda Melam. Festival-level performance.' },
+  ];
+
+  var params     = new URLSearchParams(window.location.search);
+  var activeKey  = params.get('pkg') || '6m';
+  var activeSlot = 'Morning';
+  if (!PACKAGES.some(function(p){ return p.key === activeKey; })) activeKey = '6m';
+
+  function fmt(n){ return Number(n).toLocaleString('en-IN'); }
+  function getPkg(){ return PACKAGES.find(function(p){ return p.key === activeKey; }); }
+  function getPrice(p){ return activeSlot === 'Both' ? p.priceB : p.price; }
+  function $(id){ return document.getElementById(id); }
+
+  /* ── Master update function ── */
+  function updateAll(){
+    var p     = getPkg();
+    var price = getPrice(p);
+
+    /* Mobile */
+    var em = $('cmPrice');     if(em) em.textContent = fmt(price);
+    var ec = $('cmCoverage');  if(ec) ec.textContent = p.hours + ' Hours';
+    /* back label stays as 'Chenda Melam' */
+
+    /* Desktop */
+    var epd= $('cmPriceD');    if(epd) epd.textContent = fmt(price);
+    var ecd= $('cmCoverageD'); if(ecd) ecd.textContent = p.hours + ' Hours';
+    var ebc= $('cmBcLabel');   if(ebc) ebc.textContent = p.label;
+
+    /* Page title */
+    document.title = 'ELLCY | Chenda Melam — ' + p.label + ' ₹' + fmt(price);
+
+    /* performer pills removed */
+
+    /* Sync card prices + active state */
+    PACKAGES.forEach(function(pkg){
+      var prEl = $('tr-price-' + pkg.key);
+      if (prEl) prEl.textContent = '₹' + fmt(getPrice(pkg));
+    });
+    document.querySelectorAll('.cm-tr-card').forEach(function(el){
+      el.classList.toggle('active', el.dataset.key === activeKey);
+    });
+  }
+
+  /* performer pills removed */
+
+  /* ── Top Ratings cards ── */
+  var trGrid = $('cmTopRatings');
+  if (trGrid) {
+    PACKAGES.forEach(function(p){
+      var card = document.createElement('div');
+      card.className = 'cm-tr-card' + (p.key === activeKey ? ' active' : '');
+      card.dataset.key = p.key;
+      card.setAttribute('role', 'button');
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('aria-label', 'Select ' + p.label);
+      card.innerHTML =
+        '<div class="cm-tr-img-wrap">' +
+          '<img src="../../../uploads/services/chenda-melam.png" alt="' + p.label + '" loading="lazy"/>' +
+          '<span class="cm-tr-rating">★ 4.4</span>' +
+          '<span class="cm-tr-price-badge" id="tr-price-' + p.key + '">₹' + fmt(getPrice(p)) + '</span>' +
+        '</div>' +
+        '<div class="cm-tr-body">' +
+          '<div class="cm-tr-name">' + p.label + '</div>' +
+          '<div class="cm-tr-desc">' + p.desc + '</div>' +
+          '<button class="cm-tr-book-btn" type="button">Book Now</button>' +
+        '</div>';
+
+      card.addEventListener('click', function(){
+        activeKey = p.key;
+        updateAll();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+      card.addEventListener('keydown', function(e){
+        if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); card.click(); }
+      });
+      trGrid.appendChild(card);
+    });
+  }
+
+  /* ── Time slot pills — update price on change ── */
+  document.querySelectorAll('.cm-slot-pill').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      activeSlot = btn.dataset.slot;
+      document.querySelectorAll('.cm-slot-pill').forEach(function(b){
+        b.classList.toggle('active', b.dataset.slot === activeSlot);
+      });
+      updateAll();
+    });
+  });
+
+  /* ── Tabs ── */
+  document.querySelectorAll('.cm-tab').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      document.querySelectorAll('.cm-tab').forEach(function(t){
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      document.querySelectorAll('.cm-tab-body').forEach(function(b){
+        b.classList.add('hidden');
+      });
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
+      var target = $('tab' + tab.dataset.tab.charAt(0).toUpperCase() + tab.dataset.tab.slice(1));
+      if (target) target.classList.remove('hidden');
+    });
+  });
+
+  /* Note: btnBookM / btnBookD (and the bottom enquiry CTA) are wired as
+     "Add to Cart" by js/cart.js — consistent with every other service
+     description page. Users proceed to booking from the cart page. */
+
+  /* ── Init ── */
+  updateAll();
+  var yr = $('year');
+  if (yr) yr.textContent = new Date().getFullYear();
+
+})();
+</script>
+<script src="../../data.js"></script>
+  <script src="../../../js/auth.js"></script>
+<script src="../../../js/cart.js"></script>
+</body>
+</html>

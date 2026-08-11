@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="robots" content="noindex, follow"/>
+  <meta name="referrer" content="strict-origin-when-cross-origin"/>
+  <meta http-equiv="X-Content-Type-Options" content="nosniff"/>
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()"/>
+<title>ELLCY | Complete Your Booking</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/header2.css" />
+    <link rel="stylesheet" href="../css/cart.css" />
+    <link rel="stylesheet" href="../css/booking.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" defer></script>
+    <style>
+        /* ── Booking page overrides ── */
+        
+        .bk-page {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 28px 20px 60px;
+        }
+        /* Step indicator */
+        
+        .bk-steps {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            margin-bottom: 32px;
+            padding: 0 4px;
+        }
+        
+        .bk-step {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: .82rem;
+            font-weight: 700;
+            color: #bbb;
+        }
+        
+        .bk-step.active {
+            color: #6b21a8;
+        }
+        
+        .bk-step.done {
+            color: #22c55e;
+        }
+        
+        .bk-step-num {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: #e8e0f4;
+            color: #999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .78rem;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+        
+        .bk-step.active .bk-step-num {
+            background: #6b21a8;
+            color: #fff;
+        }
+        
+        .bk-step.done .bk-step-num {
+            background: #22c55e;
+            color: #fff;
+        }
+        
+        .bk-step-sep {
+            flex: 1;
+            height: 2px;
+            background: #e8e0f4;
+            margin: 0 8px;
+            min-width: 20px;
+        }
+        
+        .bk-step.done+.bk-step-sep {
+            background: #22c55e;
+        }
+        /* Main grid */
+        
+        .bk-grid {
+            display: grid;
+            grid-template-columns: 1fr 360px;
+            gap: 28px;
+            align-items: start;
+        }
+        
+        @media(max-width:860px) {
+            .bk-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        /* Form card */
+        
+        .bk-form-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 32px 36px;
+            box-shadow: 0 4px 18px rgba(107, 33, 168, .07);
+            border: 1px solid #f0ecf8;
+        }
+        
+        @media(max-width:480px) {
+            .bk-form-card {
+                padding: 20px 18px;
+            }
+        }
+        
+        .bk-form-card h2 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #111;
+            margin: 0 0 4px;
+        }
+        
+        .bk-form-card .bk-sub {
+            font-size: .87rem;
+            color: #888;
+            margin-bottom: 24px;
+        }
+        /* Form fields */
+        
+        .bk-field {
+            margin-bottom: 16px;
+        }
+        
+        .bk-field label {
+            display: block;
+            font-size: .83rem;
+            font-weight: 700;
+            color: #444;
+            margin-bottom: 5px;
+        }
+        
+        .bk-field input,
+        .bk-field select,
+        .bk-field textarea {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1.5px solid #e8e0f4;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: .95rem;
+            color: #111;
+            background: #fff;
+            outline: none;
+            transition: border-color .18s, box-shadow .18s;
+        }
+        
+        .bk-field input:focus,
+        .bk-field select:focus,
+        .bk-field textarea:focus {
+            border-color: #6b21a8;
+            box-shadow: 0 0 0 3px rgba(107, 33, 168, .1);
+        }
+        
+        .bk-field textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+        .bk-venue-img-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .bk-venue-img-thumb {
+            position: relative;
+            width: 72px;
+            height: 72px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #e5e5e5;
+        }
+        .bk-venue-img-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .bk-venue-img-remove {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(0,0,0,.6);
+            color: #fff;
+            font-size: .7rem;
+            line-height: 1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .bk-field input.error,
+        .bk-field select.error {
+            border-color: #e53935;
+        }
+        
+        .bk-row {
+            display: flex;
+            gap: 14px;
+        }
+        
+        .bk-row .bk-field {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        @media(max-width:540px) {
+            .bk-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+        /* Submit btn */
+        
+        .bk-submit {
+            width: 100%;
+            padding: 14px;
+            background: #6b21a8;
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 800;
+            cursor: pointer;
+            margin-top: 22px;
+            transition: background .2s, transform .15s, box-shadow .2s;
+            box-shadow: 0 4px 14px rgba(107, 33, 168, .3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+        }
+        
+        .bk-submit:hover {
+            background: #4e0d7a;
+            transform: translateY(-1px);
+            box-shadow: 0 7px 20px rgba(107, 33, 168, .4);
+        }
+        
+        .bk-submit:disabled {
+            opacity: .6;
+            cursor: default;
+            transform: none;
+        }
+        /* Right panel: cart summary */
+        
+        .bk-summary {
+            background: #fff;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 18px rgba(107, 33, 168, .07);
+            border: 1px solid #f0ecf8;
+            position: sticky;
+            top: 80px;
+        }
+        
+        .bk-summary h3 {
+            font-size: .9rem;
+            font-weight: 800;
+            color: #111;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            margin: 0 0 16px;
+            padding-bottom: 12px;
+            border-bottom: 1.5px solid #f0ecf8;
+        }
+        /* Cart items in summary */
+        
+        .bk-sum-item {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #f7f3ff;
+        }
+        
+        .bk-sum-item:last-of-type {
+            border-bottom: none;
+        }
+        
+        .bk-sum-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            object-fit: cover;
+            flex-shrink: 0;
+            background: #f5f0fc;
+        }
+        
+        .bk-sum-body {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .bk-sum-title {
+            font-size: .88rem;
+            font-weight: 700;
+            color: #111;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .bk-sum-pkg {
+            font-size: .75rem;
+            color: #6b21a8;
+            font-weight: 600;
+            background: #f4e9ff;
+            border-radius: 999px;
+            padding: 1px 8px;
+            display: inline-block;
+            margin-top: 2px;
+        }
+        
+        .bk-sum-price {
+            font-size: .9rem;
+            font-weight: 800;
+            color: #6b21a8;
+            flex-shrink: 0;
+        }
+        /* Totals */
+        
+        .bk-total-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: .88rem;
+            color: #555;
+            margin-top: 14px;
+            padding-top: 12px;
+            border-top: 1.5px solid #f0ecf8;
+        }
+        
+        .bk-total-row.grand {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #111;
+            margin-top: 8px;
+            padding-top: 10px;
+            border-top: 1.5px solid #f0ecf8;
+        }
+        
+        .bk-total-row.grand span:last-child {
+            color: #6b21a8;
+        }
+        /* Edit cart link */
+        
+        .bk-edit-cart {
+            display: block;
+            text-align: center;
+            margin-top: 14px;
+            font-size: .83rem;
+            color: #6b21a8;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .bk-edit-cart:hover {
+            text-decoration: underline;
+        }
+        /* Empty cart warning */
+        
+        .bk-empty-warn {
+            text-align: center;
+            padding: 32px 16px;
+            color: #aaa;
+        }
+        
+        .bk-empty-warn i {
+            font-size: 40px;
+            margin-bottom: 12px;
+            display: block;
+            color: #d8b4fe;
+        }
+        
+        .bk-empty-warn p {
+            margin: 0 0 16px;
+            font-size: .9rem;
+        }
+        
+        .bk-empty-warn a {
+            display: inline-block;
+            background: #6b21a8;
+            color: #fff;
+            padding: 10px 22px;
+            border-radius: 9px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: .9rem;
+        }
+        /* Trust row */
+        
+        .bk-trust {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+            padding-top: 14px;
+            border-top: 1px solid #f0ecf8;
+        }
+        
+        .bk-trust-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: .75rem;
+            color: #777;
+            font-weight: 600;
+        }
+        
+        .bk-trust-item i {
+            color: #6b21a8;
+        }
+        /* Success screen */
+        
+        .bk-success {
+            display: none;
+            text-align: center;
+            padding: 48px 24px;
+        }
+        
+        .bk-success i {
+            font-size: 56px;
+            color: #22c55e;
+            margin-bottom: 18px;
+            display: block;
+        }
+        
+        .bk-success h2 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #111;
+            margin: 0 0 10px;
+        }
+        
+        .bk-success p {
+            font-size: .95rem;
+            color: #555;
+            margin: 0 0 24px;
+            max-width: 420px;
+            margin-inline: auto;
+        }
+        
+        .bk-success a {
+            display: inline-block;
+            background: #6b21a8;
+            color: #fff;
+            padding: 12px 28px;
+            border-radius: 10px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: .95rem;
+        }
+        /* Confirmation modal */
+        
+        .bk-modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .45);
+            z-index: 1200;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .bk-modal-overlay.open {
+            display: flex;
+        }
+        
+        .bk-modal {
+            background: #fff;
+            border-radius: 16px;
+            padding: 32px 28px;
+            max-width: 480px;
+            width: 90%;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, .2);
+            animation: modalPop .18s ease;
+            position: relative;
+            text-align: center;
+        }
+        
+        @keyframes modalPop {
+            from {
+                transform: translateY(8px) scale(.98);
+                opacity: 0
+            }
+            to {
+                transform: none;
+                opacity: 1
+            }
+        }
+        
+        .bk-modal-close {
+            position: absolute;
+            top: 12px;
+            right: 14px;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: #888;
+            cursor: pointer;
+        }
+        
+        .bk-modal h3 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            margin: 0 0 8px;
+            color: #111;
+        }
+        
+        .bk-modal p {
+            font-size: .88rem;
+            color: #666;
+            margin: 0 0 20px;
+        }
+        
+        .bk-modal-btns {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .bk-modal-btns button {
+            flex: 1;
+            min-width: 140px;
+            padding: 12px;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: .92rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background .2s, transform .15s;
+        }
+        
+        .bk-modal-confirm {
+            background: #6b21a8;
+            color: #fff;
+            border: none;
+        }
+        
+        .bk-modal-confirm:hover {
+            background: #4e0d7a;
+        }
+        
+        .bk-modal-edit {
+            background: #fff;
+            color: #6b21a8;
+            border: 1.5px solid #6b21a8;
+        }
+        
+        .bk-modal-edit:hover {
+            background: #f4e9ff;
+        }
+        
+        .bk-modal-note {
+            font-size: .76rem;
+            color: #aaa;
+            margin-top: 12px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header new-header" role="banner">
+        <button class="hdr-back-btn" onclick="history.back()" aria-label="Go back">
+            <i class="fa-solid fa-arrow-left" aria-hidden="true"></i><span>Back</span>
+        </button>
+        <span class="hdr-mobile-title">Book Now</span>
+  <a class="logo" href="../index.html" aria-label="ELLCY Home">ELLCY</a>
+        <a href="cart.html" class="cart-header-btn hdr-cart-right" aria-label="View cart">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span class="cart-btn-label">Cart</span>
+            <span class="cart-badge" style="display:none">0</span>
+        </a>
+    </header>
+
+    <div class="bk-page">
+
+        <!-- Buy Now single-item checkout banner (shown via JS when ?mode=buynow) -->
+        <div class="bn-banner" id="bnBanner" style="display:none">
+            <i class="fa-solid fa-bolt"></i>
+            <span>Buy Now Checkout — 1 item</span>
+            <a href="cart.html">View Full Cart</a>
+        </div>
+
+        <!-- Step indicator -->
+        <div class="bk-steps" aria-label="Booking steps">
+            <div class="bk-step done" id="step1">
+                <div class="bk-step-num"><i class="fa fa-check" style="font-size:.6rem"></i></div>
+                <span>Services Added</span>
+            </div>
+            <div class="bk-step-sep"></div>
+            <div class="bk-step active" id="step2">
+                <div class="bk-step-num">2</div>
+                <span>Your Details</span>
+            </div>
+            <div class="bk-step-sep"></div>
+            <div class="bk-step" id="step3">
+                <div class="bk-step-num">3</div>
+                <span>Confirmation</span>
+            </div>
+        </div>
+
+        <div class="bk-grid">
+
+            <!-- LEFT: Form -->
+            <div class="bk-form-card" id="bkFormCard">
+                <h2>Complete Your Booking</h2>
+                <p class="bk-sub">Fill in your event details and our team will confirm your booking within 2 hours.</p>
+
+                <div class="bk-row">
+                    <div class="bk-field">
+                        <label for="bkName">Full Name *</label>
+                        <input type="text" id="bkName" placeholder="Your full name" autocomplete="name" />
+                    </div>
+                    <div class="bk-field">
+                        <label for="bkPhone">Phone Number *</label>
+                        <input type="tel" id="bkPhone" placeholder="+91 XXXXX XXXXX" autocomplete="tel" />
+                    </div>
+                </div>
+
+                <div class="bk-row">
+                    <div class="bk-field">
+                        <label for="bkEmail">Email Address</label>
+                        <input type="email" id="bkEmail" placeholder="your@email.com" autocomplete="email" />
+                    </div>
+                    <div class="bk-field">
+                        <label for="bkEventType">Event Type *</label>
+                        <select id="bkEventType">
+            <option value="">Select event type</option>
+            <option value="wedding">Wedding</option>
+            <option value="birthday">Birthday</option>
+            <option value="college">College Event</option>
+            <option value="temple">Temple Event</option>
+            <option value="corporate">Corporate Event</option>
+            <option value="other">Other</option>
+          </select>
+                    </div>
+                </div>
+
+                <div class="bk-row">
+                    <div class="bk-field">
+                        <label for="bkDate">Event Date *</label>
+                        <input type="date" id="bkDate" />
+                    </div>
+                    <div class="bk-field">
+                        <label for="bkGuests">Expected Guests</label>
+                        <select id="bkGuests">
+            <option value="">Select range</option>
+            <option value="<50">Less than 50</option>
+            <option value="50-150">50 – 150</option>
+            <option value="150-300">150 – 300</option>
+            <option value="300-500">300 – 500</option>
+            <option value="500+">500+</option>
+          </select>
+                    </div>
+                </div>
+
+                <div class="bk-field">
+                    <label for="bkVenue">Venue / Mahal Name *</label>
+                    <input type="text" id="bkVenue" placeholder="Mahal / venue name, area, Chennai" />
+                </div>
+
+                <div class="bk-field">
+                    <label for="bkVenueImages">Event Location Photos <span style="font-weight:400;color:#888;font-size:.82rem">(optional, up to 4)</span></label>
+                    <input type="file" id="bkVenueImages" accept="image/*" multiple />
+                    <div id="bkVenueImgPreview" class="bk-venue-img-preview"></div>
+                    <small id="bkVenueImgHint" style="display:block;color:#888;font-size:.8rem;margin-top:4px"></small>
+                </div>
+
+                <div class="bk-field">
+                    <label for="bkNotes">Additional Requirements</label>
+                    <textarea id="bkNotes" placeholder="Any special requests, themes, or notes for our team…"></textarea>
+                </div>
+
+                <button class="bk-submit" id="bkSubmitBtn" type="button">
+        <i class="fa-solid fa-calendar-check"></i> Confirm Booking
+      </button>
+            </div>
+
+            <!-- RIGHT: Cart summary -->
+            <aside class="bk-summary">
+                <h3>Your Selected Services</h3>
+                <div id="bkSummaryItems"></div>
+                <div id="bkSummaryTotal"></div>
+                <a class="bk-edit-cart" href="cart.html">
+                    <i class="fa fa-pen-to-square" style="font-size:.8rem"></i> Edit Cart
+                </a>
+                <div class="bk-trust">
+                    <div class="bk-trust-item"><i class="fa-solid fa-shield-halved"></i> Secure Booking</div>
+                    <div class="bk-trust-item"><i class="fa-solid fa-headset"></i> 2-hr Response</div>
+                    <div class="bk-trust-item"><i class="fa-solid fa-star"></i> 320+ Happy Clients</div>
+                </div>
+            </aside>
+
+        </div>
+
+        <!-- Success screen (shown after submit) -->
+        <div class="bk-success" id="bkSuccess">
+            <i class="fa-solid fa-circle-check"></i>
+            <h2>Booking Confirmed!</h2>
+            <p>Thank you! Our team will call you within <strong>2 hours</strong> to confirm your slot and finalise the details for your event.</p>
+            <a href="../index.html">← Back to Home</a>
+        </div>
+
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="bk-modal-overlay" id="bkModalOverlay" role="dialog" aria-modal="true" aria-label="Confirm booking">
+        <div class="bk-modal">
+            <button class="bk-modal-close" id="bkModalClose" aria-label="Close">✕</button>
+            <i class="fa-solid fa-calendar-check" style="font-size:2.2rem;color:#6b21a8;margin-bottom:14px;display:block"></i>
+            <h3>Ready to Confirm?</h3>
+            <p>Review your details before we send your booking to our team.</p>
+            <div id="bkModalSummary" style="text-align:left;background:#f7f3ff;border-radius:10px;padding:14px;font-size:.85rem;margin-bottom:18px;line-height:1.8;color:#333"></div>
+            <div class="bk-modal-btns">
+                <button class="bk-modal-confirm" id="bkModalConfirm">
+        <i class="fa fa-check"></i> Confirm &amp; Submit
+      </button>
+                <button class="bk-modal-edit" id="bkModalEdit">
+        <i class="fa fa-pen"></i> Edit Details
+      </button>
+            </div>
+            <p class="bk-modal-note">You'll receive a call from our team within 2 hours.</p>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="site-footer" role="contentinfo">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <div class="footer-logo">ELLCY</div>
+                <p class="footer-text">Creating unforgettable moments — weddings, birthdays, college events and temple celebrations across Chennai.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="services.html?type=photography">Event Services</a></li>
+                    <li><a href="category.html?type=wedding">Wedding</a></li>
+                    <li><a href="cart.html">My Cart</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <p class="footer-contact-item">+91 123-456-789</p>
+                <p class="footer-contact-item">info@ellcy.in</p>
+                <p class="footer-contact-item">Chennai, Tamil Nadu</p>
+            </div>
+            <div class="footer-col">
+                <h4>Book Your Event</h4>
+                <p class="footer-quote-text">Have your services in cart? Confirm your booking now.</p>
+                <a class="footer-enquiry-btn" href="booking.html">
+                    <i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Book Now
+                </a>
+            </div>
+        </div>
+        <div class="footer-divider"></div>
+        <div class="footer-bottom">
+            <p><span id="year"></span> &copy; ELLCY &mdash; All Rights Reserved.</p>
+            <div class="footer-social">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/data.js"></script>
+      <script src="../js/auth.js"></script>
+<script src="../js/security.js"></script>
+<script src="../js/cart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            /* ── Min date: 2 days from today ── */
+            var minDate = new Date();
+            minDate.setDate(minDate.getDate() + 2);
+            document.getElementById('bkDate').setAttribute('min', minDate.toISOString().split('T')[0]);
+
+            /* ── Render cart summary ── */
+            renderSummary();
+            window.addEventListener('ellcy:cartchange', renderSummary);
+
+            /* ── Buy Now mode: checkout a single item, bypassing
+               the persistent cart entirely (Amazon-style). ── */
+            var BN_MODE = new URLSearchParams(window.location.search).get('mode') === 'buynow';
+
+            function getCheckoutItems() {
+                if (BN_MODE) {
+                    try {
+                        var raw = sessionStorage.getItem('ellcy_buynow');
+                        if (raw) return [JSON.parse(raw)];
+                    } catch (e) {}
+                }
+                return EllcyCart.getItems();
+            }
+
+            (function initBuyNowBanner() {
+                var banner = document.getElementById('bnBanner');
+                if (!banner) return;
+                if (BN_MODE && sessionStorage.getItem('ellcy_buynow')) {
+                    banner.style.display = 'flex';
+                    var step1Label = document.querySelector('#step1 span');
+                    if (step1Label) step1Label.textContent = 'Item Selected';
+                }
+            })();
+
+            function fmt(n) {
+                return '₹' + Number(n).toLocaleString('en-IN');
+            }
+
+            function esc(s) {
+                var d = document.createElement('div');
+                d.textContent = String(s || '');
+                return d.innerHTML;
+            }
+
+            /* ── Event Location photos — up to 4, client-side validated ── */
+            var venueImageFiles = []; // holds selected File objects, max 4
+            var VENUE_IMG_MAX = 4;
+            var VENUE_IMG_MAX_MB = 8;
+
+            function renderVenueImagePreview() {
+                var wrap = document.getElementById('bkVenueImgPreview');
+                var hint = document.getElementById('bkVenueImgHint');
+                if (!wrap) return;
+                wrap.innerHTML = '';
+                venueImageFiles.forEach(function(file, idx) {
+                    var thumb = document.createElement('div');
+                    thumb.className = 'bk-venue-img-thumb';
+                    var img = document.createElement('img');
+                    img.src = URL.createObjectURL(file);
+                    img.alt = 'Event location photo ' + (idx + 1);
+                    var removeBtn = document.createElement('button');
+                    removeBtn.type = 'button';
+                    removeBtn.className = 'bk-venue-img-remove';
+                    removeBtn.setAttribute('aria-label', 'Remove photo');
+                    removeBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+                    removeBtn.addEventListener('click', function() {
+                        venueImageFiles.splice(idx, 1);
+                        renderVenueImagePreview();
+                    });
+                    thumb.appendChild(img);
+                    thumb.appendChild(removeBtn);
+                    wrap.appendChild(thumb);
+                });
+                if (hint) {
+                    hint.textContent = venueImageFiles.length
+                        ? venueImageFiles.length + ' of ' + VENUE_IMG_MAX + ' photos selected'
+                        : '';
+                }
+            }
+
+            (function initVenueImageUpload() {
+                var input = document.getElementById('bkVenueImages');
+                if (!input) return;
+                input.addEventListener('change', function() {
+                    var hint = document.getElementById('bkVenueImgHint');
+                    var incoming = Array.prototype.slice.call(input.files || []);
+                    var rejected = [];
+                    incoming.forEach(function(file) {
+                        if (venueImageFiles.length >= VENUE_IMG_MAX) { rejected.push(file.name); return; }
+                        if (!file.type || file.type.indexOf('image/') !== 0) { rejected.push(file.name); return; }
+                        if (file.size > VENUE_IMG_MAX_MB * 1024 * 1024) { rejected.push(file.name); return; }
+                        venueImageFiles.push(file);
+                    });
+                    input.value = ''; // allow re-selecting the same file later
+                    renderVenueImagePreview();
+                    if (rejected.length && hint) {
+                        hint.textContent = 'Skipped ' + rejected.length + ' file(s) — max ' +
+                            VENUE_IMG_MAX + ' photos, images only, ' + VENUE_IMG_MAX_MB + 'MB each.';
+                    }
+                });
+            })();
+
+            function renderSummary() {
+                var items = getCheckoutItems();
+                var itemsEl = document.getElementById('bkSummaryItems');
+                var totalEl = document.getElementById('bkSummaryTotal');
+                var submitBtn = document.getElementById('bkSubmitBtn');
+
+                if (!items.length) {
+                    itemsEl.innerHTML =
+                        '<div class="bk-empty-warn">' +
+                        '<i class="fa-solid fa-cart-shopping"></i>' +
+                        '<p>No services in cart yet.</p>' +
+                        '<a href="category.html?type=wedding">Browse Services</a>' +
+                        '</div>';
+                    totalEl.innerHTML = '';
+                    if (submitBtn) submitBtn.disabled = true;
+                    return;
+                }
+                if (submitBtn) submitBtn.disabled = false;
+
+                var html = '';
+                var total = 0;
+                items.forEach(function(item) {
+                    total += item.price || 0;
+                    var img = item.image || '';
+                    var imgMatch = img.match(/uploads\/.*$/);
+                    img = imgMatch ? ('../' + imgMatch[0]) : (img || '../uploads/services/stage.png');
+                    html +=
+                        '<div class="bk-sum-item">' +
+                        '<img class="bk-sum-img" src="' + esc(img) + '" alt="' + esc(item.title) + '" onerror="this.src=\'../uploads/services/stage.png\'"/>' +
+                        '<div class="bk-sum-body">' +
+                        '<div class="bk-sum-title">' + esc(item.title) + '</div>' +
+                        (item.package ? '<span class="bk-sum-pkg">' + esc(item.package) + '</span>' : '') +
+                        '</div>' +
+                        '<div class="bk-sum-price">' + (item.price > 0 ? fmt(item.price) : '—') + '</div>' +
+                        '</div>';
+                });
+                itemsEl.innerHTML = html;
+
+                totalEl.innerHTML =
+                    '<div class="bk-total-row">' +
+                    '<span>' + items.length + ' service' + (items.length > 1 ? 's' : '') + '</span>' +
+                    '<span>' + fmt(total) + '</span>' +
+                    '</div>' +
+                    '<div class="bk-total-row grand">' +
+                    '<span>Estimated Total</span>' +
+                    '<span>' + fmt(total) + '</span>' +
+                    '</div>';
+            }
+
+            /* ── Form validation ── */
+            function validate() {
+                var fields = ['bkName', 'bkPhone', 'bkEventType', 'bkDate', 'bkVenue'];
+                var ok = true;
+                fields.forEach(function(id) {
+                    var el = document.getElementById(id);
+                    if (!el) return;
+                    el.classList.remove('error');
+                    if (!el.value.trim()) {
+                        el.classList.add('error');
+                        ok = false;
+                    }
+                });
+                var phone = document.getElementById('bkPhone').value.replace(/\D/g, '');
+                if (phone.length < 9) {
+                    document.getElementById('bkPhone').classList.add('error');
+                    ok = false;
+                }
+                var items = getCheckoutItems();
+                if (!items.length) {
+                    ok = false;
+                }
+                return ok;
+            }
+
+            /* ── Open confirmation modal ── */
+            document.getElementById('bkSubmitBtn').addEventListener('click', function() {
+                if (!validate()) {
+                    /* scroll to first error */
+                    var errEl = document.querySelector('.bk-field input.error, .bk-field select.error');
+                    if (errEl) errEl.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                    return;
+                }
+
+                /* Build summary text for modal */
+                var name = document.getElementById('bkName').value.trim();
+                var phone = document.getElementById('bkPhone').value.trim();
+                var email = document.getElementById('bkEmail').value.trim();
+                var eventType = document.getElementById('bkEventType');
+                var eventLabel = eventType.options[eventType.selectedIndex].text;
+                var date = document.getElementById('bkDate').value;
+                var venue = document.getElementById('bkVenue').value.trim();
+                var guests = document.getElementById('bkGuests');
+                var guestLabel = guests.value ? guests.options[guests.selectedIndex].text : '—';
+                var items = getCheckoutItems();
+
+                var services = items.map(function(i) {
+                    return i.title + (i.package ? ' (' + i.package + ')' : '');
+                }).join('<br>');
+                var total = items.reduce(function(s, i) {
+                    return s + (i.price || 0);
+                }, 0);
+
+                document.getElementById('bkModalSummary').innerHTML =
+                    '<b>Name:</b> ' + esc(name) + '<br>' +
+                    '<b>Phone:</b> ' + esc(phone) + '<br>' +
+                    (email ? '<b>Email:</b> ' + esc(email) + '<br>' : '') +
+                    '<b>Event:</b> ' + esc(eventLabel) + '<br>' +
+                    '<b>Date:</b> ' + esc(date) + '<br>' +
+                    '<b>Venue:</b> ' + esc(venue) + '<br>' +
+                    '<b>Guests:</b> ' + esc(guestLabel) + '<br>' +
+                    '<b>Services:</b><br>' + services + '<br>' +
+                    '<b>Est. Total:</b> ₹' + Number(total).toLocaleString('en-IN');
+
+                document.getElementById('bkModalOverlay').classList.add('open');
+            });
+
+            document.getElementById('bkModalClose').addEventListener('click', closeModal);
+            document.getElementById('bkModalEdit').addEventListener('click', closeModal);
+            document.getElementById('bkModalOverlay').addEventListener('click', function(e) {
+                if (e.target === this) closeModal();
+            });
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') closeModal();
+            });
+
+            function closeModal() {
+                document.getElementById('bkModalOverlay').classList.remove('open');
+            }
+
+            /* ── Confirm & submit — saves booking to PHP/MySQL ── */
+            document.getElementById('bkModalConfirm').addEventListener('click', function() {
+                closeModal();
+
+                /* Build form data */
+                var items    = getCheckoutItems();
+                var total    = items.reduce(function(s,i){ return s+(i.price||0); },0);
+                var fd       = new FormData();
+                fd.append('name',        document.getElementById('bkName').value.trim());
+                fd.append('phone',       document.getElementById('bkPhone').value.trim());
+                fd.append('email',       document.getElementById('bkEmail').value.trim());
+                var etEl = document.getElementById('bkEventType');
+                fd.append('event_type',  etEl.options[etEl.selectedIndex].text);
+                fd.append('event_date',  document.getElementById('bkDate').value);
+                fd.append('venue',       document.getElementById('bkVenue').value.trim());
+                venueImageFiles.forEach(function(file) {
+                    fd.append('venue_images[]', file, file.name);
+                });
+                var gEl = document.getElementById('bkGuests');
+                fd.append('guest_count', gEl ? gEl.value : '');
+                fd.append('items_json',  JSON.stringify(items));
+                fd.append('total',       total);
+
+                /* Save to DB — actually check the response instead of
+                   assuming success. If the session expired mid-flow
+                   (or booking was somehow reached while logged out),
+                   show the same "sign in to book" modal used elsewhere
+                   and keep the cart/buy-now item intact so nothing is
+                   lost. */
+                window.EllcySecurity.protectFormData(fd)
+                  .then(function(body){ return fetch('../booking', { method:'POST', credentials:'same-origin', body:body }); })
+                  .then(function(r){ return r.json(); })
+                  .catch(function(){ return { success:false }; })
+                  .then(function(data){
+                    if (data && data.success) {
+                      showBookingSuccess();
+                    } else if (data && data.requires_login) {
+                      if (window.EllcyAuth && window.EllcyAuth.showLoginRequiredModal) {
+                        window.EllcyAuth.showLoginRequiredModal(data.login_url);
+                      } else {
+                        window.location.href = data.login_url;
+                      }
+                    } else {
+                      alert((data && data.message) || 'Something went wrong saving your booking. Please try again.');
+                    }
+                  });
+            });
+
+            function showBookingSuccess() {
+                /* Mark step 3 active */
+                document.getElementById('step2').classList.remove('active');
+                document.getElementById('step2').classList.add('done');
+                document.getElementById('step2').querySelector('.bk-step-num').innerHTML = '<i class="fa fa-check" style="font-size:.6rem"></i>';
+                document.getElementById('step3').classList.add('active');
+
+                /* Hide form + summary, show success */
+                document.querySelector('.bk-grid').style.display = 'none';
+                document.getElementById('bkSuccess').style.display = 'block';
+
+                /* Clear cart — only once the booking is actually confirmed */
+                if (BN_MODE) {
+                    try { sessionStorage.removeItem('ellcy_buynow'); } catch (e) {}
+                } else {
+                    EllcyCart.clear();
+                }
+            }
+
+            document.getElementById('year').textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+
+</html>

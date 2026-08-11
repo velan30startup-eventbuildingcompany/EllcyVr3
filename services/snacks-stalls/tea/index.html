@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="description" content="Book ELLCY Tea &amp; Coffee Counter — Hot teas and coffees brewed fresh and served live at your event in Chennai."/>
+    <meta name="robots" content="index, follow"/>
+  <meta name="referrer" content="strict-origin-when-cross-origin"/>
+  <meta http-equiv="X-Content-Type-Options" content="nosniff"/>
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()"/>
+<title>ELLCY | Tea &amp; Coffee Counter</title>
+  <link rel="stylesheet" href="../../../css/style.css"/>
+  <link rel="stylesheet" href="../../../css/header2.css"/>
+  <link rel="stylesheet" href="../../../css/bouncer.css"/>
+  <link rel="stylesheet" href="../../../css/cart.css"/>
+  <style>
+    .bnc-desktop-hdr { display: none; }
+    @media (min-width: 769px) {
+      .bnc-desktop-hdr { display: flex; }
+      .bnc-topbar      { display: none !important; }
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" defer></script>
+</head>
+<body class="bnc-body">
+
+<!-- MOBILE BACK-BAR -->
+<header class="bnc-topbar bnc-mobile-only" role="banner" aria-label="Page navigation">
+  <button class="bnc-back-btn" onclick="_ellcySmartBack('../../../pages/services.html?type=snacks-stalls')" aria-label="Go back">
+    <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+    <span>Tea Counter</span>
+  </button>
+  <a href="../../../pages/cart.html" class="bnc-cart-btn" aria-label="View cart">
+    <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i>
+    <span class="bnc-cart-label">Cart</span>
+    <span class="cart-badge" style="display:none">0</span>
+  </a>
+</header>
+
+<!-- DESKTOP HEADER -->
+<header class="header new-header bnc-desktop-hdr" role="banner">
+  <a class="logo" href="../../../index.html" aria-label="ELLCY Home">ELLCY</a>
+  <a href="../../../pages/cart.html" class="cart-header-btn" aria-label="View cart">
+    <i class="fa-solid fa-cart-shopping"></i>
+    <span class="cart-btn-label">Cart</span>
+    <span class="cart-badge" style="display:none">0</span>
+  </a>
+</header>
+
+<!-- DESKTOP HERO -->
+<div class="bnc-desktop-wrap">
+  <div class="bnc-desktop-hero">
+    <div class="bnc-img-mosaic">
+      <img class="bnc-mosaic-main" src="../../../uploads/services/mojito.png" alt="Tea &amp; Coffee Counter" loading="eager"/>
+      <img class="bnc-mosaic-t1"   src="../../../uploads/services/mojito.png" alt="Hot Tea" loading="lazy"/>
+      <img class="bnc-mosaic-t2"   src="../../../uploads/services/mojito.png" alt="Coffee Counter" loading="lazy"/>
+    </div>
+    <div class="bnc-info-panel">
+      <div class="bnc-title-row">
+        <h1 class="bnc-title" id="dTitle">Tea &amp; Coffee Counter</h1>
+        <span class="bnc-rating-chip" id="dRating">★ 4.6</span>
+      </div>
+      <div class="bnc-chips">
+        <span class="bnc-chip"><i class="fa-solid fa-mug-hot"></i> Freshly Brewed</span>
+        <span class="bnc-chip"><i class="fa-solid fa-calendar-check"></i> Booking Available All Year</span>
+        <span class="bnc-chip"><i class="fa-solid fa-users"></i> 500+ Happy Guests</span>
+      </div>
+      <p class="bnc-avail">Available for Weddings, Birthdays, Corporate &amp; Morning Events</p>
+      <p class="bnc-tags" id="dTags">Aromatic | Warm | Freshly Brewed</p>
+
+      <!-- Drink type selector -->
+      <div style="margin-bottom:16px;">
+        <div class="bnc-qty-label" style="margin-bottom:10px">Select Drink</div>
+        <div id="dDrinkPills" style="display:flex;gap:10px;flex-wrap:wrap;"></div>
+      </div>
+
+      <div class="bnc-rate-tag" id="dRateTag">₹15 <span>per cup</span></div>
+      <div class="bnc-qty-card">
+        <div class="bnc-qty-header">
+          <label class="bnc-qty-label">Number of Cups</label>
+          <div class="bnc-qty-ctrl">
+            <button type="button" class="bnc-minus" id="dMinus" aria-label="Decrease">−</button>
+            <input type="number" id="dQty" class="bnc-qty-inp" value="10" min="1" max="1000" aria-label="Cup count"/>
+            <button type="button" class="bnc-plus" id="dPlus" aria-label="Increase">+</button>
+          </div>
+        </div>
+        <div class="bnc-total-row">
+          <span class="bnc-total-lbl">Total Amount</span>
+          <span class="bnc-total-val" id="dTotal">₹15 × 10 = <b>₹150</b></span>
+        </div>
+      </div>
+      <div class="bnc-cta-row">
+        <button class="bnc-btn-book" id="dCart">
+          <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i> Add to Cart
+        </button>
+        <a class="bnc-btn-call" href="../../../pages/request-for-call.html">
+          <i class="fa-solid fa-phone" aria-hidden="true"></i> Call Now
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MOBILE HERO IMAGE -->
+<div class="bnc-mobile-hero bnc-mobile-only">
+  <img src="../../../uploads/services/mojito.png" alt="Tea &amp; Coffee Counter"/>
+</div>
+
+<!-- SHARED MAIN -->
+<main class="bnc-main" role="main">
+  <div class="bnc-mobile-only">
+    <div class="bnc-title-row">
+      <h1 class="bnc-title" id="mTitle">Tea &amp; Coffee Counter</h1>
+      <span class="bnc-rating-chip" id="mRating">★ 4.6</span>
+    </div>
+    <p class="bnc-avail">Available for Weddings, Birthdays, Corporate &amp; Morning Events</p>
+    <p class="bnc-tags" id="mTags">Aromatic | Warm | Freshly Brewed</p>
+
+    <!-- Mobile drink type selector -->
+    <div style="margin-bottom:16px;">
+      <div class="bnc-qty-label" style="margin-bottom:10px">Select Drink</div>
+      <div id="mDrinkPills" style="display:flex;gap:10px;flex-wrap:wrap;"></div>
+    </div>
+
+    <div class="bnc-rate-line">
+      <span class="bnc-rate-price" id="mRatePrice">₹15</span>
+      <span class="bnc-rate-per">/ cup</span>
+    </div>
+    <div class="bnc-qty-card">
+      <div class="bnc-qty-header">
+        <label class="bnc-qty-label">Number of Cups</label>
+        <div class="bnc-qty-ctrl">
+          <button type="button" class="bnc-minus" id="mMinus" aria-label="Decrease">−</button>
+          <input type="number" id="mQty" class="bnc-qty-inp" value="10" min="1" max="1000" aria-label="Cup count"/>
+          <button type="button" class="bnc-plus" id="mPlus" aria-label="Increase">+</button>
+        </div>
+      </div>
+      <div class="bnc-total-row">
+        <span class="bnc-total-lbl">Total Amount</span>
+        <span class="bnc-total-val" id="mTotal">₹15 × 10 = <b>₹150</b></span>
+      </div>
+    </div>
+    <div class="bnc-chips">
+      <span class="bnc-chip"><i class="fa-solid fa-mug-hot"></i> Freshly Brewed</span>
+      <span class="bnc-chip"><i class="fa-solid fa-calendar-check"></i> Booking Available All Year</span>
+      <span class="bnc-chip"><i class="fa-solid fa-users"></i> 500+ Happy Guests</span>
+    </div>
+    <div class="bnc-cta-row">
+      <button class="bnc-btn-book" id="mCart">
+        <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i> Add to Cart
+      </button>
+      <a class="bnc-btn-call" href="../../../pages/request-for-call.html">
+        <i class="fa-solid fa-phone" aria-hidden="true"></i> Call Now
+      </a>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="bnc-tabs" role="tablist">
+    <button type="button" class="bnc-tab active" data-tab="overview" role="tab" aria-selected="true">Overview</button>
+    <button type="button" class="bnc-tab" data-tab="reviews" role="tab" aria-selected="false">Reviews</button>
+  </div>
+
+  <div class="bnc-tab-body" id="tabOverview" role="tabpanel">
+    <p>Our Tea &amp; Coffee Counter brings the warmth of freshly brewed beverages to your event. Every cup is prepared live with premium tea leaves and coffee beans — aromatic, comforting and loved by guests of all ages.</p>
+    <p>Perfect for morning wedding ceremonies, receptions, corporate breakfast meetings and college morning events. Our trained counter staff serve quickly so guests enjoy a warm cup without waiting.</p>
+  </div>
+  <div class="bnc-tab-body hidden" id="tabReviews" role="tabpanel">
+    <div class="bnc-reviews">
+      <div class="bnc-review-card">
+        <div class="bnc-review-hdr">
+          <span class="bnc-reviewer">Meena T.</span>
+          <span class="bnc-stars">★★★★★</span>
+        </div>
+        <p>The tea counter at our morning wedding ceremony was perfect! Hot, aromatic tea served quickly. Every guest loved it.</p>
+      </div>
+      <div class="bnc-review-card">
+        <div class="bnc-review-hdr">
+          <span class="bnc-reviewer">Suresh R.</span>
+          <span class="bnc-stars">★★★★★</span>
+        </div>
+        <p>Booked for our corporate breakfast event. Strong, fresh coffee. Excellent service and quick turnaround. Will book again.</p>
+      </div>
+      <div class="bnc-review-card">
+        <div class="bnc-review-hdr">
+          <span class="bnc-reviewer">Anitha K.</span>
+          <span class="bnc-stars">★★★★☆</span>
+        </div>
+        <p>Nice quality tea. Our reception guests appreciated the warm beverages in the morning. Good value too!</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">ELLCY</div>
+      <p class="footer-text">Creating unforgettable moments — weddings, birthdays, college events and temple celebrations across Chennai.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="../../../index.html">Home</a></li>
+        <li><a href="../../../pages/services.html?type=snacks-stalls">Snacks &amp; Stalls</a></li>
+        <li><a href="../mojito/index.html">Mojito &amp; Tea</a></li>
+        <li><a href="../../../pages/booking.html">Book Now</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p class="footer-contact-item">+91 123-456-789</p>
+      <p class="footer-contact-item">info@ellcy.in</p>
+      <p class="footer-contact-item">Chennai, Tamil Nadu</p>
+    </div>
+    <div class="footer-col">
+      <h4>Get a Quote</h4>
+      <p class="footer-quote-text">Have an event in mind? Let us help you plan it.</p>
+      <a class="footer-enquiry-btn" href="../../../pages/booking.html">
+        <i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Book Now
+      </a>
+    </div>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="footer-bottom">
+    <p><span id="year"></span> &copy; ELLCY &mdash; All Rights Reserved.</p>
+    <div class="footer-social">
+      <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" aria-label="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function _ellcySmartBack(fallbackUrl){
+    if(window.history.length>1 && document.referrer && document.referrer.includes(window.location.hostname)){
+      window.history.back();
+    } else {
+      window.location.href = fallbackUrl;
+    }
+  }
+(function(){
+  'use strict';
+
+  var TEA_TYPES = [
+    { key:'tea',    label:'Tea',    price:15, rating:'4.6', tags:'Aromatic | Warm | Soothing' },
+    { key:'coffee', label:'Coffee', price:15, rating:'4.7', tags:'Bold | Rich | Invigorating' },
+  ];
+
+  var selected = TEA_TYPES[0];
+
+  function fmt(n){ return Number(n).toLocaleString('en-IN'); }
+  function calcStr(qty){ return '₹' + fmt(selected.price) + ' × ' + qty + ' = <b>₹' + fmt(selected.price * qty) + '</b>'; }
+
+  /* Build drink pills */
+  function buildPills(containerId){
+    var wrap = document.getElementById(containerId);
+    if(!wrap) return;
+    TEA_TYPES.forEach(function(t){
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = t.label;
+      btn.style.cssText = 'padding:8px 18px;border-radius:999px;border:2px solid #7c3aed;background:'+(t.key===selected.key?'#7c3aed':'#fff')+';color:'+(t.key===selected.key?'#fff':'#7c3aed')+';font-weight:700;cursor:pointer;font-family:inherit;transition:all .18s;';
+      btn.setAttribute('data-key', t.key);
+      btn.addEventListener('click', function(){
+        selected = t;
+        document.querySelectorAll('[data-key]').forEach(function(b){
+          var active = b.getAttribute('data-key') === t.key;
+          b.style.background = active ? '#7c3aed' : '#fff';
+          b.style.color      = active ? '#fff' : '#7c3aed';
+        });
+        /* Update price display */
+        ['mRatePrice'].forEach(function(id){ var el=document.getElementById(id); if(el) el.textContent='₹'+fmt(selected.price); });
+        var rt=document.getElementById('dRateTag'); if(rt) rt.innerHTML='₹'+fmt(selected.price)+' <span>per cup</span>';
+        ['mTags','dTags'].forEach(function(id){ var el=document.getElementById(id); if(el) el.textContent=selected.tags; });
+        ['mRating','dRating'].forEach(function(id){ var el=document.getElementById(id); if(el) el.textContent='★ '+selected.rating; });
+        syncQty(parseInt(document.getElementById('mQty').value||10));
+      });
+      wrap.appendChild(btn);
+    });
+  }
+  buildPills('mDrinkPills');
+  buildPills('dDrinkPills');
+
+  function syncQty(val){
+    val = Math.max(1, Math.min(1000, parseInt(val)||1));
+    ['mQty','dQty'].forEach(function(id){ var el=document.getElementById(id); if(el) el.value=val; });
+    ['mTotal','dTotal'].forEach(function(id){ var el=document.getElementById(id); if(el) el.innerHTML=calcStr(val); });
+    return val;
+  }
+  function wire(minusId, plusId, inputId){
+    var minus=document.getElementById(minusId), plus=document.getElementById(plusId), inp=document.getElementById(inputId);
+    if(!minus||!plus||!inp) return;
+    minus.addEventListener('click', function(){ syncQty(parseInt(inp.value||1)-1); });
+    plus.addEventListener('click',  function(){ syncQty(parseInt(inp.value||1)+1); });
+    inp.addEventListener('input',   function(){ syncQty(this.value); });
+    inp.addEventListener('change',  function(){ syncQty(this.value); });
+  }
+  wire('mMinus','mPlus','mQty');
+  wire('dMinus','dPlus','dQty');
+
+  function handleCartAdd(){
+    var qtyEl = document.getElementById('mQty') || document.getElementById('dQty');
+    var qty = parseInt((qtyEl && qtyEl.value) || 10);
+    qty = Math.max(1, qty);
+    var total = selected.price * qty;
+    var cart = JSON.parse(localStorage.getItem('ellcy_cart') || '[]');
+    var cartKey = 'tea-' + selected.key;
+    var ex = cart.find(function(i){ return i.id === cartKey; });
+    if(ex){ ex.qty += qty; }
+    else { cart.push({ id:cartKey, title:selected.label, price:selected.price, qty:qty, image:'../../../uploads/services/mojito.png' }); }
+    localStorage.setItem('ellcy_cart', JSON.stringify(cart));
+    document.querySelectorAll('.cart-badge').forEach(function(b){ b.style.display=''; b.textContent=cart.reduce(function(s,i){return s+i.qty;},0); });
+    alert(selected.label + ' (' + qty + ' cups = ₹' + fmt(total) + ') added to cart!');
+  }
+  ['mCart','dCart'].forEach(function(id){ var el=document.getElementById(id); if(el) el.addEventListener('click', handleCartAdd); });
+
+  /* Tabs */
+  document.querySelectorAll('.bnc-tab').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      document.querySelectorAll('.bnc-tab').forEach(function(t){ t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+      document.querySelectorAll('.bnc-tab-body').forEach(function(b){ b.classList.add('hidden'); });
+      tab.classList.add('active'); tab.setAttribute('aria-selected','true');
+      var target = document.getElementById('tab' + tab.dataset.tab.charAt(0).toUpperCase() + tab.dataset.tab.slice(1));
+      if(target) target.classList.remove('hidden');
+    });
+  });
+
+  syncQty(10);
+  var yr = document.getElementById('year'); if(yr) yr.textContent = new Date().getFullYear();
+})();
+</script>
+<script src="../../data.js"></script>
+  <script src="../../../js/auth.js"></script>
+<script src="../../../js/cart.js"></script>
+</body>
+</html>

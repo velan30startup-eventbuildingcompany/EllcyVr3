@@ -1,0 +1,76 @@
+/* css/admin.css - simple, responsive admin UI inspired by your design */
+
+/* Fonts: project already uses Urbanist. Fallback to system UI */
+:root {
+  --accent: #6b21a8;
+  --bg: #faf7ff;
+  --card-bg: #fff;
+  --muted: #777;
+  --radius: 12px;
+  --container: 1100px;
+  --shadow: 0 8px 28px rgba(17,15,68,0.06);
+}
+
+/* Reset / base */
+* { box-sizing: border-box; }
+body { margin:0; font-family: 'Urbanist', system-ui, -apple-system, sans-serif; background:var(--bg); color:#111; }
+.container { max-width: var(--container); margin: 0 auto; padding: 24px; }
+
+/* Layout */
+.admin-shell { display:flex; min-height:100vh; }
+.admin-sidebar {
+  width: 220px;
+  background: var(--accent);
+  color: #fff;
+  padding: 22px 14px;
+  flex-shrink: 0;
+}
+.admin-sidebar .brand a { color:#fff; font-size:20px; font-weight:700; text-decoration:none; display:inline-block; margin-bottom:12px; }
+.admin-sidebar .nav ul { list-style:none; padding:0; margin:12px 0 0; }
+.admin-sidebar .nav li { margin: 12px 0; }
+.admin-sidebar .nav a { color: rgba(255,255,255,0.9); text-decoration:none; display:block; padding:8px 10px; border-radius:8px; }
+.admin-sidebar .nav a.active, .admin-sidebar .nav a:hover { background: rgba(255,255,255,0.06); }
+
+.sidebar-footer { margin-top:24px; }
+.btn { border:0; background:#eee; color:#111; padding:8px 12px; border-radius:8px; cursor:pointer; }
+.btn.primary { background: var(--accent); color:#fff; }
+
+/* Main content column */
+.admin-main { flex:1; min-height:100vh; display:flex; flex-direction:column; }
+.admin-topbar { display:flex; justify-content:space-between; align-items:center; padding:18px 28px; background:#fff; border-bottom:1px solid #f0edf6; box-shadow: 0 1px 0 rgba(0,0,0,0.02); }
+.admin-topbar .search input { padding:10px 12px; border-radius:999px; border:1px solid #eee; width:360px; }
+.admin-content { padding: 28px; }
+
+/* Cards grid */
+.cards-grid { display:grid; grid-template-columns: repeat(4,1fr); gap:18px; margin-bottom:22px; }
+.card { background: var(--card-bg); padding:16px; border-radius:12px; box-shadow: var(--shadow); }
+.stat-card .stat-title { color:var(--muted); font-weight:600; font-size:13px; margin-bottom:8px; }
+.stat-card .stat-value { font-size:20px; font-weight:800; color:#111; }
+.stat-sub { font-size:12px; color:var(--muted); }
+
+/* Manage services */
+.card-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+.table-responsive { overflow:auto; }
+.table { width:100%; border-collapse:collapse; }
+.table thead { background: transparent; }
+.table th, .table td { padding:12px 10px; text-align:left; border-bottom: 1px solid #f1edf8; }
+.table tbody tr:hover { background: #faf7ff; }
+
+/* smaller grid sections */
+.grid-3 { display:grid; grid-template-columns: 2fr 1fr; gap:18px; margin-top:18px; }
+.card h4 { margin:0 0 12px; }
+
+/* Recent booking & reviews list */
+.recent-item { display:flex; gap:12px; padding:10px 0; border-bottom:1px solid #f4f0fb; align-items:center; }
+.recent-item .meta { font-size:13px; color:var(--muted); }
+
+/* responsive */
+@media (max-width: 1100px) {
+  .cards-grid { grid-template-columns: repeat(2,1fr); }
+  .grid-3 { grid-template-columns: 1fr; }
+  .admin-sidebar { display:none; position:fixed; left:-9999px; }
+}
+@media (max-width: 700px) {
+  .cards-grid { grid-template-columns: 1fr; }
+  .admin-topbar .search input { width:160px; }
+}
