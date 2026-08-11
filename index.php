@@ -90,6 +90,26 @@ $redirectWithQuery = static function (string $path): void {
     header('Location: ' . Router::url($path) . ($query !== '' ? '?' . $query : ''), true, 302);
 };
 
+// Templates still contain a few root-relative legacy *.html links. Route each
+// one back to its canonical PHP endpoint so navigation works identically on
+// Apache and Vercel while the templates are migrated incrementally.
+$rootLegacyRouteMap = [
+    '/services.html' => '/services',
+    '/category.html' => '/category',
+    '/cart.html' => '/cart',
+    '/booking.html' => '/booking',
+    '/request-for-call.html' => '/request-for-call',
+    '/enquiry.html' => '/enquiry',
+    '/success.html' => '/success',
+    '/service_details.html' => '/service-details',
+    '/service-description.html' => '/service-description',
+];
+foreach ($rootLegacyRouteMap as $legacyRoute => $canonicalRoute) {
+    $router->get($legacyRoute, static function () use ($redirectWithQuery, $canonicalRoute): void {
+        $redirectWithQuery($canonicalRoute);
+    });
+}
+
 // ── SERVICES listing: serve pages/services.html ─────────────────────
 $router->get('/services', function () use ($serveLegacyHtml) {
     $type = Security::sanitizeString($_GET['type'] ?? '', 80);
