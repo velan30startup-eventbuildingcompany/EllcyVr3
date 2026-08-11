@@ -19,13 +19,17 @@ define('APP_DEBUG', APP_ENV !== 'production');
 function ellcy_is_https(): bool {
     if (!empty($_SERVER['HTTPS']) && strtolower((string)$_SERVER['HTTPS']) !== 'off') return true;
     if ((string)($_SERVER['SERVER_PORT'] ?? '') === '443') return true;
-    return getenv('ELLCY_TRUST_PROXY') === '1'
+    $trustProxy = getenv('ELLCY_TRUST_PROXY') === '1' || getenv('VERCEL') === '1';
+    return $trustProxy
         && strtolower((string)($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '')) === 'https';
 }
 define('HTTPS_ACTIVE', ellcy_is_https());
 
 // ── Auto-detect base URL (works for localhost/ellcy AND localhost/) ──
-$scriptDir = rtrim(str_replace('\\', '/', dirname((string)($_SERVER['SCRIPT_NAME'] ?? '/index.php'))), '/');
+$isVercel = getenv('VERCEL') === '1';
+$scriptDir = $isVercel
+    ? ''
+    : rtrim(str_replace('\\', '/', dirname((string)($_SERVER['SCRIPT_NAME'] ?? '/index.php'))), '/');
 if ($scriptDir === '.' || $scriptDir === '/') $scriptDir = '';
 define('APP_BASE', $scriptDir);   // e.g. "/ellcy" or ""
 $configuredOrigin = rtrim((string)(getenv('ELLCY_APP_ORIGIN') ?: ''), '/');
@@ -34,7 +38,10 @@ if ($configuredOrigin !== '' && !preg_match('#^https?://[a-z0-9.-]+(?::\d+)?$#i'
 }
 if ($configuredOrigin === '') {
     if (APP_ENV === 'production') {
-        $configuredOrigin = 'https://ellcy.in';
+        $vercelHost = (string)(getenv('VERCEL_PROJECT_PRODUCTION_URL') ?: getenv('VERCEL_URL') ?: '');
+        $configuredOrigin = $isVercel && preg_match('#^[a-z0-9.-]+$#i', $vercelHost)
+            ? 'https://' . $vercelHost
+            : 'https://ellcy.in';
     } else {
         $port = (string)($_SERVER['SERVER_PORT'] ?? '80');
         $host = in_array($serverName, $localHosts, true) ? ($serverName === '::1' ? '[::1]' : $serverName) : 'localhost';

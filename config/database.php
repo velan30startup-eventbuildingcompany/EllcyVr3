@@ -27,8 +27,7 @@ class Database {
         if (self::$instance === null) {
             if (APP_ENV === 'production' && DB_PASS === '') {
                 error_log('ELLCY_DB_PASS is required in production.');
-                http_response_code(503);
-                die('Service configuration is incomplete.');
+                throw new RuntimeException('Production database credentials are not configured.');
             }
             $dsn = sprintf(
                 'mysql:host=%s;port=%s;charset=%s',
