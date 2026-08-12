@@ -594,7 +594,8 @@ body.ellcy-drawer-locked { overflow: hidden; }
   width: 100%;
 }
 .ellcy-drawer-account strong { display: block; font-size: 1.02rem; }
-.ellcy-drawer-account a { color: #ffd54f; font-size: .82rem; text-decoration: none; }
+.ellcy-drawer-account a { color: #fff; font-size: .82rem; text-decoration: none; }
+.ellcy-drawer-createacct { color: #fff; }
 .ellcy-drawer-close {
   border: 0; background: transparent; color: #fff; font-size: 1.1rem; cursor: pointer;
   padding: 4px 6px;

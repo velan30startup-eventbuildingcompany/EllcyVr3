@@ -43,7 +43,7 @@
 </footer>
 
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-<script src="<?= PUBLIC_URL ?>/js/data.js"></script>
+<?php if (empty($skip_data_js)): ?><script src="<?= PUBLIC_URL ?>/js/data.js"></script><?php endif; ?>
   <script src="<?= PUBLIC_URL ?>/js/auth.js?v=20260812.1"></script>
 <script src="<?= PUBLIC_URL ?>/js/cart.js"></script>
 <?php if (!empty($extra_js)): ?>

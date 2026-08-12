@@ -86,6 +86,9 @@
         services.forEach(function (service) {
           if (Array.isArray(service.images)) items = items.concat(service.images);
         });
+        if (!items.length && services.length && services[0].image) {
+          items.push({ media_type: 'image', path: services[0].image, alt: services[0].title || 'Service photo' });
+        }
         render(items);
       })
       .catch(function () { render(null); });

@@ -167,6 +167,7 @@
       'header .ellcy-mobile-brand-wrap{display:block!important;position:static!important;order:1!important;flex:1 1 auto!important;min-width:0!important;margin:0 4px!important;text-align:left!important}' +
       'header .ellcy-mobile-brand,header .ellcy-mobile-context,header .sd-mobile-context{display:block!important;position:static!important;inset:auto!important;transform:none!important;order:1!important;flex:1 1 auto!important;min-width:0!important;max-width:none!important;margin:0 4px!important;padding:0!important;color:#fff!important;text-decoration:none!important;text-align:left!important;font-size:.92rem!important;font-weight:800!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;pointer-events:auto!important}' +
       'header .ellcy-mobile-brand{font-size:1.02rem!important}' +
+      '.ellcy-drawer-signin,.ellcy-drawer-createacct,.ellcy-drawer-account a{color:#fff!important}' +
       '.ellcy-drawer-nav a,.ellcy-drawer-nav a i{color:#1a1a2e!important}' +
       '}';
     document.head.appendChild(style);
@@ -274,6 +275,10 @@
         var oldBack = headerEl.querySelector('button[class*="back-btn"], a[class*="back-btn"]');
         var labelNode = oldBack && oldBack.querySelector('span');
         var label = labelNode ? labelNode.textContent.trim() : '';
+        if (!label || /^back$/i.test(label)) {
+          var heading = document.querySelector('main h1, h1');
+          label = heading ? heading.textContent.trim() : 'Services';
+        }
         if (label) {
           var context = document.createElement('a');
           context.className = 'ellcy-mobile-context';

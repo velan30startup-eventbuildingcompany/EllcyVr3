@@ -270,7 +270,7 @@
   function fmt(n){ return Number(n).toLocaleString('en-IN'); }
 
   function calcStr(qty){
-    return '₹' + fmt(RATE) + ' \\u00d7 ' + qty + ' = <b>₹' + fmt(RATE * qty) + '</b>';
+    return '₹' + fmt(RATE) + ' × ' + qty + ' people = <b>₹' + fmt(RATE * qty) + '</b>';
   }
 
   function syncQty(newQty){
@@ -312,7 +312,7 @@
       EllcyCart.add({
         uid: 'welcome-girls-dinner-' + qty,
         id: 'welcome-girls-dinner-' + qty,
-        title: 'Welcome Girls \\u2013 Dinner \\u00d7 ' + qty,
+        title: 'Welcome Girls – Dinner × ' + qty,
         price: RATE * qty,
         image: '../../../../uploads/services/welcomegirls.png',
         slug: 'welcome-girls-dinner',
@@ -330,7 +330,7 @@
       EllcyCart.buyNow({
         uid: 'welcome-girls-dinner-' + qty,
         id: 'welcome-girls-dinner-' + qty,
-        title: 'Welcome Girls \\u2013 Dinner \\u00d7 ' + qty,
+        title: 'Welcome Girls – Dinner × ' + qty,
         price: RATE * qty,
         image: '../../../../uploads/services/welcomegirls.png',
         slug: 'welcome-girls-dinner',

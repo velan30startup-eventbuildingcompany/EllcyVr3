@@ -37,6 +37,19 @@ The combined comparison isolates the header and package-card regions because the
 
 final result: passed
 
+## Decoration, catering, service-grid and account-drawer regression check — 2026-08-12
+
+- Tested the local PHP/XAMPP site at 393 × 852 CSS px and 1440 × 900 CSS px.
+- Stage Decoration now renders a real 1401 px-wide service photograph on mobile and desktop, and its decoration-specific quotation form uses the same polished two-column visual language as Vendor Sign Up.
+- Vendor Sign Up, Catering Boys and Welcome Girls use the shared mobile header with a left-aligned page title, Cart and account controls; the obsolete mobile Back label is absent from the Catering Boys landing page.
+- DJ and Music Performers render two service cards per row at 393 px with readable, non-zero-width titles and no horizontal overflow.
+- Catering Boys Lunch/Buffet at 600 guests and 20–30 dishes returns 25 required staff and displays `₹850 × 25 people = ₹21,250`.
+- Welcome Girls Breakfast displays `₹1,500 × 2 people = ₹3,000` and no literal Unicode escape text.
+- The logged-out drawer renders both “Hello, sign in” and “Create account” in white.
+- PHP lint, JavaScript syntax checks and `git diff --check` passed.
+
+final result: passed
+
 ## Rangoli and shared mobile-header regression check — 2026-08-12
 
 - Tested at 393 × 852 CSS px on the local PHP/XAMPP routes `/`, `/category?type=wedding`, `/services?type=flower-rangoli`, and `/services/flower-rangoli/3x3-feet/`.

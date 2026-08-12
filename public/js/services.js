@@ -1524,6 +1524,17 @@
         .dj-tags-row { margin-top:8px; }
         .dj-tag-pill { display:inline-flex; align-items:center; gap:5px; background:#f4e9ff; color:#6a1b9a;
           font-size:.72rem; font-weight:700; padding:4px 10px; border-radius:999px; }
+        @media(max-width:600px){
+          .dj-card-body{padding:12px;gap:10px;min-width:0;}
+          .dj-card-toprow{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;}
+          .dj-card-title{display:block!important;width:100%;min-width:0;overflow:visible!important;
+            font-size:.9rem!important;line-height:1.2!important;-webkit-line-clamp:unset!important;line-clamp:unset!important;}
+          .dj-rating-pill{grid-row:1;justify-self:start;font-size:.74rem;}
+          .dj-review-count{font-size:.66rem;}
+          .dj-card-desc{min-height:76px;-webkit-line-clamp:4;line-clamp:4;}
+          .dj-price-row{align-items:flex-start;flex-direction:column;gap:3px;}
+          .dj-tag-pill{white-space:normal;line-height:1.25;}
+        }
       `;
       document.head.appendChild(style);
     }

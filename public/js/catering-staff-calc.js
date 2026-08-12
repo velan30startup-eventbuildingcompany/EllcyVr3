@@ -82,7 +82,7 @@
       uid: id,
       id: id,
       title: heading ? heading.textContent.trim() : 'Catering Boys',
-      price: RATE * selected.guest,
+      price: RATE * selected.staff,
       image: image ? image.getAttribute('src') : '',
       slug: 'catering-boys',
       package: styleLabel + ' · ' + selected.guest + ' guests · ' + selected.dish + ' dishes · ' + selected.staff + ' staff',
@@ -120,11 +120,11 @@
     return card;
   }
 
-  function updateTotal(prefix, guestCount) {
+  function updateTotal(prefix, staffCount) {
     var totalEl = document.getElementById(prefix + 'Total');
     if (!totalEl) return;
-    if (!guestCount) { totalEl.innerHTML = '&#8377;0'; return; }
-    totalEl.innerHTML = '&#8377;' + fmt(RATE) + ' &times; ' + guestCount + ' guests = <b>&#8377;' + fmt(RATE * guestCount) + '</b>';
+    if (!staffCount) { totalEl.innerHTML = '&#8377;0'; return; }
+    totalEl.innerHTML = '&#8377;' + fmt(RATE) + ' &times; ' + staffCount + ' people = <b>&#8377;' + fmt(RATE * staffCount) + '</b>';
   }
 
   function updateStaff(prefix) {
@@ -134,7 +134,7 @@
     if (!guestSel || !dishSel || !readout) return;
     var guest = parseInt(guestSel.value || '0', 10);
     var dish  = dishSel.value;
-    updateTotal(prefix, guest);
+    updateTotal(prefix, 0);
     if (!guest || !dish) {
       readout.removeAttribute('data-workers');
       readout.innerHTML = '<span style="color:#999;font-weight:600;font-size:.8rem;">Select guest &amp; dish count</span>';
@@ -148,6 +148,7 @@
         if (data.success) {
           readout.setAttribute('data-workers', String(data.workers));
           readout.innerHTML = data.workers + ' People';
+          updateTotal(prefix, data.workers);
         } else {
           readout.innerHTML = '<span style="color:#c0392b;font-size:.8rem;">' + (data.message || 'Unable to calculate') + '</span>';
         }

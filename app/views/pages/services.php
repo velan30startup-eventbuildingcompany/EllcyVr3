@@ -143,6 +143,7 @@ $page_title = 'ELLCY | ' . $page['title'];
 $meta_title = $page_title;
 $meta_description = 'Browse ' . $page['title'] . ' packages and prices from ELLCY event services in Chennai.';
 $extra_css = ['header2.css', 'services.css'];
+$skip_data_js = true;
 require VIEWS_PATH . '/layouts/header.php';
 
 $renderCard = static function (array $card): void {
@@ -214,9 +215,14 @@ $renderCard = static function (array $card): void {
     .php-music-card__price-row { align-items: flex-start; flex-direction: column; gap: 3px; }
   }
   @media (max-width: 440px) {
-    .php-music-grid, .php-music-grid--occasions { grid-template-columns: 1fr; }
-    .php-music-card__image { height: 215px; }
-    .php-music-card__description { min-height: 0; }
+    .php-music-page { width: 94%; }
+    .php-music-grid, .php-music-grid--occasions { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .php-music-card__image { height: 145px; }
+    .php-music-card__body { padding: 11px; }
+    .php-music-card__top h2 { font-size: 14px; }
+    .php-music-card__description { min-height: 78px; font-size: 12px; }
+    .php-music-card__price { font-size: 15px; }
+    .php-music-card__tag { padding: 5px 8px; font-size: 10.5px; white-space: normal; }
   }
 </style>
 
@@ -224,6 +230,7 @@ $renderCard = static function (array $card): void {
   <button class="hdr-back-btn" onclick="_ellcySmartBack('<?= APP_URL ?>/services?type=musical-band')" aria-label="Go back">
     <i class="fa-solid fa-arrow-left" aria-hidden="true"></i><span>Back</span>
   </button>
+  <span class="hdr-mobile-title"><?= Security::e($page['title']) ?></span>
   <a class="logo" href="<?= APP_URL ?>/" aria-label="ELLCY Home">ELLCY</a>
   <a href="<?= APP_URL ?>/cart" class="cart-header-btn hdr-cart-right" aria-label="View cart">
     <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i>

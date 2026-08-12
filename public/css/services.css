@@ -295,7 +295,7 @@ a:hover{color:var(--accent);}
   .photo-feat         { font-size: .78rem; padding: 5px 10px; }
   .photo-pkg-cta      { font-size: .88rem; }
   .photo-pkg-body     { padding: 14px 12px; }
-  .service-grid       { grid-template-columns: 1fr !important; }
+  .service-grid       { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 12px; }
   .page-heading       { font-size: 1.3rem; }
 }
 
