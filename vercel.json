@@ -1,9 +1,9 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true,
   "functions": {
-    "api/index.php": {
-      "runtime": "vercel-php@0.7.3",
-      "excludeFiles": "{public/**,uploads/**,node_modules/**,.git/**}"
+    "**/*.php": {
+      "runtime": "vercel-php@0.7.3"
     }
   },
   "routes": [
@@ -20,12 +20,8 @@
       "status": 404
     },
     {
-      "src": "/(.*\\.(?:css|js|png|jpe?g|webp|gif|svg|ico|woff2?|ttf|eot|mp4|webm|ogg))",
-      "dest": "/$1"
-    },
-    {
       "src": "/(.*)",
-      "dest": "/api/index.php"
+      "dest": "/$1"
     }
   ]
 }
