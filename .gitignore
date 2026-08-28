@@ -1,1 +1,3 @@
 node_modules/
+uploads/enquiries/*
+!uploads/enquiries/.gitkeep

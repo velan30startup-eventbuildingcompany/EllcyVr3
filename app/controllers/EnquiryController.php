@@ -16,7 +16,7 @@ class EnquiryController {
 
     // POST /enquiry/stage-decoration
     public function stageDecoration(): void {
-        header('Content-Type: application/json');
+        $this->jsonHeaders();
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') { http_response_code(405); echo json_encode(['success'=>false,'message'=>'Method not allowed.']); return; }
         if (!Security::verifyCsrf()) { http_response_code(403); echo json_encode(['success'=>false,'message'=>'Your session expired. Reload the page and try again.']); return; }
 
@@ -34,7 +34,7 @@ class EnquiryController {
         if ($uploadError) { echo json_encode(['success'=>false,'message'=>$uploadError]); return; }
 
         try {
-            Database::query(
+            $enquiryId = Database::insert(
                 'INSERT INTO stage_decoration_enquiries
                  (customer_name, phone_number, email, event_date, budget_range, location, flower_type, venue_image, ip_address)
                  VALUES (?,?,?,?,?,?,?,?,?)',
@@ -44,15 +44,17 @@ class EnquiryController {
                 ]
             );
         } catch (Exception $e) {
+            $this->discardUploadedImage($imagePath);
             error_log('Stage decoration enquiry insert failed: ' . $e->getMessage());
             echo json_encode(['success'=>false,'message'=>'Something went wrong. Please try again.']); return;
         }
-        echo json_encode(['success'=>true,'message'=>'Thank you! Your enquiry has been received — our team will contact you shortly.']);
+        http_response_code(201);
+        echo json_encode(['success'=>true,'enquiry_id'=>$enquiryId,'message'=>'Thank you! Your enquiry has been received — our team will contact you shortly.']);
     }
 
     // POST /enquiry/light-decoration
     public function lightDecoration(): void {
-        header('Content-Type: application/json');
+        $this->jsonHeaders();
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') { http_response_code(405); echo json_encode(['success'=>false,'message'=>'Method not allowed.']); return; }
         if (!Security::verifyCsrf()) { http_response_code(403); echo json_encode(['success'=>false,'message'=>'Your session expired. Reload the page and try again.']); return; }
 
@@ -70,7 +72,7 @@ class EnquiryController {
         if ($uploadError) { echo json_encode(['success'=>false,'message'=>$uploadError]); return; }
 
         try {
-            Database::query(
+            $enquiryId = Database::insert(
                 'INSERT INTO light_decoration_enquiries
                  (customer_name, phone_number, email, event_date, budget_range, location, arch_required, venue_image, ip_address)
                  VALUES (?,?,?,?,?,?,?,?,?)',
@@ -80,10 +82,24 @@ class EnquiryController {
                 ]
             );
         } catch (Exception $e) {
+            $this->discardUploadedImage($imagePath);
             error_log('Light decoration enquiry insert failed: ' . $e->getMessage());
             echo json_encode(['success'=>false,'message'=>'Something went wrong. Please try again.']); return;
         }
-        echo json_encode(['success'=>true,'message'=>'Thank you! Your enquiry has been received — our team will contact you shortly.']);
+        http_response_code(201);
+        echo json_encode(['success'=>true,'enquiry_id'=>$enquiryId,'message'=>'Thank you! Your enquiry has been received — our team will contact you shortly.']);
+    }
+
+    private function jsonHeaders(): void {
+        header('Content-Type: application/json; charset=UTF-8');
+        header('Cache-Control: no-store, max-age=0');
+    }
+
+    private function discardUploadedImage(?string $publicPath): void {
+        if (!$publicPath || !str_starts_with($publicPath, '/uploads/enquiries/')) return;
+        $filename = basename($publicPath);
+        $localPath = ENQUIRY_UPLOAD_DIR . $filename;
+        if (is_file($localPath)) @unlink($localPath);
     }
 
     // ── Shared field validation ──────────────────────────────────────

@@ -403,23 +403,27 @@ function _ellcySmartBack(fallbackUrl){
 
     protectFormData(fd)
       .then(function(body){ return fetch('../../enquiry/stage-decoration', { method:'POST', credentials:'same-origin', body: body }); })
-      .then(function(r){ return r.json(); })
+      .then(function(r){
+        return r.text().then(function(text){
+          var data;
+          try { data = JSON.parse(text); }
+          catch (error) { throw new Error('The server returned an unreadable response. Your enquiry may still have been received; please call us before submitting again.'); }
+          if (!r.ok || !data.success) throw new Error(data.message || 'Unable to submit the enquiry. Please try again.');
+          return data;
+        });
+      })
       .then(function(data){
         submitBtn.disabled = false;
         submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit Enquiry';
-        if (data.success) {
-          form.style.display = 'none';
-          document.getElementById('sdSuccess').classList.add('show');
-          document.getElementById('sdSuccessPhone').textContent = '+91 ' + phone.replace(/(\d{5})(\d{5})/, '$1 $2');
-          document.getElementById('sdFormCard').scrollIntoView({ behavior:'smooth', block:'start' });
-        } else {
-          showMsg(data.message || 'Something went wrong. Please try again.', false);
-        }
+        form.style.display = 'none';
+        document.getElementById('sdSuccess').classList.add('show');
+        document.getElementById('sdSuccessPhone').textContent = '+91 ' + phone.replace(/(\d{5})(\d{5})/, '$1 $2');
+        document.getElementById('sdFormCard').scrollIntoView({ behavior:'smooth', block:'start' });
       })
-      .catch(function(){
+      .catch(function(error){
         submitBtn.disabled = false;
         submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit Enquiry';
-        showMsg('Network error. Please check your connection and try again.', false);
+        showMsg(error && error.message ? error.message : 'Network error. Please check your connection and try again.', false);
       });
   });
 
