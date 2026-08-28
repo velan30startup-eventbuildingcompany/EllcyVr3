@@ -79,3 +79,11 @@
 @media (max-width:768px) {
   .eg-thumbs-dsk { display:none; }
 }
+
+/* Decoration pages use their curated real photographs without the severe
+   mobile crop that made the stage/lighting work difficult to understand. */
+.decoration-detail .eg-slide { aspect-ratio: 3 / 2; background:#f3edf8; }
+.decoration-detail .eg-slide img { object-position:center; }
+@media (min-width:769px) {
+  .decoration-detail .eg-main-scroll .eg-slide { aspect-ratio:3 / 2; max-height:460px; }
+}

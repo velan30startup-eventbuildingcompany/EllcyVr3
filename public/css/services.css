@@ -323,3 +323,13 @@ a:hover{color:var(--accent);}
   color: var(--pri, #6b21a8);
   letter-spacing: .01em;
 }
+
+/* Consistent two-card responsive service catalogue. */
+@media(max-width:600px){
+  .service-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:14px;align-items:stretch;}
+  .service-card{height:100%;min-width:0;border:0;border-radius:16px;box-shadow:0 4px 16px rgba(45,24,61,.08);}
+  .service-card .card-image{height:125px;}
+  .service-card .card-body{padding:13px 12px 17px;gap:8px;min-width:0;min-height:150px;}
+  .service-card .card-title{display:block;overflow:visible;overflow-wrap:anywhere;font-size:15px;line-height:1.25;}
+  .service-card .card-desc{font-size:12.5px;line-height:1.5;-webkit-line-clamp:4;line-clamp:4;}
+}

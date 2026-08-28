@@ -70,13 +70,21 @@ final class LegacyPage
 
         /* Force the latest shared responsive and calculator assets after an
            update; several legacy templates otherwise reuse a stale browser copy. */
-        foreach (['cart.css', 'auth.js', 'catering-staff-calc.js', 'media-gallery.js', 'services.css', 'services.js', 'service-desc.css', 'service-desc.js'] as $assetName) {
+        foreach (['cart.css', 'header2.css', 'category.css', 'category.js', 'auth.js', 'bouncer.css', 'catering-admin-data.js', 'catering-staff-calc.js', 'media-gallery.css', 'media-gallery.js', 'services.css', 'services.js', 'service-desc.css', 'service-desc.js'] as $assetName) {
             $assetPattern = preg_quote($assetName, '/');
             $html = preg_replace_callback(
                 '/(?<url>[^"\']*\/' . $assetPattern . ')(?:\?[^"\']*)?/i',
-                static fn(array $match): string => $match['url'] . '?v=20260812.2',
+                static fn(array $match): string => $match['url'] . '?v=20260826.3',
                 $html
             ) ?? $html;
+        }
+
+        /* Every service template receives the shared account/header styles.
+           Older templates load auth.js but omit cart.css, which leaves the
+           injected hamburger visible on desktop and pushes ELLCY to center. */
+        if ($directory === 'services' && !preg_match('/\/cart\.css(?:\?[^"\']*)?["\']/i', $html)) {
+            $sharedHeaderCss = '<link rel="stylesheet" href="' . Security::e(APP_URL . '/css/cart.css?v=20260826.3') . '"/>';
+            $html = preg_replace('/<\/head>/i', $sharedHeaderCss . '</head>', $html, 1) ?? $html;
         }
 
         if ($directory === 'pages') {

@@ -70,6 +70,8 @@ if ($step === 3 && $_SERVER['REQUEST_METHOD'] === 'POST') {
             '/sql/production_update_v6_otp_reset.sql',
             '/sql/production_update_v7_phone_otp_login.sql',
             '/sql/production_update_v8_requested_changes.sql',
+            '/sql/production_update_v9_vendor_vr2.sql',
+            '/sql/production_update_v10_catering_admin.sql',
         ] as $file) {
             $path = __DIR__ . $file;
             if (!is_file($path)) continue;

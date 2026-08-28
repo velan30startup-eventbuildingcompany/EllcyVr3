@@ -37,6 +37,29 @@ The combined comparison isolates the header and package-card regions because the
 
 final result: passed
 
+## Shared headers and Catering Boys admin controls — 2026-08-28
+
+- Verified the local PHP/XAMPP build at 1366 × 768 desktop and 393 × 852 mobile viewports.
+- Desktop Catering Boys pages now keep ELLCY at the top-left, hide the mobile hamburger, and keep Cart/account controls at the top-right. The previous centered-brand and overlapping-account defect is no longer present.
+- Mobile Categories, DJ, Music Performers, Stage Decoration, Catering Breakfast, Lunch and Dinner routes each render one visible header, a left-aligned page-context title, and no horizontal overflow.
+- Breakfast, Lunch and Dinner list both Banana Leaf and Buffet cards together. Their six package prices are now backed by `service_packages` records and can be edited independently in Admin.
+- Catering detail media now consumes the admin service image/gallery API, including uploaded videos and supported YouTube/Vimeo gallery items.
+- Breakfast Banana Leaf loaded its Admin price of ₹850. Selecting 100 guests and 10–20 dishes returned 8 required staff and `₹850 × 8 people = ₹6,800`.
+- Representative public routes returned HTTP 200; the protected Admin services route returned the expected login redirect. PHP lint, JavaScript syntax checks, and `git diff --check` passed.
+
+final result: passed
+
+## Decoration form, category grid and booking locks — 2026-08-26
+
+- Verified the local PHP/XAMPP routes at 393 × 852 CSS px.
+- Stage Decoration loads the curated 1253 × 832 service photograph, keeps its aspect ratio, has no horizontal overflow, and shows the quotation form with a working submit control and no console errors.
+- The decoration enquiry flow now obtains a same-origin CSRF token before posting; the endpoint passed a non-writing validation request and returned the expected JSON validation response.
+- Categories and Services render two readable cards per row on mobile. Category cards match the compact home-category visual system, include supporting descriptions, and no longer contain excess empty vertical space.
+- Mobile context titles use white text on the violet header.
+- Birthday, College and Temple event types are disabled in the booking selector and rejected server-side if a crafted request attempts to submit them.
+
+final result: passed
+
 ## Decoration, catering, service-grid and account-drawer regression check — 2026-08-12
 
 - Tested the local PHP/XAMPP site at 393 × 852 CSS px and 1440 × 900 CSS px.

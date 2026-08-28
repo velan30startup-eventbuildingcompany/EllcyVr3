@@ -68,7 +68,7 @@
     @media(min-width:769px){.bnc-desktop-hdr{display:flex;}.bnc-topbar{display:none!important;}}
   </style>
 </head>
-<body class="bnc-body" data-catering-style="banana_leaf" data-rate="1000">
+<body class="bnc-body" data-catering-style="banana_leaf" data-rate="1000" data-admin-service="catering-boys-dinner" data-admin-package="banana_leaf">
 <header class="bnc-topbar bnc-mobile-only" role="banner">
   <button class="bnc-back-btn" onclick="_ellcySmartBack('../../../../../pages/services.html?type=catering-boys')" aria-label="Go back">
     <i class="fa-solid fa-arrow-left" aria-hidden="true"></i><span>Dinner</span>
@@ -303,9 +303,9 @@
     }
   }
 (function(){
-  var RATE=1000;
+  function currentRate(){return Number(document.body.getAttribute('data-rate'))||1000;}
   function fmt(n){return Number(n).toLocaleString('en-IN');}
-  function calcStr(q){return '₹'+fmt(RATE)+' × '+q+' = <b>₹'+fmt(RATE*q)+'</b>';}
+  function calcStr(q){var rate=currentRate();return '₹'+fmt(rate)+' × '+q+' = <b>₹'+fmt(rate*q)+'</b>';}
   function syncQty(v){
     v=Math.max(1,Math.min(50,parseInt(v)||1));
     ['mQty','dQty'].forEach(function(id){var e=document.getElementById(id);if(e)e.value=v;});
@@ -321,11 +321,13 @@
   }
   wire('mMinus','mPlus','mQty');
   wire('dMinus','dPlus','dQty');
+  document.addEventListener('ellcy:catering-admin-data',function(){syncQty((document.getElementById('mQty')||document.getElementById('dQty')||{value:2}).value);});
   function handleAdd(){
     var qty=parseInt((document.getElementById('mQty')||document.getElementById('dQty')).value||2);
     qty=Math.max(1,qty);
     if(typeof EllcyCart!=='undefined'){
-      EllcyCart.add({uid:'cb-dinner-banana',id:'cb-dinner-banana',title:'Catering Boys – Dinner (Banana Leaf)',price:RATE*qty,
+      var rate=currentRate();
+      EllcyCart.add({uid:'cb-dinner-banana',id:'cb-dinner-banana',title:'Catering Boys – Dinner (Banana Leaf)',price:rate*qty,
         image:'../../../../../uploads/services/cateringboys.png',slug:'catering',package:'Catering Boys – Dinner (Banana Leaf)',slot: (document.getElementById('mDishCount') || document.getElementById('dDishCount') ? 'Dishes: ' + (document.getElementById('mDishCount')||document.getElementById('dDishCount')||{value:''}).value + ' | Guests: ' + (document.getElementById('mGuestCount')||document.getElementById('dGuestCount')||{value:''}).value : ''),page:location.href,qty:qty});
     }
   }
@@ -345,5 +347,6 @@
   <script src="../../../../../js/auth.js"></script>
 <script src="../../../../../js/cart.js"></script>
 <script src="../../../../../js/catering-staff-calc.js"></script>
+<script src="../../../../../js/catering-admin-data.js"></script>
 </body>
 </html>

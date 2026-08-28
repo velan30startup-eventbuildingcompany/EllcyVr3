@@ -733,3 +733,5 @@ body.ellcy-drawer-locked { overflow: hidden; }
    square) and, since it shared equal specificity with the real rule,
    its unset properties (width/height/justify-content) bled through and
    squashed the white pill + "Cart" label into a tiny box. Removed. */
+
+@media(max-width:768px){.hdr-mobile-title,.ellcy-mobile-context,.sd-mobile-context,.bnc-back-btn,.bnc-back-btn span{color:#fff!important}}

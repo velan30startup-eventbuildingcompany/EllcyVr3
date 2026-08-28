@@ -135,10 +135,11 @@ $s = $service ?? [];
       <div class="data-card" style="padding:24px;margin-bottom:24px">
         <div style="font-size:.9rem;font-weight:700;margin-bottom:18px">Service Image</div>
         <?php if (!empty($s['image'])): ?>
-        <img src="<?= htmlspecialchars($s['image']) ?>" alt="" style="width:100%;border-radius:10px;margin-bottom:14px;object-fit:cover;height:140px;border:1px solid #e0d5f0"/>
+        <?php $serviceImagePreview = preg_match('#^https?://#i', (string)$s['image']) ? $s['image'] : APP_URL . '/' . ltrim((string)$s['image'], '/'); ?>
+        <img src="<?= htmlspecialchars($serviceImagePreview) ?>" alt="Current service image" style="width:100%;border-radius:10px;margin-bottom:14px;object-fit:cover;height:140px;border:1px solid #e0d5f0"/>
         <?php endif; ?>
         <input type="file" name="image" class="form-input" accept="image/*" style="padding:8px"/>
-        <div style="font-size:.75rem;color:#888;margin-top:4px">JPG, PNG, WebP · Max 5 MB</div>
+        <div style="font-size:.75rem;color:#888;margin-top:4px">JPG, PNG, WebP · Max 5 MB. Used as the public fallback and listing image.</div>
       </div>
 
       <?php if ($is_edit && !empty($packages)): ?>

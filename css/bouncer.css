@@ -99,6 +99,13 @@
   width: 100%; height: 100%;
   object-fit: cover;
 }
+.bnc-mobile-hero video,
+.bnc-mobile-hero iframe {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  border: 0;
+  background: #150d20;
+}
 
 /* ================================================================
    SHARED MAIN CONTENT
@@ -478,6 +485,13 @@
     width: 100%; height: 100%;
     object-fit: cover;
     transition: transform .32s;
+  }
+  .bnc-img-mosaic video,
+  .bnc-img-mosaic iframe {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    border: 0;
+    background: #150d20;
   }
   .bnc-img-mosaic img:hover { transform: scale(1.03); }
   .bnc-mosaic-main { grid-column: 1; grid-row: 1 / 3; }

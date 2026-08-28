@@ -20,6 +20,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $note      = Security::sanitizeString($_POST['note'] ?? '', 500);
     $itemsJson = $_POST['items_json'] ?? '[]';
 
+    $lockedEventTypes = [
+        'birthday', 'birthday event', 'birthday events',
+        'college', 'college event', 'college events',
+        'temple', 'temple event', 'temple events',
+    ];
+    if (in_array(strtolower($eventType), $lockedEventTypes, true)) {
+        http_response_code(422);
+        echo json_encode(['success'=>false,'message'=>'This event category is coming soon and is not open for booking yet.']); exit;
+    }
+
     if (!$name || !Security::validatePhone($phone)) {
         echo json_encode(['success'=>false,'message'=>'Please fill all required fields correctly.']); exit;
     }
@@ -53,6 +63,7 @@ require VIEWS_PATH . '/layouts/header.php';
   <button class="hdr-back-btn" onclick="_ellcySmartBack('<?= APP_URL ?>/cart')" aria-label="Go back">
     <i class="fa-solid fa-arrow-left" aria-hidden="true"></i><span>Back</span>
   </button>
+  <span class="hdr-mobile-title">Booking</span>
   <a class="logo" href="<?= APP_URL ?>/" aria-label="ELLCY Home">ELLCY</a>
   <a href="<?= APP_URL ?>/cart" class="cart-header-btn hdr-cart-right" aria-label="View cart">
     <i class="fa-solid fa-cart-shopping"></i>
@@ -99,10 +110,11 @@ require VIEWS_PATH . '/layouts/header.php';
                 <option value="">Select…</option>
                 <option>Wedding</option>
                 <option>Reception</option>
-                <option>Birthday</option>
+                <option value="birthday" disabled>Birthday Events — Coming Soon</option>
                 <option>Engagement</option>
                 <option>Corporate Event</option>
-                <option>College Event</option>
+                <option value="college event" disabled>College Events — Coming Soon</option>
+                <option value="temple event" disabled>Temple Events — Coming Soon</option>
                 <option>House Warming</option>
                 <option>Other</option>
               </select>

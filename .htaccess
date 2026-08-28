@@ -47,6 +47,7 @@ Options +FollowSymLinks
 # ── URL Rewriting ─────────────────────────────────────────────────────
 <IfModule mod_rewrite.c>
 RewriteEngine On
+RewriteBase /ellcy/
 RewriteRule ^vendor-signup/?$ index.php [L,QSA]
 
     # ── PRODUCTION (ellcy.in): the app is installed at the web root,

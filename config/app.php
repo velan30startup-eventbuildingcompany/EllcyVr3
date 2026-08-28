@@ -31,6 +31,17 @@ $scriptDir = $isVercel
     ? ''
     : rtrim(str_replace('\\', '/', dirname((string)($_SERVER['SCRIPT_NAME'] ?? '/index.php'))), '/');
 if ($scriptDir === '.' || $scriptDir === '/') $scriptDir = '';
+/* Some XAMPP configurations rewrite a subfolder request to /index.php and
+   therefore hide the physical /ellcy prefix from SCRIPT_NAME. Recover the
+   prefix from the request path so local clean routes still reach Router. */
+if (!$isVercel && $scriptDir === '' && in_array($serverName, $localHosts, true)) {
+    $projectSlug = basename(dirname(__DIR__));
+    $requestPath = (string)(parse_url((string)($_SERVER['REQUEST_URI'] ?? '/'), PHP_URL_PATH) ?: '/');
+    $candidateBase = '/' . trim($projectSlug, '/');
+    if ($requestPath === $candidateBase || str_starts_with($requestPath, $candidateBase . '/')) {
+        $scriptDir = $candidateBase;
+    }
+}
 define('APP_BASE', $scriptDir);   // e.g. "/ellcy" or ""
 $configuredOrigin = rtrim((string)(getenv('ELLCY_APP_ORIGIN') ?: ''), '/');
 if ($configuredOrigin !== '' && !preg_match('#^https?://[a-z0-9.-]+(?::\d+)?$#i', $configuredOrigin)) {

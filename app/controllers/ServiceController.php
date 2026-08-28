@@ -11,7 +11,7 @@ class ServiceController {
         return array_intersect_key($row, array_flip(['id','service_id','pkg_key','label','slug','price','description','image','sort_order']));
     }
     private static function publicImage(array $row): array {
-        return array_intersect_key($row, array_flip(['id','service_id','path','thumbnail','alt','media_type','is_primary','sort_order']));
+        return array_intersect_key($row, array_flip(['id','service_id','path','thumbnail','alt','media_type','video_provider','is_primary','sort_order']));
     }
     private static function publicReview(array $row): array {
         return array_intersect_key($row, array_flip(['reviewer','rating','review_text']));
@@ -145,7 +145,7 @@ class ServiceController {
                 $packagesByService[$pkg['service_id']][] = $pkg;
             }
             foreach (Database::fetchAll(
-                "SELECT id,service_id,path,thumbnail,alt,media_type,is_primary,sort_order FROM service_images WHERE service_id IN ($placeholders) AND status='active' ORDER BY sort_order",
+                "SELECT id,service_id,path,thumbnail,alt,media_type,video_provider,is_primary,sort_order FROM service_images WHERE service_id IN ($placeholders) AND status='active' ORDER BY sort_order",
                 $ids
             ) as $img) {
                 $imagesByService[$img['service_id']][] = $img;

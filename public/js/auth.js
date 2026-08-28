@@ -154,6 +154,11 @@
     var style = document.createElement('style');
     style.id = 'ellcyResponsiveHeaderPatch';
     style.textContent =
+      '@media (min-width:769px){' +
+      '.ellcy-hamburger{display:none!important}' +
+      '.ellcy-right-actions{display:inline-flex!important;align-items:center!important;margin-left:auto!important}' +
+      'header .ellcy-mobile-brand{position:static!important;inset:auto!important;transform:none!important;margin-left:0!important;text-align:left!important}' +
+      '}' +
       '@media (max-width:768px){' +
       '.ellcy-hamburger{display:flex!important;order:0!important}' +
       'header .header-right{order:3!important;margin-left:auto!important;flex-shrink:0!important}' +

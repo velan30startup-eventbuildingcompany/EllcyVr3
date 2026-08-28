@@ -146,6 +146,22 @@ body {
   .category-image { height:95px; }
 }
 
+/* Match the polished two-column "Our Event Category" cards on phones. */
+.category-desc { display:none; }
+@media (max-width:700px) {
+  .category-page { width:94%; }
+  .category-grid { grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:stretch; }
+  .category-card { height:100%;min-height:246px;padding:0 0 16px;border:0;border-radius:16px;box-shadow:0 4px 16px rgba(45,24,61,.08);justify-content:flex-start; }
+  .category-image { height:125px;margin:0 0 12px;border-radius:16px 16px 12px 12px; }
+  .category-name { padding:2px 12px 0;font-size:15px;line-height:1.25; }
+  .category-desc { display:block;margin:9px 12px 0;color:#746c79;font-size:12.5px;line-height:1.5;text-align:center; }
+}
+@media (max-width:420px) {
+  .category-grid { grid-template-columns:repeat(2,minmax(0,1fr));gap:12px; }
+  .category-card { height:100%;min-height:240px; }
+  .category-image { height:120px; }
+}
+
 /* ── Coming Soon Page ────────────────────────────────────────── */
 .coming-soon-wrapper {
   min-height: 60vh;

@@ -10,6 +10,29 @@
     return d.innerHTML;
   }
 
+  const CATEGORY_DESCRIPTIONS = {
+    decoration: 'Stage, floral and lighting decor planned around your venue.',
+    photography: 'Professional photo and video coverage for every key moment.',
+    food: 'Breakfast, lunch and dinner menus for celebrations of every size.',
+    dj: 'Curated music, sound and lighting packages for your celebration.',
+    'musical-band': 'Traditional and live music performers for grand event entries.',
+    bouncers: 'Trained event security staff for organised guest management.',
+    'entertainment-activities': 'Interactive experiences and photo attractions for every age.',
+    'snacks-stalls': 'Fresh live counters for popular snacks, drinks and desserts.',
+    'enter-show-down': 'Professional entry effects that make every arrival memorable.',
+    'catering-boys': 'Uniformed serving staff and graceful welcome hosts for your event.',
+    dancers: 'Male, female and co-ed dance teams for energetic performances.',
+    'real-flowers': 'Fresh floral styling for stages, entrances and special moments.',
+    'fake-jewellery': 'Elegant jewellery sets for bridal and celebration styling.',
+    'car-entry': 'Premium and luxury vehicle options for your grand entrance.',
+    'bridal-groom-styling': 'Complete bridal and groom makeup and styling services.',
+    'plates-decoration': 'Beautifully arranged aarti and seer plates for ceremonies.',
+    'flower-rangoli': 'Hand-arranged floral rangoli designs in multiple sizes.',
+    'food-breakfast': 'Fresh breakfast menus and serving options for morning events.',
+    'food-lunch': 'Traditional and contemporary lunch menus for your guests.',
+    'food-dinner': 'Complete dinner and buffet selections for evening celebrations.'
+  };
+
   document.addEventListener('DOMContentLoaded', () => {
     const params    = new URLSearchParams(window.location.search);
     const eventType = params.get('type') || 'wedding';
@@ -112,6 +135,7 @@
             <img src="${esc(item.img)}" alt="${esc(item.name)}" loading="lazy"/>
           </div>
           <div class="category-name">${esc(item.name)}</div>
+          <p class="category-desc">${esc(item.desc || CATEGORY_DESCRIPTIONS[item.slug] || 'Explore packages and options for this event service.')}</p>
         </div>`;
       grid.appendChild(a);
     });

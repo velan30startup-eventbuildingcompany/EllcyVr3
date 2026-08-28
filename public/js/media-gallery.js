@@ -11,6 +11,7 @@
     var category = el.getAttribute('data-eg-category');
     var serviceSlug = el.getAttribute('data-eg-service');
     var fallback = el.getAttribute('data-eg-fallback');
+    var preferFallback = el.getAttribute('data-eg-prefer-fallback') === 'true';
     var apiBase = el.getAttribute('data-eg-api-base') || '../../';
 
     el.innerHTML = '<div class="eg-skeleton" aria-hidden="true"></div>';
@@ -81,6 +82,10 @@
     })
       .then(function (response) { return response.ok ? response.json() : { services: [] }; })
       .then(function (data) {
+        if (preferFallback && fallback) {
+          render([{ media_type: 'image', path: fallback, alt: el.getAttribute('data-eg-alt') || 'Service photo', _fallback: true }]);
+          return;
+        }
         var items = [];
         var services = data && data.service ? [data.service] : ((data && data.services) || []);
         services.forEach(function (service) {

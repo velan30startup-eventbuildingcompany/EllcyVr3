@@ -225,6 +225,7 @@
     margin: 0;
     text-align: left;
     pointer-events: auto;
+    color: #fff !important;
   }
   /* The text breadcrumb is redundant now that a real back
      button exists — keep it desktop-only. */

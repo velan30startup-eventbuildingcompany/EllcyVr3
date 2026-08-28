@@ -68,7 +68,7 @@
   @media (max-width:780px) { .dec-enquiry-layout{grid-template-columns:1fr;gap:18px;padding:22px 16px}.dec-enquiry-copy{padding:6px 2px}.dec-enquiry-form .rfc-card{padding:22px 18px} }
 </style>
 </head>
-<body class="sd-body">
+<body class="sd-body decoration-detail">
 
 <header class="sd-topbar sd-mob" role="banner" aria-label="Page navigation">
   <button class="sd-back-btn" onclick="_ellcySmartBack('../../pages/services.html')" aria-label="Go back">
@@ -90,12 +90,12 @@
 </header>
 
 <div class="sd-mob" style="position:relative">
-  <div class="eg-gallery" data-eg-category="stage-decoration" data-eg-api-base="../../" data-eg-fallback="../../uploads/services/decoration-stage-indoor.jpg"></div>
+  <div class="eg-gallery" data-eg-category="stage-decoration" data-eg-api-base="../../" data-eg-fallback="../../uploads/services/decoration-stage-indoor.jpg" data-eg-prefer-fallback="true" data-eg-alt="Elegant indoor floral wedding stage decoration"></div>
   <span class="sd-hero-rating sd-rating-val" style="position:absolute;top:10px;right:10px;z-index:2">★ 4.7</span>
 </div>
 
 <div class="sd-dsk-hero sd-dsk">
-  <div class="eg-gallery" data-eg-category="stage-decoration" data-eg-api-base="../../" data-eg-fallback="../../uploads/services/decoration-stage-indoor.jpg"></div>
+  <div class="eg-gallery" data-eg-category="stage-decoration" data-eg-api-base="../../" data-eg-fallback="../../uploads/services/decoration-stage-indoor.jpg" data-eg-prefer-fallback="true" data-eg-alt="Elegant indoor floral wedding stage decoration"></div>
   <div class="sd-info">
     <div class="sd-title-row">
       <h1 class="sd-title">Stage Decoration</h1>
@@ -278,7 +278,6 @@
   </div>
 </footer>
 
-<script src="../../js/security.js"></script>
 <script>
 function _ellcySmartBack(fallbackUrl){
   if(window.history.length>1 && document.referrer && document.referrer.includes(window.location.hostname)){
@@ -348,6 +347,20 @@ function _ellcySmartBack(fallbackUrl){
   var locationInput = document.getElementById('sdLocation');
   var locationErr = document.getElementById('sdLocationErr');
 
+  function protectFormData(formData) {
+    return fetch('../../api/csrf', {
+      credentials: 'same-origin',
+      headers: { Accept: 'application/json' }
+    }).then(function(response){
+      if (!response.ok) throw new Error('Unable to start a secure session.');
+      return response.json();
+    }).then(function(data){
+      if (!data.csrf_token) throw new Error('Unable to start a secure session.');
+      formData.set('csrf_token', data.csrf_token);
+      return formData;
+    });
+  }
+
   // Phone: digits only, matching Request for Call's behaviour
   phoneInput.addEventListener('input', function(){
     this.value = this.value.replace(/\D/g, '').slice(0, 10);
@@ -388,7 +401,7 @@ function _ellcySmartBack(fallbackUrl){
     submitBtn.disabled = true;
     submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting…';
 
-    window.EllcySecurity.protectFormData(fd)
+    protectFormData(fd)
       .then(function(body){ return fetch('../../enquiry/stage-decoration', { method:'POST', credentials:'same-origin', body: body }); })
       .then(function(r){ return r.json(); })
       .then(function(data){
