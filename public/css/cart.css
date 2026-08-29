@@ -735,3 +735,16 @@ body.ellcy-drawer-locked { overflow: hidden; }
    squashed the white pill + "Cart" label into a tiny box. Removed. */
 
 @media(max-width:768px){.hdr-mobile-title,.ellcy-mobile-context,.sd-mobile-context,.bnc-back-btn,.bnc-back-btn span{color:#fff!important}}
+
+/* Keep every legacy service logo/page context beside the hamburger.  Older
+   templates use different logo class names, but all expose the same accessible
+   home label. */
+@media(max-width:768px){
+  header a[aria-label="ELLCY Home"]{
+    position:static!important;inset:auto!important;transform:none!important;
+    order:1;flex:1 1 auto;min-width:0;max-width:min(42vw,190px);
+    margin:0!important;padding:0!important;color:#fff!important;
+    text-align:left!important;text-decoration:none!important;font-size:1.02rem!important;
+    font-weight:800!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+}

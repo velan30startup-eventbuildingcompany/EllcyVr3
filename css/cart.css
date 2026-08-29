@@ -647,7 +647,8 @@ body.ellcy-drawer-locked { overflow: hidden; }
 
   header .ellcy-mobile-brand,
   header .ellcy-mobile-context,
-  header .sd-mobile-context {
+  header .sd-mobile-context,
+  header a[aria-label="ELLCY Home"] {
     position: static !important;
     inset: auto !important;
     transform: none !important;
@@ -667,6 +668,7 @@ body.ellcy-drawer-locked { overflow: hidden; }
   }
 
   header .ellcy-mobile-brand { font-size: 1.02rem; }
+  header a[aria-label="ELLCY Home"] { font-size: 1.02rem !important; }
   .ellcy-drawer-nav a { color: #1a1a2e; background: #fff; }
   .ellcy-drawer-nav a i { color: #1a1a2e; }
 }

@@ -268,7 +268,13 @@
          Keep the useful page name next to the hamburger, while navigation now
          follows the site's normal menu and breadcrumbs. */
       var pageContext = headerEl.querySelector('.hdr-mobile-title');
-      var nativeBrand = headerEl.querySelector('.logo, .sd-logo, .footer-logo');
+      /* Older service templates use several logo class names (snk-logo,
+         cm-logo, pd-logo, and others).  The accessible home label is the
+         stable contract shared by all of them, so use it as the primary
+         selector and retain the legacy class fallbacks. */
+      var nativeBrand = headerEl.querySelector(
+        'a[aria-label="ELLCY Home"], .logo, .sd-logo, .snk-logo, .cm-logo, .pd-logo, .bnc-logo'
+      );
       if (pageContext) pageContext.classList.add('ellcy-mobile-context');
       else if (nativeBrand) {
         nativeBrand.classList.add('ellcy-mobile-brand');
