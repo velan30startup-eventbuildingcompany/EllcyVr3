@@ -111,6 +111,22 @@ foreach ($rootLegacyRouteMap as $legacyRoute => $canonicalRoute) {
     });
 }
 
+/* Compatibility for links cached from the XAMPP /ellcy installation. The
+   production site is mounted at the domain root, so strip that old prefix and
+   preserve the query string instead of showing a 404. */
+if (APP_BASE === '') {
+    $router->get('/ellcy', static fn() => Router::redirect('/'));
+    $router->get('/ellcy/*', static function (string $path) use ($redirectWithQuery): void {
+        $path = trim(str_replace('\\', '/', rawurldecode($path)), '/');
+        if ($path === '' || str_contains($path, '..') || str_contains($path, "\0")) {
+            http_response_code($path === '' ? 302 : 400);
+            if ($path === '') Router::redirect('/');
+            return;
+        }
+        $redirectWithQuery('/' . $path);
+    });
+}
+
 // ── SERVICES listing: serve pages/services.html ─────────────────────
 $router->get('/services', function () use ($serveLegacyHtml) {
     $type = Security::sanitizeString($_GET['type'] ?? '', 80);

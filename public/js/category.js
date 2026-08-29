@@ -10,6 +10,18 @@
     return d.innerHTML;
   }
 
+  /* Resolve the application mount point from the Home link. This keeps the
+     same JavaScript valid at both localhost/ellcy and the Vercel domain root. */
+  function appPath(path) {
+    const home = document.querySelector('a[aria-label="ELLCY Home"]');
+    let base = '';
+    if (home) {
+      const homePath = new URL(home.href, window.location.href).pathname;
+      base = homePath.replace(/\/index\.html\/?$/i, '').replace(/\/$/, '');
+    }
+    return base + '/' + String(path || '').replace(/^\/+/, '');
+  }
+
   const CATEGORY_DESCRIPTIONS = {
     decoration: 'Stage, floral and lighting decor planned around your venue.',
     photography: 'Professional photo and video coverage for every key moment.',
@@ -97,10 +109,10 @@
             <p class="cs-enquiry-line">If you have any enquiries, kindly contact</p>
             <a class="cs-email" href="mailto:enquiry@elly.in">enquiry@elly.in</a>
             <div class="cs-actions">
-              <a href="../index.html" class="cs-btn cs-btn-home">
+              <a href="${appPath('')}" class="cs-btn cs-btn-home">
                 <i class="fa-solid fa-house" aria-hidden="true"></i> Back to Home
               </a>
-              <a href="booking.html" class="cs-btn cs-btn-enquiry">
+              <a href="${appPath('booking')}" class="cs-btn cs-btn-enquiry">
                 <i class="fa-solid fa-envelope" aria-hidden="true"></i> Book Now
               </a>
             </div>
@@ -116,17 +128,17 @@
     /* Slugs that skip the intermediate "choose a variant" list and go
        straight to a single merged description page. */
     const DIRECT_LINKS = {
-      'food':           '/ellcy/category?type=food',
-      'food-breakfast': '/ellcy/services/food/breakfast/',
-      'food-lunch':     '/ellcy/services/food/lunch/',
-      'food-dinner':    '/ellcy/services/food/dinner/'
+      'food':           appPath('category?type=food'),
+      'food-breakfast': appPath('services/food/breakfast/'),
+      'food-lunch':     appPath('services/food/lunch/'),
+      'food-dinner':    appPath('services/food/dinner/')
     };
 
     const list = CATEGORY_MAPPINGS[safeType] || [];
     list.forEach(item => {
       const a = document.createElement('a');
       a.className = 'category-card-link';
-      a.href      = DIRECT_LINKS[item.slug] || ('/ellcy/services?type=' + encodeURIComponent(item.slug));
+      a.href      = DIRECT_LINKS[item.slug] || appPath('services?type=' + encodeURIComponent(item.slug));
       a.title     = item.name;
       a.setAttribute('aria-label', item.name);
       a.innerHTML = `

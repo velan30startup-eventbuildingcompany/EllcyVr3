@@ -21,6 +21,16 @@
     return '₹' + Number(n).toLocaleString('en-IN');
   }
 
+  function appPath(path) {
+    const home = document.querySelector('a[aria-label="ELLCY Home"]');
+    let base = '';
+    if (home) {
+      const homePath = new URL(home.href, window.location.href).pathname;
+      base = homePath.replace(/\/index\.html\/?$/i, '').replace(/\/$/, '');
+    }
+    return base + '/' + String(path || '').replace(/^\/+/, '');
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     const params = new URLSearchParams(window.location.search);
     const type   = params.get('type') || '';
@@ -1092,7 +1102,7 @@
     ].forEach(function(pkg) {
       var a = document.createElement('a');
       a.className = 'service-card music-performer-card';
-      a.href = '/ellcy/services/photography/' + pkg.dir + '/';
+      a.href = appPath('services/photography/' + pkg.dir + '/');
       a.setAttribute('aria-label', pkg.label);
       a.innerHTML = `
         <div class="card-image music-performer-image">
@@ -1351,9 +1361,9 @@
     grid.innerHTML = '';
     grid.classList.add('music-performer-grid');
     const ITEMS = [
-      { label:'Human Doll (Mascots)', price:2499,  rating:4.5, tag:'Interactive mascots', desc:'Life-size human doll & mascot characters — Cute, Giant, Cartoon & Couple styles for entertaining guests.', img:'../uploads/services/fun.png',       link:'/ellcy/services/entertainment-activities/?type=human-doll' },
-      { label:'360° Degree Camera',   price:11899, rating:4.7, tag:'Immersive 360° video', desc:'Immersive 360° slow-motion video booth — instant shareable clips for your guests.',                        img:'../uploads/services/photobooth.png', link:'/ellcy/services/entertainment-activities/?type=360-camera' },
-      { label:'Photo Booth',          price:17999, rating:4.4, tag:'Instant photo experience', desc:'Fully branded photo booth with props and instant prints. Crowd favourite at every event.',                  img:'../uploads/services/photobooth.png', link:'/ellcy/services/entertainment-activities/?type=photo-booth' },
+      { label:'Human Doll (Mascots)', price:2499,  rating:4.5, tag:'Interactive mascots', desc:'Life-size human doll & mascot characters — Cute, Giant, Cartoon & Couple styles for entertaining guests.', img:'../uploads/services/fun.png',       link:appPath('services/entertainment-activities/?type=human-doll') },
+      { label:'360° Degree Camera',   price:11899, rating:4.7, tag:'Immersive 360° video', desc:'Immersive 360° slow-motion video booth — instant shareable clips for your guests.',                        img:'../uploads/services/photobooth.png', link:appPath('services/entertainment-activities/?type=360-camera') },
+      { label:'Photo Booth',          price:17999, rating:4.4, tag:'Instant photo experience', desc:'Fully branded photo booth with props and instant prints. Crowd favourite at every event.',                  img:'../uploads/services/photobooth.png', link:appPath('services/entertainment-activities/?type=photo-booth') },
     ];
     ITEMS.forEach(item => {
       const a = document.createElement('a');

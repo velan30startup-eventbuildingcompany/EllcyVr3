@@ -74,7 +74,7 @@ final class LegacyPage
             $assetPattern = preg_quote($assetName, '/');
             $html = preg_replace_callback(
                 '/(?<url>[^"\']*\/' . $assetPattern . ')(?:\?[^"\']*)?/i',
-                static fn(array $match): string => $match['url'] . '?v=20260829.2',
+                static fn(array $match): string => $match['url'] . '?v=20260829.3',
                 $html
             ) ?? $html;
         }
@@ -83,7 +83,7 @@ final class LegacyPage
            Older templates load auth.js but omit cart.css, which leaves the
            injected hamburger visible on desktop and pushes ELLCY to center. */
         if ($directory === 'services' && !preg_match('/\/cart\.css(?:\?[^"\']*)?["\']/i', $html)) {
-            $sharedHeaderCss = '<link rel="stylesheet" href="' . Security::e(APP_URL . '/css/cart.css?v=20260829.2') . '"/>';
+            $sharedHeaderCss = '<link rel="stylesheet" href="' . Security::e(APP_URL . '/css/cart.css?v=20260829.3') . '"/>';
             $html = preg_replace('/<\/head>/i', $sharedHeaderCss . '</head>', $html, 1) ?? $html;
         }
 
