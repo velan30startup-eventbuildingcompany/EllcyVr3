@@ -626,6 +626,9 @@ body.ellcy-drawer-locked { overflow: hidden; }
 }
 @media (min-width: 769px) {
   .ellcy-hamburger { display: none; }
+  header .hdr-mobile-title,
+  header .ellcy-mobile-context,
+  header .sd-mobile-context { display: none !important; }
   .ellcy-drawer, .ellcy-drawer-backdrop { display: none !important; }
 }
 

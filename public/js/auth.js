@@ -157,6 +157,7 @@
       '@media (min-width:769px){' +
       '.ellcy-hamburger{display:none!important}' +
       '.ellcy-right-actions{display:inline-flex!important;align-items:center!important;margin-left:auto!important}' +
+      'header .hdr-mobile-title,header .ellcy-mobile-context,header .sd-mobile-context{display:none!important}' +
       'header .ellcy-mobile-brand{position:static!important;inset:auto!important;transform:none!important;margin-left:0!important;text-align:left!important}' +
       '}' +
       '@media (max-width:768px){' +
