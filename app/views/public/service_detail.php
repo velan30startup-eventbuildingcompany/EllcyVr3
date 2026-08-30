@@ -236,7 +236,8 @@ $metaDescription = mb_substr(preg_replace('/\s+/', ' ', $metaDescription) ?? '',
   <script type="application/ld+json"><?= json_encode(['@context'=>'https://schema.org','@type'=>'BreadcrumbList','itemListElement'=>[['@type'=>'ListItem','position'=>1,'name'=>'Home','item'=>$base.'/'],['@type'=>'ListItem','position'=>2,'name'=>$categoryLabel,'item'=>$base.'/services?type='.$categorySlug],['@type'=>'ListItem','position'=>3,'name'=>(string)$cfg['serviceName'],'item'=>$base.'/services/'.trim($serviceRoute,'/').'/']]], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_HEX_TAG) ?></script>
   <link rel="stylesheet" href="<?= $e($base) ?>/css/style.css"/>
   <link rel="stylesheet" href="<?= $e($base) ?>/css/service-desc.css?v=20260812.1"/>
-  <link rel="stylesheet" href="<?= $e($base) ?>/css/media-gallery.css?v=20260811.5"/>
+  <link rel="stylesheet" href="<?= $e($base) ?>/css/media-gallery.css?v=20260831.1"/>
+  <link rel="stylesheet" href="<?= $e($base) ?>/css/detail-single-media.css?v=20260831.1"/>
   <link rel="stylesheet" href="<?= $e($base) ?>/css/cart.css?v=20260812.1"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" defer></script>
 </head>
@@ -318,7 +319,7 @@ $metaDescription = mb_substr(preg_replace('/\s+/', ' ', $metaDescription) ?? '',
 <script src="<?= $e($base) ?>/js/auth.js?v=20260812.1"></script>
 <script src="<?= $e($base) ?>/js/cart.js"></script>
 <?php if ($showReferenceUpload): ?><script>window.ELLCY_JEWELLERY_SERVICE = <?= json_encode((string)$cfg['serviceKey']) ?>;</script><script src="<?= $e($base) ?>/js/jewellery-reference.js?v=20260811.2"></script><?php endif; ?>
-<script src="<?= $e($base) ?>/js/media-gallery.js?v=20260811.5"></script>
+<script src="<?= $e($base) ?>/js/media-gallery.js?v=20260831.1"></script>
 <script src="<?= $e($base) ?>/js/service-desc.js?v=20260812.1"></script>
 </body>
 </html>

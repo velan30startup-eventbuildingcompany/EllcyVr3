@@ -73,7 +73,13 @@
 .rfc-trust-badge i { color: var(--primary); font-size: .85rem; }
 
 .rfc-success { display: none; text-align: center; padding: 32px 20px; }
-.rfc-success.show { display: block; }
+.rfc-success.show {
+  display: block;
+  background: #fff;
+  border: 1px solid #e0d5f0;
+  border-radius: 16px;
+  box-shadow: 0 14px 36px rgba(44, 20, 61, .10);
+}
 .rfc-success-icon {
   width: 72px; height: 72px; background: #d1fae5; border-radius: 50%;
   display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;
@@ -81,9 +87,15 @@
 }
 .rfc-success-title { font-size: 1.3rem; font-weight: 800; color: #1a1a2e; margin-bottom: 8px; }
 .rfc-success-sub { font-size: .9rem; color: #666; line-height: 1.6; margin-bottom: 24px; }
+.rfc-success-sub strong { color: #1a1a2e; }
 .rfc-home-btn {
   display: inline-flex; align-items: center; gap: 8px;
   background: var(--primary); color: #fff; padding: 12px 28px; border-radius: 10px;
   font-weight: 700; font-size: .9rem; text-decoration: none; transition: background .18s;
 }
 .rfc-home-btn:hover { background: var(--primary-dark); }
+
+@media (max-width: 768px) {
+  .rfc-card { padding: 22px 18px; }
+  .rfc-success { padding: 28px 16px; }
+}

@@ -1,0 +1,78 @@
+/* ELLCY service-detail media policy
+   Desktop and tablet show one authoritative image or video. Mobile detail
+   templates already render a separate single-media hero. */
+@media (min-width: 769px) {
+  .sd-mosaic,
+  .bnc-img-mosaic,
+  .snk-mosaic,
+  .cm-img-mosaic,
+  .desc-img-mosaic {
+    display: block !important;
+    position: relative;
+    width: 100%;
+    min-width: 0;
+    aspect-ratio: 4 / 3;
+    height: auto !important;
+    max-height: 520px !important;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .sd-mosaic-main,
+  .bnc-mosaic-main,
+  .snk-mosaic-main,
+  .cm-mosaic-main,
+  .desc-img-mosaic .main-img,
+  .sd-mosaic > video:first-child,
+  .bnc-img-mosaic > video:first-child,
+  .snk-mosaic > video:first-child,
+  .cm-img-mosaic > video:first-child,
+  .desc-img-mosaic > video:first-child,
+  .sd-mosaic > iframe:first-child,
+  .bnc-img-mosaic > iframe:first-child,
+  .snk-mosaic > iframe:first-child,
+  .cm-img-mosaic > iframe:first-child,
+  .desc-img-mosaic > iframe:first-child {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+    border: 0;
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+  }
+
+  .sd-mosaic > .sd-mosaic-t1,
+  .sd-mosaic > .sd-mosaic-t2,
+  .bnc-img-mosaic > .bnc-mosaic-t1,
+  .bnc-img-mosaic > .bnc-mosaic-t2,
+  .snk-mosaic > .snk-mosaic-t1,
+  .snk-mosaic > .snk-mosaic-t2,
+  .cm-img-mosaic > .cm-mosaic-t1,
+  .cm-img-mosaic > .cm-mosaic-t2,
+  .desc-img-mosaic .thumb-1,
+  .desc-img-mosaic .thumb-2 {
+    display: none !important;
+  }
+
+  .sd-mosaic-main:hover,
+  .bnc-mosaic-main:hover,
+  .snk-mosaic-main:hover,
+  .cm-mosaic-main:hover,
+  .desc-img-mosaic .main-img:hover {
+    transform: none !important;
+  }
+
+  /* Admin-managed galleries render one primary media item through
+     media-gallery.js; keep that item full-width with no thumbnail rail. */
+  .eg-gallery .eg-thumbs,
+  .eg-gallery .eg-thumbs-dsk,
+  .eg-gallery .eg-thumbs-mob {
+    display: none !important;
+  }
+
+  .eg-gallery .eg-main-scroll,
+  .eg-gallery .eg-single-wrap {
+    width: 100%;
+  }
+}

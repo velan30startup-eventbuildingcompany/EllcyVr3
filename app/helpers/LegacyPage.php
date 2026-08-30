@@ -70,11 +70,11 @@ final class LegacyPage
 
         /* Force the latest shared responsive and calculator assets after an
            update; several legacy templates otherwise reuse a stale browser copy. */
-        foreach (['cart.css', 'header2.css', 'category.css', 'category.js', 'auth.js', 'bouncer.css', 'catering-admin-data.js', 'catering-staff-calc.js', 'media-gallery.css', 'media-gallery.js', 'services.css', 'services.js', 'service-desc.css', 'service-desc.js'] as $assetName) {
+        foreach (['cart.css', 'header2.css', 'category.css', 'category.js', 'auth.js', 'bouncer.css', 'catering-admin-data.js', 'catering-staff-calc.js', 'detail-single-media.css', 'media-gallery.css', 'media-gallery.js', 'rfc-shared.css', 'services.css', 'services.js', 'service-desc.css', 'service-desc.js'] as $assetName) {
             $assetPattern = preg_quote($assetName, '/');
             $html = preg_replace_callback(
                 '/(?<url>[^"\']*\/' . $assetPattern . ')(?:\?[^"\']*)?/i',
-                static fn(array $match): string => $match['url'] . '?v=20260829.3',
+                static fn(array $match): string => $match['url'] . '?v=20260831.1',
                 $html
             ) ?? $html;
         }
@@ -83,8 +83,16 @@ final class LegacyPage
            Older templates load auth.js but omit cart.css, which leaves the
            injected hamburger visible on desktop and pushes ELLCY to center. */
         if ($directory === 'services' && !preg_match('/\/cart\.css(?:\?[^"\']*)?["\']/i', $html)) {
-            $sharedHeaderCss = '<link rel="stylesheet" href="' . Security::e(APP_URL . '/css/cart.css?v=20260829.3') . '"/>';
+            $sharedHeaderCss = '<link rel="stylesheet" href="' . Security::e(APP_URL . '/css/cart.css?v=20260831.1') . '"/>';
             $html = preg_replace('/<\/head>/i', $sharedHeaderCss . '</head>', $html, 1) ?? $html;
+        }
+
+        /* Apply the same one-media detail rule after each legacy template's
+           own stylesheet so older mosaic-specific !important rules cannot
+           reintroduce the duplicate images on desktop or tablet. */
+        if ($directory === 'services' && !preg_match('/\/detail-single-media\.css(?:\?[^"\']*)?["\']/i', $html)) {
+            $singleMediaCss = '<link rel="stylesheet" href="' . Security::e(APP_URL . '/css/detail-single-media.css?v=20260831.1') . '"/>';
+            $html = preg_replace('/<\/head>/i', $singleMediaCss . '</head>', $html, 1) ?? $html;
         }
 
         if ($directory === 'pages') {

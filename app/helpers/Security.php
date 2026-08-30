@@ -140,12 +140,14 @@ class Security {
     // ── Security headers ────────────────────────────────────────────
     public static function setHeaders(): void {
         if (headers_sent()) return;
+        header_remove('X-Powered-By');
         header('X-Content-Type-Options: nosniff');
         header('X-Frame-Options: SAMEORIGIN');
         header('X-Permitted-Cross-Domain-Policies: none');
         header('Referrer-Policy: strict-origin-when-cross-origin');
         header('Permissions-Policy: camera=(), microphone=(), geolocation=()');
         header('Cross-Origin-Opener-Policy: same-origin');
+        header('Cross-Origin-Resource-Policy: same-site');
         header("Content-Security-Policy: default-src 'self'; "
             . "script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; "
             . "style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; "
