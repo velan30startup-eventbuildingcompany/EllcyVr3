@@ -267,7 +267,7 @@
       NT_OCCASIONS.forEach(function(occ) {
         var a = document.createElement('a');
         a.className = 'service-card stage-desc-card';
-        a.href = 'services.html?type=' + occ.key;
+        a.href = appPath('services?type=' + occ.key);
         a.setAttribute('aria-label', occ.label);
         a.innerHTML =
           '<div class="card-image">' +
@@ -648,7 +648,7 @@
         services.forEach(s => {
           const a = document.createElement('a');
           a.className = 'service-card';
-          a.href      = (s.id === 40) ? '../services/bouncers/index.html' : 'service_details.html?id=' + encodeURIComponent(s.id);
+          a.href      = (s.id === 40) ? appPath('services/bouncers/') : appPath('service-details?id=' + encodeURIComponent(s.id));
           a.setAttribute('data-events', 'wedding');
           a.setAttribute('aria-label', s.title);
           const priceStr = s.base_price > 0
@@ -690,7 +690,7 @@
     cats.forEach(function(cat) {
       var a = document.createElement('a');
       a.className = 'service-card decoration-sub-card';
-      a.href = 'services.html?type=' + encodeURIComponent(cat.slug);
+      a.href = appPath('services?type=' + encodeURIComponent(cat.slug));
       a.setAttribute('aria-label', cat.name);
       a.innerHTML =
         '<div class="card-image">' +
@@ -711,7 +711,7 @@
     DECORATION_SUBTYPES.forEach(sub => {
       const a = document.createElement('a');
       a.className = 'service-card decoration-sub-card';
-      a.href      = 'services.html?type=' + encodeURIComponent(sub.slug);
+      a.href      = appPath('services?type=' + encodeURIComponent(sub.slug));
       a.setAttribute('aria-label', sub.name);
       a.innerHTML = `
         <div class="card-image">
@@ -777,7 +777,7 @@
     DANCER_TEAMS.forEach(team => {
       appendReferenceCard(grid, {
         title: team.name,
-        href: 'services.html?type=' + team.type,
+        href: appPath('services?type=' + team.type),
         img: team.img,
         desc: team.desc,
         price: team.from,
@@ -804,7 +804,7 @@
     PLATE_TYPES.forEach(pt => {
       const a = document.createElement('a');
       a.className = 'service-card stage-desc-card';
-      a.href      = 'services.html?type=' + pt.type;
+      a.href      = appPath('services?type=' + pt.type);
       a.setAttribute('aria-label', pt.name);
       a.innerHTML = `
         <div class="card-image">
@@ -949,7 +949,7 @@
     FLOWER_GROUPS.forEach(function(sub) {
       var a = document.createElement('a');
       a.className = 'service-card decoration-sub-card';
-      a.href      = 'services.html?type=' + encodeURIComponent(sub.slug);
+      a.href      = appPath('services?type=' + encodeURIComponent(sub.slug));
       a.setAttribute('aria-label', sub.name);
       a.innerHTML =
         '<div class="card-image">' +
@@ -1015,7 +1015,7 @@
       const meta = displayMeta[sub.slug];
       const a = document.createElement('a');
       a.className = 'service-card music-performer-card';
-      a.href      = 'services.html?type=' + encodeURIComponent(sub.slug);
+      a.href      = appPath('services?type=' + encodeURIComponent(sub.slug));
       a.setAttribute('aria-label', sub.name);
       a.innerHTML = `
         <div class="card-image music-performer-image">
@@ -1623,7 +1623,7 @@
     items.forEach(function(s) {
       var a = document.createElement('a');
       a.className = 'service-card';
-      a.href = 'service_details.html?id=' + encodeURIComponent(s.id);
+      a.href = appPath('service-details?id=' + encodeURIComponent(s.id));
       a.setAttribute('aria-label', s.title);
       var priceStr = s.base_price > 0
         ? (s.base_price < 500 ? fmt(s.base_price) + '/plate' : fmt(s.base_price))
@@ -1712,7 +1712,7 @@
     ].forEach(function(cat) {
       var a = document.createElement('a');
       a.className = 'service-card chenda-pkg-card';
-      a.href = 'services.html?type=' + cat.type;
+      a.href = appPath('services?type=' + cat.type);
       a.setAttribute('aria-label', cat.name);
       a.innerHTML =
         '<div class="card-image"><img src="' + esc(cat.img) + '" alt="' + esc(cat.name) + '" loading="lazy"/>' +
@@ -1790,7 +1790,7 @@
     ].forEach(function(cat) {
       appendReferenceCard(grid, {
         title: cat.name,
-        href: 'services.html?type=' + cat.type,
+        href: appPath('services?type=' + cat.type),
         img: cat.img,
         desc: cat.desc,
         price: cat.from,
@@ -1836,7 +1836,7 @@
     ].forEach(function(brand) {
       appendReferenceCard(grid, {
         title: brand.name,
-        href: 'services.html?type=' + brand.type,
+        href: appPath('services?type=' + brand.type),
         img: '../uploads/services/car-entry-luxury.jpg',
         desc: brand.desc,
         price: brand.from,
