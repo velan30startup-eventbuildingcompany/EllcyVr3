@@ -1,0 +1,12 @@
+# Local-only and duplicated development assets. Vercel serves the optimized
+# public/ tree; PHP templates and legacy route pages remain included.
+.git/
+.github/
+node_modules/
+audit-output/
+Dockerfile.txt
+uploads/
+css/
+README.md
+package.json
+package-lock.json

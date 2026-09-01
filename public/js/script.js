@@ -444,7 +444,7 @@ document.addEventListener('DOMContentLoaded', () => {
       div.className = 'category-item' + (isHidden ? ' hidden-category' : '');
       div.setAttribute('role','listitem');
       div.innerHTML = `<div class="category-image"><img src="${cat.image}" alt="${cat.name}" loading="lazy"/></div><p>${cat.name}</p>`;
-      div.addEventListener('click', () => window.location.href = 'pages/services.html?type=' + encodeURIComponent(slug));
+      div.addEventListener('click', () => window.location.href = 'services?type=' + encodeURIComponent(slug));
       catContainer.appendChild(div);
     });
 
@@ -490,7 +490,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ${s.comingSoon ? '<p class="coming-soon-note">We\'re gearing up for this! Stay tuned.</p>' : ''}
       `;
       if (!s.comingSoon) {
-        const go = () => window.location.href = 'pages/category.html?type=' + s.id;
+        const go = () => window.location.href = 'category?type=' + encodeURIComponent(s.id);
         div.addEventListener('click', go);
         div.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' ') go(); });
       }

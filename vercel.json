@@ -20,11 +20,22 @@
       "status": 404
     },
     {
-      "src": "/(.*\\.(?:css|js|png|jpe?g|webp|gif|svg|ico|woff2?|ttf|eot|mp4|webm|ogg))",
+      "src": "/(.*\\.(?:png|jpe?g|webp|gif|svg|ico|woff2?|ttf|eot|mp4|webm|ogg))",
       "dest": "/$1",
       "headers": {
+        "Cache-Control": "public, max-age=2592000, stale-while-revalidate=86400",
         "X-Content-Type-Options": "nosniff",
         "X-Permitted-Cross-Domain-Policies": "none",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "Cross-Origin-Resource-Policy": "same-site"
+      }
+    },
+    {
+      "src": "/(.*\\.(?:css|js))",
+      "dest": "/$1",
+      "headers": {
+        "Cache-Control": "public, max-age=604800, stale-while-revalidate=86400",
+        "X-Content-Type-Options": "nosniff",
         "Referrer-Policy": "strict-origin-when-cross-origin",
         "Cross-Origin-Resource-Policy": "same-site"
       }

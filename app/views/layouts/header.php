@@ -26,6 +26,9 @@
   <meta name="twitter:card" content="summary_large_image"/>
   <?php endif; ?>
   <title><?= Security::e($page_title ?? 'ELLCY | Event Services') ?></title>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link rel="stylesheet" href="<?= PUBLIC_URL ?>/css/style.css"/>
   <link rel="stylesheet" href="<?= PUBLIC_URL ?>/css/cart.css"/>
   <?php if (!empty($extra_css)): ?>

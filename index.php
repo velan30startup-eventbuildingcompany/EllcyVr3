@@ -38,11 +38,8 @@ require_once __DIR__ . '/app/controllers/UploadController.php';
 require_once __DIR__ . '/app/controllers/VendorController.php';
 
 // ── Maintenance mode ────────────────────────────────────────────────
-try {
-    $maintenance = Database::fetchOne(
-        "SELECT setting_val FROM site_settings WHERE setting_key='maintenance'"
-    )['setting_val'] ?? '0';
-    if ($maintenance === '1' && !str_contains($_SERVER['REQUEST_URI'] ?? '', '/admin')) {
+$maintenance = (string)(getenv('ELLCY_MAINTENANCE') ?: '0');
+if ($maintenance === '1' && !str_contains($_SERVER['REQUEST_URI'] ?? '', '/admin')) {
         http_response_code(503);
         echo '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Maintenance — ELLCY</title>
         <style>body{font-family:system-ui;display:flex;align-items:center;justify-content:center;
@@ -50,9 +47,8 @@ try {
         h1{color:#6a1b9a;font-size:2rem}p{color:#555;margin-top:10px}</style></head>
         <body><div><h1>ELLCY</h1><p>We\'re performing scheduled maintenance.<br>
         We\'ll be back shortly.</p></div></body></html>';
-        exit;
-    }
-} catch (Exception $e) { /* DB not yet set up — continue */ }
+    exit;
+}
 
 // ── Router ──────────────────────────────────────────────────────────
 $router = new Router(APP_BASE);
@@ -239,6 +235,13 @@ foreach ($cleanLegacyPages as $route => $file) {
         $serveLegacyHtml('pages', $file);
     });
 }
+
+// Keep the plural URL used by older navigation and shared links working.
+// `/category` remains canonical because that is the existing PHP endpoint.
+$router->get('/categories', static function (): void {
+    $query = http_build_query($_GET);
+    header('Location: ' . Router::url('/category') . ($query !== '' ? '?' . $query : ''), true, 301);
+});
 
 $router->get('/pages/*', function (string $path) use ($serveLegacyHtml, $redirectWithQuery): void {
     $path = rawurldecode(trim(str_replace('\\', '/', $path), '/'));
