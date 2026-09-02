@@ -222,7 +222,7 @@
 
 <!-- HERO HEADER -->
 <div class="mt-page-header">
-  <img class="mt-hero-img" src="../../../uploads/services/mojito.png" alt="Mojito & Tea Stall"/>
+  <img class="mt-hero-img" src="../../../uploads/services/mojito.webp" alt="Mojito & Tea Stall"/>
   <div>
     <h1>🍵 Mojito &amp; Tea Counter</h1>
     <p class="mt-subtitle">Fresh brews by morning, cool mojitos by evening — all served live at your event!</p>
@@ -353,7 +353,7 @@
       div.setAttribute('aria-label', item.label);
       div.innerHTML =
         '<div class="mt-drink-img-wrap">' +
-          '<img src="../../../uploads/services/mojito.png" alt="' + item.label + '" loading="lazy"/>' +
+          '<img src="../../../uploads/services/mojito.webp" alt="' + item.label + '" loading="lazy"/>' +
           '<span class="mt-drink-emoji">' + item.emoji + '</span>' +
           '<span class="mt-drink-rating">★ ' + item.rating + '</span>' +
         '</div>' +
@@ -419,7 +419,7 @@
     var cartId = 'mojito-' + currentItem.key;
     var ex = cart.find(function(i){ return i.id === cartId; });
     if (ex) { ex.qty += qty; }
-    else { cart.push({ id: cartId, title: currentItem.label, price: currentItem.price, qty: qty, image: '../../../uploads/services/mojito.png' }); }
+    else { cart.push({ id: cartId, title: currentItem.label, price: currentItem.price, qty: qty, image: '../../../uploads/services/mojito.webp' }); }
     localStorage.setItem('ellcy_cart', JSON.stringify(cart));
     var total = cart.reduce(function(s,i){ return s + i.qty; }, 0);
     document.querySelectorAll('.cart-badge').forEach(function(b){ b.style.display = ''; b.textContent = total; });

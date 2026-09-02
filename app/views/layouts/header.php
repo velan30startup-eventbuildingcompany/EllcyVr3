@@ -10,7 +10,7 @@
     $canonicalUrl = rtrim(APP_URL, '/') . '/' . ltrim($canonicalPath, '/');
     $isPrivatePage = (bool)preg_match('#^/(admin|account|login|register|forgot-password|reset-password|cart|booking)(/|$)#', $canonicalPath);
     $robotsValue = $robots ?? ($isPrivatePage ? 'noindex, nofollow' : 'index, follow');
-    $socialImage = $og_image ?? (rtrim(APP_URL, '/') . '/uploads/services/stage.png');
+    $socialImage = $og_image ?? (rtrim(APP_URL, '/') . '/uploads/services/stage.webp');
   ?>
   <meta name="robots" content="<?= Security::e($robotsValue) ?>"/>
   <link rel="canonical" href="<?= Security::e($canonicalUrl) ?>"/>
@@ -39,7 +39,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" defer></script>
   <script type="application/ld+json"><?= json_encode([
     '@context'=>'https://schema.org','@type'=>'Organization','name'=>'ELLCY',
-    'url'=>APP_URL,'logo'=>rtrim(APP_URL, '/').'/uploads/services/stage.png'
+    'url'=>APP_URL,'logo'=>rtrim(APP_URL, '/').'/uploads/services/stage.webp'
   ], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE) ?></script>
   <script type="application/ld+json"><?= json_encode([
     '@context'=>'https://schema.org','@type'=>'WebSite','name'=>'ELLCY','url'=>APP_URL,

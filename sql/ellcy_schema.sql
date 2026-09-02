@@ -193,41 +193,41 @@ CREATE TABLE rate_limits (
 
 -- ── SEED DATA ────────────────────────────────────────────────
 INSERT INTO service_categories (parent_id,name,slug,description,image,sort_order,hidden) VALUES
-(NULL,'Decoration','decoration','Stage and venue decoration','/public/uploads/services/stage.png',1,0),
-(NULL,'Photography','photography','Photography packages','/public/uploads/services/photo.png',2,0),
-(NULL,'Dancers','dancers','Professional dance teams','/public/uploads/services/dancers.png',3,1),
-(NULL,'Music Performers','music-performers','Live music performers','/public/uploads/services/musical_band.png',4,0),
-(NULL,'DJ','dj','Professional DJ services','/public/uploads/services/dj.png',5,0),
-(NULL,'Catering','catering-boys','Catering and welcome staff','/public/uploads/services/cateringboys.png',6,0),
-(NULL,'Entertainment Activities','entertainment-activities','Fun entertainment booths','/public/uploads/services/photobooth.png',7,0),
-(NULL,'Car Entry','car-entry','Decorated car entry','/public/uploads/services/stage.png',8,0),
-(NULL,'Flowers','flowers','Fresh and artificial flowers','/public/uploads/services/stage.png',9,0),
-(NULL,'Fake Jewellery','fake-jewellery','Artificial jewellery for brides','/public/uploads/services/stage.png',10,0),
-(NULL,'Snacks Stalls','snacks-stalls','Food and snack stations','/public/uploads/services/snacks.png',11,0),
-(NULL,'Bouncers','bouncers','Event security','/public/uploads/services/bouncer.png',12,0),
-(NULL,'Enter Show Down','enter-show-down','Pyro and stage effects','/public/uploads/services/stage.png',13,0),
-(NULL,'Bridal & Groom Styling','bridal-groom-styling','Bridal and groom makeover','/public/uploads/services/bridal.png',14,0),
-(NULL,'Mehendi','mehendi','Mehendi/henna artists','/public/uploads/services/mehandi.png',15,0),
-(NULL,'Invitation','invitation','Wedding invitations','/public/uploads/services/invitation.png',16,1),
-(NULL,'Food','food','Food and catering solutions','/public/uploads/services/catering.png',17,0),
-(NULL,'Aarthi Plate','aarthi-plate','Traditional aarthi plate','/public/uploads/services/stage.png',18,1);
+(NULL,'Decoration','decoration','Stage and venue decoration','/public/uploads/services/stage.webp',1,0),
+(NULL,'Photography','photography','Photography packages','/public/uploads/services/photo.webp',2,0),
+(NULL,'Dancers','dancers','Professional dance teams','/public/uploads/services/dancers.webp',3,1),
+(NULL,'Music Performers','music-performers','Live music performers','/public/uploads/services/musical_band.webp',4,0),
+(NULL,'DJ','dj','Professional DJ services','/public/uploads/services/dj.webp',5,0),
+(NULL,'Catering','catering-boys','Catering and welcome staff','/public/uploads/services/cateringboys.webp',6,0),
+(NULL,'Entertainment Activities','entertainment-activities','Fun entertainment booths','/public/uploads/services/photobooth.webp',7,0),
+(NULL,'Car Entry','car-entry','Decorated car entry','/public/uploads/services/stage.webp',8,0),
+(NULL,'Flowers','flowers','Fresh and artificial flowers','/public/uploads/services/stage.webp',9,0),
+(NULL,'Fake Jewellery','fake-jewellery','Artificial jewellery for brides','/public/uploads/services/stage.webp',10,0),
+(NULL,'Snacks Stalls','snacks-stalls','Food and snack stations','/public/uploads/services/snacks.webp',11,0),
+(NULL,'Bouncers','bouncers','Event security','/public/uploads/services/bouncer.webp',12,0),
+(NULL,'Enter Show Down','enter-show-down','Pyro and stage effects','/public/uploads/services/stage.webp',13,0),
+(NULL,'Bridal & Groom Styling','bridal-groom-styling','Bridal and groom makeover','/public/uploads/services/bridal.webp',14,0),
+(NULL,'Mehendi','mehendi','Mehendi/henna artists','/public/uploads/services/mehandi.webp',15,0),
+(NULL,'Invitation','invitation','Wedding invitations','/public/uploads/services/invitation.webp',16,1),
+(NULL,'Food','food','Food and catering solutions','/public/uploads/services/catering.webp',17,0),
+(NULL,'Aarthi Plate','aarthi-plate','Traditional aarthi plate','/public/uploads/services/stage.webp',18,1);
 
 -- Dancer sub-categories
 INSERT INTO service_categories (parent_id,name,slug,image,sort_order)
-SELECT id,'Male Dance Team','dancers-male','/public/uploads/services/dancers.png',1 FROM service_categories WHERE slug='dancers';
+SELECT id,'Male Dance Team','dancers-male','/public/uploads/services/dancers.webp',1 FROM service_categories WHERE slug='dancers';
 INSERT INTO service_categories (parent_id,name,slug,image,sort_order)
-SELECT id,'Female Dance Team','dancers-female','/public/uploads/services/dancers.png',2 FROM service_categories WHERE slug='dancers';
+SELECT id,'Female Dance Team','dancers-female','/public/uploads/services/dancers.webp',2 FROM service_categories WHERE slug='dancers';
 INSERT INTO service_categories (parent_id,name,slug,image,sort_order)
-SELECT id,'Co-ed Team','dancers-coed','/public/uploads/services/dancers.png',3 FROM service_categories WHERE slug='dancers';
+SELECT id,'Co-ed Team','dancers-coed','/public/uploads/services/dancers.webp',3 FROM service_categories WHERE slug='dancers';
 
 -- Car Entry sub-categories
 INSERT INTO service_categories (parent_id,name,slug,image,sort_order)
-SELECT id,'Normal Cars','car-entry-normal','/public/uploads/services/stage.png',1 FROM service_categories WHERE slug='car-entry';
+SELECT id,'Normal Cars','car-entry-normal','/public/uploads/services/stage.webp',1 FROM service_categories WHERE slug='car-entry';
 INSERT INTO service_categories (parent_id,name,slug,image,sort_order)
-SELECT id,'Luxury Cars','car-entry-luxury','/public/uploads/services/stage.png',2 FROM service_categories WHERE slug='car-entry';
+SELECT id,'Luxury Cars','car-entry-luxury','/public/uploads/services/stage.webp',2 FROM service_categories WHERE slug='car-entry';
 
 -- Flower sub-categories
 INSERT INTO service_categories (parent_id,name,slug,image,sort_order)
-SELECT id,'Reception','flowers-reception','/public/uploads/services/stage.png',1 FROM service_categories WHERE slug='flowers';
+SELECT id,'Reception','flowers-reception','/public/uploads/services/stage.webp',1 FROM service_categories WHERE slug='flowers';
 INSERT INTO service_categories (parent_id,name,slug,image,sort_order)
-SELECT id,'Marriage','flowers-marriage','/public/uploads/services/stage.png',2 FROM service_categories WHERE slug='flowers';
+SELECT id,'Marriage','flowers-marriage','/public/uploads/services/stage.webp',2 FROM service_categories WHERE slug='flowers';

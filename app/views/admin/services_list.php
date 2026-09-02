@@ -37,7 +37,7 @@ require VIEWS_PATH . '/admin/layout_start.php';
       <?php foreach ($services as $svc): ?>
       <tr>
         <td>
-          <img src="<?= htmlspecialchars($svc['image'] ?: '/public/uploads/services/stage.png') ?>"
+          <img src="<?= htmlspecialchars($svc['image'] ?: '/public/uploads/services/stage.webp') ?>"
                alt="" style="width:42px;height:42px;object-fit:cover;border-radius:8px;border:1px solid #e0d5f0"/>
         </td>
         <td>

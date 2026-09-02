@@ -8,8 +8,8 @@
  *   serviceKey  : 'dj',
  *   serviceName : 'DJ',
  *   rating      : '4.4',
- *   img         : '../uploads/services/dj.png',
- *   images      : ['../uploads/services/dj.png', ...],  // optional extras
+ *   img         : '../uploads/services/dj.webp',
+ *   images      : ['../uploads/services/dj.webp', ...],  // optional extras
  *   availability: 'Available for Weddings, Birthdays & College Events',
  *   subtags     : 'Premium Sound | LED Lights | Non-Stop Music',
  *   priceMeta   : 'Groovy | Electric | Unforgettable',

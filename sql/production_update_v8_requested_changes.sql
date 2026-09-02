@@ -71,7 +71,7 @@ INSERT INTO services
 SELECT c.id, 'Entertainment Activities', 'entertainment-activities-service',
        'Interactive entertainment for weddings, parties and celebrations.',
        'A single, easy-to-book entertainment service planned for your event, venue and guest profile.',
-       6000, 'per event', 'sd', '/uploads/services/fun.png',
+       6000, 'per event', 'sd', '/uploads/services/fun.webp',
        'entertainment,activities,event fun', 1, 'active'
 FROM service_categories c WHERE c.slug='entertainment-activities'
 ON DUPLICATE KEY UPDATE
@@ -96,7 +96,7 @@ INSERT INTO services
 SELECT c.id, 'Professional DJ Experience', 'dj-experience',
        'Professional DJ, sound and lighting packages for every celebration size.',
        'Choose a centralized DJ package with the right sound, lighting and production setup for your event.',
-       9999, 'per event', 'sd', '/uploads/services/dj.png', 'dj,music,sound,lighting', 1, 'active'
+       9999, 'per event', 'sd', '/uploads/services/dj.webp', 'dj,music,sound,lighting', 1, 'active'
 FROM service_categories c WHERE c.slug='dj'
 ON DUPLICATE KEY UPDATE
   category_id=VALUES(category_id), title=VALUES(title), short_description=VALUES(short_description),
@@ -108,7 +108,7 @@ WHERE c.slug='dj' AND s.slug<>'dj-experience';
 
 INSERT INTO service_packages
   (service_id,pkg_key,slug,label,price,duration,description,inclusions_json,image,is_default,sort_order,status)
-SELECT s.id, p.pkg_key, p.slug, p.label, p.price, 'per event', p.description, p.inclusions, '/uploads/services/dj.png', p.is_default, p.sort_order, 'active'
+SELECT s.id, p.pkg_key, p.slug, p.label, p.price, 'per event', p.description, p.inclusions, '/uploads/services/dj.webp', p.is_default, p.sort_order, 'active'
 FROM services s
 JOIN (
   SELECT 'starter' pkg_key,'dj-starter' slug,'DJ Starter Package' label,9999 price,'Quality sound, basic LED lighting and a curated playlist for intimate celebrations.' description,'["Professional DJ","Quality sound system","Basic LED lighting","Curated playlist"]' inclusions,1 is_default,1 sort_order

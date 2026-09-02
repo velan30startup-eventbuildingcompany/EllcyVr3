@@ -42,14 +42,14 @@
 </nav>
 
 <div class="snk-hero-mob snk-mob">
-  <img src="../../../uploads/services/chocolate-fountain.png" alt="Chocolate Fountain"/>
+  <img src="../../../uploads/services/chocolate-fountain.webp" alt="Chocolate Fountain"/>
   <span class="snk-hero-rating">★ 4.7</span>
 </div>
 <div class="snk-dsk-hero snk-dsk">
   <div class="snk-mosaic">
-    <img class="snk-mosaic-main" src="../../../uploads/services/chocolate-fountain.png" alt="Chocolate Fountain main" loading="eager"/>
-    <img class="snk-mosaic-t1"   src="../../../uploads/services/chocolate-fountain.png" alt="Chocolate Fountain detail" loading="lazy"/>
-    <img class="snk-mosaic-t2"   src="../../../uploads/services/chocolate-fountain.png" alt="Chocolate Fountain event" loading="lazy"/>
+    <img class="snk-mosaic-main" src="../../../uploads/services/chocolate-fountain.webp" alt="Chocolate Fountain main" loading="eager"/>
+    <img class="snk-mosaic-t1"   src="../../../uploads/services/chocolate-fountain.webp" alt="Chocolate Fountain detail" loading="lazy"/>
+    <img class="snk-mosaic-t2"   src="../../../uploads/services/chocolate-fountain.webp" alt="Chocolate Fountain event" loading="lazy"/>
   </div>
   <div class="snk-info">
     <div class="snk-title-row">
@@ -182,7 +182,7 @@
   function addToCart() {
     var cart = JSON.parse(localStorage.getItem('ellcy_cart') || '[]');
     var ex = cart.find(function(i){ return i.id === 'chocolate-fountain'; });
-    if(ex) { ex.qty++; } else { cart.push({ id:'chocolate-fountain', title:'Chocolate Fountain', price:6999, qty:1, image:'../../../uploads/services/chocolate-fountain.png' }); }
+    if(ex) { ex.qty++; } else { cart.push({ id:'chocolate-fountain', title:'Chocolate Fountain', price:6999, qty:1, image:'../../../uploads/services/chocolate-fountain.webp' }); }
     localStorage.setItem('ellcy_cart', JSON.stringify(cart));
     document.querySelectorAll('.cart-badge').forEach(function(b){ b.style.display=''; b.textContent=cart.reduce(function(s,i){return s+i.qty;},0); });
     alert('Chocolate Fountain added to cart!');

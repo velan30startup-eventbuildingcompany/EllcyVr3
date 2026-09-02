@@ -46,16 +46,16 @@
 
 <!-- MOBILE HERO -->
 <div class="snk-hero-mob snk-mob">
-  <img src="../../../uploads/services/cotton-candy.png" alt="Cotton Candy Stall"/>
+  <img src="../../../uploads/services/cotton-candy.webp" alt="Cotton Candy Stall"/>
   <span class="snk-hero-rating">★ 4.6</span>
 </div>
 
 <!-- DESKTOP HERO -->
 <div class="snk-dsk-hero snk-dsk">
   <div class="snk-mosaic">
-    <img class="snk-mosaic-main" src="../../../uploads/services/cotton-candy.png" alt="Cotton Candy main" loading="eager"/>
-    <img class="snk-mosaic-t1"   src="../../../uploads/services/cotton-candy.png" alt="Cotton Candy detail" loading="lazy"/>
-    <img class="snk-mosaic-t2"   src="../../../uploads/services/cotton-candy.png" alt="Cotton Candy event" loading="lazy"/>
+    <img class="snk-mosaic-main" src="../../../uploads/services/cotton-candy.webp" alt="Cotton Candy main" loading="eager"/>
+    <img class="snk-mosaic-t1"   src="../../../uploads/services/cotton-candy.webp" alt="Cotton Candy detail" loading="lazy"/>
+    <img class="snk-mosaic-t2"   src="../../../uploads/services/cotton-candy.webp" alt="Cotton Candy event" loading="lazy"/>
   </div>
   <div class="snk-info">
     <div class="snk-title-row">
@@ -218,11 +218,11 @@
   /* Add to Cart */
   function addToCart() {
     if(typeof cartAdd === 'function') {
-      cartAdd({ id:'cotton-candy', title:'Cotton Candy', price:11994, qty:1, image:'../../../uploads/services/cotton-candy.png' });
+      cartAdd({ id:'cotton-candy', title:'Cotton Candy', price:11994, qty:1, image:'../../../uploads/services/cotton-candy.webp' });
     } else {
       var cart = JSON.parse(localStorage.getItem('ellcy_cart') || '[]');
       var existing = cart.find(function(i){ return i.id === 'cotton-candy'; });
-      if(existing) { existing.qty++; } else { cart.push({ id:'cotton-candy', title:'Cotton Candy', price:11994, qty:1, image:'../../../uploads/services/cotton-candy.png' }); }
+      if(existing) { existing.qty++; } else { cart.push({ id:'cotton-candy', title:'Cotton Candy', price:11994, qty:1, image:'../../../uploads/services/cotton-candy.webp' }); }
       localStorage.setItem('ellcy_cart', JSON.stringify(cart));
       document.querySelectorAll('.cart-badge').forEach(function(b){ b.style.display=''; b.textContent=cart.reduce(function(s,i){return s+i.qty;},0); });
       alert('Cotton Candy added to cart!');

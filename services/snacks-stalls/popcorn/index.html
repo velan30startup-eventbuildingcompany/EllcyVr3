@@ -42,14 +42,14 @@
 </nav>
 
 <div class="snk-hero-mob snk-mob">
-  <img src="../../../uploads/services/popcorn.png" alt="Pop Corn Stall"/>
+  <img src="../../../uploads/services/popcorn.webp" alt="Pop Corn Stall"/>
   <span class="snk-hero-rating">★ 4.5</span>
 </div>
 <div class="snk-dsk-hero snk-dsk">
   <div class="snk-mosaic">
-    <img class="snk-mosaic-main" src="../../../uploads/services/popcorn.png" alt="Pop Corn main" loading="eager"/>
-    <img class="snk-mosaic-t1"   src="../../../uploads/services/popcorn.png" alt="Pop Corn detail" loading="lazy"/>
-    <img class="snk-mosaic-t2"   src="../../../uploads/services/popcorn.png" alt="Pop Corn event" loading="lazy"/>
+    <img class="snk-mosaic-main" src="../../../uploads/services/popcorn.webp" alt="Pop Corn main" loading="eager"/>
+    <img class="snk-mosaic-t1"   src="../../../uploads/services/popcorn.webp" alt="Pop Corn detail" loading="lazy"/>
+    <img class="snk-mosaic-t2"   src="../../../uploads/services/popcorn.webp" alt="Pop Corn event" loading="lazy"/>
   </div>
   <div class="snk-info">
     <div class="snk-title-row">
@@ -184,7 +184,7 @@
   function addToCart() {
     var cart = JSON.parse(localStorage.getItem('ellcy_cart') || '[]');
     var existing = cart.find(function(i){ return i.id === 'popcorn'; });
-    if(existing) { existing.qty++; } else { cart.push({ id:'popcorn', title:'Pop Corn', price:3999, qty:1, image:'../../../uploads/services/popcorn.png' }); }
+    if(existing) { existing.qty++; } else { cart.push({ id:'popcorn', title:'Pop Corn', price:3999, qty:1, image:'../../../uploads/services/popcorn.webp' }); }
     localStorage.setItem('ellcy_cart', JSON.stringify(cart));
     document.querySelectorAll('.cart-badge').forEach(function(b){ b.style.display=''; b.textContent=cart.reduce(function(s,i){return s+i.qty;},0); });
     alert('Pop Corn added to cart!');

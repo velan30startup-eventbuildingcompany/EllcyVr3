@@ -47,16 +47,16 @@
 
 <!-- MOBILE HERO -->
 <div class="snk-hero-mob snk-mob">
-  <img src="../../../uploads/services/fruit-salad.png" alt="Fruits Stall"/>
+  <img src="../../../uploads/services/fruit-salad.webp" alt="Fruits Stall"/>
   <span class="snk-hero-rating" id="heroRating">★ 4.5</span>
 </div>
 
 <!-- DESKTOP HERO -->
 <div class="snk-dsk-hero snk-dsk">
   <div class="snk-mosaic">
-    <img class="snk-mosaic-main" src="../../../uploads/services/fruit-salad.png" alt="Fruit Salad" loading="eager"/>
-    <img class="snk-mosaic-t1"   src="../../../uploads/services/fruit-salad.png" alt="Fresh fruits" loading="lazy"/>
-    <img class="snk-mosaic-t2"   src="../../../uploads/services/fruit-salad.png" alt="Fruit arrangement" loading="lazy"/>
+    <img class="snk-mosaic-main" src="../../../uploads/services/fruit-salad.webp" alt="Fruit Salad" loading="eager"/>
+    <img class="snk-mosaic-t1"   src="../../../uploads/services/fruit-salad.webp" alt="Fresh fruits" loading="lazy"/>
+    <img class="snk-mosaic-t2"   src="../../../uploads/services/fruit-salad.webp" alt="Fruit arrangement" loading="lazy"/>
   </div>
   <div class="snk-info">
     <div class="snk-title-row">
@@ -289,7 +289,7 @@
     var cart = JSON.parse(localStorage.getItem('ellcy_cart') || '[]');
     var cartKey = 'fruit-salad-' + typeKey;
     var ex = cart.find(function(i){ return i.id === cartKey; });
-    if(ex){ ex.qty += qty; } else { cart.push({ id:cartKey, title:'Fruit Salad – ' + cfg.label, price:total, qty:1, image:'../../../uploads/services/fruit-salad.png' }); }
+    if(ex){ ex.qty += qty; } else { cart.push({ id:cartKey, title:'Fruit Salad – ' + cfg.label, price:total, qty:1, image:'../../../uploads/services/fruit-salad.webp' }); }
     localStorage.setItem('ellcy_cart', JSON.stringify(cart));
     document.querySelectorAll('.cart-badge').forEach(function(b){ b.style.display=''; b.textContent=cart.reduce(function(s,i){return s+i.qty;},0); });
     alert('Fruit Salad (' + cfg.label + ', ' + qty + ' cups = ₹' + total + ') added to cart!');

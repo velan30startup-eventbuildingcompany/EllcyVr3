@@ -79,7 +79,7 @@ INSERT INTO services (category_id, title, slug, short_description, description, 
 SELECT id, 'Photography — Photo Package', 'photography-photo-package',
   'Professional wedding photography — photo-only coverage for your full-day event.',
   'Our Photo Package covers your entire event with a dedicated professional photographer, capturing every candid and posed moment from start to finish. Edited high-resolution images delivered digitally after the event.',
-  25000, 'per day', 'sd', '/uploads/services/photo.png', 4.8, 'photography,photo-only', 'Booking Available All Year', 'active'
+  25000, 'per day', 'sd', '/uploads/services/photo.webp', 4.8, 'photography,photo-only', 'Booking Available All Year', 'active'
 FROM service_categories WHERE slug='photography'
 AND NOT EXISTS (SELECT 1 FROM services WHERE slug='photography-photo-package');
 
@@ -87,7 +87,7 @@ INSERT INTO services (category_id, title, slug, short_description, description, 
 SELECT id, 'Photography — Photo + Video', 'photography-photo-video',
   'Complete photo and cinematic video coverage for your full-day event.',
   'Our Photo + Video package pairs a professional photographer with a videography team for full cinematic coverage of your event, including edited highlight reels alongside your edited photo gallery.',
-  30000, 'per day', 'sd', '/uploads/services/photo.png', 4.9, 'photography,photo-video', 'Booking Available All Year', 'active'
+  30000, 'per day', 'sd', '/uploads/services/photo.webp', 4.9, 'photography,photo-video', 'Booking Available All Year', 'active'
 FROM service_categories WHERE slug='photography'
 AND NOT EXISTS (SELECT 1 FROM services WHERE slug='photography-photo-video');
 
@@ -97,9 +97,9 @@ AND NOT EXISTS (SELECT 1 FROM services WHERE slug='photography-photo-video');
 -- dedicated chenda-melam.png asset. Point the DB row at the same
 -- correct asset so listing and description page match.
 UPDATE services
-SET image = '/uploads/services/chenda-melam.png'
+SET image = '/uploads/services/chenda-melam.webp'
 WHERE slug LIKE 'chenda-melam%' OR slug LIKE '%chenda-melam';
 
 UPDATE service_categories
-SET image = '/uploads/services/chenda-melam.png'
+SET image = '/uploads/services/chenda-melam.webp'
 WHERE slug = 'chenda-melam';

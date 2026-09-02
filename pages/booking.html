@@ -957,10 +957,10 @@
                     total += item.price || 0;
                     var img = item.image || '';
                     var imgMatch = img.match(/uploads\/.*$/);
-                    img = imgMatch ? ('../' + imgMatch[0]) : (img || '../uploads/services/stage.png');
+                    img = imgMatch ? ('../' + imgMatch[0]) : (img || '../uploads/services/stage.webp');
                     html +=
                         '<div class="bk-sum-item">' +
-                        '<img class="bk-sum-img" src="' + esc(img) + '" alt="' + esc(item.title) + '" onerror="this.src=\'../uploads/services/stage.png\'"/>' +
+                        '<img class="bk-sum-img" src="' + esc(img) + '" alt="' + esc(item.title) + '" onerror="this.src=\'../uploads/services/stage.webp\'"/>' +
                         '<div class="bk-sum-body">' +
                         '<div class="bk-sum-title">' + esc(item.title) + '</div>' +
                         (item.package ? '<span class="bk-sum-pkg">' + esc(item.package) + '</span>' : '') +

@@ -34,6 +34,15 @@ class ServiceController {
     private static function withBase($path) {
         if (!$path) return $path;
         if (preg_match('#^https?://#i', $path)) return $path; // already absolute
+        // Prefer the much smaller generated WebP for database records that
+        // still contain their original PNG/JPEG path. The original remains
+        // available to the admin editor and as a compatibility fallback.
+        if (preg_match('/\.(?:png|jpe?g)$/i', $path)) {
+            $relative = ltrim((string)preg_replace('/\.(?:png|jpe?g)$/i', '.webp', $path), '/');
+            if (is_file(PUBLIC_PATH . '/' . $relative)) {
+                $path = '/' . $relative;
+            }
+        }
         if (APP_BASE !== '' && strpos($path, APP_BASE . '/') === 0) return $path; // already prefixed
         if ($path[0] === '/') return APP_BASE . $path;
         return $path;

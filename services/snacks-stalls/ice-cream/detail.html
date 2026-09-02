@@ -47,16 +47,16 @@
 
 <!-- MOBILE HERO -->
 <div class="snk-hero-mob snk-mob">
-  <img src="../../../uploads/services/ice-cream.png" alt="Ice Cream Stall"/>
+  <img src="../../../uploads/services/ice-cream.webp" alt="Ice Cream Stall"/>
   <span class="snk-hero-rating" id="heroRating">★ 4.7</span>
 </div>
 
 <!-- DESKTOP HERO -->
 <div class="snk-dsk-hero snk-dsk">
   <div class="snk-mosaic">
-    <img class="snk-mosaic-main" src="../../../uploads/services/ice-cream.png" alt="Ice Cream" loading="eager"/>
-    <img class="snk-mosaic-t1"   src="../../../uploads/services/ice-cream.png" alt="Ice Cream scoops" loading="lazy"/>
-    <img class="snk-mosaic-t2"   src="../../../uploads/services/ice-cream.png" alt="Ice Cream stall" loading="lazy"/>
+    <img class="snk-mosaic-main" src="../../../uploads/services/ice-cream.webp" alt="Ice Cream" loading="eager"/>
+    <img class="snk-mosaic-t1"   src="../../../uploads/services/ice-cream.webp" alt="Ice Cream scoops" loading="lazy"/>
+    <img class="snk-mosaic-t2"   src="../../../uploads/services/ice-cream.webp" alt="Ice Cream stall" loading="lazy"/>
   </div>
   <div class="snk-info">
     <div class="snk-title-row">
@@ -297,7 +297,7 @@
     var cart = JSON.parse(localStorage.getItem('ellcy_cart') || '[]');
     var cartKey = 'ice-cream-' + typeKey;
     var ex = cart.find(function(i){ return i.id === cartKey; });
-    if(ex){ ex.qty += qty; } else { cart.push({ id:cartKey, title:'Ice Cream – ' + cfg.label, price:total, qty:1, image:'../../../uploads/services/ice-cream.png' }); }
+    if(ex){ ex.qty += qty; } else { cart.push({ id:cartKey, title:'Ice Cream – ' + cfg.label, price:total, qty:1, image:'../../../uploads/services/ice-cream.webp' }); }
     localStorage.setItem('ellcy_cart', JSON.stringify(cart));
     document.querySelectorAll('.cart-badge').forEach(function(b){ b.style.display=''; b.textContent=cart.reduce(function(s,i){return s+i.qty;},0); });
     alert('Ice Cream (' + cfg.label + ', ' + qty + ' scoops = ₹' + total + ') added to cart!');

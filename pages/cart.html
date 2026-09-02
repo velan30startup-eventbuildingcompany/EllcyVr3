@@ -154,10 +154,10 @@ function renderCart() {
        from "uploads/" onward and prefixing a single "../". */
     var img = item.image || '';
     var m = img.match(/uploads\/.*$/);
-    img = m ? ('../' + m[0]) : (img || '../uploads/services/stage.png');
+    img = m ? ('../' + m[0]) : (img || '../uploads/services/stage.webp');
 
     div.innerHTML =
-      '<img class="cart-item-img" src="' + img + '" alt="' + esc(item.title) + '" loading="lazy" onerror="this.src=\'../uploads/services/stage.png\'"/>' +
+      '<img class="cart-item-img" src="' + img + '" alt="' + esc(item.title) + '" loading="lazy" onerror="this.src=\'../uploads/services/stage.webp\'"/>' +
       '<div class="cart-item-body">' +
         '<div class="cart-item-title">' + esc(item.title) + '</div>' +
         '<div class="cart-item-meta">' +

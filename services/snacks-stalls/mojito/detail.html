@@ -61,9 +61,9 @@
 <div class="bnc-desktop-wrap">
   <div class="bnc-desktop-hero">
     <div class="bnc-img-mosaic">
-      <img class="bnc-mosaic-main" src="../../../uploads/services/mojito.png" alt="Mojito & Tea" loading="eager"/>
-      <img class="bnc-mosaic-t1"   src="../../../uploads/services/mojito.png" alt="Fresh Mojito" loading="lazy"/>
-      <img class="bnc-mosaic-t2"   src="../../../uploads/services/mojito.png" alt="Tea Counter" loading="lazy"/>
+      <img class="bnc-mosaic-main" src="../../../uploads/services/mojito.webp" alt="Mojito & Tea" loading="eager"/>
+      <img class="bnc-mosaic-t1"   src="../../../uploads/services/mojito.webp" alt="Fresh Mojito" loading="lazy"/>
+      <img class="bnc-mosaic-t2"   src="../../../uploads/services/mojito.webp" alt="Tea Counter" loading="lazy"/>
     </div>
     <div class="bnc-info-panel">
       <div class="bnc-title-row">
@@ -106,7 +106,7 @@
 
 <!-- MOBILE HERO IMAGE -->
 <div class="bnc-mobile-hero bnc-mobile-only">
-  <img src="../../../uploads/services/mojito.png" alt="Mojito &amp; Tea Stall"/>
+  <img src="../../../uploads/services/mojito.webp" alt="Mojito &amp; Tea Stall"/>
 </div>
 
 <!-- SHARED MAIN -->
@@ -309,7 +309,7 @@
     var cartKey = 'mojito-' + typeKey;
     var ex = cart.find(function(i){ return i.id === cartKey; });
     if(ex){ ex.qty += qty; }
-    else { cart.push({ id:cartKey, title:cfg.label, price:cfg.price, qty:qty, image:'../../../uploads/services/mojito.png' }); }
+    else { cart.push({ id:cartKey, title:cfg.label, price:cfg.price, qty:qty, image:'../../../uploads/services/mojito.webp' }); }
     localStorage.setItem('ellcy_cart', JSON.stringify(cart));
     document.querySelectorAll('.cart-badge').forEach(function(b){ b.style.display=''; b.textContent=cart.reduce(function(s,i){return s+i.qty;},0); });
     alert(cfg.label + ' (' + qty + ' cups = ₹' + fmt(total) + ') added to cart!');

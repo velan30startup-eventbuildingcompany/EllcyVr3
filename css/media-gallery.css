@@ -2,7 +2,7 @@
    ELLCY Media Gallery — Amazon-style thumbnail + main viewer
    Used across every service description page. Drop-in:
      <div class="eg-gallery" data-eg-slug="stage-decoration"
-          data-eg-fallback="../../uploads/services/stage.png"></div>
+          data-eg-fallback="../../uploads/services/stage.webp"></div>
    + include media-gallery.css and media-gallery.js
    ============================================================ */
 

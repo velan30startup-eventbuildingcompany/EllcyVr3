@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Build the full search index
   function buildSearchIndex() {
     // Normalize image path: strip leading '../' so paths work from root (index.html)
-    function normImg(p) { return p ? p.replace(/^\.\.\//, '') : 'uploads/services/stage.png'; }
+    function normImg(p) { return p ? p.replace(/^\.\.\//, '') : 'uploads/services/stage.webp'; }
 
     const index = [];
 
@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
         title:       'Chenda Melam – ' + p.label,
         description: p.desc,
         base_price:  p.price,
-        image:       normImg('../uploads/services/musical_band.png'),
+        image:       normImg('../uploads/services/musical_band.webp'),
         slug:        'chenda-melam',
         category:    'Chenda Melam',
         route:       'pages/chenda-melam-description.html?pkg=' + encodeURIComponent(p.key),
@@ -181,7 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
           title:       'Dancers — ' + teamData.team + ' ' + p.label,
           description: p.desc,
           base_price:  p.price,
-          image:       'uploads/services/dancers.png',
+          image:       'uploads/services/dancers.webp',
           slug:        teamData.slug,
           category:    'Dancers',
           route:       'services/dancers/' + teamData.slug.replace('dancers-','') + '-team/' + p.dir + '/index.html',
@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
         title:       'Dancers — ' + teamData.team,
         description: 'Professional dance troupe — choose your team size from 2 to 9 members.',
         base_price:  0,
-        image:       'uploads/services/dancers.png',
+        image:       'uploads/services/dancers.webp',
         slug:        teamData.slug,
         category:    'Dancers',
         route:       'pages/services.html?type=' + teamData.type,
@@ -219,10 +219,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 6. Musical Band subtypes
     const BAND_IMG_MAP = {
-      'band-set':           'uploads/services/bandset.png',
-      'nadhaswaram-thavil': 'uploads/services/nadhaswaram.png',
-      'chenda-melam':       'uploads/services/musical_band.png',
-      'melam-set':          'uploads/services/musical_band.png',
+      'band-set':           'uploads/services/bandset.webp',
+      'nadhaswaram-thavil': 'uploads/services/nadhaswaram.webp',
+      'chenda-melam':       'uploads/services/musical_band.webp',
+      'melam-set':          'uploads/services/musical_band.webp',
     };
     MUSICAL_BAND_SUBTYPES.forEach(sub => {
       index.push({
@@ -350,7 +350,7 @@ document.addEventListener('DOMContentLoaded', () => {
         : 'Enquire';
 
       li.innerHTML = `
-        <img src="${item.image}" alt="${item.title}" onerror="this.src='uploads/services/stage.png'"/>
+        <img src="${item.image}" alt="${item.title}" onerror="this.src='uploads/services/stage.webp'"/>
         <div class="r-body">
           <div class="r-title">${titleHl}</div>
           <div class="r-sub">
@@ -431,7 +431,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!allCats.some(c => (c.slug||c.id) === slug)) {
         allCats.push({
           id: slug, name: svc.category || svc.title,
-          image: svc.image || 'uploads/services/stage.png',
+          image: svc.image || 'uploads/services/stage.webp',
           hidden: true, slug
         });
       }
@@ -443,7 +443,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const div = document.createElement('div');
       div.className = 'category-item' + (isHidden ? ' hidden-category' : '');
       div.setAttribute('role','listitem');
-      div.innerHTML = `<div class="category-image"><img src="${cat.image}" alt="${cat.name}" loading="lazy"/></div><p>${cat.name}</p>`;
+      const imageLoading = idx === 0 ? 'eager' : 'lazy';
+      const imagePriority = idx === 0 ? ' fetchpriority="high"' : '';
+      div.innerHTML = `<div class="category-image"><img src="${cat.image}" alt="${cat.name}" loading="${imageLoading}" decoding="async"${imagePriority}/></div><p>${cat.name}</p>`;
       div.addEventListener('click', () => window.location.href = 'services?type=' + encodeURIComponent(slug));
       catContainer.appendChild(div);
     });
@@ -482,7 +484,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!s.comingSoon) div.setAttribute('tabindex','0');
       div.innerHTML = `
         <div class="service-card-img-wrap">
-          <img src="${s.image}" alt="${s.title}" loading="lazy"/>
+          <img src="${s.image}" alt="${s.title}" loading="lazy" decoding="async"/>
           ${s.comingSoon ? '<span class="coming-soon-badge">Coming Soon</span>' : ''}
         </div>
         <h3>${s.title}</h3>

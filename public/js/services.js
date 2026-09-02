@@ -163,7 +163,7 @@
     if (type === 'bridal-groom-styling') {
       if (filterContainer) filterContainer.style.display = 'none';
       renderDescPageCards(grid, SERVICES_DATA['bridal-groom-styling'] || [], '../services/bridal-groom-styling/index.html',
-        '../uploads/services/bridal.png', 'bridal-groom-styling');
+        '../uploads/services/bridal.webp', 'bridal-groom-styling');
       setYear(); return;
     }
 
@@ -173,7 +173,7 @@
     if (type === 'mehandi' || type === 'mehendi') {
       if (filterContainer) filterContainer.style.display = 'none';
       renderDescPageCards(grid, SERVICES_DATA['mehandi'] || [], '../services/mehendi/index.html',
-        '../uploads/services/mehandi.png', 'mehendi');
+        '../uploads/services/mehandi.webp', 'mehendi');
       setYear(); return;
     }
 
@@ -183,7 +183,7 @@
     if (type === 'cake-decoration') {
       if (filterContainer) filterContainer.style.display = 'none';
       renderDescPageCards(grid, SERVICES_DATA['cake-decoration'] || [], 'cake-description.html',
-        '../uploads/services/cake.png', 'cake-decoration');
+        '../uploads/services/cake.webp', 'cake-decoration');
       setYear(); return;
     }
 
@@ -202,7 +202,7 @@
     if (type === 'fiction-character' || type === 'fictional-characters') {
       if (filterContainer) filterContainer.style.display = 'none';
       renderDescPageCards(grid, SERVICES_DATA['fiction-character'] || [], 'fictional-description.html',
-        '../uploads/services/fiction.png', 'fictional-characters');
+        '../uploads/services/fiction.webp', 'fictional-characters');
       setYear(); return;
     }
 
@@ -212,7 +212,7 @@
     if (type === 'bike-stunt' || type === 'bike-car-stunts') {
       if (filterContainer) filterContainer.style.display = 'none';
       renderDescPageCards(grid, SERVICES_DATA['bike-stunt'] || [], 'stunts-description.html',
-        '../uploads/services/bikestunts.png', 'bike-car-stunts');
+        '../uploads/services/bikestunts.webp', 'bike-car-stunts');
       setYear(); return;
     }
 
@@ -234,22 +234,22 @@
         {
           id: 'food-breakfast', title: 'Breakfast',
           description: 'Fresh vegetarian breakfast spreads with 5, 10, 15 or 20 dish options.',
-          base_price: 250, image: '../uploads/services/food-veg.jpg',
+          base_price: 250, image: '../uploads/services/food-veg.webp',
           href: '../services/food/breakfast/'
         },
         {
           id: 'food-lunch', title: 'Lunch',
           description: 'Choose vegetarian or non-vegetarian lunch menus with flexible dish counts.',
-          base_price: 350, image: '../uploads/services/food-veg.jpg',
+          base_price: 350, image: '../uploads/services/food-veg.webp',
           href: '../services/food/lunch/'
         },
         {
           id: 'food-dinner', title: 'Dinner',
           description: 'Buffet or banana-leaf dinner menus with vegetarian and non-vegetarian choices.',
-          base_price: 450, image: '../uploads/services/food-buffet-veg.jpg',
+          base_price: 450, image: '../uploads/services/food-buffet-veg.webp',
           href: '../services/food/dinner/'
         }
-      ], '../services/food/index.html', '../uploads/services/catering.png', 'food');
+      ], '../services/food/index.html', '../uploads/services/catering.webp', 'food');
       setYear(); return;
     }
 
@@ -261,8 +261,8 @@
       if (!grid) { setYear(); return; }
       grid.innerHTML = '';
       var NT_OCCASIONS = [
-        { key:'nadhaswaram-reception', label:'Reception', desc:'Nadhaswaram & Thavil for reception entries — choose 2, 4, 6 or 8 members.', img:'../uploads/services/musical_band.png' },
-        { key:'nadhaswaram-marriage',  label:'Marriage',  desc:'Nadhaswaram & Thavil for wedding ceremonies — choose 6, 8, 10 or 12 members.', img:'../uploads/services/musical_band.png' }
+        { key:'nadhaswaram-reception', label:'Reception', desc:'Nadhaswaram & Thavil for reception entries — choose 2, 4, 6 or 8 members.', img:'../uploads/services/musical_band.webp' },
+        { key:'nadhaswaram-marriage',  label:'Marriage',  desc:'Nadhaswaram & Thavil for wedding ceremonies — choose 6, 8, 10 or 12 members.', img:'../uploads/services/musical_band.webp' }
       ];
       NT_OCCASIONS.forEach(function(occ) {
         var a = document.createElement('a');
@@ -456,7 +456,7 @@
     if (type === 'invitation') {
       if (filterContainer) filterContainer.style.display = 'none';
       renderDescPageCards(grid, SERVICES_DATA['invitation'] || [], '../services/invitation/index.html',
-        '../uploads/services/invitation.png', 'invitation');
+        '../uploads/services/invitation.webp', 'invitation');
       setYear(); return;
     }
 
@@ -516,7 +516,7 @@
     if (type === 'fake-jewellery') {
       if (filterContainer) filterContainer.style.display = 'none';
       renderDescPageCards(grid, SERVICES_DATA['fake-jewellery'] || [], '../services/fake-jewellery/index.html',
-        '../uploads/services/jewellery-gold.jpg', 'fake-jewellery');
+        '../uploads/services/jewellery-gold.webp', 'fake-jewellery');
       setYear(); return;
     }
 
@@ -590,7 +590,7 @@
     if (type === 'aarthi-plate') {
       if (filterContainer) filterContainer.style.display = 'none';
       renderDescPageCards(grid, SERVICES_DATA['aarthi-plate'] || [], '../services/aarthi-plate/index.html',
-        '../uploads/services/stage.png', 'aarthi-plate');
+        '../uploads/services/stage.webp', 'aarthi-plate');
       setYear(); return;
     }
 
@@ -631,7 +631,7 @@
         title:       s.title,
         description: s.description,
         base_price:  parseFloat(s.base_price) || 0,
-        image:       s.image || '../uploads/services/stage.png',
+        image:       s.image || '../uploads/services/stage.webp',
         event_types: ['wedding'],
       }));
     const services = [...staticList, ...adminList];
@@ -762,15 +762,15 @@
     grid.innerHTML = '';
     const DANCER_TEAMS = [
       { name: 'Male Team',              type: 'dancers-male',
-        img: '../uploads/services/dancers-male.jpg',
+        img: '../uploads/services/dancers-male.webp',
         desc: 'High-energy all-male dance troupe performing Bollywood, folk and western styles — perfect for weddings & stage shows.',
         from: 11196, tag: 'All-male dance troupe' },
       { name: 'Female Team',            type: 'dancers-female',
-        img: '../uploads/services/dancers-female.jpg',
+        img: '../uploads/services/dancers-female.webp',
         desc: 'Graceful all-female dance team with classical, semi-classical and contemporary repertoire for every occasion.',
         from: 15196, tag: 'All-female dance troupe' },
       { name: 'Co-ed Men & Women Team', type: 'dancers-coed',
-        img: '../uploads/services/dancers-coed.jpg',
+        img: '../uploads/services/dancers-coed.webp',
         desc: 'Dynamic mixed-gender dance troupe with choreographed group performances for weddings, birthdays & stage shows.',
         from: 12998, tag: 'Mixed dance ensemble' },
     ];
@@ -793,11 +793,11 @@
     grid.innerHTML = '';
     const PLATE_TYPES = [
       { name: 'Aarti Plates', type: 'aarti-plates',
-        img: '../uploads/services/aarthi-plates.jpg',
+        img: '../uploads/services/aarthi-plates.webp',
         desc: 'Beautifully decorated aarti plates for poojas, weddings and auspicious ceremonies — choose your plate count.',
         from: 1499 },
       { name: 'Seer Plates', type: 'seer-plates',
-        img: '../uploads/services/aarthi-plates.jpg',
+        img: '../uploads/services/aarthi-plates.webp',
         desc: 'Elegant seer plate decoration for wedding trousseau presentations — traditional and premium styling.',
         from: 2499 },
     ];
@@ -829,7 +829,7 @@
     var PLATE_DATA = {
       'aarti-plates': {
         basePath: '../services/plates-decoration/aarti-plates/',
-        img: '../uploads/services/aarthi-plates.jpg',
+        img: '../uploads/services/aarthi-plates.webp',
         packages: [
           { dir:'9-plates',  label:'9 Plates',  price:1499, desc:'Compact aarti plate set — ideal for smaller poojas and home ceremonies.' },
           { dir:'11-plates', label:'11 Plates', price:1999, desc:'Traditional 11-plate set for standard temple and wedding rituals.' },
@@ -839,7 +839,7 @@
       },
       'seer-plates': {
         basePath: '../services/plates-decoration/seer-plates/',
-        img: '../uploads/services/aarthi-plates.jpg',
+        img: '../uploads/services/aarthi-plates.webp',
         packages: [
           { dir:'9-plates',  label:'9 Plates',  price:2499, desc:'Elegant 9 seer plate set for intimate trousseau presentations.' },
           { dir:'11-plates', label:'11 Plates', price:3499, desc:'Traditional 11 seer plate set with premium decorative styling.' },
@@ -877,7 +877,7 @@
     grid.classList.add('chenda-grid');
 
     var basePath = '../services/flower-rangoli/';
-    var img = '../uploads/services/flowers-decoration-2.jpg';
+    var img = '../uploads/services/flowers-decoration-2.webp';
     var SIZES = [
       { dir:'3x3-feet', label:'3 × 3 Feet', price:2999, desc:'Compact fresh-flower rangoli — perfect for entrances and small courtyards.' },
       { dir:'4x4-feet', label:'4 × 4 Feet', price:4499, desc:'Medium-sized rangoli with richer floral detailing for main entrances.' },
@@ -909,10 +909,10 @@
     grid.innerHTML = '';
     const CATERING_SUBTYPES = [
       { name: 'Catering Boys', slug: 'boys',
-        img: '../uploads/services/catering-boys.jpg',
+        img: '../uploads/services/catering-boys.webp',
         desc: "Uniformed serving staff to manage food service at your event — breakfast, lunch & dinner." },
       { name: 'Welcome Girls', slug: 'girls',
-        img: '../uploads/services/catering-welcome-girls.jpg',
+        img: '../uploads/services/catering-welcome-girls.webp',
         desc: "Graceful welcome staff to greet & guide your guests — breakfast, lunch & dinner shifts." },
     ];
     CATERING_SUBTYPES.forEach(sub => {
@@ -939,11 +939,11 @@
     var FLOWER_GROUPS = [
       { name: 'Reception',
         slug: 'real-flowers-reception',
-        img:  '../uploads/services/flowers-decoration-1.jpg',
+        img:  '../uploads/services/flowers-decoration-1.webp',
         desc: 'Real & Artificial flower decoration for your wedding reception — stage, entry arch and tables.' },
       { name: 'Marriage',
         slug: 'real-flowers-marriage',
-        img:  '../uploads/services/flowers-decoration-2.jpg',
+        img:  '../uploads/services/flowers-decoration-2.webp',
         desc: 'Real & Artificial flower mandapam, garlands and full-venue decor for the wedding ceremony.' },
     ];
     FLOWER_GROUPS.forEach(function(sub) {
@@ -1106,7 +1106,7 @@
       a.setAttribute('aria-label', pkg.label);
       a.innerHTML = `
         <div class="card-image music-performer-image">
-          <img src="../uploads/services/photo.png" alt="${esc(pkg.label)}" loading="lazy"/>
+          <img src="../uploads/services/photo.webp" alt="${esc(pkg.label)}" loading="lazy"/>
         </div>
         <div class="card-body music-performer-body">
           <div class="music-performer-toprow">
@@ -1186,7 +1186,7 @@
       a.setAttribute('aria-label', 'Chenda Melam ' + p.label);
       a.innerHTML = `
         <div class="card-image">
-          <img src="../uploads/services/chenda-melam.png" alt="Chenda Melam ${esc(p.label)}" loading="lazy"/>
+          <img src="../uploads/services/chenda-melam.webp" alt="Chenda Melam ${esc(p.label)}" loading="lazy"/>
           <div class="price-badge">₹${Number(p.price).toLocaleString('en-IN')}</div>
         </div>
         <div class="card-body">
@@ -1214,7 +1214,7 @@
       a.setAttribute('aria-label', 'Nadhaswaram & Thavil Reception ' + p.label);
       a.innerHTML =
         '<div class="card-image">' +
-          '<img src="../uploads/services/musical_band.png" alt="NT Reception ' + esc(p.label) + '" loading="lazy"/>' +
+          '<img src="../uploads/services/musical_band.webp" alt="NT Reception ' + esc(p.label) + '" loading="lazy"/>' +
           '<div class="price-badge">₹' + Number(p.price).toLocaleString('en-IN') + '</div>' +
         '</div>' +
         '<div class="card-body">' +
@@ -1242,7 +1242,7 @@
       a.setAttribute('aria-label', 'Nadhaswaram & Thavil Marriage ' + p.label);
       a.innerHTML =
         '<div class="card-image">' +
-          '<img src="../uploads/services/musical_band.png" alt="NT Marriage ' + esc(p.label) + '" loading="lazy"/>' +
+          '<img src="../uploads/services/musical_band.webp" alt="NT Marriage ' + esc(p.label) + '" loading="lazy"/>' +
           '<div class="price-badge">₹' + Number(p.price).toLocaleString('en-IN') + '</div>' +
         '</div>' +
         '<div class="card-body">' +
@@ -1278,7 +1278,7 @@
         : `<div class="stage-enquire-badge">Contact for Price</div>`;
       a.innerHTML = `
         <div class="card-image">
-          <img src="../uploads/services/musical_band.png" alt="Band Set ${esc(p.label)}" loading="lazy"/>
+          <img src="../uploads/services/musical_band.webp" alt="Band Set ${esc(p.label)}" loading="lazy"/>
           ${badgeHtml}
         </div>
         <div class="card-body">
@@ -1313,7 +1313,7 @@
         : `<div class="stage-enquire-badge">Contact for Price</div>`;
       a.innerHTML = `
         <div class="card-image">
-          <img src="../uploads/services/musical_band.png" alt="Melam Set ${esc(p.label)}" loading="lazy"/>
+          <img src="../uploads/services/musical_band.webp" alt="Melam Set ${esc(p.label)}" loading="lazy"/>
           ${badgeHtml}
         </div>
         <div class="card-body">
@@ -1344,7 +1344,7 @@
       a.setAttribute('aria-label', 'Enter Show Down ' + p.label);
       a.innerHTML = `
         <div class="card-image">
-          <img src="../uploads/services/entershow-pyro-show.jpg" alt="${esc(p.label)}" loading="lazy"/>
+          <img src="../uploads/services/entershow-pyro-show.webp" alt="${esc(p.label)}" loading="lazy"/>
           <div class="price-badge">₹${Number(p.price).toLocaleString('en-IN')}</div>
         </div>
         <div class="card-body">
@@ -1361,9 +1361,9 @@
     grid.innerHTML = '';
     grid.classList.add('music-performer-grid');
     const ITEMS = [
-      { label:'Human Doll (Mascots)', price:2499,  rating:4.5, tag:'Interactive mascots', desc:'Life-size human doll & mascot characters — Cute, Giant, Cartoon & Couple styles for entertaining guests.', img:'../uploads/services/fun.png',       link:appPath('services/entertainment-activities/?type=human-doll') },
-      { label:'360° Degree Camera',   price:11899, rating:4.7, tag:'Immersive 360° video', desc:'Immersive 360° slow-motion video booth — instant shareable clips for your guests.',                        img:'../uploads/services/photobooth.png', link:appPath('services/entertainment-activities/?type=360-camera') },
-      { label:'Photo Booth',          price:17999, rating:4.4, tag:'Instant photo experience', desc:'Fully branded photo booth with props and instant prints. Crowd favourite at every event.',                  img:'../uploads/services/photobooth.png', link:appPath('services/entertainment-activities/?type=photo-booth') },
+      { label:'Human Doll (Mascots)', price:2499,  rating:4.5, tag:'Interactive mascots', desc:'Life-size human doll & mascot characters — Cute, Giant, Cartoon & Couple styles for entertaining guests.', img:'../uploads/services/fun.webp',       link:appPath('services/entertainment-activities/?type=human-doll') },
+      { label:'360° Degree Camera',   price:11899, rating:4.7, tag:'Immersive 360° video', desc:'Immersive 360° slow-motion video booth — instant shareable clips for your guests.',                        img:'../uploads/services/photobooth.webp', link:appPath('services/entertainment-activities/?type=360-camera') },
+      { label:'Photo Booth',          price:17999, rating:4.4, tag:'Instant photo experience', desc:'Fully branded photo booth with props and instant prints. Crowd favourite at every event.',                  img:'../uploads/services/photobooth.webp', link:appPath('services/entertainment-activities/?type=photo-booth') },
     ];
     ITEMS.forEach(item => {
       const a = document.createElement('a');
@@ -1372,7 +1372,7 @@
       a.setAttribute('aria-label', item.label);
       a.innerHTML = `
         <div class="card-image music-performer-image">
-          <img src="${esc(item.img || '../uploads/services/photobooth.png')}" alt="${esc(item.label)}" loading="lazy"/>
+          <img src="${esc(item.img || '../uploads/services/photobooth.webp')}" alt="${esc(item.label)}" loading="lazy"/>
         </div>
         <div class="card-body music-performer-body">
           <div class="music-performer-toprow">
@@ -1410,7 +1410,7 @@
       a.setAttribute('aria-label', 'Human Doll ' + p.label);
       a.innerHTML = `
         <div class="card-image">
-          <img src="../uploads/services/fun.png" alt="Human Doll ${esc(p.label)}" loading="lazy"/>
+          <img src="../uploads/services/fun.webp" alt="Human Doll ${esc(p.label)}" loading="lazy"/>
           <div class="price-badge">₹${Number(p.price).toLocaleString('en-IN')}</div>
         </div>
         <div class="card-body">
@@ -1436,7 +1436,7 @@
       a.setAttribute('aria-label', '360 Camera ' + p.label);
       a.innerHTML = `
         <div class="card-image">
-          <img src="../uploads/services/fun.png" alt="360 Camera ${esc(p.label)}" loading="lazy"/>
+          <img src="../uploads/services/fun.webp" alt="360 Camera ${esc(p.label)}" loading="lazy"/>
           <div class="price-badge">₹${Number(p.price).toLocaleString('en-IN')}</div>
         </div>
         <div class="card-body">
@@ -1464,7 +1464,7 @@
       a.setAttribute('aria-label', 'Photo Booth ' + p.label);
       a.innerHTML = `
         <div class="card-image">
-          <img src="../uploads/services/fun.png" alt="Photo Booth ${esc(p.label)}" loading="lazy"/>
+          <img src="../uploads/services/fun.webp" alt="Photo Booth ${esc(p.label)}" loading="lazy"/>
           <div class="price-badge">₹${Number(p.price).toLocaleString('en-IN')}</div>
         </div>
         <div class="card-body">
@@ -1591,12 +1591,12 @@
     if (!grid) return;
     grid.innerHTML = '';
     var SNACKS = [
-      { title:'Cotton Candy',       desc:'Fluffy, colourful cotton candy freshly spun for your guests.',            img:'../uploads/services/cotton-candy.png',       page:'../services/snacks-stalls/cotton-candy/index.html',       price:11994, suffix:'onwards',      tag:'Freshly spun treats' },
-      { title:'Pop Corn',           desc:'Fresh, hot popcorn served live at your event for all ages.',              img:'../uploads/services/popcorn.png',            page:'../services/snacks-stalls/popcorn/index.html',            price:3999,  suffix:'onwards',      tag:'Live snack counter' },
-      { title:'Chocolate Fountain', desc:'Flowing rich chocolate with fruits and treats for dipping.',              img:'../uploads/services/chocolate-fountain.png', page:'../services/snacks-stalls/chocolate-fountain/index.html', price:6999,  suffix:'onwards',      tag:'Dessert fountain' },
-      { title:'Fruit Salad',        desc:'Fresh seasonal fruit salads served cup by cup — choose your combo.',      img:'../uploads/services/fruit-salad.png',        page:'../services/snacks-stalls/fruit-salad/index.html',        price:199,   suffix:'/cup onwards', tag:'Fresh fruit counter' },
-      { title:'Ice Cream',          desc:'Premium ice cream in multiple flavours — Vanilla, Choco, Mango & more.',  img:'../uploads/services/ice-cream.png',          page:'../services/snacks-stalls/ice-cream/index.html',          price:49,    suffix:'/scoop onwards',tag:'Ice cream parlour' },
-      { title:'Mojito & Tea',       desc:'Refreshing live mojito and specialty tea counter for your guests.',       img:'../uploads/services/mojito.png',             page:'../services/snacks-stalls/mojito/index.html',             price:4000,  suffix:'onwards',      tag:'Live beverage counter' },
+      { title:'Cotton Candy',       desc:'Fluffy, colourful cotton candy freshly spun for your guests.',            img:'../uploads/services/cotton-candy.webp',       page:'../services/snacks-stalls/cotton-candy/index.html',       price:11994, suffix:'onwards',      tag:'Freshly spun treats' },
+      { title:'Pop Corn',           desc:'Fresh, hot popcorn served live at your event for all ages.',              img:'../uploads/services/popcorn.webp',            page:'../services/snacks-stalls/popcorn/index.html',            price:3999,  suffix:'onwards',      tag:'Live snack counter' },
+      { title:'Chocolate Fountain', desc:'Flowing rich chocolate with fruits and treats for dipping.',              img:'../uploads/services/chocolate-fountain.webp', page:'../services/snacks-stalls/chocolate-fountain/index.html', price:6999,  suffix:'onwards',      tag:'Dessert fountain' },
+      { title:'Fruit Salad',        desc:'Fresh seasonal fruit salads served cup by cup — choose your combo.',      img:'../uploads/services/fruit-salad.webp',        page:'../services/snacks-stalls/fruit-salad/index.html',        price:199,   suffix:'/cup onwards', tag:'Fresh fruit counter' },
+      { title:'Ice Cream',          desc:'Premium ice cream in multiple flavours — Vanilla, Choco, Mango & more.',  img:'../uploads/services/ice-cream.webp',          page:'../services/snacks-stalls/ice-cream/index.html',          price:49,    suffix:'/scoop onwards',tag:'Ice cream parlour' },
+      { title:'Mojito & Tea',       desc:'Refreshing live mojito and specialty tea counter for your guests.',       img:'../uploads/services/mojito.webp',             page:'../services/snacks-stalls/mojito/index.html',             price:4000,  suffix:'onwards',      tag:'Live beverage counter' },
     ];
     SNACKS.forEach(function(s) {
       appendReferenceCard(grid, {
@@ -1650,7 +1650,7 @@
     var TEAM_DATA = {
       'dancers-male': {
         basePath: '../services/dancers/male-team/',
-        image: '../uploads/services/dancers-male.jpg',
+        image: '../uploads/services/dancers-male.webp',
         packages: [
           { dir:'4-members', label:'4 Members', price:11196, desc:'Compact troupe — ideal for intimate functions & small stage shows.' },
           { dir:'5-members', label:'5 Members', price:13995, desc:'Balanced energy — great for medium-sized celebrations.' },
@@ -1660,7 +1660,7 @@
       },
       'dancers-female': {
         basePath: '../services/dancers/female-team/',
-        image: '../uploads/services/dancers-female.jpg',
+        image: '../uploads/services/dancers-female.webp',
         packages: [
           { dir:'4-members', label:'4 Members', price:15196, desc:'Compact troupe — ideal for intimate functions & small stage shows.' },
           { dir:'5-members', label:'5 Members', price:18995, desc:'Balanced grace — great for medium-sized celebrations.' },
@@ -1670,7 +1670,7 @@
       },
       'dancers-coed': {
         basePath: '../services/dancers/coed-team/',
-        image: '../uploads/services/dancers-coed.jpg',
+        image: '../uploads/services/dancers-coed.webp',
         packages: [
           { dir:'4-members', label:'4 Members',   price:12998, desc:'Compact mixed team — ideal for intimate functions & small stage shows.' },
           { dir:'6-members', label:'6 Members',   price:19497, desc:'Balanced co-ed group — great for medium-sized celebrations.' },
@@ -1704,10 +1704,10 @@
     grid.innerHTML = '';
     [
       { name:'Reception', type:'real-flowers-reception',
-        img:'../uploads/services/flowers-decoration-1.jpg',
+        img:'../uploads/services/flowers-decoration-1.webp',
         desc:'Elegant flower decoration for your wedding reception — stage, entry arch and table centres.', from:5000 },
       { name:'Marriage',  type:'real-flowers-marriage',
-        img:'../uploads/services/flowers-decoration-2.jpg',
+        img:'../uploads/services/flowers-decoration-2.webp',
         desc:'Traditional and grand flower mandapam decoration for your wedding ceremony.', from:5000 },
     ].forEach(function(cat) {
       var a = document.createElement('a');
@@ -1731,10 +1731,10 @@
     var items = [
       { name:'Real Flowers', price:5000,
         path:'../services/flowers/' + occasion + '-real/index.html',
-        desc:'Fresh seasonal flowers — fragrant, vibrant and perfect for photos.', img:'../uploads/services/flowers-decoration-1.jpg' },
+        desc:'Fresh seasonal flowers — fragrant, vibrant and perfect for photos.', img:'../uploads/services/flowers-decoration-1.webp' },
       { name:'Artificial Flowers', price:6000,
         path:'../services/flowers/' + occasion + '-artificial/index.html',
-        desc:'Premium artificial flowers — consistent beauty that lasts all day.', img:'../uploads/services/flowers-decoration-2.jpg' },
+        desc:'Premium artificial flowers — consistent beauty that lasts all day.', img:'../uploads/services/flowers-decoration-2.webp' },
     ];
     items.forEach(function(item) {
       var a = document.createElement('a');
@@ -1756,11 +1756,11 @@
     grid.innerHTML = '';
     [
       { name:'Gold Style',   price:6500, path:'../services/jewellery/gold-style/index.html',
-        desc:'Premium gold-finish jewellery set — perfect for traditional & bridal looks.', img:'../uploads/services/jewellery-gold.jpg' },
+        desc:'Premium gold-finish jewellery set — perfect for traditional & bridal looks.', img:'../uploads/services/jewellery-gold.webp' },
       { name:'Silver Style', price:6500, path:'../services/jewellery/silver-style/index.html',
-        desc:'Elegant silver-finish jewellery set — ideal for contemporary & fusion outfits.', img:'../uploads/services/jewellery-silver.jpg' },
+        desc:'Elegant silver-finish jewellery set — ideal for contemporary & fusion outfits.', img:'../uploads/services/jewellery-silver.webp' },
       { name:'Kundan Style', price:7000, path:'../services/jewellery/kundan-style/index.html',
-        desc:'Intricate Kundan jewellery — the royal choice for brides & grand occasions.', img:'../uploads/services/jewellery-kundan.jpg' },
+        desc:'Intricate Kundan jewellery — the royal choice for brides & grand occasions.', img:'../uploads/services/jewellery-kundan.webp' },
     ].forEach(function(item) {
       var a = document.createElement('a');
       a.className = 'service-card chenda-pkg-card';
@@ -1782,10 +1782,10 @@
     grid.innerHTML = '';
     [
       { name:'Normal Cars',  type:'car-entry-normal',
-        img:'../uploads/services/car-entry-normal.jpg',
+        img:'../uploads/services/car-entry-normal.webp',
         desc:'Choose from Mini, SUV, Prime Sedan and more — beautifully decorated for your wedding entry.', from:3000, tag:'Decorated wedding cars' },
       { name:'Luxury Cars',  type:'car-entry-luxury',
-        img:'../uploads/services/car-entry-luxury.jpg',
+        img:'../uploads/services/car-entry-luxury.webp',
         desc:'BMW, Rolls-Royce, Mercedes-Benz and Audi — arrive in ultimate style at your wedding.', from:13000, tag:'Luxury wedding cars' },
     ].forEach(function(cat) {
       appendReferenceCard(grid, {
@@ -1815,7 +1815,7 @@
       appendReferenceCard(grid, {
         title: car.label,
         href: '../services/car-entry/normal-cars/' + car.dir + '/index.html',
-        img: '../uploads/services/car-entry-normal.jpg',
+        img: '../uploads/services/car-entry-normal.webp',
         desc: car.desc,
         price: car.price,
         rating: 4.5,
@@ -1837,7 +1837,7 @@
       appendReferenceCard(grid, {
         title: brand.name,
         href: appPath('services?type=' + brand.type),
-        img: '../uploads/services/car-entry-luxury.jpg',
+        img: '../uploads/services/car-entry-luxury.webp',
         desc: brand.desc,
         price: brand.from,
         rating: 4.5,
@@ -1885,7 +1885,7 @@
       appendReferenceCard(grid, {
         title: car.label,
         href: '../services/car-entry/luxury-cars/' + brandDir + '/' + car.dir + '/index.html',
-        img: '../uploads/services/car-entry-luxury.jpg',
+        img: '../uploads/services/car-entry-luxury.webp',
         desc: car.desc,
         price: car.price,
         rating: 4.5,
