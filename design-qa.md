@@ -37,6 +37,21 @@ The combined comparison isolates the header and package-card regions because the
 
 final result: passed
 
+## Grouped Rangoli, BMW and Flower detail flows — 2026-09-03
+
+- Reference layout: `C:\Users\Akash\AppData\Local\Temp\codex-clipboard-a8267673-2412-470e-a15e-4b106e383856.png` (1558 × 728 px).
+- Implementation captures: `C:\Users\Akash\AppData\Local\Temp\ellcy-design-qa\rangoli-desktop.png`, `bmw-series-desktop.png`, `bmw-groups-mobile.png`, `bmw-detail-mobile.png`, and `flowers-mobile.png`.
+- Combined visual comparison: `C:\Users\Akash\AppData\Local\Temp\ellcy-design-qa\comparison.png`.
+- Checked 1440 × 900 desktop, 1024 × 768 tablet and 430 × 900 mobile viewports; no horizontal overflow was found.
+- Rangoli now opens directly with 3 × 3 Feet selected and the remaining sizes in the detail-page filter.
+- BMW now exposes only Series and X & M group cards. Series defaults to 7 Series, while X & M defaults to X3; the remaining models are detail-page filters.
+- Flower Decoration now combines Reception/Marriage and Fresh/Artificial filters on one detail page and includes the requested Number of Plates counter.
+- Filter clicks update the active state, hero where applicable and price. Quantity increments multiply the selected flower package total.
+- Legacy individual BMW and real/artificial flower URLs resolve to the grouped detail page with the matching filter selected.
+- PHP lint, JavaScript syntax checks, route checks and `git diff --check` passed.
+
+final result: passed
+
 ## Shared headers and Catering Boys admin controls — 2026-08-28
 
 - Verified the local PHP/XAMPP build at 1366 × 768 desktop and 393 × 852 mobile viewports.

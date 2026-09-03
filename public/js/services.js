@@ -396,10 +396,8 @@
     }
 
     if (type === 'flower-rangoli') {
-      if (filterContainer) filterContainer.style.display = 'none';
-      if (ph) ph.textContent = 'Flower Rangoli';
-      renderFlowerRangoliCards(grid);
-      setYear(); return;
+      window.location.replace(appPath('services/flower-rangoli/'));
+      return;
     }
 
     /* ════════════════════════════════════════════════════
@@ -420,24 +418,16 @@
        FLOWERS — Reception & Marriage sub-categories
     ════════════════════════════════════════════════════ */
     if (type === 'real-flowers') {
-      if (filterContainer) filterContainer.style.display = 'none';
-      if (ph) ph.textContent = 'Flowers';
-      renderFlowerCategoryCards(grid);
-      setYear(); return;
+      window.location.replace(appPath('services/real-flowers/'));
+      return;
     }
     if (type === 'real-flowers-reception') {
-      if (filterContainer) filterContainer.style.display = 'none';
-      if (bc) bc.innerHTML = '<a href="services.html?type=real-flowers" style="color:#6b21a8;text-decoration:none">Flowers</a> / Reception';
-      if (ph) ph.textContent = 'Reception Flowers';
-      renderFlowerSubCards(grid, 'reception');
-      setYear(); return;
+      window.location.replace(appPath('services/real-flowers/?group=reception'));
+      return;
     }
     if (type === 'real-flowers-marriage') {
-      if (filterContainer) filterContainer.style.display = 'none';
-      if (bc) bc.innerHTML = '<a href="services.html?type=real-flowers" style="color:#6b21a8;text-decoration:none">Flowers</a> / Marriage';
-      if (ph) ph.textContent = 'Marriage Flowers';
-      renderFlowerSubCards(grid, 'marriage');
-      setYear(); return;
+      window.location.replace(appPath('services/real-flowers/?group=marriage'));
+      return;
     }
 
     /* ════════════════════════════════════════════════════
@@ -469,45 +459,13 @@
        Sub-level: Real | Artificial (with price)
     ════════════════════════════════════════════════════ */
     if (type === 'real-flowers') {
-      if (filterContainer) filterContainer.style.display = 'none';
-      renderRealFlowersParent(grid);
-      setYear(); return;
+      window.location.replace(appPath('services/real-flowers/'));
+      return;
     }
     if (type === 'real-flowers-reception' || type === 'real-flowers-marriage') {
-      if (filterContainer) filterContainer.style.display = 'none';
       var groupKey = (type === 'real-flowers-reception') ? 'reception' : 'marriage';
-      var groupLabel = (type === 'real-flowers-reception') ? 'Reception' : 'Marriage';
-      // Update breadcrumb (use rfBc to avoid redeclaring bc from outer scope)
-      var rfBc = document.getElementById('breadcrumb-label');
-      if (rfBc) rfBc.innerHTML = '<a href="services.html?type=real-flowers" style="color:#6b21a8;text-decoration:none">Real Flowers</a> / ' + groupLabel;
-      var rfH1 = document.getElementById('page-heading');
-      if (rfH1) rfH1.textContent = 'Real Flowers — ' + groupLabel;
-      // filter items by eventGroup
-      var groupItems = (SERVICES_DATA['real-flowers'] || []).filter(function(s){ return s.eventGroup === groupKey; });
-      if (!grid) { setYear(); return; }
-      grid.innerHTML = '';
-      if (!groupItems.length) {
-        grid.innerHTML = '<p class="no-services">No services found.</p>';
-      } else {
-        groupItems.forEach(function(s) {
-          var a = document.createElement('a');
-          a.className = 'service-card';
-          a.href = '../services/real-flowers/index.html?pkg=' + encodeURIComponent(s.id) + '&group=' + encodeURIComponent(groupKey);
-          a.setAttribute('aria-label', s.title);
-          var priceStr = s.base_price > 0 ? fmt(s.base_price) : '';
-          a.innerHTML =
-            '<div class="card-image">' +
-              '<img src="' + esc(s.image) + '" alt="' + esc(s.title) + '" loading="lazy"/>' +
-              (priceStr ? '<div class="price-badge">' + esc(priceStr) + '</div>' : '') +
-            '</div>' +
-            '<div class="card-body">' +
-              '<h3 class="card-title">' + esc(s.title.replace(/^(Reception|Marriage) — /, '')) + ' Flowers</h3>' +
-              '<p class="card-desc">' + esc(s.description) + '</p>' +
-            '</div>';
-          grid.appendChild(a);
-        });
-      }
-      setYear(); return;
+      window.location.replace(appPath('services/real-flowers/?group=' + groupKey));
+      return;
     }
 
     /* ════════════════════════════════════════════════════
@@ -552,8 +510,8 @@
     if (type === 'car-entry-bmw') {
       if (filterContainer) filterContainer.style.display = 'none';
       if (bc) bc.innerHTML = '<a href="services.html?type=car-entry" style="color:#6b21a8;text-decoration:none">Car Entry</a> / <a href="services.html?type=car-entry-luxury" style="color:#6b21a8;text-decoration:none">Luxury Cars</a> / BMW';
-      if (ph) ph.textContent = 'BMW Models';
-      renderCarBrandModels(grid, 'bmw');
+      if (ph) ph.textContent = 'BMW Car Entry';
+      renderBmwGroups(grid);
       setYear(); return;
     }
 
@@ -1842,6 +1800,26 @@
         price: brand.from,
         rating: 4.5,
         tag: brand.tag
+      }, 'category');
+    });
+  }
+
+  /* ── BMW: two grouped entry points; models are filters on the detail page ── */
+  function renderBmwGroups(grid) {
+    if (!grid) return;
+    grid.innerHTML = '';
+    [
+      { title:'BMW Series', href:appPath('services/car-entry/luxury-cars/bmw/series/'), price:13000, desc:'Choose from the BMW 7 Series, 3 Series and 2 Series.', tag:'7, 3 & 2 Series' },
+      { title:'BMW X & M Models', href:appPath('services/car-entry/luxury-cars/bmw/x-m-models/'), price:15000, desc:'Choose from premium BMW X and performance M models.', tag:'X & M collection' }
+    ].forEach(function(group) {
+      appendReferenceCard(grid, {
+        title: group.title,
+        href: group.href,
+        img: '../uploads/services/car-entry-luxury.webp',
+        desc: group.desc,
+        price: group.price,
+        rating: 4.8,
+        tag: group.tag
       }, 'category');
     });
   }

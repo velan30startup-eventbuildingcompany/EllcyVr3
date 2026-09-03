@@ -65,7 +65,7 @@
   var GROUPS      = C.groups || [];
   var HAS_GROUPS  = GROUPS.length > 0;
   var SHOW_GROUPS = HAS_GROUPS && C.showGroupPills !== false;
-  var activeGroupKey = qs.get('group') || qs.get('type') || (HAS_GROUPS ? GROUPS[0].key : '');
+  var activeGroupKey = qs.get('group') || qs.get('type') || C.defaultGroup || (HAS_GROUPS ? GROUPS[0].key : '');
 
   function getGroup() {
     return GROUPS.find(function (g) { return g.key === activeGroupKey; }) || GROUPS[0];
@@ -78,7 +78,7 @@
   var PACKAGES   = currentPackages();
   var HAS_PKGS   = C.showPkgPills !== false && PACKAGES.length > 0;
   var HAS_SLOTS  = C.showSlotPills !== false;
-  var activeKey  = qs.get('pkg') || (PACKAGES[0] ? PACKAGES[0].key : '');
+  var activeKey  = qs.get('pkg') || C.defaultPkg || (PACKAGES[0] ? PACKAGES[0].key : '');
   var activeSlot = 'Morning';
 
   function fmt(n) { return Number(n).toLocaleString('en-IN'); }
@@ -94,6 +94,15 @@
   function updateAll() {
     var p     = getPkg();
     var total = getPrice(p) * (HAS_QTY ? qty : 1);
+
+    // Keep the single responsive hero in sync with the selected filter.
+    if (p && p.img) {
+      var hero = $('sdImgMain'); if (hero) hero.src = p.img;
+      var mobileHero = $('sdImgMob'); if (mobileHero) mobileHero.src = p.img;
+      if (C.syncHeroWithPackage === true) {
+        document.querySelectorAll('.eg-gallery img').forEach(function (img) { img.src = p.img; });
+      }
+    }
 
     // Mobile price
     var em = $('sdPrice'); if (em) em.textContent = fmt(total);
@@ -132,6 +141,16 @@
   setImg('sdImgT1',   imgs[1]);
   setImg('sdImgT2',   imgs[2]);
   setImg('sdImgMob',  imgs[0]);
+
+  if (C.syncHeroWithPackage === true && typeof MutationObserver !== 'undefined') {
+    document.querySelectorAll('.eg-gallery').forEach(function (gallery) {
+      new MutationObserver(function () {
+        var selected = getPkg();
+        if (!selected || !selected.img) return;
+        gallery.querySelectorAll('img').forEach(function (img) { img.src = selected.img; });
+      }).observe(gallery, { childList:true, subtree:true });
+    });
+  }
 
   // Rating
   document.querySelectorAll('.sd-rating-val').forEach(function(el){ el.textContent = '★ ' + (C.rating || '4.5'); });

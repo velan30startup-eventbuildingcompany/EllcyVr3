@@ -27,6 +27,25 @@ final class LegacyPage
            responsive markup all have one authoritative implementation. */
         if ($directory === 'services') {
             $serviceRoute = preg_replace('#/index\.html$#i', '', $relativeFile) ?? '';
+
+            /* Preserve old detail links while serving the current grouped,
+               filter-based PHP detail pages. */
+            if (preg_match('#^flowers/(reception|marriage)-(real|artificial)$#', $serviceRoute, $flowerRoute)) {
+                $flowerPackages = [
+                    'reception-real' => '103', 'reception-artificial' => '104',
+                    'marriage-real' => '113', 'marriage-artificial' => '114',
+                ];
+                $_GET['group'] = $flowerRoute[1];
+                $_GET['pkg'] = $flowerPackages[$flowerRoute[1] . '-' . $flowerRoute[2]];
+                $serviceRoute = 'real-flowers';
+            }
+
+            if (preg_match('#^car-entry/luxury-cars/bmw/(7-series|3-series|2-series|x3|x1|m4|m2)$#', $serviceRoute, $bmwRoute)) {
+                $_GET['pkg'] = $bmwRoute[1];
+                $serviceRoute = 'car-entry/luxury-cars/bmw/' .
+                    (in_array($bmwRoute[1], ['7-series', '3-series', '2-series'], true) ? 'series' : 'x-m-models');
+            }
+
             $usesPhpDetail = in_array($serviceRoute, [
                 'enter-show-down',
                 'fake-jewellery',
@@ -38,6 +57,8 @@ final class LegacyPage
                 'photography/photo-video',
                 'real-flowers',
                 'flower-rangoli',
+                'car-entry/luxury-cars/bmw/series',
+                'car-entry/luxury-cars/bmw/x-m-models',
             ], true) || preg_match(
                 '#^plates-decoration/(?:aarti|seer)-plates/(?:9|11|15|21)-plates$#',
                 $serviceRoute
@@ -74,7 +95,7 @@ final class LegacyPage
             $assetPattern = preg_quote($assetName, '/');
             $html = preg_replace_callback(
                 '/(?<url>[^"\']*\/' . $assetPattern . ')(?:\?[^"\']*)?/i',
-                static fn(array $match): string => $match['url'] . '?v=20260831.1',
+                static fn(array $match): string => $match['url'] . '?v=20260903.1',
                 $html
             ) ?? $html;
         }

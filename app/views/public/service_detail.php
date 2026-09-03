@@ -140,7 +140,7 @@ if ($serviceRoute === 'enter-show-down') {
 } elseif ($serviceRoute === 'flower-rangoli' || preg_match('#^flower-rangoli/(3x3|4x4|5x5|6x6)-feet$#', $serviceRoute, $rangoliMatch)) {
     $categoryLabel = 'Flower Rangoli';
     $categorySlug = 'flower-rangoli';
-    $sizeKey = $rangoliMatch[1] ?? Security::sanitizeString($_GET['size'] ?? '3x3', 10);
+    $sizeKey = $rangoliMatch[1] ?? Security::sanitizeString($_GET['pkg'] ?? ($_GET['size'] ?? '3x3'), 10);
     $sizes = [
         '3x3' => ['3 × 3 Feet', 2999, 'Compact fresh-flower rangoli for entrances and small courtyards.'],
         '4x4' => ['4 × 4 Feet', 4499, 'A medium floral rangoli with richer detailing for main entrances.'],
@@ -148,42 +148,107 @@ if ($serviceRoute === 'enter-show-down') {
         '6x6' => ['6 × 6 Feet', 8999, 'A premium extra-large rangoli for major celebrations.'],
     ];
     if (!isset($sizes[$sizeKey])) $sizeKey = '3x3';
-    $rangoli = $sizes[$sizeKey];
+    $rangoliPackages = [];
+    foreach ($sizes as $key => $size) {
+        $rangoliPackages[] = [
+            'key'=>$key, 'label'=>$size[0], 'price'=>$size[1],
+            'adminSlug'=>'flower-rangoli-'.$key,
+            'img'=>$asset('flowers-decoration-2.webp'), 'desc'=>$size[2],
+        ];
+    }
     $cfg = array_replace($common, [
-        'serviceKey'=>'flower-rangoli-'.$sizeKey,
+        'serviceKey'=>'flower-rangoli',
         'adminSlug'=>'flower-rangoli-'.$sizeKey,
-        'serviceName'=>'Flower Rangoli — '.$rangoli[0],
-        'slug'=>'flower-rangoli-'.$sizeKey,
-        'img'=>$asset('flowers-decoration-2.jpg'),
+        'serviceName'=>'Flower Rangoli',
+        'slug'=>'flower-rangoli',
+        'img'=>$asset('flowers-decoration-2.webp'),
         'rating'=>'4.8',
         'availability'=>'Available for Weddings, Receptions & Celebrations',
         'subtags'=>'Fresh Flowers | Custom Colours | Venue Ready',
         'priceMeta'=>'Fresh | Traditional | Handcrafted',
-        'showPkgPills'=>false,
-        'catalogCards'=>true,
-        'overviewHtml'=>'<div class="sd-rich-overview"><h2>A fresh floral welcome for your celebration</h2><p>'.$rangoli[2].' Our decorators coordinate the colours and flower selection, then prepare the complete design at your venue.</p><div class="sd-feature-list"><span><i class="fa-solid fa-seedling"></i> Fresh flowers</span><span><i class="fa-solid fa-palette"></i> Coordinated colours</span><span><i class="fa-solid fa-circle-check"></i> On-site setup</span></div></div>',
-        'packages'=>[['key'=>$sizeKey,'label'=>$rangoli[0],'price'=>$rangoli[1],'img'=>$asset('flowers-decoration-2.jpg'),'desc'=>$rangoli[2]]],
+        'showPkgPills'=>true,
+        'pillLabel'=>'Select Rangoli Size',
+        'defaultPkg'=>$sizeKey,
+        'catalogCards'=>false,
+        'hideCards'=>true,
+        'overviewHtml'=>'<div class="sd-rich-overview"><h2>A fresh floral welcome for your celebration</h2><p>Choose the rangoli size that best suits your entrance, courtyard or celebration space. Our decorators coordinate the colours and flower selection, then prepare the complete design at your venue.</p><div class="sd-feature-list"><span><i class="fa-solid fa-seedling"></i> Fresh flowers</span><span><i class="fa-solid fa-palette"></i> Coordinated colours</span><span><i class="fa-solid fa-circle-check"></i> On-site setup</span></div></div>',
+        'packages'=>$rangoliPackages,
     ]);
 } elseif ($serviceRoute === 'real-flowers') {
-    $categoryLabel = 'Real Flowers';
+    $categoryLabel = 'Flowers';
     $categorySlug = 'real-flowers';
     $flowerOverview = '<div class="sd-rich-overview"><h2>Fresh floral styling for every celebration</h2><p>Choose fresh or premium artificial flowers for your reception or marriage ceremony. Our decorators coordinate the stage, entry, mandapam and focal arrangements as one polished event look.</p><div class="sd-feature-list"><span><i class="fa-solid fa-seedling"></i> Event-ready blooms</span><span><i class="fa-solid fa-palette"></i> Coordinated colours</span><span><i class="fa-solid fa-people-group"></i> Professional setup crew</span></div></div>';
+    $flowerGroup = Security::sanitizeString($_GET['group'] ?? 'reception', 20);
+    if (!in_array($flowerGroup, ['reception', 'marriage'], true)) $flowerGroup = 'reception';
+    $flowerDefaultPkg = Security::sanitizeString($_GET['pkg'] ?? ($flowerGroup === 'reception' ? '103' : '113'), 10);
+    $allowedFlowerPackages = $flowerGroup === 'reception' ? ['103', '104'] : ['113', '114'];
+    if (!in_array($flowerDefaultPkg, $allowedFlowerPackages, true)) $flowerDefaultPkg = $allowedFlowerPackages[0];
+    $flowerHero = in_array($flowerDefaultPkg, ['104', '114'], true)
+        ? 'flowers-decoration-2.webp' : 'flowers-decoration-1.webp';
     $cfg = array_replace($common, [
-        'serviceKey'=>'real-flowers','adminSlug'=>'real-flowers','serviceName'=>'Real Flower Decoration','slug'=>'real-flowers',
-        'img'=>$asset('flowers-decoration-1.jpg'),'rating'=>'4.8','availability'=>'Available for Weddings, Receptions & Celebrations',
+        'serviceKey'=>'real-flowers','adminSlug'=>'real-flowers','serviceName'=>'Flower Decoration','slug'=>'real-flowers',
+        'img'=>$asset($flowerHero),'rating'=>'4.8','availability'=>'Available for Weddings, Receptions & Celebrations',
         'subtags'=>'Rose | Jasmine | Marigold | Orchid | Artificial Flowers','priceMeta'=>'Fresh | Elegant | Venue Ready',
         'showGroupPills'=>true,'groupLabel'=>'Select Occasion','pillLabel'=>'Select Flower Type','overviewHtml'=>$flowerOverview,
-        'catalogCards'=>true,
+        'defaultGroup'=>$flowerGroup,'defaultPkg'=>$flowerDefaultPkg,
+        'syncHeroWithPackage'=>true,
+        'showQty'=>true,'qtyLabel'=>'Number of Plates','minQty'=>1,'defaultQty'=>1,'maxQty'=>50,
+        'catalogCards'=>false,'hideCards'=>true,
         'groups'=>[
             ['key'=>'reception','label'=>'Reception','packages'=>[
-                ['key'=>'103','label'=>'Fresh Real Flowers','price'=>5000,'img'=>$asset('flowers-decoration-1.jpg'),'desc'=>'Fresh rose, jasmine and marigold styling for the reception stage, entry and guest areas.'],
-                ['key'=>'104','label'=>'Artificial Flowers','price'=>6000,'img'=>$asset('flowers-decoration-2.jpg'),'desc'=>'Premium lifelike blooms that stay camera-ready throughout the reception.'],
+                ['key'=>'103','label'=>'Fresh Real Flowers','price'=>5000,'img'=>$asset('flowers-decoration-1.webp'),'desc'=>'Fresh rose, jasmine and marigold styling for the reception stage, entry and guest areas.'],
+                ['key'=>'104','label'=>'Artificial Flowers','price'=>6000,'img'=>$asset('flowers-decoration-2.webp'),'desc'=>'Premium lifelike blooms that stay camera-ready throughout the reception.'],
             ]],
             ['key'=>'marriage','label'=>'Marriage','packages'=>[
-                ['key'=>'113','label'=>'Fresh Real Flowers','price'=>5000,'img'=>$asset('flowers-decoration-1.jpg'),'desc'=>'Traditional fresh floral styling for the mandapam, garlands and ceremony spaces.'],
-                ['key'=>'114','label'=>'Artificial Flowers','price'=>6000,'img'=>$asset('flowers-decoration-2.jpg'),'desc'=>'Colour-coordinated artificial flowers for a lasting marriage ceremony setup.'],
+                ['key'=>'113','label'=>'Fresh Real Flowers','price'=>5000,'img'=>$asset('flowers-decoration-1.webp'),'desc'=>'Traditional fresh floral styling for the mandapam, garlands and ceremony spaces.'],
+                ['key'=>'114','label'=>'Artificial Flowers','price'=>6000,'img'=>$asset('flowers-decoration-2.webp'),'desc'=>'Colour-coordinated artificial flowers for a lasting marriage ceremony setup.'],
             ]],
         ],
+    ]);
+} elseif (preg_match('#^car-entry/luxury-cars/bmw/(series|x-m-models)$#', $serviceRoute, $bmwMatch)) {
+    $categoryLabel = 'BMW Car Entry';
+    $categorySlug = 'car-entry-bmw';
+    $bmwGroup = $bmwMatch[1];
+    $bmwGroups = [
+        'series' => [
+            'name'=>'BMW Series Car Entry', 'default'=>'7-series',
+            'packages'=>[
+                ['key'=>'7-series','label'=>'7 Series','price'=>25000,'adminSlug'=>'car-entry-bmw-7-series','desc'=>'Flagship BMW luxury with a spacious, prestigious arrival.'],
+                ['key'=>'3-series','label'=>'3 Series','price'=>15000,'adminSlug'=>'car-entry-bmw-3-series','desc'=>'Classic BMW elegance with a refined, confident presence.'],
+                ['key'=>'2-series','label'=>'2 Series','price'=>13000,'adminSlug'=>'car-entry-bmw-2-series','desc'=>'Compact premium styling for an elegant wedding entrance.'],
+            ],
+        ],
+        'x-m-models' => [
+            'name'=>'BMW X & M Car Entry', 'default'=>'x3',
+            'packages'=>[
+                ['key'=>'x3','label'=>'X3','price'=>18000,'adminSlug'=>'car-entry-bmw-x3','desc'=>'A premium BMW SUV with comfort and commanding road presence.'],
+                ['key'=>'x1','label'=>'X1','price'=>15000,'adminSlug'=>'car-entry-bmw-x1','desc'=>'A compact luxury SUV with sophisticated, dynamic styling.'],
+                ['key'=>'m4','label'=>'M4','price'=>22000,'adminSlug'=>'car-entry-bmw-m4','desc'=>'High-performance BMW M styling for a dramatic celebration arrival.'],
+                ['key'=>'m2','label'=>'M2','price'=>20000,'adminSlug'=>'car-entry-bmw-m2','desc'=>'Sporting BMW performance in a bold, compact luxury package.'],
+            ],
+        ],
+    ];
+    $bmw = $bmwGroups[$bmwGroup];
+    $selectedBmw = Security::sanitizeString($_GET['pkg'] ?? $bmw['default'], 30);
+    $validBmwKeys = array_column($bmw['packages'], 'key');
+    if (!in_array($selectedBmw, $validBmwKeys, true)) $selectedBmw = $bmw['default'];
+    $bmwPackages = array_map(static function (array $package) use ($asset): array {
+        $package['img'] = $asset('car-entry-luxury.webp');
+        return $package;
+    }, $bmw['packages']);
+    $cfg = array_replace($common, [
+        'serviceKey'=>'car-entry-bmw-'.$bmwGroup,
+        'adminSlug'=>'car-entry-bmw-'.$selectedBmw,
+        'serviceName'=>$bmw['name'], 'slug'=>'car-entry-bmw-'.$bmwGroup,
+        'img'=>$asset('car-entry-luxury.webp'), 'rating'=>'4.8',
+        'availability'=>'Available for Weddings, Receptions & Grand Entries',
+        'subtags'=>'Professional Driver | Clean Vehicle | Timely Arrival',
+        'priceMeta'=>'Luxury | Comfortable | Camera Ready',
+        'showPkgPills'=>true, 'pillLabel'=>'Select BMW Model',
+        'defaultPkg'=>$selectedBmw,
+        'catalogCards'=>false, 'hideCards'=>true,
+        'overviewHtml'=>'<div class="sd-rich-overview"><h2>Arrive in signature BMW style</h2><p>Select your preferred BMW model directly on this page. Every vehicle is presented clean, event-ready and coordinated for a smooth wedding or reception arrival.</p><div class="sd-feature-list"><span><i class="fa-solid fa-car-side"></i> Premium BMW fleet</span><span><i class="fa-solid fa-user-tie"></i> Professional driver</span><span><i class="fa-solid fa-clock"></i> Timely coordination</span></div></div>',
+        'packages'=>$bmwPackages,
     ]);
 } elseif (str_starts_with($serviceRoute, 'photography/')) {
     $categoryLabel = 'Photography';
@@ -320,6 +385,6 @@ $metaDescription = mb_substr(preg_replace('/\s+/', ' ', $metaDescription) ?? '',
 <script src="<?= $e($base) ?>/js/cart.js"></script>
 <?php if ($showReferenceUpload): ?><script>window.ELLCY_JEWELLERY_SERVICE = <?= json_encode((string)$cfg['serviceKey']) ?>;</script><script src="<?= $e($base) ?>/js/jewellery-reference.js?v=20260811.2"></script><?php endif; ?>
 <script src="<?= $e($base) ?>/js/media-gallery.js?v=20260831.1"></script>
-<script src="<?= $e($base) ?>/js/service-desc.js?v=20260812.1"></script>
+<script src="<?= $e($base) ?>/js/service-desc.js?v=20260903.1"></script>
 </body>
 </html>
