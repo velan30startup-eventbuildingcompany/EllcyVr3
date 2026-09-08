@@ -4,6 +4,9 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>ELLCY | Page Not Found</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="<?= htmlspecialchars(PUBLIC_URL) ?>/uploads/branding/favicon-32.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="<?= htmlspecialchars(PUBLIC_URL) ?>/uploads/branding/apple-touch-icon.png"/>
+  <link rel="stylesheet" href="<?= htmlspecialchars(PUBLIC_URL) ?>/css/brand.css?v=20260908.4"/>
   <style>
     body{font-family:'Segoe UI',system-ui,sans-serif;background:#f4e9ff;min-height:100vh;display:flex;align-items:center;justify-content:center;margin:0;padding:20px}
     .wrap{text-align:center;max-width:460px}

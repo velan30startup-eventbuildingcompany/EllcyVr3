@@ -1,6 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap');
+
 /* Shared ELLCY brand treatment.
    The supplied wordmark is kept as a real, cached image asset and applied
    consistently to every customer-facing header and footer variant. */
+
+html,
+body,
+button,
+input,
+select,
+textarea {
+  font-family: 'Open Sans', Arial, sans-serif !important;
+}
 :where(
   header .logo,
   header .sd-logo,
@@ -50,6 +61,7 @@
 }
 
 .auth-logo {
+  display: block !important;
   margin: 0 auto 4px !important;
 }
 

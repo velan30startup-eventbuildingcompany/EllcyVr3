@@ -26,12 +26,14 @@
   <meta name="twitter:card" content="summary_large_image"/>
   <?php endif; ?>
   <title><?= Security::e($page_title ?? 'ELLCY | Event Services') ?></title>
+  <link rel="icon" type="image/png" sizes="32x32" href="<?= PUBLIC_URL ?>/uploads/branding/favicon-32.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="<?= PUBLIC_URL ?>/uploads/branding/apple-touch-icon.png"/>
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link rel="stylesheet" href="<?= PUBLIC_URL ?>/css/style.css"/>
   <link rel="stylesheet" href="<?= PUBLIC_URL ?>/css/cart.css?v=20260903.2"/>
-  <link rel="stylesheet" href="<?= PUBLIC_URL ?>/css/brand.css?v=20260903.3"/>
+  <link rel="stylesheet" href="<?= PUBLIC_URL ?>/css/brand.css?v=20260908.4"/>
   <?php if (!empty($extra_css)): ?>
     <?php foreach ((array)$extra_css as $css): ?>
     <link rel="stylesheet" href="<?= PUBLIC_URL ?>/css/<?= Security::e($css) ?>"/>

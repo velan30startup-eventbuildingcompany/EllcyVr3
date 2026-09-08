@@ -324,7 +324,9 @@ $metaDescription = mb_substr(preg_replace('/\s+/', ' ', $metaDescription) ?? '',
   <link rel="stylesheet" href="<?= $e($base) ?>/css/media-gallery.css?v=20260831.1"/>
   <link rel="stylesheet" href="<?= $e($base) ?>/css/detail-single-media.css?v=20260831.1"/>
   <link rel="stylesheet" href="<?= $e($base) ?>/css/cart.css?v=20260903.2"/>
-  <link rel="stylesheet" href="<?= $e(PUBLIC_URL) ?>/css/brand.css?v=20260903.3"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="<?= $e(PUBLIC_URL) ?>/uploads/branding/favicon-32.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="<?= $e(PUBLIC_URL) ?>/uploads/branding/apple-touch-icon.png"/>
+  <link rel="stylesheet" href="<?= $e(PUBLIC_URL) ?>/css/brand.css?v=20260908.4"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" defer></script>
 </head>
 <body class="sd-body <?= $portfolio ? 'photo-detail-page' : '' ?> <?= !empty($cfg['catalogCards']) ? 'catalog-card-detail-page' : '' ?>">

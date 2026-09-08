@@ -117,8 +117,14 @@ final class LegacyPage
         /* Replace the historical text-only wordmark on every routed legacy
            page without editing hundreds of archived templates individually. */
         if (!preg_match('/\/brand\.css(?:\?[^"\']*)?["\']/i', $html)) {
-            $brandCss = '<link rel="stylesheet" href="' . Security::e(PUBLIC_URL . '/css/brand.css?v=20260903.3') . '"/>';
+            $brandCss = '<link rel="stylesheet" href="' . Security::e(PUBLIC_URL . '/css/brand.css?v=20260908.4') . '"/>';
             $html = preg_replace('/<\/head>/i', $brandCss . '</head>', $html, 1) ?? $html;
+        }
+
+        if (!preg_match('/favicon-32\.png/i', $html)) {
+            $favicons = '<link rel="icon" type="image/png" sizes="32x32" href="' . Security::e(PUBLIC_URL . '/uploads/branding/favicon-32.png') . '"/>'
+                . '<link rel="apple-touch-icon" sizes="180x180" href="' . Security::e(PUBLIC_URL . '/uploads/branding/apple-touch-icon.png') . '"/>';
+            $html = preg_replace('/<\/head>/i', $favicons . '</head>', $html, 1) ?? $html;
         }
 
         /* Apply the same one-media detail rule after each legacy template's

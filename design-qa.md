@@ -123,3 +123,13 @@ final result: passed
 - All 17 representative new/compatibility routes returned HTTP 200, all PHP files and public JavaScript files passed syntax checks, npm reported zero vulnerabilities, `git diff --check` passed, and verified browser pages logged no console errors.
 
 final result: passed
+
+## Open Sans, centered authentication wordmark and favicon — 2026-09-08
+
+- Reused the approved ELLCY wordmark in `public/uploads/branding/ellcy-logo-white.png` and cropped its original `E` geometry into a high-contrast violet favicon; no logo geometry was redrawn.
+- The Login wordmark is a block-level 118 px brand asset centered exactly within the authentication card at both 390 × 844 and 1440 × 900 CSS px (measured center delta: 0 px).
+- Open Sans is applied consistently to the shared customer-facing UI, including form controls; Login and Home both reported `"Open Sans", Arial, sans-serif` as their computed body font.
+- Login and Home both expose the 32 × 32 favicon and 180 × 180 Apple touch icon from the shared branding directory.
+- Login and Home returned HTTP 200 and produced no browser console warnings or errors. PHP syntax validation and `git diff --check` passed.
+
+final result: passed
