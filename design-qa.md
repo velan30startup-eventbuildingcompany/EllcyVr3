@@ -96,3 +96,16 @@ final result: passed
 - No horizontal overlap or centered-title regression was observed.
 
 final result: passed
+
+## Supplied wordmark, mobile colours and account drawer — 2026-09-08
+
+- Source references: `C:\Users\Akash\AppData\Local\Temp\codex-clipboard-97d8424c-bc9b-43a1-952c-a979d903b069.png`, `C:\Users\Akash\AppData\Local\Temp\codex-clipboard-1fd6af63-fe6b-4e6a-88ab-147a23b0d844.png`, and the supplied 2172 × 724 ELLCY wordmark `C:\Users\Akash\AppData\Local\Temp\codex-clipboard-b4fe3158-a937-4015-8896-3e35c7a436bc.png`.
+- Implementation captures: `C:\Users\Akash\AppData\Local\Temp\ellcy-final-home.png`, `ellcy-final-drawer.png`, and `ellcy-final-drawer-591.png`.
+- Combined comparison: `C:\Users\Akash\AppData\Local\Temp\ellcy-brand-comparison-final.png`.
+- The supplied ELLCY geometry is used as a transparent image asset in every shared customer header/footer. A violet version is used on white authentication/account surfaces to preserve contrast.
+- Mobile hamburger, sign-in, create-account and close controls render white on the violet/navy surfaces. Drawer links remain dark on white and the 591 px reference-width drawer measures 480 px, matching the reference proportion.
+- “Our Event Services” and “Our Event Category” now use the existing ELLCY violet token instead of generic black.
+- Verified at 390 × 844 and 591 × 546 CSS px. Home, DJ services, Flower Rangoli detail, Catering Boys Breakfast and Login routes returned HTTP 200; both logo assets and the shared brand stylesheet returned HTTP 200.
+- Browser console check returned no warnings or errors. All PHP files and all public JavaScript files passed syntax validation; the dependency audit reported zero vulnerabilities, required security headers were present, and `git diff --check` passed.
+
+final result: passed

@@ -548,7 +548,7 @@
   height: 40px;
   border: 0;
   background: transparent;
-  color: inherit;
+  color: #fff;
   font-size: 1.15rem;
   cursor: pointer;
   flex-shrink: 0;
@@ -565,7 +565,7 @@
 .ellcy-drawer-backdrop.open { display: block; }
 .ellcy-drawer {
   position: fixed; top: 0; left: 0; bottom: 0;
-  width: 82%; max-width: 320px;
+  width: 82%; max-width: 480px;
   background: #fff;
   z-index: 10001;
   transform: translateX(-100%);

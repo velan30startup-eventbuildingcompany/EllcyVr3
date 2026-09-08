@@ -91,11 +91,11 @@ final class LegacyPage
 
         /* Force the latest shared responsive and calculator assets after an
            update; several legacy templates otherwise reuse a stale browser copy. */
-        foreach (['cart.css', 'header2.css', 'category.css', 'category.js', 'auth.js', 'bouncer.css', 'catering-admin-data.js', 'catering-staff-calc.js', 'detail-single-media.css', 'media-gallery.css', 'media-gallery.js', 'rfc-shared.css', 'services.css', 'services.js', 'service-desc.css', 'service-desc.js'] as $assetName) {
+        foreach (['brand.css', 'cart.css', 'header2.css', 'category.css', 'category.js', 'auth.js', 'bouncer.css', 'catering-admin-data.js', 'catering-staff-calc.js', 'detail-single-media.css', 'media-gallery.css', 'media-gallery.js', 'rfc-shared.css', 'services.css', 'services.js', 'service-desc.css', 'service-desc.js'] as $assetName) {
             $assetPattern = preg_quote($assetName, '/');
             $html = preg_replace_callback(
                 '/(?<url>[^"\']*\/' . $assetPattern . ')(?:\?[^"\']*)?/i',
-                static fn(array $match): string => $match['url'] . '?v=20260903.1',
+                static fn(array $match): string => $match['url'] . '?v=20260903.3',
                 $html
             ) ?? $html;
         }
@@ -106,6 +106,13 @@ final class LegacyPage
         if ($directory === 'services' && !preg_match('/\/cart\.css(?:\?[^"\']*)?["\']/i', $html)) {
             $sharedHeaderCss = '<link rel="stylesheet" href="' . Security::e(APP_URL . '/css/cart.css?v=20260831.1') . '"/>';
             $html = preg_replace('/<\/head>/i', $sharedHeaderCss . '</head>', $html, 1) ?? $html;
+        }
+
+        /* Replace the historical text-only wordmark on every routed legacy
+           page without editing hundreds of archived templates individually. */
+        if (!preg_match('/\/brand\.css(?:\?[^"\']*)?["\']/i', $html)) {
+            $brandCss = '<link rel="stylesheet" href="' . Security::e(PUBLIC_URL . '/css/brand.css?v=20260903.3') . '"/>';
+            $html = preg_replace('/<\/head>/i', $brandCss . '</head>', $html, 1) ?? $html;
         }
 
         /* Apply the same one-media detail rule after each legacy template's

@@ -6,6 +6,7 @@
   <meta name="robots" content="noindex, nofollow"/>
   <title>ELLCY | Login</title>
   <link rel="stylesheet" href="<?= htmlspecialchars(APP_BASE) ?>/css/style.css"/>
+  <link rel="stylesheet" href="<?= htmlspecialchars(PUBLIC_URL) ?>/css/brand.css?v=20260903.3"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" defer></script>
   <style>
     body{background:#f4e9ff;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;font-family:'Segoe UI',system-ui,sans-serif;margin:0}

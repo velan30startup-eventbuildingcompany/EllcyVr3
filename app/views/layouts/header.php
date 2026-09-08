@@ -30,7 +30,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link rel="stylesheet" href="<?= PUBLIC_URL ?>/css/style.css"/>
-  <link rel="stylesheet" href="<?= PUBLIC_URL ?>/css/cart.css"/>
+  <link rel="stylesheet" href="<?= PUBLIC_URL ?>/css/cart.css?v=20260903.2"/>
+  <link rel="stylesheet" href="<?= PUBLIC_URL ?>/css/brand.css?v=20260903.3"/>
   <?php if (!empty($extra_css)): ?>
     <?php foreach ((array)$extra_css as $css): ?>
     <link rel="stylesheet" href="<?= PUBLIC_URL ?>/css/<?= Security::e($css) ?>"/>
@@ -39,7 +40,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" defer></script>
   <script type="application/ld+json"><?= json_encode([
     '@context'=>'https://schema.org','@type'=>'Organization','name'=>'ELLCY',
-    'url'=>APP_URL,'logo'=>rtrim(APP_URL, '/').'/uploads/services/stage.webp'
+    'url'=>APP_URL,'logo'=>rtrim(PUBLIC_URL, '/').'/uploads/branding/ellcy-logo-violet.png'
   ], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE) ?></script>
   <script type="application/ld+json"><?= json_encode([
     '@context'=>'https://schema.org','@type'=>'WebSite','name'=>'ELLCY','url'=>APP_URL,

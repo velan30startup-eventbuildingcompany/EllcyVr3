@@ -1,0 +1,101 @@
+/* Shared ELLCY brand treatment.
+   The supplied wordmark is kept as a real, cached image asset and applied
+   consistently to every customer-facing header and footer variant. */
+:where(
+  header .logo,
+  header .sd-logo,
+  header .snk-logo,
+  header .cm-logo,
+  header .pd-logo,
+  header .bnc-logo,
+  header a[aria-label="ELLCY Home"]
+) {
+  display: inline-block !important;
+  width: 100px !important;
+  min-width: 100px !important;
+  height: 28px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  color: transparent !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+  text-indent: -9999px !important;
+  background: url('../uploads/branding/ellcy-logo-white.png') left center / contain no-repeat !important;
+}
+
+.footer-logo {
+  display: block !important;
+  width: 124px !important;
+  height: 34px !important;
+  overflow: hidden !important;
+  color: transparent !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+  text-indent: -9999px !important;
+  background: url('../uploads/branding/ellcy-logo-white.png') left center / contain no-repeat !important;
+}
+
+/* Authentication and account pages place the wordmark on white. */
+.auth-logo,
+.acct-logo {
+  display: inline-block !important;
+  width: 118px !important;
+  height: 32px !important;
+  overflow: hidden !important;
+  color: transparent !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+  text-indent: -9999px !important;
+  background: url('../uploads/branding/ellcy-logo-violet.png') center / contain no-repeat !important;
+}
+
+.auth-logo {
+  margin: 0 auto 4px !important;
+}
+
+/* Brand-colour section titles replace the previous generic black headings. */
+#svc-heading,
+#evt-heading {
+  color: #6a1b9a !important;
+}
+
+/* Mobile header controls sit on the violet ribbon and must stay white. */
+.ellcy-hamburger,
+.ellcy-hamburger i,
+.ellcy-hamburger svg,
+.hdr-hamburger,
+.hdr-hamburger i,
+.hdr-hamburger svg {
+  color: #fff !important;
+  fill: currentColor !important;
+}
+
+.ellcy-drawer-head,
+.ellcy-drawer-head a,
+.ellcy-drawer-signin,
+.ellcy-drawer-createacct,
+.ellcy-drawer-close,
+.ellcy-drawer-close i,
+.ellcy-drawer-close svg {
+  color: #fff !important;
+}
+
+.ellcy-drawer {
+  max-width: 480px !important;
+}
+
+@media (max-width: 480px) {
+  :where(
+    header .logo,
+    header .sd-logo,
+    header .snk-logo,
+    header .cm-logo,
+    header .pd-logo,
+    header .bnc-logo,
+    header a[aria-label="ELLCY Home"]
+  ) {
+    width: 88px !important;
+    min-width: 88px !important;
+    height: 25px !important;
+  }
+}
