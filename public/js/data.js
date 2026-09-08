@@ -359,6 +359,8 @@ const LABEL_MAP = {
   'stage-decoration':         'Stage Decoration',
   'light-decoration':         'Light Decoration',
   'photography':              'Photography',
+  'photography-pre-post':     'Pre & Post Wedding Photography',
+  'photography-reception-marriage': 'Reception & Marriage Photography',
   'food':                     'Food',
   'dj':                       'DJ',
   'music-performers':         'Music Performers',

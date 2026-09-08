@@ -43,9 +43,9 @@ if ($serviceRoute === 'enter-show-down') {
         'hideCards' => true,
         'showQty' => true,
         'qtyLabel' => 'Number of Entry Effects',
-        'minQty' => 15,
-        'defaultQty' => 15,
-        'maxQty' => 50,
+        'minQty' => 6,
+        'defaultQty' => 6,
+        'maxQty' => 30,
         'overviewHtml' => '<div class="sd-rich-overview"><h2>Make your entrance the moment everyone remembers</h2><p>Choose a professionally managed celebration effect for the couple entry, first dance, stage reveal or special announcement. Our trained team handles positioning, timing and safe operation at the venue.</p><div class="sd-feature-list"><span><i class="fa-solid fa-shield-halved"></i> Safety-checked equipment</span><span><i class="fa-solid fa-stopwatch"></i> Cue-perfect coordination</span><span><i class="fa-solid fa-people-group"></i> On-site trained crew</span></div></div>',
         'packages' => [
             ['key'=>'pyro-show','label'=>'Pyro Show','price'=>299,'adminSlug'=>'pyro-show','img'=>$asset('entershow-pyro-show.jpg'),'desc'=>'A choreographed cold-pyro burst for grand entries and stage highlights.'],
@@ -253,23 +253,43 @@ if ($serviceRoute === 'enter-show-down') {
 } elseif (str_starts_with($serviceRoute, 'photography/')) {
     $categoryLabel = 'Photography';
     $categorySlug = 'photography';
-    $isVideo = str_ends_with($serviceRoute, 'photo-video');
+    $preWeddingVendors = [
+        'raj-photography'=>['name'=>'Raj Photography','price'=>18000,'rating'=>'4.9','admin'=>'photography-raj'],
+        'photo-ventures'=>['name'=>'Photo Ventures','price'=>22000,'rating'=>'4.8','admin'=>'photography-ventures'],
+        'moments-studio'=>['name'=>'Moments Studio','price'=>26000,'rating'=>'4.7','admin'=>'photography-moments'],
+        'lenscraft-chennai'=>['name'=>'LensCraft Chennai','price'=>30000,'rating'=>'4.9','admin'=>'photography-lenscraft'],
+    ];
+    $receptionPackages = [
+        'traditional-photo-video'=>['name'=>'Traditional Photographer & Videographer','price'=>30000],
+        'traditional-candid-photo'=>['name'=>'Traditional Photo, Video & Candid Photo','price'=>42000],
+        'traditional-candid-drone'=>['name'=>'Traditional Photo, Video, Candid Photo & Drone','price'=>55000],
+        'complete-candid-drone'=>['name'=>'Traditional Photo, Video, Candid Photo & Video and Drone','price'=>70000],
+    ];
+    $isPreWedding = preg_match('#^photography/pre-wedding/([^/]+)$#', $serviceRoute, $photoMatch) === 1;
+    $photoKey = $photoMatch[1] ?? basename($serviceRoute);
+    $photo = $isPreWedding ? ($preWeddingVendors[$photoKey] ?? null) : ($receptionPackages[$photoKey] ?? null);
+    if ($photo === null) { http_response_code(404); return; }
+    $photoName = $photo['name'];
+    $photoPrice = (int)$photo['price'];
     $cfg = array_replace($common, [
-        'serviceKey'=>$isVideo ? 'photography-photo-video' : 'photography-photo-package',
-        'adminSlug'=>$isVideo ? 'photography-photo-video' : 'photography-photo-package',
-        'serviceName'=>$isVideo ? 'Photography — Photo + Video' : 'Photography — Photo Package',
-        'slug'=>$isVideo ? 'photography-photo-video' : 'photography-photo-package',
-        'img'=>$asset($isVideo ? 'photography.jpg' : 'photo.png'),'rating'=>'4.8',
-        'availability'=>'Booking Available All Year','subtags'=>$isVideo ? 'Candid Photography | Cinematic Film | Edited Delivery' : 'Candid Photography | Edited Gallery | Full-Day Coverage',
+        'serviceKey'=>'photography-'.$photoKey,
+        'adminSlug'=>$photo['admin'] ?? 'photography-photo-video',
+        'serviceName'=>$photoName,
+        'slug'=>'photography-'.$photoKey,
+        'img'=>$asset('photography.jpg'),'rating'=>$photo['rating'] ?? '4.8',
+        'availability'=>'Booking Available All Year','subtags'=>'Traditional Photography | Candid Moments | Edited Delivery',
         'priceMeta'=>'Natural | Story-led | Timeless','showPkgPills'=>false,
-        'overviewHtml'=>$isVideo
-            ? '<div class="sd-rich-overview"><h2>Your celebration, preserved in photographs and motion</h2><p>A coordinated photo and video team documents the atmosphere, rituals and spontaneous moments without interrupting the natural flow of your event.</p><div class="sd-feature-list"><span><i class="fa-solid fa-camera"></i> Candid & traditional photos</span><span><i class="fa-solid fa-film"></i> Cinematic event film</span><span><i class="fa-solid fa-wand-magic-sparkles"></i> Professionally edited delivery</span></div><h3>What you receive</h3><ul class="sd-inclusions"><li>Full-day event coverage</li><li>High-resolution edited photo gallery</li><li>Cinematic highlight film and complete ceremony video</li><li>Secure digital delivery for easy family sharing</li></ul></div>'
-            : '<div class="sd-rich-overview"><h2>Honest moments, beautifully photographed</h2><p>Your dedicated photographer captures the people, details and emotions that make the day yours—from quiet preparations to the final celebration.</p><div class="sd-feature-list"><span><i class="fa-solid fa-camera"></i> Candid & posed coverage</span><span><i class="fa-solid fa-images"></i> Curated edited gallery</span><span><i class="fa-solid fa-cloud-arrow-down"></i> High-resolution delivery</span></div><h3>What you receive</h3><ul class="sd-inclusions"><li>Full-day professional photography</li><li>Carefully colour-corrected high-resolution images</li><li>Family, couple and event-detail portraits</li><li>Private digital gallery for downloading and sharing</li></ul></div>',
-        'packages'=>[['key'=>$isVideo ? 'photo-video' : 'photo-package','label'=>$isVideo ? 'Photo + Video' : 'Photo Package','price'=>$isVideo ? 30000 : 25000,'img'=>$asset($isVideo ? 'photography.jpg' : 'photo.png'),'desc'=>$isVideo ? 'Complete photography and cinematic video coverage.' : 'Full-day professional photography with an edited digital gallery.']],
+        'overviewHtml'=>'<div class="sd-rich-overview"><h2>Your celebration, preserved beautifully</h2><p>Our experienced photography team documents the rituals, atmosphere and spontaneous moments while keeping your event comfortable and natural.</p><div class="sd-feature-list"><span><i class="fa-solid fa-camera"></i> Candid & traditional coverage</span><span><i class="fa-solid fa-film"></i> Professionally edited delivery</span><span><i class="fa-solid fa-cloud-arrow-down"></i> Secure digital gallery</span></div></div>',
+        'optionGroups'=>$isPreWedding ? [
+            ['key'=>'duration','label'=>'Video Duration','values'=>[['key'=>'1','label'=>'1 Minute','add'=>0],['key'=>'3','label'=>'3 Minutes','add'=>5000],['key'=>'5','label'=>'5 Minutes','add'=>9000],['key'=>'7','label'=>'7 Minutes','add'=>13000]]],
+            ['key'=>'photos','label'=>'Number of Photos','values'=>[['key'=>'50','label'=>'50','add'=>0],['key'=>'100','label'=>'100','add'=>3000],['key'=>'150','label'=>'150','add'=>5500],['key'=>'200','label'=>'200','add'=>8000]]],
+            ['key'=>'locations','label'=>'Locations','values'=>[['key'=>'1','label'=>'1','add'=>0],['key'=>'2','label'=>'2','add'=>4000],['key'=>'3','label'=>'3','add'=>7500],['key'=>'4','label'=>'4','add'=>11000]]],
+        ] : [],
+        'packages'=>[['key'=>$photoKey,'label'=>$photoName,'price'=>$photoPrice,'img'=>$asset('photography.jpg'),'desc'=>'Professional event coverage with carefully edited photo and video delivery.']],
     ]);
     $portfolio = [
-        [$asset($isVideo ? 'photography.jpg' : 'photo.png'), $isVideo ? 'Wedding film and photography moment' : 'Wedding photography moment'],
-        [$asset($isVideo ? 'photo.png' : 'photography.jpg'), 'Celebration highlights'],
+        [$asset('photography.jpg'), 'Wedding photography moment'],
+        [$asset('photo.png'), 'Celebration highlights'],
     ];
 }
 
@@ -300,7 +320,7 @@ $metaDescription = mb_substr(preg_replace('/\s+/', ' ', $metaDescription) ?? '',
   <script type="application/ld+json"><?= json_encode(['@context'=>'https://schema.org','@type'=>'Service','name'=>(string)$cfg['serviceName'],'description'=>$metaDescription,'image'=>$fallbackImage,'areaServed'=>['@type'=>'City','name'=>'Chennai'],'provider'=>['@type'=>'Organization','name'=>'ELLCY','url'=>$base],'offers'=>['@type'=>'Offer','priceCurrency'=>'INR','price'=>(float)($cfg['packages'][0]['price'] ?? 0),'availability'=>'https://schema.org/InStock','url'=>$base.'/services/'.trim($serviceRoute,'/').'/']], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_HEX_TAG) ?></script>
   <script type="application/ld+json"><?= json_encode(['@context'=>'https://schema.org','@type'=>'BreadcrumbList','itemListElement'=>[['@type'=>'ListItem','position'=>1,'name'=>'Home','item'=>$base.'/'],['@type'=>'ListItem','position'=>2,'name'=>$categoryLabel,'item'=>$base.'/services?type='.$categorySlug],['@type'=>'ListItem','position'=>3,'name'=>(string)$cfg['serviceName'],'item'=>$base.'/services/'.trim($serviceRoute,'/').'/']]], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_HEX_TAG) ?></script>
   <link rel="stylesheet" href="<?= $e($base) ?>/css/style.css"/>
-  <link rel="stylesheet" href="<?= $e($base) ?>/css/service-desc.css?v=20260812.1"/>
+  <link rel="stylesheet" href="<?= $e($base) ?>/css/service-desc.css?v=20260908.2"/>
   <link rel="stylesheet" href="<?= $e($base) ?>/css/media-gallery.css?v=20260831.1"/>
   <link rel="stylesheet" href="<?= $e($base) ?>/css/detail-single-media.css?v=20260831.1"/>
   <link rel="stylesheet" href="<?= $e($base) ?>/css/cart.css?v=20260903.2"/>
@@ -337,6 +357,7 @@ $metaDescription = mb_substr(preg_replace('/\s+/', ' ', $metaDescription) ?? '',
     <p class="sd-avail"></p><p class="sd-subtags"></p>
     <div class="sd-group-section"><div class="sd-group-label">Select Occasion</div><div class="sd-group-pills" id="sdGroupPillsD"></div></div>
     <div class="sd-pkg-section"><div class="sd-pkg-label">Select Package</div><div class="sd-pkg-pills" id="sdPkgPillsD"></div></div>
+    <div class="sd-option-groups" id="sdOptionGroupsD"></div>
     <div class="sd-slot-section"><div class="sd-slot-label">Preferred Time Slot</div><div class="sd-slot-pills"><button class="sd-slot-pill active" data-slot="Morning">Morning</button><button class="sd-slot-pill" data-slot="Evening">Evening</button><button class="sd-slot-pill" data-slot="Both">Both</button></div></div>
     <div class="sd-dsk-price-block"><div class="sd-dsk-price-line"><span class="sd-price-val" id="sdPriceD">0</span><span class="sd-price-meta-d"></span></div><div class="sd-dsk-ctas"><button class="sd-btn-cart" id="btnCartD" type="button"><i class="fa-solid fa-cart-shopping"></i> Add to Cart</button><a class="sd-btn-call" href="<?= $e($base) ?>/request-for-call"><i class="fa-solid fa-phone"></i> Request for Call</a></div></div>
   </div>
@@ -348,20 +369,26 @@ $metaDescription = mb_substr(preg_replace('/\s+/', ' ', $metaDescription) ?? '',
     <p class="sd-avail"></p><p class="sd-subtags"></p>
     <div class="sd-group-section"><div class="sd-group-label">Select Occasion</div><div class="sd-group-pills" id="sdGroupPillsM"></div></div>
     <div class="sd-pkg-section"><div class="sd-pkg-label">Select Package</div><div class="sd-pkg-pills" id="sdPkgPillsM"></div></div>
+    <div class="sd-option-groups" id="sdOptionGroupsM"></div>
     <div class="sd-slot-section"><div class="sd-slot-label">Preferred Time Slot</div><div class="sd-slot-pills"><button class="sd-slot-pill active" data-slot="Morning">Morning</button><button class="sd-slot-pill" data-slot="Evening">Evening</button><button class="sd-slot-pill" data-slot="Both">Both</button></div></div>
     <div class="sd-price-block"><span class="sd-price-val" id="sdPrice">0</span><span class="sd-price-meta"></span></div>
     <div class="sd-cta-row"><button class="sd-btn-cart" id="btnCartM" type="button"><i class="fa-solid fa-cart-shopping"></i> Add to Cart</button><a class="sd-btn-call" href="<?= $e($base) ?>/request-for-call"><i class="fa-solid fa-phone"></i> Request for Call</a></div>
   </div>
 
   <div class="sd-tabs" role="tablist">
-    <button type="button" class="sd-tab active" data-tab="overview" role="tab" aria-selected="true">Overview</button>
-    <button type="button" class="sd-tab" data-tab="reviews" role="tab" aria-selected="false">Reviews</button>
-    <?php if ($portfolio): ?><button type="button" class="sd-tab" data-tab="portfolio" role="tab" aria-selected="false">Portfolio</button><?php endif; ?>
+    <?php if ($portfolio): ?>
+      <button type="button" class="sd-tab active" data-tab="portfolio" role="tab" aria-selected="true">Portfolio</button>
+      <button type="button" class="sd-tab" data-tab="reviews" role="tab" aria-selected="false">Reviews</button>
+      <button type="button" class="sd-tab" data-tab="overview" role="tab" aria-selected="false">Overview</button>
+    <?php else: ?>
+      <button type="button" class="sd-tab active" data-tab="overview" role="tab" aria-selected="true">Overview</button>
+      <button type="button" class="sd-tab" data-tab="reviews" role="tab" aria-selected="false">Reviews</button>
+    <?php endif; ?>
   </div>
-  <div class="sd-tab-body" id="tabOverview" role="tabpanel"></div>
+  <div class="sd-tab-body <?= $portfolio ? 'hidden' : '' ?>" id="tabOverview" role="tabpanel"></div>
   <div class="sd-tab-body hidden" id="tabReviews" role="tabpanel"><p>No reviews yet.</p></div>
   <?php if ($portfolio): ?>
-  <div class="sd-tab-body hidden" id="tabPortfolio" role="tabpanel"><div class="photo-portfolio-grid">
+  <div class="sd-tab-body" id="tabPortfolio" role="tabpanel"><div class="photo-portfolio-grid">
     <?php foreach ($portfolio as $item): ?><figure><img src="<?= $e($item[0]) ?>" alt="<?= $e($item[1]) ?>" loading="lazy"/><figcaption><?= $e($item[1]) ?></figcaption></figure><?php endforeach; ?>
   </div></div>
   <?php endif; ?>
@@ -386,6 +413,6 @@ $metaDescription = mb_substr(preg_replace('/\s+/', ' ', $metaDescription) ?? '',
 <script src="<?= $e($base) ?>/js/cart.js"></script>
 <?php if ($showReferenceUpload): ?><script>window.ELLCY_JEWELLERY_SERVICE = <?= json_encode((string)$cfg['serviceKey']) ?>;</script><script src="<?= $e($base) ?>/js/jewellery-reference.js?v=20260811.2"></script><?php endif; ?>
 <script src="<?= $e($base) ?>/js/media-gallery.js?v=20260831.1"></script>
-<script src="<?= $e($base) ?>/js/service-desc.js?v=20260903.1"></script>
+<script src="<?= $e($base) ?>/js/service-desc.js?v=20260908.2"></script>
 </body>
 </html>

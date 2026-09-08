@@ -77,9 +77,13 @@ document.addEventListener('DOMContentLoaded', () => {
     function normImg(p) { return p ? p.replace(/^\.\.\//, '') : 'uploads/services/stage.webp'; }
 
     const index = [];
+    const AVAILABLE_SEARCH_SLUGS = new Set([
+      'dj','decoration','stage-decoration','light-decoration','food','chenda-melam','musical-band','band-set','melam-set','nadhaswaram-thavil','bouncers','entertainment-activities','human-doll','360-camera','photo-booth','snacks-stalls','enter-show-down','catering-boys','dancers','dancers-male','dancers-female','dancers-coed','plates-decoration','aarti-plates','seer-plates','real-flowers','fake-jewellery','flower-rangoli','car-entry','bridal-groom-styling','mehandi'
+    ]);
 
     // 1. All standard SERVICES_DATA packages
     Object.entries(SERVICES_DATA).forEach(([slug, items]) => {
+      if (slug === 'photography' || !AVAILABLE_SEARCH_SLUGS.has(slug)) return;
       items.forEach(svc => {
         // Determine the correct route for this item
         let route;
@@ -104,21 +108,11 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    // 2. Photography package (with all filter variants)
-    PHOTOGRAPHY_FILTERS.forEach(f => {
-      const price = PHOTOGRAPHY_BASE_PRICE + f.addPrice;
-      index.push({
-        id:          'photo-' + f.key,
-        title:       'Photography – ' + f.label,
-        description: PHOTOGRAPHY_PACKAGE.description,
-        base_price:  price,
-        image:       normImg(PHOTOGRAPHY_PACKAGE.image),
-        slug:        'photography',
-        category:    'Photography',
-        route:       'pages/photo-description.html',
-        hasPriceBadge: true,
-      });
-    });
+    // 2. Photography contains only the two journeys currently published.
+    [
+      {id:'photo-pre-post',title:'Pre & Post Wedding Photography',description:'Browse available pre-wedding photographers. Post-wedding services are not listed yet.',price:18000,route:'services?type=photography-pre-post'},
+      {id:'photo-reception',title:'Reception & Marriage Photography',description:'Traditional, candid, video and drone coverage packages.',price:30000,route:'services?type=photography-reception-marriage'}
+    ].forEach(function(photo){index.push({id:photo.id,title:photo.title,description:photo.description,base_price:photo.price,image:'uploads/services/photography.webp',slug:'photography',category:'Photography',route:photo.route,hasPriceBadge:true});});
 
     // 3. Chenda Melam member packages
     const CHENDA_PACKAGES = [
@@ -238,7 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    return index;
+    return index.filter(function(item){ return item.slug === 'photography' || AVAILABLE_SEARCH_SLUGS.has(item.slug); });
   }
 
   const SEARCH_INDEX = buildSearchIndex();

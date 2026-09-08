@@ -46,6 +46,12 @@ final class LegacyPage
                     (in_array($bmwRoute[1], ['7-series', '3-series', '2-series'], true) ? 'series' : 'x-m-models');
             }
 
+            if ($serviceRoute === 'photography/photo-package') {
+                $serviceRoute = 'photography/pre-wedding/raj-photography';
+            } elseif ($serviceRoute === 'photography/photo-video') {
+                $serviceRoute = 'photography/reception-marriage/traditional-photo-video';
+            }
+
             $usesPhpDetail = in_array($serviceRoute, [
                 'enter-show-down',
                 'fake-jewellery',
@@ -53,8 +59,6 @@ final class LegacyPage
                 'jewellery/silver-style',
                 'jewellery/kundan-style',
                 'entertainment-activities',
-                'photography/photo-package',
-                'photography/photo-video',
                 'real-flowers',
                 'flower-rangoli',
                 'car-entry/luxury-cars/bmw/series',
@@ -62,7 +66,9 @@ final class LegacyPage
             ], true) || preg_match(
                 '#^plates-decoration/(?:aarti|seer)-plates/(?:9|11|15|21)-plates$#',
                 $serviceRoute
-            ) || preg_match('#^flower-rangoli/(?:3x3|4x4|5x5|6x6)-feet$#', $serviceRoute);
+            ) || preg_match('#^flower-rangoli/(?:3x3|4x4|5x5|6x6)-feet$#', $serviceRoute)
+              || preg_match('#^photography/pre-wedding/(?:raj-photography|photo-ventures|moments-studio|lenscraft-chennai)$#', $serviceRoute)
+              || preg_match('#^photography/reception-marriage/(?:traditional-photo-video|traditional-candid-photo|traditional-candid-drone|complete-candid-drone)$#', $serviceRoute);
 
             if ($usesPhpDetail) {
                 require VIEWS_PATH . '/public/service_detail.php';
@@ -95,7 +101,7 @@ final class LegacyPage
             $assetPattern = preg_quote($assetName, '/');
             $html = preg_replace_callback(
                 '/(?<url>[^"\']*\/' . $assetPattern . ')(?:\?[^"\']*)?/i',
-                static fn(array $match): string => $match['url'] . '?v=20260903.3',
+                static fn(array $match): string => $match['url'] . '?v=20260908.2',
                 $html
             ) ?? $html;
         }
@@ -121,6 +127,14 @@ final class LegacyPage
         if ($directory === 'services' && !preg_match('/\/detail-single-media\.css(?:\?[^"\']*)?["\']/i', $html)) {
             $singleMediaCss = '<link rel="stylesheet" href="' . Security::e(APP_URL . '/css/detail-single-media.css?v=20260831.1') . '"/>';
             $html = preg_replace('/<\/head>/i', $singleMediaCss . '</head>', $html, 1) ?? $html;
+        }
+
+
+        if ($directory === 'services' && preg_match('#^dancers/(?:male|female|coed)-team/\d+-members/index\.html$#', $relativeFile)) {
+            $dancerCss = '<link rel="stylesheet" href="' . Security::e(APP_URL . '/css/dancer-package-filter.css?v=20260908.2') . '"/>';
+            $dancerJs = '<script src="' . Security::e(APP_URL . '/js/dancer-package-filter.js?v=20260908.2') . '"></script>';
+            $html = preg_replace('/<\/head>/i', $dancerCss . '</head>', $html, 1) ?? $html;
+            $html = preg_replace('/<\/body>/i', $dancerJs . '</body>', $html, 1) ?? $html;
         }
 
         if ($directory === 'pages') {

@@ -427,3 +427,4 @@ a:hover{color:var(--accent);}
     white-space: normal;
   }
 }
+.photo-availability-switch{display:flex;gap:8px;margin:0 0 20px}.photo-availability-switch button{min-height:42px;padding:8px 18px;border:1px solid #d9c5ee;border-radius:10px;background:#fff;color:#6b21a8;font:inherit;font-weight:700;cursor:pointer}.photo-availability-switch button.active{border-color:#741bb0;background:#741bb0;color:#fff}.photo-empty-state{grid-column:1/-1;padding:54px 24px;border:1px dashed #d7c3e8;border-radius:18px;background:#fbf7ff;text-align:center;color:#5d4c69}.photo-empty-state i{font-size:2rem;color:#7b1fb5}.photo-empty-state h3{margin:14px 0 6px;color:#171025}.photo-empty-state p{margin:0}@media(max-width:600px){.photo-availability-switch{display:grid;grid-template-columns:1fr 1fr}.photo-availability-switch button{padding:8px 6px;font-size:.82rem}}

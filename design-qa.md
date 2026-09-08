@@ -109,3 +109,17 @@ final result: passed
 - Browser console check returned no warnings or errors. All PHP files and all public JavaScript files passed syntax validation; the dependency audit reported zero vulnerabilities, required security headers were present, and `git diff --check` passed.
 
 final result: passed
+
+## Final dancer, catering, search, Enter Show Down and Photography flows — 2026-09-08
+
+- Source reference: `C:\Users\Akash\AppData\Local\Temp\codex-clipboard-2a61989e-dd0b-48e2-9115-6a65e71641ef.png`.
+- Implementation captures: `C:\Users\Akash\AppData\Local\Temp\ellcy-breakfast-direct-verified.png`, `ellcy-photo-mobile-verified.png`, and `ellcy-dancer-mobile-verified.png`.
+- Combined catering route comparison: `C:\Users\Akash\AppData\Local\Temp\ellcy-final-catering-comparison.png`. The old Breakfast choice screen is intentionally bypassed and its destination opens the working Banana Leaf detail/calculator; Dinner retains the supplied two-card style choice.
+- All 19 routed dancer package pages receive the Without DJ / Include DJ selector. The verified 4-member male package changed from ₹11,196 to ₹21,195 when DJ was included.
+- Enter Show Down exposes a minimum of 6 and maximum of 30 entry effects.
+- Photography now opens two journeys. Pre Wedding lists four rated vendors, Post Wedding presents an explicit unavailable state, and Reception & Marriage lists the four requested coverage packages.
+- Pre-Wedding detail pages expose Video Duration (1/3/5/7 minutes), Number of Photos (50/100/150/200), and Locations (1/2/3/4). Selections update price and cart payload. Photography tabs render Portfolio, Reviews, Overview in that order.
+- Search returned exactly the two published Photography journeys and excluded the unavailable Invitation service in the interaction test.
+- All 17 representative new/compatibility routes returned HTTP 200, all PHP files and public JavaScript files passed syntax checks, npm reported zero vulnerabilities, `git diff --check` passed, and verified browser pages logged no console errors.
+
+final result: passed

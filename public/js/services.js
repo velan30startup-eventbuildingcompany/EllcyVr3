@@ -144,7 +144,19 @@
     ════════════════════════════════════════════════════ */
     if (type === 'photography') {
       if (filterContainer) filterContainer.style.display = 'none';
-      renderPhotography(ph, grid);
+      renderPhotographyGroups(ph, grid);
+      setYear(); return;
+    }
+    if (type === 'photography-pre-post') {
+      if (filterContainer) filterContainer.style.display = 'none';
+      if (bc) bc.innerHTML = '<a href="'+appPath('services?type=photography')+'" style="color:#6b21a8;text-decoration:none">Photography</a> / Pre &amp; Post Wedding';
+      renderPrePostWedding(ph, grid);
+      setYear(); return;
+    }
+    if (type === 'photography-reception-marriage') {
+      if (filterContainer) filterContainer.style.display = 'none';
+      if (bc) bc.innerHTML = '<a href="'+appPath('services?type=photography')+'" style="color:#6b21a8;text-decoration:none">Photography</a> / Reception &amp; Marriage';
+      renderReceptionMarriage(ph, grid);
       setYear(); return;
     }
 
@@ -1046,21 +1058,18 @@
 
   /* Photography: single package card — NO filter pills on this page.
      Filter pills live exclusively on ../services/photography/index.html (the booking page). */
-  function renderPhotography(ph, grid) {
+  function renderPhotographyGroups(ph, grid) {
     if (!grid) return;
     if (ph) ph.textContent = 'Photography';
     grid.innerHTML = '';
     grid.classList.add('music-performer-grid');
-
     [
-      { dir:'photo-package', label:'Photo Package', price:25000, rating:4.8,
-        desc:'Professional photo-only coverage for your full-day event — dedicated photographer, edited gallery delivered digitally.', tag:'Photo-only coverage' },
-      { dir:'photo-video', label:'Photo + Video', price:30000, rating:4.8,
-        desc:'Complete photo and cinematic video coverage — professional photographer plus a videography team with edited highlight reel.', tag:'Photo + video coverage' },
+      { type:'photography-pre-post', label:'Pre & Post Wedding', price:18000, rating:4.9, desc:'Choose a trusted pre-wedding photography vendor. Post-wedding services are currently unavailable.', tag:'Vendor packages' },
+      { type:'photography-reception-marriage', label:'Reception & Marriage', price:30000, rating:4.8, desc:'Choose from four photography and videography coverage combinations for your event.', tag:'Four coverage options' },
     ].forEach(function(pkg) {
       var a = document.createElement('a');
       a.className = 'service-card music-performer-card';
-      a.href = appPath('services/photography/' + pkg.dir + '/');
+      a.href = appPath('services?type=' + pkg.type);
       a.setAttribute('aria-label', pkg.label);
       a.innerHTML = `
         <div class="card-image music-performer-image">
@@ -1083,6 +1092,36 @@
       grid.appendChild(a);
     });
     ensureMusicPerformerListingStyles();
+  }
+
+  function renderPhotographyCards(grid, cards) {
+    if (!grid) return; grid.innerHTML=''; grid.classList.add('music-performer-grid');
+    cards.forEach(function(pkg){var a=document.createElement('a');a.className='service-card music-performer-card';a.href=appPath(pkg.href);a.setAttribute('aria-label',pkg.label);a.innerHTML='<div class="card-image music-performer-image"><img src="../uploads/services/photography.webp" alt="'+esc(pkg.label)+'" loading="lazy"/></div><div class="card-body music-performer-body"><div class="music-performer-toprow"><h3 class="card-title music-performer-title">'+esc(pkg.label)+'</h3><span class="music-performer-rating"><i class="fa-solid fa-star" aria-hidden="true"></i> '+Number(pkg.rating||4.8).toFixed(1)+'</span></div><p class="card-desc music-performer-desc">'+esc(pkg.desc)+'</p><div class="music-performer-price-row"><span class="music-performer-price-label">Starting Package</span><span class="music-performer-price">'+esc(fmt(pkg.price))+' <span>onwards</span></span></div><div class="music-performer-tags"><span class="music-performer-tag"><i class="fa-solid fa-medal"></i> '+esc(pkg.tag)+'</span></div></div>';grid.appendChild(a);});
+    ensureMusicPerformerListingStyles();
+  }
+
+  function renderPrePostWedding(ph, grid) {
+    if(ph) ph.textContent='Pre & Post Wedding Photography';
+    var switcher=document.createElement('div');switcher.className='photo-availability-switch';switcher.innerHTML='<button type="button" class="active" data-view="pre">Pre Wedding</button><button type="button" data-view="post">Post Wedding</button>';
+    grid.parentNode.insertBefore(switcher,grid);
+    var vendors=[
+      {label:'Raj Photography',href:'services/photography/pre-wedding/raj-photography/',price:18000,rating:4.9,desc:'Natural pre-wedding portraits with guided posing and professionally edited delivery.',tag:'Couple portraits'},
+      {label:'Photo Ventures',href:'services/photography/pre-wedding/photo-ventures/',price:22000,rating:4.8,desc:'Cinematic pre-wedding stories across your preferred Chennai locations.',tag:'Cinematic stories'},
+      {label:'Moments Studio',href:'services/photography/pre-wedding/moments-studio/',price:26000,rating:4.7,desc:'Editorial couple photography with a warm, contemporary visual style.',tag:'Editorial style'},
+      {label:'LensCraft Chennai',href:'services/photography/pre-wedding/lenscraft-chennai/',price:30000,rating:4.9,desc:'Premium photo and video production for a polished pre-wedding campaign.',tag:'Premium production'}
+    ];
+    function show(view){switcher.querySelectorAll('button').forEach(function(b){b.classList.toggle('active',b.dataset.view===view);});if(view==='post'){grid.innerHTML='<div class="photo-empty-state"><i class="fa-regular fa-calendar-xmark"></i><h3>Post-wedding services are not listed yet</h3><p>Please choose Pre Wedding to view available photographers.</p></div>';}else renderPhotographyCards(grid,vendors);}
+    switcher.addEventListener('click',function(e){var b=e.target.closest('button[data-view]');if(b)show(b.dataset.view);});show('pre');
+  }
+
+  function renderReceptionMarriage(ph, grid) {
+    if(ph) ph.textContent='Reception & Marriage Photography';
+    renderPhotographyCards(grid,[
+      {label:'Traditional Photographer & Videographer',href:'services/photography/reception-marriage/traditional-photo-video/',price:30000,rating:4.8,desc:'Complete traditional photography and videography coverage.',tag:'Essential coverage'},
+      {label:'Traditional Photo, Video & Candid Photo',href:'services/photography/reception-marriage/traditional-candid-photo/',price:42000,rating:4.8,desc:'Traditional coverage plus a dedicated candid photographer.',tag:'Candid photography'},
+      {label:'Traditional Photo, Video, Candid Photo & Drone',href:'services/photography/reception-marriage/traditional-candid-drone/',price:55000,rating:4.9,desc:'Traditional and candid coverage with cinematic aerial footage.',tag:'Drone coverage'},
+      {label:'Traditional Photo, Video, Candid Photo & Video and Drone',href:'services/photography/reception-marriage/complete-candid-drone/',price:70000,rating:4.9,desc:'Our complete photo, candid video and drone production package.',tag:'Complete production'}
+    ]);
   }
 
   function renderPhotographyLegacy(ph, grid) {

@@ -153,6 +153,17 @@ $router->get('/services/*', function (string $path) use ($serveLegacyHtml, $redi
         return;
     }
 
+    /* Breakfast and Lunch now open the booking description directly.
+       Dinner intentionally retains the Banana Leaf / Buffet choice. */
+    if (in_array($path, [
+        'catering-boys/boys/breakfast', 'catering-boys/boys/breakfast/index.html',
+        'catering-boys/boys/lunch', 'catering-boys/boys/lunch/index.html',
+    ], true)) {
+        $meal = str_contains($path, '/lunch') ? 'lunch' : 'breakfast';
+        $redirectWithQuery('/services/catering-boys/boys/' . $meal . '/banana/');
+        return;
+    }
+
     if (preg_match('#^(.*?)/?index\.html$#i', $path, $match)) {
         $cleanPath = trim($match[1], '/');
         $redirectWithQuery('/services' . ($cleanPath !== '' ? '/' . $cleanPath . '/' : ''));

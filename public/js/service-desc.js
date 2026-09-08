@@ -80,12 +80,17 @@
   var HAS_SLOTS  = C.showSlotPills !== false;
   var activeKey  = qs.get('pkg') || C.defaultPkg || (PACKAGES[0] ? PACKAGES[0].key : '');
   var activeSlot = 'Morning';
+  var OPTION_GROUPS = Array.isArray(C.optionGroups) ? C.optionGroups : [];
+  var optionSelections = {};
+  OPTION_GROUPS.forEach(function(group){ if(group.values && group.values[0]) optionSelections[group.key] = group.values[0].key; });
 
   function fmt(n) { return Number(n).toLocaleString('en-IN'); }
   function getPkg() { return PACKAGES.find(function(p){ return p.key === activeKey; }) || PACKAGES[0]; }
   function getPrice(p) {
     if (!p) return 0;
-    return (HAS_SLOTS && activeSlot === 'Both' && p.priceB) ? p.priceB : p.price;
+    var price = (HAS_SLOTS && activeSlot === 'Both' && p.priceB) ? p.priceB : p.price;
+    OPTION_GROUPS.forEach(function(group){var selected=(group.values||[]).find(function(value){return String(value.key)===String(optionSelections[group.key]);});price+=Number(selected&&selected.add||0);});
+    return price;
   }
   function $(id) { return document.getElementById(id); }
   function esc(s) { var d=document.createElement('div'); d.textContent=String(s||''); return d.innerHTML; }
@@ -266,6 +271,20 @@
   }
   renderPkgPills();
 
+  function renderOptionGroups() {
+    ['sdOptionGroupsM','sdOptionGroupsD'].forEach(function(id){
+      var host=$(id); if(!host) return; host.innerHTML='';
+      OPTION_GROUPS.forEach(function(group){
+        var section=document.createElement('div'); section.className='sd-custom-option';
+        section.innerHTML='<div class="sd-custom-option__label">'+esc(group.label)+'</div><div class="sd-custom-option__values"></div>';
+        var values=section.querySelector('.sd-custom-option__values');
+        (group.values||[]).forEach(function(value){var button=document.createElement('button');button.type='button';button.className='sd-custom-option__button'+(String(optionSelections[group.key])===String(value.key)?' active':'');button.textContent=value.label;button.setAttribute('aria-pressed',String(String(optionSelections[group.key])===String(value.key)));button.addEventListener('click',function(){optionSelections[group.key]=value.key;renderOptionGroups();updateAll();});values.appendChild(button);});
+        host.appendChild(section);
+      });
+    });
+  }
+  renderOptionGroups();
+
   /* ── Time slot pills ──────────────────────────────────────── */
   if (!HAS_SLOTS) {
     document.querySelectorAll('.sd-slot-section').forEach(function(el){ el.style.display='none'; });
@@ -441,7 +460,9 @@
     var p     = getPkg();
     var price = getPrice(p) * (HAS_QTY ? qty : 1);
     var g     = HAS_GROUPS ? getGroup() : null;
-    var uid   = C.serviceKey + '-' + (g ? g.key + '-' : '') + (p ? p.key : 'default') + '-' + activeSlot + (HAS_QTY ? '-' + qty : '');
+    var optionText = OPTION_GROUPS.map(function(group){var value=(group.values||[]).find(function(v){return String(v.key)===String(optionSelections[group.key]);});return group.label+': '+(value?value.label:'');}).join(', ');
+    var optionKey = OPTION_GROUPS.map(function(group){return group.key+'-'+optionSelections[group.key];}).join('-');
+    var uid   = C.serviceKey + '-' + (g ? g.key + '-' : '') + (p ? p.key : 'default') + '-' + activeSlot + (HAS_QTY ? '-' + qty : '') + (optionKey?'-'+optionKey:'');
     EllcyCart.add({
       uid:     uid,
       id:      uid,
@@ -449,7 +470,7 @@
       price:   price,
       image:   (p && p.img) || C.img,
       slug:    C.serviceKey,
-      package: (g ? g.label + ' – ' : '') + (p ? p.label : '') + (HAS_QTY ? ' (' + qty + ')' : ''),
+      package: (g ? g.label + ' – ' : '') + (p ? p.label : '') + (HAS_QTY ? ' (' + qty + ')' : '') + (optionText ? ' — ' + optionText : ''),
       package_slug: p && p.slug ? p.slug : '',
       reference_upload_token: window.ELLCY_JEWELLERY_REFERENCE_TOKEN || '',
       slot:    HAS_SLOTS ? activeSlot : '',
@@ -465,7 +486,9 @@
     var p     = getPkg();
     var price = getPrice(p) * (HAS_QTY ? qty : 1);
     var g     = HAS_GROUPS ? getGroup() : null;
-    var uid   = C.serviceKey + '-' + (g ? g.key + '-' : '') + (p ? p.key : 'default') + '-' + activeSlot + (HAS_QTY ? '-' + qty : '');
+    var optionText = OPTION_GROUPS.map(function(group){var value=(group.values||[]).find(function(v){return String(v.key)===String(optionSelections[group.key]);});return group.label+': '+(value?value.label:'');}).join(', ');
+    var optionKey = OPTION_GROUPS.map(function(group){return group.key+'-'+optionSelections[group.key];}).join('-');
+    var uid   = C.serviceKey + '-' + (g ? g.key + '-' : '') + (p ? p.key : 'default') + '-' + activeSlot + (HAS_QTY ? '-' + qty : '') + (optionKey?'-'+optionKey:'');
     EllcyCart.buyNow({
       uid:     uid,
       id:      uid,
@@ -473,7 +496,7 @@
       price:   price,
       image:   (p && p.img) || C.img,
       slug:    C.serviceKey,
-      package: (g ? g.label + ' – ' : '') + (p ? p.label : '') + (HAS_QTY ? ' (' + qty + ')' : ''),
+      package: (g ? g.label + ' – ' : '') + (p ? p.label : '') + (HAS_QTY ? ' (' + qty + ')' : '') + (optionText ? ' — ' + optionText : ''),
       package_slug: p && p.slug ? p.slug : '',
       reference_upload_token: window.ELLCY_JEWELLERY_REFERENCE_TOKEN || '',
       slot:    HAS_SLOTS ? activeSlot : '',
