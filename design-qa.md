@@ -133,3 +133,21 @@ final result: passed
 - Login and Home returned HTTP 200 and produced no browser console warnings or errors. PHP syntax validation and `git diff --check` passed.
 
 final result: passed
+
+## Photography vendor journeys, DJ cleanup and typography restoration — 2026-09-09
+
+- Source visual truth: `C:\Users\Akash\AppData\Local\Temp\codex-clipboard-3281ecb1-ad26-4437-a070-05781bd57796.png` (1550 × 562 px).
+- Browser-rendered implementation: `C:\Users\Akash\AppData\Local\Temp\ellcy-photography-vendors-viewport.png` (1265 × 712 px browser content at the active 1280 px desktop viewport).
+- Normalized focused comparison: `C:\Users\Akash\AppData\Local\Temp\ellcy-photography-vendor-comparison.png`; both four-card regions were normalized to 1315 × 508 px at device scale factor 1.
+- State: logged-out customer viewing the Traditional Photo, Video, Candid Photo & Drone vendor step.
+- Full-view evidence: the implementation preserves the existing header/footer and places four complete vendor cards in one desktop row without clipping or overflow.
+- Focused evidence: image crops, card radii, title/rating alignment, description rhythm, dashed price divider, violet pricing and rounded specialty tags match the supplied vendor-card reference. Coverage-specific prices and descriptions are intentional product data changes.
+- Fonts and typography: the temporary Open Sans override was removed; customer service pages again compute to the original `Urbanist, sans-serif` stack with the prior weights, line heights and wrapping.
+- Colors and tokens: existing ELLCY violet, white surfaces, neutral copy and pale-violet tags remain unchanged from the reference system.
+- Image quality: the existing sharp photography asset is used with the reference-aligned crop and `object-fit: cover`; no placeholders or synthetic assets were introduced.
+- Copy and flow: Pre Wedding and Post Wedding each list Raj Photography, Photo Ventures, Moments Studio and LensCraft Chennai. Every Reception & Marriage coverage category now opens its own four-vendor list before the vendor description page. DJ experience-year pills are absent.
+- Interaction evidence: Post Wedding switching, vendor selection, all four coverage-category vendor steps and final detail navigation were exercised in the browser. Portfolio, Reviews and Overview remain in the required order.
+- Route and engineering evidence: 30 photography listing/detail URLs returned HTTP 200; PHP and JavaScript syntax checks, `git diff --check`, and browser console checks passed.
+- Findings: no actionable P0, P1 or P2 differences remain. The original responsive two-column mobile card rules were preserved unchanged.
+
+final result: passed

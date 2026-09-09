@@ -265,27 +265,64 @@ if ($serviceRoute === 'enter-show-down') {
         'traditional-candid-drone'=>['name'=>'Traditional Photo, Video, Candid Photo & Drone','price'=>55000],
         'complete-candid-drone'=>['name'=>'Traditional Photo, Video, Candid Photo & Video and Drone','price'=>70000],
     ];
-    $isPreWedding = preg_match('#^photography/pre-wedding/([^/]+)$#', $serviceRoute, $photoMatch) === 1;
-    $photoKey = $photoMatch[1] ?? basename($serviceRoute);
-    $photo = $isPreWedding ? ($preWeddingVendors[$photoKey] ?? null) : ($receptionPackages[$photoKey] ?? null);
+    $vendorPremiums = [
+        'raj-photography'=>0,
+        'photo-ventures'=>5000,
+        'moments-studio'=>10000,
+        'lenscraft-chennai'=>15000,
+    ];
+    $photoMatch = [];
+    $portraitJourney = preg_match('#^photography/(pre|post)-wedding/([^/]+)$#', $serviceRoute, $photoMatch) === 1;
+    $eventVendorJourney = preg_match('#^photography/reception-marriage/([^/]+)/([^/]+)$#', $serviceRoute, $eventPhotoMatch) === 1;
+    $legacyEventJourney = !$eventVendorJourney && preg_match('#^photography/reception-marriage/([^/]+)$#', $serviceRoute, $legacyPhotoMatch) === 1;
+
+    if ($portraitJourney) {
+        $journeyLabel = ucfirst($photoMatch[1]) . ' Wedding';
+        $vendorKey = $photoMatch[2];
+        $coverageKey = '';
+        $photo = $preWeddingVendors[$vendorKey] ?? null;
+        $photoPrice = (int)($photo['price'] ?? 0);
+    } elseif ($eventVendorJourney) {
+        $coverageKey = $eventPhotoMatch[1];
+        $vendorKey = $eventPhotoMatch[2];
+        $coverage = $receptionPackages[$coverageKey] ?? null;
+        $photo = $preWeddingVendors[$vendorKey] ?? null;
+        $journeyLabel = $coverage['name'] ?? 'Reception & Marriage Photography';
+        $photoPrice = (int)($coverage['price'] ?? 0) + (int)($vendorPremiums[$vendorKey] ?? 0);
+    } elseif ($legacyEventJourney) {
+        $coverageKey = $legacyPhotoMatch[1];
+        $vendorKey = $coverageKey;
+        $photo = $receptionPackages[$coverageKey] ?? null;
+        $journeyLabel = $photo['name'] ?? 'Reception & Marriage Photography';
+        $photoPrice = (int)($photo['price'] ?? 0);
+    } else {
+        $photo = null;
+        $photoPrice = 0;
+        $vendorKey = '';
+        $coverageKey = '';
+        $journeyLabel = '';
+    }
     if ($photo === null) { http_response_code(404); return; }
     $photoName = $photo['name'];
-    $photoPrice = (int)$photo['price'];
+    $detailName = $photoName;
+    $photoRouteKey = $portraitJourney
+        ? $photoMatch[1] . '-wedding-' . $vendorKey
+        : ($legacyEventJourney ? $coverageKey : trim($coverageKey . '-' . $vendorKey, '-'));
     $cfg = array_replace($common, [
-        'serviceKey'=>'photography-'.$photoKey,
+        'serviceKey'=>'photography-'.$photoRouteKey,
         'adminSlug'=>$photo['admin'] ?? 'photography-photo-video',
-        'serviceName'=>$photoName,
-        'slug'=>'photography-'.$photoKey,
+        'serviceName'=>$detailName,
+        'slug'=>'photography-'.$photoRouteKey,
         'img'=>$asset('photography.jpg'),'rating'=>$photo['rating'] ?? '4.8',
-        'availability'=>'Booking Available All Year','subtags'=>'Traditional Photography | Candid Moments | Edited Delivery',
+        'availability'=>'Booking Available All Year','subtags'=>$journeyLabel . ' | Edited Delivery | Professional Team',
         'priceMeta'=>'Natural | Story-led | Timeless','showPkgPills'=>false,
         'overviewHtml'=>'<div class="sd-rich-overview"><h2>Your celebration, preserved beautifully</h2><p>Our experienced photography team documents the rituals, atmosphere and spontaneous moments while keeping your event comfortable and natural.</p><div class="sd-feature-list"><span><i class="fa-solid fa-camera"></i> Candid & traditional coverage</span><span><i class="fa-solid fa-film"></i> Professionally edited delivery</span><span><i class="fa-solid fa-cloud-arrow-down"></i> Secure digital gallery</span></div></div>',
-        'optionGroups'=>$isPreWedding ? [
+        'optionGroups'=>$portraitJourney ? [
             ['key'=>'duration','label'=>'Video Duration','values'=>[['key'=>'1','label'=>'1 Minute','add'=>0],['key'=>'3','label'=>'3 Minutes','add'=>5000],['key'=>'5','label'=>'5 Minutes','add'=>9000],['key'=>'7','label'=>'7 Minutes','add'=>13000]]],
             ['key'=>'photos','label'=>'Number of Photos','values'=>[['key'=>'50','label'=>'50','add'=>0],['key'=>'100','label'=>'100','add'=>3000],['key'=>'150','label'=>'150','add'=>5500],['key'=>'200','label'=>'200','add'=>8000]]],
             ['key'=>'locations','label'=>'Locations','values'=>[['key'=>'1','label'=>'1','add'=>0],['key'=>'2','label'=>'2','add'=>4000],['key'=>'3','label'=>'3','add'=>7500],['key'=>'4','label'=>'4','add'=>11000]]],
         ] : [],
-        'packages'=>[['key'=>$photoKey,'label'=>$photoName,'price'=>$photoPrice,'img'=>$asset('photography.jpg'),'desc'=>'Professional event coverage with carefully edited photo and video delivery.']],
+        'packages'=>[['key'=>$photoRouteKey,'label'=>$detailName,'price'=>$photoPrice,'img'=>$asset('photography.jpg'),'desc'=>'Professional event coverage with carefully edited photo and video delivery.']],
     ]);
     $portfolio = [
         [$asset('photography.jpg'), 'Wedding photography moment'],
@@ -326,7 +363,7 @@ $metaDescription = mb_substr(preg_replace('/\s+/', ' ', $metaDescription) ?? '',
   <link rel="stylesheet" href="<?= $e($base) ?>/css/cart.css?v=20260903.2"/>
   <link rel="icon" type="image/png" sizes="32x32" href="<?= $e(PUBLIC_URL) ?>/uploads/branding/favicon-32.png"/>
   <link rel="apple-touch-icon" sizes="180x180" href="<?= $e(PUBLIC_URL) ?>/uploads/branding/apple-touch-icon.png"/>
-  <link rel="stylesheet" href="<?= $e(PUBLIC_URL) ?>/css/brand.css?v=20260908.4"/>
+  <link rel="stylesheet" href="<?= $e(PUBLIC_URL) ?>/css/brand.css?v=20260908.5"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" defer></script>
 </head>
 <body class="sd-body <?= $portfolio ? 'photo-detail-page' : '' ?> <?= !empty($cfg['catalogCards']) ? 'catalog-card-detail-page' : '' ?>">

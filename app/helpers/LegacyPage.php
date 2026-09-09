@@ -68,7 +68,9 @@ final class LegacyPage
                 $serviceRoute
             ) || preg_match('#^flower-rangoli/(?:3x3|4x4|5x5|6x6)-feet$#', $serviceRoute)
               || preg_match('#^photography/pre-wedding/(?:raj-photography|photo-ventures|moments-studio|lenscraft-chennai)$#', $serviceRoute)
-              || preg_match('#^photography/reception-marriage/(?:traditional-photo-video|traditional-candid-photo|traditional-candid-drone|complete-candid-drone)$#', $serviceRoute);
+              || preg_match('#^photography/post-wedding/(?:raj-photography|photo-ventures|moments-studio|lenscraft-chennai)$#', $serviceRoute)
+              || preg_match('#^photography/reception-marriage/(?:traditional-photo-video|traditional-candid-photo|traditional-candid-drone|complete-candid-drone)$#', $serviceRoute)
+              || preg_match('#^photography/reception-marriage/(?:traditional-photo-video|traditional-candid-photo|traditional-candid-drone|complete-candid-drone)/(?:raj-photography|photo-ventures|moments-studio|lenscraft-chennai)$#', $serviceRoute);
 
             if ($usesPhpDetail) {
                 require VIEWS_PATH . '/public/service_detail.php';
@@ -101,7 +103,7 @@ final class LegacyPage
             $assetPattern = preg_quote($assetName, '/');
             $html = preg_replace_callback(
                 '/(?<url>[^"\']*\/' . $assetPattern . ')(?:\?[^"\']*)?/i',
-                static fn(array $match): string => $match['url'] . '?v=20260908.2',
+                static fn(array $match): string => $match['url'] . '?v=20260908.5',
                 $html
             ) ?? $html;
         }
@@ -117,7 +119,7 @@ final class LegacyPage
         /* Replace the historical text-only wordmark on every routed legacy
            page without editing hundreds of archived templates individually. */
         if (!preg_match('/\/brand\.css(?:\?[^"\']*)?["\']/i', $html)) {
-            $brandCss = '<link rel="stylesheet" href="' . Security::e(PUBLIC_URL . '/css/brand.css?v=20260908.4') . '"/>';
+            $brandCss = '<link rel="stylesheet" href="' . Security::e(PUBLIC_URL . '/css/brand.css?v=20260908.5') . '"/>';
             $html = preg_replace('/<\/head>/i', $brandCss . '</head>', $html, 1) ?? $html;
         }
 

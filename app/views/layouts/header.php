@@ -33,7 +33,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link rel="stylesheet" href="<?= PUBLIC_URL ?>/css/style.css"/>
   <link rel="stylesheet" href="<?= PUBLIC_URL ?>/css/cart.css?v=20260903.2"/>
-  <link rel="stylesheet" href="<?= PUBLIC_URL ?>/css/brand.css?v=20260908.4"/>
+  <link rel="stylesheet" href="<?= PUBLIC_URL ?>/css/brand.css?v=20260908.5"/>
   <?php if (!empty($extra_css)): ?>
     <?php foreach ((array)$extra_css as $css): ?>
     <link rel="stylesheet" href="<?= PUBLIC_URL ?>/css/<?= Security::e($css) ?>"/>
