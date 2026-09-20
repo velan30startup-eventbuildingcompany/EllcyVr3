@@ -253,19 +253,19 @@ if ($serviceRoute === 'enter-show-down') {
 } elseif (str_starts_with($serviceRoute, 'photography/')) {
     $categoryLabel = 'Photography';
     $categorySlug = 'photography';
-    $preWeddingVendors = [
-        'raj-photography'=>['name'=>'Raj Photography','price'=>18000,'rating'=>'4.9','admin'=>'photography-raj'],
-        'photo-ventures'=>['name'=>'Photo Ventures','price'=>22000,'rating'=>'4.8','admin'=>'photography-ventures'],
-        'moments-studio'=>['name'=>'Moments Studio','price'=>26000,'rating'=>'4.7','admin'=>'photography-moments'],
-        'lenscraft-chennai'=>['name'=>'LensCraft Chennai','price'=>30000,'rating'=>'4.9','admin'=>'photography-lenscraft'],
+    $photographyTiers = [
+        'raj-photography'=>['name'=>'Silver Package','price'=>18000,'rating'=>'4.7','admin'=>'photography-raj','desc'=>'Natural couple portraits with guided posing and professionally edited delivery.'],
+        'photo-ventures'=>['name'=>'Gold Package','price'=>22000,'rating'=>'4.8','admin'=>'photography-ventures','desc'=>'Extended photography coverage with a cinematic story and polished edited delivery.'],
+        'moments-studio'=>['name'=>'Platinum Package','price'=>26000,'rating'=>'4.8','admin'=>'photography-moments','desc'=>'Enhanced editorial coverage with priority editing and delivery.'],
+        'lenscraft-chennai'=>['name'=>'Diamond Package','price'=>30000,'rating'=>'4.9','admin'=>'photography-lenscraft','desc'=>'Premium photo and video production with carefully finished delivery.'],
     ];
     $receptionPackages = [
-        'traditional-photo-video'=>['name'=>'Traditional Photographer & Videographer','price'=>30000],
-        'traditional-candid-photo'=>['name'=>'Traditional Photo, Video & Candid Photo','price'=>42000],
-        'traditional-candid-drone'=>['name'=>'Traditional Photo, Video, Candid Photo & Drone','price'=>55000],
-        'complete-candid-drone'=>['name'=>'Traditional Photo, Video, Candid Photo & Video and Drone','price'=>70000],
+        'traditional-photo-video'=>['name'=>'Traditional Photographer & Videographer','price'=>30000,'includes'=>'Includes 1 traditional photographer and 1 traditional videographer.'],
+        'traditional-candid-photo'=>['name'=>'Traditional Photo, Video & Candid Photo','price'=>42000,'includes'=>'Includes 1 traditional photographer, 1 traditional videographer and 1 candid photographer.'],
+        'traditional-candid-drone'=>['name'=>'Traditional Photo, Video, Candid Photo & Drone','price'=>55000,'includes'=>'Includes 1 traditional photographer, 1 traditional videographer, 1 candid photographer and drone coverage.'],
+        'complete-candid-drone'=>['name'=>'Traditional Photo, Video, Candid Photo & Video and Drone','price'=>70000,'includes'=>'Includes 1 traditional photographer, 1 traditional videographer, 1 candid photographer, 1 candid videographer and drone coverage.'],
     ];
-    $vendorPremiums = [
+    $tierPremiums = [
         'raj-photography'=>0,
         'photo-ventures'=>5000,
         'moments-studio'=>10000,
@@ -280,27 +280,31 @@ if ($serviceRoute === 'enter-show-down') {
         $journeyLabel = ucfirst($photoMatch[1]) . ' Wedding';
         $vendorKey = $photoMatch[2];
         $coverageKey = '';
-        $photo = $preWeddingVendors[$vendorKey] ?? null;
+        $photo = $photographyTiers[$vendorKey] ?? null;
         $photoPrice = (int)($photo['price'] ?? 0);
+        $coverageDescription = $photo['desc'] ?? 'Professional pre-wedding or post-wedding photography coverage.';
     } elseif ($eventVendorJourney) {
         $coverageKey = $eventPhotoMatch[1];
         $vendorKey = $eventPhotoMatch[2];
         $coverage = $receptionPackages[$coverageKey] ?? null;
-        $photo = $preWeddingVendors[$vendorKey] ?? null;
+        $photo = $photographyTiers[$vendorKey] ?? null;
         $journeyLabel = $coverage['name'] ?? 'Reception & Marriage Photography';
-        $photoPrice = (int)($coverage['price'] ?? 0) + (int)($vendorPremiums[$vendorKey] ?? 0);
+        $photoPrice = (int)($coverage['price'] ?? 0) + (int)($tierPremiums[$vendorKey] ?? 0);
+        $coverageDescription = $coverage['includes'] ?? 'Professional reception and marriage photography coverage.';
     } elseif ($legacyEventJourney) {
         $coverageKey = $legacyPhotoMatch[1];
         $vendorKey = $coverageKey;
         $photo = $receptionPackages[$coverageKey] ?? null;
         $journeyLabel = $photo['name'] ?? 'Reception & Marriage Photography';
         $photoPrice = (int)($photo['price'] ?? 0);
+        $coverageDescription = $photo['includes'] ?? 'Professional reception and marriage photography coverage.';
     } else {
         $photo = null;
         $photoPrice = 0;
         $vendorKey = '';
         $coverageKey = '';
         $journeyLabel = '';
+        $coverageDescription = '';
     }
     if ($photo === null) { http_response_code(404); return; }
     $photoName = $photo['name'];
@@ -316,13 +320,13 @@ if ($serviceRoute === 'enter-show-down') {
         'img'=>$asset('photography.jpg'),'rating'=>$photo['rating'] ?? '4.8',
         'availability'=>'Booking Available All Year','subtags'=>$journeyLabel . ' | Edited Delivery | Professional Team',
         'priceMeta'=>'Natural | Story-led | Timeless','showPkgPills'=>false,
-        'overviewHtml'=>'<div class="sd-rich-overview"><h2>Your celebration, preserved beautifully</h2><p>Our experienced photography team documents the rituals, atmosphere and spontaneous moments while keeping your event comfortable and natural.</p><div class="sd-feature-list"><span><i class="fa-solid fa-camera"></i> Candid & traditional coverage</span><span><i class="fa-solid fa-film"></i> Professionally edited delivery</span><span><i class="fa-solid fa-cloud-arrow-down"></i> Secure digital gallery</span></div></div>',
+        'overviewHtml'=>'<div class="sd-rich-overview"><h2>Your celebration, preserved beautifully</h2><p>'.htmlspecialchars($coverageDescription, ENT_QUOTES, 'UTF-8').'</p><div class="sd-feature-list"><span><i class="fa-solid fa-camera"></i> Candid & traditional coverage</span><span><i class="fa-solid fa-film"></i> Professionally edited delivery</span><span><i class="fa-solid fa-cloud-arrow-down"></i> Secure digital gallery</span></div></div>',
         'optionGroups'=>$portraitJourney ? [
             ['key'=>'duration','label'=>'Video Duration','values'=>[['key'=>'1','label'=>'1 Minute','add'=>0],['key'=>'3','label'=>'3 Minutes','add'=>5000],['key'=>'5','label'=>'5 Minutes','add'=>9000],['key'=>'7','label'=>'7 Minutes','add'=>13000]]],
             ['key'=>'photos','label'=>'Number of Photos','values'=>[['key'=>'50','label'=>'50','add'=>0],['key'=>'100','label'=>'100','add'=>3000],['key'=>'150','label'=>'150','add'=>5500],['key'=>'200','label'=>'200','add'=>8000]]],
             ['key'=>'locations','label'=>'Locations','values'=>[['key'=>'1','label'=>'1','add'=>0],['key'=>'2','label'=>'2','add'=>4000],['key'=>'3','label'=>'3','add'=>7500],['key'=>'4','label'=>'4','add'=>11000]]],
         ] : [],
-        'packages'=>[['key'=>$photoRouteKey,'label'=>$detailName,'price'=>$photoPrice,'img'=>$asset('photography.jpg'),'desc'=>'Professional event coverage with carefully edited photo and video delivery.']],
+        'packages'=>[['key'=>$photoRouteKey,'label'=>$detailName,'price'=>$photoPrice,'img'=>$asset('photography.jpg'),'desc'=>$coverageDescription]],
     ]);
     $portfolio = [
         [$asset('photography.jpg'), 'Wedding photography moment'],

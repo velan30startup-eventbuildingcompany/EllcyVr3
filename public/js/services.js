@@ -1067,7 +1067,7 @@
     grid.innerHTML = '';
     grid.classList.add('music-performer-grid');
     [
-      { type:'photography-pre-post', label:'Pre & Post Wedding', price:18000, rating:4.9, desc:'Choose a trusted photography vendor for your pre-wedding or post-wedding shoot.', tag:'Vendor packages' },
+      { type:'photography-pre-post', label:'Pre & Post Wedding', price:18000, rating:4.9, desc:'Choose from four standard photography packages for your pre-wedding or post-wedding shoot.', tag:'Four package levels' },
       { type:'photography-reception-marriage', label:'Reception & Marriage', price:30000, rating:4.8, desc:'Choose from four photography and videography coverage combinations for your event.', tag:'Four coverage options' },
     ].forEach(function(pkg) {
       var a = document.createElement('a');
@@ -1107,45 +1107,45 @@
     if(ph) ph.textContent='Pre & Post Wedding Photography';
     var switcher=document.createElement('div');switcher.className='photo-availability-switch';switcher.innerHTML='<button type="button" class="active" data-view="pre">Pre Wedding</button><button type="button" data-view="post">Post Wedding</button>';
     grid.parentNode.insertBefore(switcher,grid);
-    var vendorData=[
-      {key:'raj-photography',label:'Raj Photography',price:18000,rating:4.9,desc:'Natural wedding portraits with guided posing and professionally edited delivery.',tag:'Couple portraits'},
-      {key:'photo-ventures',label:'Photo Ventures',price:22000,rating:4.8,desc:'Cinematic wedding stories across your preferred Chennai locations.',tag:'Cinematic stories'},
-      {key:'moments-studio',label:'Moments Studio',price:26000,rating:4.7,desc:'Editorial couple photography with a warm, contemporary visual style.',tag:'Editorial style'},
-      {key:'lenscraft-chennai',label:'LensCraft Chennai',price:30000,rating:4.9,desc:'Premium photo and video production for a polished wedding campaign.',tag:'Premium production'}
+    var packageData=[
+      {key:'raj-photography',label:'Silver Package',price:18000,rating:4.7,desc:'Natural couple portraits with guided posing and professionally edited delivery.',tag:'Silver coverage'},
+      {key:'photo-ventures',label:'Gold Package',price:22000,rating:4.8,desc:'Extended photo coverage with a cinematic story across your preferred locations.',tag:'Gold coverage'},
+      {key:'moments-studio',label:'Platinum Package',price:26000,rating:4.8,desc:'Editorial couple photography with richer coverage and a contemporary visual style.',tag:'Platinum coverage'},
+      {key:'lenscraft-chennai',label:'Diamond Package',price:30000,rating:4.9,desc:'Premium photo and video production for a polished wedding campaign.',tag:'Diamond coverage'}
     ];
-    function vendorsFor(view){return vendorData.map(function(v){return Object.assign({},v,{href:'services/photography/'+view+'-wedding/'+v.key+'/'});});}
-    function show(view){switcher.querySelectorAll('button').forEach(function(b){b.classList.toggle('active',b.dataset.view===view);});renderPhotographyCards(grid,vendorsFor(view));}
+    function packagesFor(view){return packageData.map(function(pkg){return Object.assign({},pkg,{href:'services/photography/'+view+'-wedding/'+pkg.key+'/'});});}
+    function show(view){switcher.querySelectorAll('button').forEach(function(b){b.classList.toggle('active',b.dataset.view===view);});renderPhotographyCards(grid,packagesFor(view));}
     switcher.addEventListener('click',function(e){var b=e.target.closest('button[data-view]');if(b)show(b.dataset.view);});show('pre');
   }
 
   function renderReceptionMarriage(ph, grid) {
     if(ph) ph.textContent='Reception & Marriage Photography';
     renderPhotographyCards(grid,[
-      {label:'Traditional Photographer & Videographer',href:'services?type=photography-event-vendors&coverage=traditional-photo-video',price:30000,rating:4.8,desc:'Complete traditional photography and videography coverage.',tag:'Essential coverage'},
-      {label:'Traditional Photo, Video & Candid Photo',href:'services?type=photography-event-vendors&coverage=traditional-candid-photo',price:42000,rating:4.8,desc:'Traditional coverage plus a dedicated candid photographer.',tag:'Candid photography'},
-      {label:'Traditional Photo, Video, Candid Photo & Drone',href:'services?type=photography-event-vendors&coverage=traditional-candid-drone',price:55000,rating:4.9,desc:'Traditional and candid coverage with cinematic aerial footage.',tag:'Drone coverage'},
-      {label:'Traditional Photo, Video, Candid Photo & Video and Drone',href:'services?type=photography-event-vendors&coverage=complete-candid-drone',price:70000,rating:4.9,desc:'Our complete photo, candid video and drone production package.',tag:'Complete production'}
+      {label:'Traditional Photographer & Videographer',href:'services?type=photography-event-vendors&coverage=traditional-photo-video',price:30000,rating:4.8,desc:'Includes 1 traditional photographer and 1 traditional videographer.',tag:'Essential coverage'},
+      {label:'Traditional Photo, Video & Candid Photo',href:'services?type=photography-event-vendors&coverage=traditional-candid-photo',price:42000,rating:4.8,desc:'Includes 1 traditional photographer, 1 traditional videographer and 1 candid photographer.',tag:'Candid photography'},
+      {label:'Traditional Photo, Video, Candid Photo & Drone',href:'services?type=photography-event-vendors&coverage=traditional-candid-drone',price:55000,rating:4.9,desc:'Includes 1 traditional photographer, 1 traditional videographer, 1 candid photographer and drone coverage.',tag:'Drone coverage'},
+      {label:'Traditional Photo, Video, Candid Photo & Video and Drone',href:'services?type=photography-event-vendors&coverage=complete-candid-drone',price:70000,rating:4.9,desc:'Includes 1 traditional photographer, 1 traditional videographer, 1 candid photographer, 1 candid videographer and drone coverage.',tag:'Complete production'}
     ]);
   }
 
   function renderPhotographyEventVendors(ph, grid, bc, coverage) {
     var packages={
-      'traditional-photo-video':{label:'Traditional Photographer & Videographer',price:30000},
-      'traditional-candid-photo':{label:'Traditional Photo, Video & Candid Photo',price:42000},
-      'traditional-candid-drone':{label:'Traditional Photo, Video, Candid Photo & Drone',price:55000},
-      'complete-candid-drone':{label:'Traditional Photo, Video, Candid Photo & Video and Drone',price:70000}
+      'traditional-photo-video':{label:'Traditional Photographer & Videographer',price:30000,includes:'Includes 1 traditional photographer and 1 traditional videographer.'},
+      'traditional-candid-photo':{label:'Traditional Photo, Video & Candid Photo',price:42000,includes:'Includes 1 traditional photographer, 1 traditional videographer and 1 candid photographer.'},
+      'traditional-candid-drone':{label:'Traditional Photo, Video, Candid Photo & Drone',price:55000,includes:'Includes 1 traditional photographer, 1 traditional videographer, 1 candid photographer and drone coverage.'},
+      'complete-candid-drone':{label:'Traditional Photo, Video, Candid Photo & Video and Drone',price:70000,includes:'Includes 1 traditional photographer, 1 traditional videographer, 1 candid photographer, 1 candid videographer and drone coverage.'}
     };
     var selected=packages[coverage];
     if(!selected){window.location.replace(appPath('services?type=photography-reception-marriage'));return;}
-    if(ph) ph.textContent=selected.label+' Vendors';
-    if(bc) bc.innerHTML='<a href="'+appPath('services?type=photography')+'" style="color:#6b21a8;text-decoration:none">Photography</a> / <a href="'+appPath('services?type=photography-reception-marriage')+'" style="color:#6b21a8;text-decoration:none">Reception &amp; Marriage</a> / '+esc(selected.label)+' Vendors';
-    var vendors=[
-      {key:'raj-photography',label:'Raj Photography',add:0,rating:4.9,desc:'Reliable event coverage with guided planning and polished edited delivery.',tag:'Trusted studio'},
-      {key:'photo-ventures',label:'Photo Ventures',add:5000,rating:4.8,desc:'Cinematic coverage shaped around the rituals and energy of your event.',tag:'Cinematic stories'},
-      {key:'moments-studio',label:'Moments Studio',add:10000,rating:4.7,desc:'Warm editorial photography with attentive candid moment coverage.',tag:'Editorial style'},
-      {key:'lenscraft-chennai',label:'LensCraft Chennai',add:15000,rating:4.9,desc:'Premium multi-camera production with carefully finished photo and video delivery.',tag:'Premium production'}
-    ].map(function(v){return Object.assign({},v,{price:selected.price+v.add,href:'services/photography/reception-marriage/'+coverage+'/'+v.key+'/'});});
-    renderPhotographyCards(grid,vendors);
+    if(ph) ph.textContent=selected.label+' Packages';
+    if(bc) bc.innerHTML='<a href="'+appPath('services?type=photography')+'" style="color:#6b21a8;text-decoration:none">Photography</a> / <a href="'+appPath('services?type=photography-reception-marriage')+'" style="color:#6b21a8;text-decoration:none">Reception &amp; Marriage</a> / '+esc(selected.label)+' Packages';
+    var standardPackages=[
+      {key:'raj-photography',label:'Silver Package',add:0,rating:4.7,suffix:' Standard edited delivery.',tag:'Silver coverage'},
+      {key:'photo-ventures',label:'Gold Package',add:5000,rating:4.8,suffix:' Extended event coverage and polished edited delivery.',tag:'Gold coverage'},
+      {key:'moments-studio',label:'Platinum Package',add:10000,rating:4.8,suffix:' Enhanced coverage with priority editing and delivery.',tag:'Platinum coverage'},
+      {key:'lenscraft-chennai',label:'Diamond Package',add:15000,rating:4.9,suffix:' Premium production coverage and carefully finished delivery.',tag:'Diamond coverage'}
+    ].map(function(pkg){return Object.assign({},pkg,{desc:selected.includes+pkg.suffix,price:selected.price+pkg.add,href:'services/photography/reception-marriage/'+coverage+'/'+pkg.key+'/'});});
+    renderPhotographyCards(grid,standardPackages);
   }
 
   function renderPhotographyLegacy(ph, grid) {
