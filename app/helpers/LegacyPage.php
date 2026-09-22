@@ -105,7 +105,7 @@ final class LegacyPage
             $assetPattern = preg_quote($assetName, '/');
             $html = preg_replace_callback(
                 '/(?<url>[^"\']*\/' . $assetPattern . ')(?:\?[^"\']*)?/i',
-                static fn(array $match): string => $match['url'] . '?v=20260922.1',
+                static fn(array $match): string => $match['url'] . '?v=20260922.2',
                 $html
             ) ?? $html;
         }
@@ -125,8 +125,9 @@ final class LegacyPage
             $html = preg_replace('/<\/head>/i', $brandCss . '</head>', $html, 1) ?? $html;
         }
 
-        if (!preg_match('/favicon-32\.png/i', $html)) {
-            $favicons = '<link rel="icon" type="image/png" sizes="32x32" href="' . Security::e(PUBLIC_URL . '/uploads/branding/favicon-32.png') . '"/>'
+        if (!preg_match('/favicon\.svg/i', $html)) {
+            $favicons = '<link rel="icon" type="image/svg+xml" href="' . Security::e(PUBLIC_URL . '/uploads/branding/favicon.svg?v=20260922.1') . '"/>'
+                . '<link rel="alternate icon" type="image/png" sizes="32x32" href="' . Security::e(PUBLIC_URL . '/uploads/branding/favicon-32.png') . '"/>'
                 . '<link rel="apple-touch-icon" sizes="180x180" href="' . Security::e(PUBLIC_URL . '/uploads/branding/apple-touch-icon.png') . '"/>';
             $html = preg_replace('/<\/head>/i', $favicons . '</head>', $html, 1) ?? $html;
         }

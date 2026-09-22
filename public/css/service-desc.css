@@ -300,6 +300,13 @@
   box-shadow: 0 4px 14px rgba(107,33,168,.28);
 }
 .sd-btn-cart:hover { background: var(--pri-dark); transform: translateY(-1px); }
+.make-over-detail-page a.sd-btn-cart,
+.make-over-detail-page a.sd-btn-cart:visited,
+.make-over-detail-page a.sd-btn-cart:hover,
+.make-over-detail-page a.sd-btn-cart:focus-visible {
+  color: #fff !important;
+}
+.make-over-detail-page a.sd-btn-cart svg { color: currentColor !important; }
 
 .sd-btn-call {
   flex: 1; padding: 13px;

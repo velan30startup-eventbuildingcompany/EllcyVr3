@@ -1,7 +1,7 @@
 <?php
-$page_title       = 'ELLCY | Event Booking — Chennai\'s Premier Platform';
-$meta_description = 'Book dancers, chenda melam, DJ, catering, photography and 17+ event services for your wedding, birthday or celebration in Chennai.';
-$meta_title       = 'ELLCY — Chennai\'s Premier Event Services Platform';
+$page_title       = 'ELLCY | Tamil Wedding & Event Services in Chennai';
+$meta_description = 'Plan a Tamil wedding or celebration in Chennai with ELLCY. Compare photography, catering, decoration, chenda melam, DJ, bridal make over and more.';
+$meta_title       = 'ELLCY — Tamil Wedding & Event Services in Chennai';
 $extra_css        = [];
 require VIEWS_PATH . '/layouts/header.php';
 ?>

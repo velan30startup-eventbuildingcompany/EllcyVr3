@@ -26,7 +26,8 @@
   <meta name="twitter:card" content="summary_large_image"/>
   <?php endif; ?>
   <title><?= Security::e($page_title ?? 'ELLCY | Event Services') ?></title>
-  <link rel="icon" type="image/png" sizes="32x32" href="<?= PUBLIC_URL ?>/uploads/branding/favicon-32.png"/>
+  <link rel="icon" type="image/svg+xml" href="<?= PUBLIC_URL ?>/uploads/branding/favicon.svg?v=20260922.1"/>
+  <link rel="alternate icon" type="image/png" sizes="32x32" href="<?= PUBLIC_URL ?>/uploads/branding/favicon-32.png"/>
   <link rel="apple-touch-icon" sizes="180x180" href="<?= PUBLIC_URL ?>/uploads/branding/apple-touch-icon.png"/>
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -41,12 +42,17 @@
   <?php endif; ?>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" defer></script>
   <script type="application/ld+json"><?= json_encode([
-    '@context'=>'https://schema.org','@type'=>'Organization','name'=>'ELLCY',
-    'url'=>APP_URL,'logo'=>rtrim(PUBLIC_URL, '/').'/uploads/branding/ellcy-logo-violet.png'
+    '@context'=>'https://schema.org','@type'=>'LocalBusiness','name'=>'ELLCY',
+    'description'=>'Tamil wedding and event services marketplace for customers in Chennai.',
+    'url'=>APP_URL,'logo'=>rtrim(PUBLIC_URL, '/').'/uploads/branding/ellcy-logo-violet.png',
+    'image'=>rtrim(APP_URL, '/').'/uploads/services/stage.webp','telephone'=>'+919361011717',
+    'address'=>['@type'=>'PostalAddress','addressLocality'=>'Chennai','addressRegion'=>'Tamil Nadu','addressCountry'=>'IN'],
+    'areaServed'=>['@type'=>'City','name'=>'Chennai'],
+    'knowsAbout'=>['Tamil weddings','Wedding decoration','Wedding catering','Wedding photography','Bridal make over','Traditional wedding music']
   ], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE) ?></script>
   <script type="application/ld+json"><?= json_encode([
     '@context'=>'https://schema.org','@type'=>'WebSite','name'=>'ELLCY','url'=>APP_URL,
-    'potentialAction'=>['@type'=>'SearchAction','target'=>rtrim(APP_URL,'/').'/services?q={search_term_string}','query-input'=>'required name=search_term_string']
+    'description'=>'Discover and book event services for Tamil weddings and celebrations in Chennai.'
   ], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE) ?></script>
 </head>
 <body class="<?= Security::e($body_class ?? '') ?>">

@@ -1761,59 +1761,6 @@
     });
   }
 
-
-  /* ── Flower category cards (Reception / Marriage) ── */
-  function renderFlowerCategoryCards(grid) {
-    if (!grid) return;
-    grid.innerHTML = '';
-    [
-      { name:'Reception', type:'real-flowers-reception',
-        img:'../uploads/services/flowers-decoration-1.webp',
-        desc:'Elegant flower decoration for your wedding reception — stage, entry arch and table centres.', from:5000 },
-      { name:'Marriage',  type:'real-flowers-marriage',
-        img:'../uploads/services/flowers-decoration-2.webp',
-        desc:'Traditional and grand flower mandapam decoration for your wedding ceremony.', from:5000 },
-    ].forEach(function(cat) {
-      var a = document.createElement('a');
-      a.className = 'service-card chenda-pkg-card';
-      a.href = appPath('services?type=' + cat.type);
-      a.setAttribute('aria-label', cat.name);
-      a.innerHTML =
-        '<div class="card-image"><img src="' + esc(cat.img) + '" alt="' + esc(cat.name) + '" loading="lazy"/>' +
-        '<div class="price-badge">From ₹' + Number(cat.from).toLocaleString('en-IN') + '</div></div>' +
-        '<div class="card-body"><h3 class="card-title">' + esc(cat.name) + '</h3>' +
-        '<p class="card-desc">' + esc(cat.desc) + '</p>' +
-        '<span class="card-view-btn">View Options →</span></div>';
-      grid.appendChild(a);
-    });
-  }
-
-  /* ── Flower sub-cards (Real / Artificial) ── */
-  function renderFlowerSubCards(grid, occasion) {
-    if (!grid) return;
-    grid.innerHTML = '';
-    var items = [
-      { name:'Real Flowers', price:5000,
-        path:'../services/flowers/' + occasion + '-real/index.html',
-        desc:'Fresh seasonal flowers — fragrant, vibrant and perfect for photos.', img:'../uploads/services/flowers-decoration-1.webp' },
-      { name:'Artificial Flowers', price:6000,
-        path:'../services/flowers/' + occasion + '-artificial/index.html',
-        desc:'Premium artificial flowers — consistent beauty that lasts all day.', img:'../uploads/services/flowers-decoration-2.webp' },
-    ];
-    items.forEach(function(item) {
-      var a = document.createElement('a');
-      a.className = 'service-card chenda-pkg-card';
-      a.href = item.path;
-      a.setAttribute('aria-label', item.name);
-      a.innerHTML =
-        '<div class="card-image"><img src="' + esc(item.img) + '" alt="' + esc(item.name) + '" loading="lazy"/>' +
-        '<div class="price-badge">₹' + Number(item.price).toLocaleString('en-IN') + '</div></div>' +
-        '<div class="card-body"><h3 class="card-title">' + esc(item.name) + '</h3>' +
-        '<p class="card-desc">' + esc(item.desc) + '</p></div>';
-      grid.appendChild(a);
-    });
-  }
-
   /* ── Jewellery style cards (Gold / Silver / Kundan) ── */
   function renderJewelleryCards(grid) {
     if (!grid) return;

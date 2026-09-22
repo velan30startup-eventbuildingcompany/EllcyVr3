@@ -4,7 +4,8 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>ELLCY | Page Not Found</title>
-  <link rel="icon" type="image/png" sizes="32x32" href="<?= htmlspecialchars(PUBLIC_URL) ?>/uploads/branding/favicon-32.png"/>
+  <link rel="icon" type="image/svg+xml" href="<?= htmlspecialchars(PUBLIC_URL) ?>/uploads/branding/favicon.svg?v=20260922.1"/>
+  <link rel="alternate icon" type="image/png" sizes="32x32" href="<?= htmlspecialchars(PUBLIC_URL) ?>/uploads/branding/favicon-32.png"/>
   <link rel="apple-touch-icon" sizes="180x180" href="<?= htmlspecialchars(PUBLIC_URL) ?>/uploads/branding/apple-touch-icon.png"/>
   <link rel="stylesheet" href="<?= htmlspecialchars(PUBLIC_URL) ?>/css/brand.css?v=20260908.5"/>
   <style>

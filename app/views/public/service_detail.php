@@ -198,6 +198,7 @@ if ($serviceRoute === 'enter-show-down') {
         'img'=>$asset($flowerHero),'rating'=>'4.8','availability'=>'Available for Weddings, Receptions & Celebrations',
         'subtags'=>'Rose | Jasmine | Marigold | Orchid | Artificial Flowers','priceMeta'=>'Fresh | Elegant | Venue Ready',
         'showGroupPills'=>false,'pillLabel'=>'Select Flower Type','overviewHtml'=>$flowerOverview,
+        'seoDescription'=>'Book '.$occasionName.' flower decoration for Tamil weddings in Chennai. Choose fresh or artificial flowers for stages, entrances and ceremony spaces.',
         'defaultPkg'=>$flowerDefaultPkg,
         'syncHeroWithPackage'=>true,
         'showQty'=>true,'qtyLabel'=>'Number of Plates','minQty'=>1,'defaultQty'=>1,'maxQty'=>50,
@@ -240,6 +241,7 @@ if ($serviceRoute === 'enter-show-down') {
         'makeOverActions'=>true,
         'brochureType'=>$audience,
         'brochureTier'=>$tierKey,
+        'seoDescription'=>'Book a '.$audienceLabel.' make over trial in Chennai for Tamil weddings and receptions. Compare '.$tier[0].' styling inclusions, pricing and event-ready services.',
         'overviewHtml'=>'<div class="sd-rich-overview"><h2>A polished '.$audienceLabel.' look designed around you</h2><p>'.$tier[2].' Your artist will coordinate the look with your outfit, venue and photography requirements before the event.</p><div class="sd-feature-list"><span><i class="fa-solid fa-wand-magic-sparkles"></i> Professional artist</span><span><i class="fa-solid fa-palette"></i> Personalised look</span><span><i class="fa-solid fa-camera"></i> Camera-ready finish</span></div></div>',
         'packages'=>[['key'=>$tierKey,'label'=>$tier[0].' Standard','price'=>$tier[1],'img'=>$asset('bridal.webp'),'desc'=>$tier[2]]],
     ]);
@@ -384,8 +386,9 @@ $makeOverQuery = $isMakeOver ? http_build_query([
     'type' => (string)($cfg['brochureType'] ?? ''),
     'tier' => (string)($cfg['brochureTier'] ?? ''),
 ]) : '';
-$metaDescription = strip_tags((string)($cfg['overviewHtml'] ?? 'Book professional event services from ELLCY in Chennai.'));
+$metaDescription = (string)($cfg['seoDescription'] ?? strip_tags((string)($cfg['overviewHtml'] ?? 'Book professional event services from ELLCY in Chennai.')));
 $metaDescription = mb_substr(preg_replace('/\s+/', ' ', $metaDescription) ?? '', 0, 155);
+$canonicalUrl = $base . '/services/' . trim($serviceRoute, '/') . '/';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -398,17 +401,20 @@ $metaDescription = mb_substr(preg_replace('/\s+/', ' ', $metaDescription) ?? '',
   <meta property="og:title" content="ELLCY | <?= $e((string)$cfg['serviceName']) ?>"/>
   <meta property="og:description" content="<?= $e($metaDescription) ?>"/>
   <meta property="og:type" content="website"/>
+  <meta property="og:url" content="<?= $e($canonicalUrl) ?>"/>
   <meta property="og:image" content="<?= $e($fallbackImage) ?>"/>
-  <link rel="canonical" href="<?= $e($base . '/services/' . trim($serviceRoute, '/') . '/') ?>"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="canonical" href="<?= $e($canonicalUrl) ?>"/>
   <title>ELLCY | <?= $e((string)$cfg['serviceName']) ?></title>
-  <script type="application/ld+json"><?= json_encode(['@context'=>'https://schema.org','@type'=>'Service','name'=>(string)$cfg['serviceName'],'description'=>$metaDescription,'image'=>$fallbackImage,'areaServed'=>['@type'=>'City','name'=>'Chennai'],'provider'=>['@type'=>'Organization','name'=>'ELLCY','url'=>$base],'offers'=>['@type'=>'Offer','priceCurrency'=>'INR','price'=>(float)($cfg['packages'][0]['price'] ?? 0),'availability'=>'https://schema.org/InStock','url'=>$base.'/services/'.trim($serviceRoute,'/').'/']], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_HEX_TAG) ?></script>
+  <script type="application/ld+json"><?= json_encode(['@context'=>'https://schema.org','@type'=>'Service','name'=>(string)$cfg['serviceName'],'serviceType'=>(string)$categoryLabel,'description'=>$metaDescription,'image'=>$fallbackImage,'areaServed'=>['@type'=>'AdministrativeArea','name'=>'Chennai, Tamil Nadu, India'],'audience'=>['@type'=>'Audience','audienceType'=>'Tamil wedding and event customers'],'provider'=>['@type'=>'LocalBusiness','name'=>'ELLCY','url'=>$base,'telephone'=>'+919361011717','areaServed'=>'Chennai'],'offers'=>['@type'=>'Offer','priceCurrency'=>'INR','price'=>(float)($cfg['packages'][0]['price'] ?? 0),'availability'=>'https://schema.org/InStock','url'=>$canonicalUrl]], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_HEX_TAG) ?></script>
   <script type="application/ld+json"><?= json_encode(['@context'=>'https://schema.org','@type'=>'BreadcrumbList','itemListElement'=>[['@type'=>'ListItem','position'=>1,'name'=>'Home','item'=>$base.'/'],['@type'=>'ListItem','position'=>2,'name'=>$categoryLabel,'item'=>$base.'/services?type='.$categorySlug],['@type'=>'ListItem','position'=>3,'name'=>(string)$cfg['serviceName'],'item'=>$base.'/services/'.trim($serviceRoute,'/').'/']]], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_HEX_TAG) ?></script>
-  <link rel="stylesheet" href="<?= $e($base) ?>/css/style.css"/>
-  <link rel="stylesheet" href="<?= $e($base) ?>/css/service-desc.css?v=20260922.1"/>
-  <link rel="stylesheet" href="<?= $e($base) ?>/css/media-gallery.css?v=20260831.1"/>
-  <link rel="stylesheet" href="<?= $e($base) ?>/css/detail-single-media.css?v=20260831.1"/>
-  <link rel="stylesheet" href="<?= $e($base) ?>/css/cart.css?v=20260903.2"/>
-  <link rel="icon" type="image/png" sizes="32x32" href="<?= $e(PUBLIC_URL) ?>/uploads/branding/favicon-32.png"/>
+  <link rel="stylesheet" href="<?= $e(PUBLIC_URL) ?>/css/style.css"/>
+  <link rel="stylesheet" href="<?= $e(PUBLIC_URL) ?>/css/service-desc.css?v=20260922.2"/>
+  <link rel="stylesheet" href="<?= $e(PUBLIC_URL) ?>/css/media-gallery.css?v=20260831.1"/>
+  <link rel="stylesheet" href="<?= $e(PUBLIC_URL) ?>/css/detail-single-media.css?v=20260831.1"/>
+  <link rel="stylesheet" href="<?= $e(PUBLIC_URL) ?>/css/cart.css?v=20260903.2"/>
+  <link rel="icon" type="image/svg+xml" href="<?= $e(PUBLIC_URL) ?>/uploads/branding/favicon.svg?v=20260922.1"/>
+  <link rel="alternate icon" type="image/png" sizes="32x32" href="<?= $e(PUBLIC_URL) ?>/uploads/branding/favicon-32.png"/>
   <link rel="apple-touch-icon" sizes="180x180" href="<?= $e(PUBLIC_URL) ?>/uploads/branding/apple-touch-icon.png"/>
   <link rel="stylesheet" href="<?= $e(PUBLIC_URL) ?>/css/brand.css?v=20260908.5"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" defer></script>
@@ -494,11 +500,11 @@ $metaDescription = mb_substr(preg_replace('/\s+/', ' ', $metaDescription) ?? '',
 <footer class="site-footer" role="contentinfo"><div class="footer-inner"><div class="footer-brand"><div class="footer-logo">ELLCY</div><p class="footer-text">Creating unforgettable moments across Chennai.</p></div><div class="footer-col"><h4>Quick Links</h4><ul><li><a href="<?= $e($base) ?>/">Home</a></li><li><a href="<?= $e($base) ?>/services">Event Services</a></li><li><a href="<?= $e($base) ?>/booking">Book Now</a></li></ul></div><div class="footer-col"><h4>Contact</h4><p class="footer-contact-item">+91 123-456-789</p><p class="footer-contact-item">info@ellcy.in</p><p class="footer-contact-item">Chennai, Tamil Nadu</p></div><div class="footer-col"><h4>Book Your Event</h4><a class="footer-enquiry-btn" href="<?= $e($base) ?>/booking"><i class="fa-solid fa-calendar-check"></i> Book Now</a></div></div><div class="footer-divider"></div><div class="footer-bottom"><p><span id="year"></span> &copy; ELLCY — All Rights Reserved.</p></div></footer>
 
 <script>window.SD_CONFIG = <?= json_encode($cfg, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?>;</script>
-<script src="<?= $e($base) ?>/services/data.js"></script>
-<script src="<?= $e($base) ?>/js/auth.js?v=20260812.1"></script>
-<script src="<?= $e($base) ?>/js/cart.js"></script>
-<?php if ($showReferenceUpload): ?><script>window.ELLCY_JEWELLERY_SERVICE = <?= json_encode((string)$cfg['serviceKey']) ?>;</script><script src="<?= $e($base) ?>/js/jewellery-reference.js?v=20260811.2"></script><?php endif; ?>
-<script src="<?= $e($base) ?>/js/media-gallery.js?v=20260831.1"></script>
-  <script src="<?= $e($base) ?>/js/service-desc.js?v=20260922.1"></script>
+<script src="<?= $e(PUBLIC_URL) ?>/js/data.js?v=20260922.1"></script>
+<script src="<?= $e(PUBLIC_URL) ?>/js/auth.js?v=20260812.1"></script>
+<script src="<?= $e(PUBLIC_URL) ?>/js/cart.js"></script>
+<?php if ($showReferenceUpload): ?><script>window.ELLCY_JEWELLERY_SERVICE = <?= json_encode((string)$cfg['serviceKey']) ?>;</script><script src="<?= $e(PUBLIC_URL) ?>/js/jewellery-reference.js?v=20260811.2"></script><?php endif; ?>
+<script src="<?= $e(PUBLIC_URL) ?>/js/media-gallery.js?v=20260831.1"></script>
+<script src="<?= $e(PUBLIC_URL) ?>/js/service-desc.js?v=20260922.1"></script>
 </body>
 </html>
