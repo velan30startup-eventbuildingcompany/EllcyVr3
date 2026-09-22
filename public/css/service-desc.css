@@ -311,6 +311,18 @@
 }
 .sd-btn-call:hover { background: var(--pri); color: #fff; }
 
+.sd-btn-brochure {
+  flex: 1; padding: 13px;
+  background: #fff7e6; color: #7a4700;
+  border: 2px solid #f5a623; border-radius: 999px;
+  font-family: inherit; font-size: .92rem; font-weight: 800;
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  text-decoration: none; transition: background .18s, color .18s, transform .18s;
+}
+.sd-btn-brochure:hover { background: #f5a623; color: #171126; transform: translateY(-1px); }
+.make-over-detail-page .sd-cta-row { flex-wrap: wrap; }
+.make-over-detail-page .sd-cta-row > * { min-width: calc(50% - 6px); }
+
 /* ================================================================
    MAIN CONTENT AREA (tabs + cards + reviews)
    ================================================================ */
@@ -568,7 +580,8 @@
   }
   .sd-dsk-ctas .sd-btn-cart,
   .sd-dsk-ctas .sd-btn-buynow,
-  .sd-dsk-ctas .sd-btn-call {
+  .sd-dsk-ctas .sd-btn-call,
+  .sd-dsk-ctas .sd-btn-brochure {
     flex: 1;
     padding: 12px 16px;
     font-size: .88rem;
@@ -609,7 +622,8 @@
   .sd-pkg-pill, .sd-grp-pill { min-width: 36px; height: 34px; font-size: .8rem; }
   .sd-slot-pill { padding: 6px 14px; font-size: .8rem; }
   .sd-btn-cart,
-  .sd-btn-call  { font-size: .86rem; padding: 11px 12px; }
+  .sd-btn-call,
+  .sd-btn-brochure { font-size: .86rem; padding: 11px 12px; }
   .sd-tab       { padding: 8px 14px; font-size: .82rem; }
   .sd-cards-grid { gap: 8px; }
   .sd-card-name  { font-size: .78rem; }

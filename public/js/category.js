@@ -37,7 +37,7 @@
     'real-flowers': 'Fresh floral styling for stages, entrances and special moments.',
     'fake-jewellery': 'Elegant jewellery sets for bridal and celebration styling.',
     'car-entry': 'Premium and luxury vehicle options for your grand entrance.',
-    'bridal-groom-styling': 'Complete bridal and groom makeup and styling services.',
+    'bridal-groom-styling': 'Bridal and groom make over standards for polished, camera-ready styling.',
     'plates-decoration': 'Beautifully arranged aarti and seer plates for ceremonies.',
     'flower-rangoli': 'Hand-arranged floral rangoli designs in multiple sizes.',
     'food-breakfast': 'Fresh breakfast menus and serving options for morning events.',

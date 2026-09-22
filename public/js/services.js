@@ -57,6 +57,10 @@
         bc.innerHTML = `<a href="services.html?type=real-flowers" style="color:#6b21a8;text-decoration:none">Real Flowers</a> / Reception`;
       } else if (type === 'real-flowers-marriage') {
         bc.innerHTML = `<a href="services.html?type=real-flowers" style="color:#6b21a8;text-decoration:none">Real Flowers</a> / Marriage`;
+      } else if (type === 'make-over-bridal') {
+        bc.innerHTML = `<a href="services.html?type=bridal-groom-styling" style="color:#6b21a8;text-decoration:none">Make Over</a> / Bridal`;
+      } else if (type === 'make-over-groom') {
+        bc.innerHTML = `<a href="services.html?type=bridal-groom-styling" style="color:#6b21a8;text-decoration:none">Make Over</a> / Groom`;
       } else if (type === 'chenda-melam' || type === 'nadhaswaram-thavil' || type === 'band-set' || type === 'melam-set') {
         bc.innerHTML = `<a href="services.html?type=musical-band" style="color:#6b21a8;text-decoration:none">Music Performers</a> / ${esc(label)}`;
       } else if (type === 'human-doll' || type === '360-camera' || type === 'photo-booth') {
@@ -174,12 +178,19 @@
     }
 
     /* ════════════════════════════════════════════════════
-       BRIDAL & GROOM STYLING → description page
+       MAKE OVER → Bridal / Groom → four standards
     ════════════════════════════════════════════════════ */
-    if (type === 'bridal-groom-styling') {
+    if (type === 'bridal-groom-styling' || type === 'make-over') {
       if (filterContainer) filterContainer.style.display = 'none';
-      renderDescPageCards(grid, SERVICES_DATA['bridal-groom-styling'] || [], '../services/bridal-groom-styling/index.html',
-        '../uploads/services/bridal.webp', 'bridal-groom-styling');
+      if (ph) ph.textContent = 'Make Over';
+      if (bc) bc.textContent = 'Make Over';
+      document.title = 'ELLCY | Make Over';
+      renderMakeOverParent(grid);
+      setYear(); return;
+    }
+    if (type === 'make-over-bridal' || type === 'make-over-groom') {
+      if (filterContainer) filterContainer.style.display = 'none';
+      renderMakeOverStandards(grid, type === 'make-over-bridal' ? 'bridal' : 'groom');
       setYear(); return;
     }
 
@@ -434,15 +445,16 @@
        FLOWERS — Reception & Marriage sub-categories
     ════════════════════════════════════════════════════ */
     if (type === 'real-flowers') {
-      window.location.replace(appPath('services/real-flowers/'));
-      return;
+      if (filterContainer) filterContainer.style.display = 'none';
+      renderRealFlowersParent(grid);
+      setYear(); return;
     }
     if (type === 'real-flowers-reception') {
-      window.location.replace(appPath('services/real-flowers/?group=reception'));
+      window.location.replace(appPath('services/real-flowers/reception/'));
       return;
     }
     if (type === 'real-flowers-marriage') {
-      window.location.replace(appPath('services/real-flowers/?group=marriage'));
+      window.location.replace(appPath('services/real-flowers/marriage/'));
       return;
     }
 
@@ -464,24 +476,6 @@
       renderDescPageCards(grid, SERVICES_DATA['invitation'] || [], '../services/invitation/index.html',
         '../uploads/services/invitation.webp', 'invitation');
       setYear(); return;
-    }
-
-    /* ════════════════════════════════════════════════════
-       REAL FLOWERS
-    ════════════════════════════════════════════════════ */
-    /* ════════════════════════════════════════════════════
-       REAL FLOWERS — two-level flow:
-       Parent: Reception | Marriage (no price)
-       Sub-level: Real | Artificial (with price)
-    ════════════════════════════════════════════════════ */
-    if (type === 'real-flowers') {
-      window.location.replace(appPath('services/real-flowers/'));
-      return;
-    }
-    if (type === 'real-flowers-reception' || type === 'real-flowers-marriage') {
-      var groupKey = (type === 'real-flowers-reception') ? 'reception' : 'marriage';
-      window.location.replace(appPath('services/real-flowers/?group=' + groupKey));
-      return;
     }
 
     /* ════════════════════════════════════════════════════
@@ -933,6 +927,58 @@
           '<h3 class="card-title">' + esc(sub.name) + '</h3>' +
           '<p class="card-desc">' + esc(sub.desc) + '</p>' +
         '</div>';
+      grid.appendChild(a);
+    });
+  }
+
+  /* Make Over parent: choose Bridal or Groom before selecting a standard. */
+  function renderMakeOverParent(grid) {
+    if (!grid) return;
+    grid.innerHTML = '';
+    [
+      { name:'Bridal Make Over', type:'make-over-bridal', img:'../uploads/services/bridal.webp',
+        desc:'Camera-ready bridal makeup, hair styling and draping tailored to your celebration.' },
+      { name:'Groom Make Over', type:'make-over-groom', img:'../uploads/services/bridal.webp',
+        desc:'Professional groom grooming, hair styling and event-ready finishing.' }
+    ].forEach(function(item) {
+      var a = document.createElement('a');
+      a.className = 'service-card decoration-sub-card';
+      a.href = appPath('services?type=' + item.type);
+      a.setAttribute('aria-label', item.name);
+      a.innerHTML = '<div class="card-image"><img src="' + esc(item.img) + '" alt="' + esc(item.name) + '" loading="lazy"/></div>' +
+        '<div class="card-body"><h3 class="card-title">' + esc(item.name) + '</h3><p class="card-desc">' + esc(item.desc) + '</p>' +
+        '<span class="card-view-btn">Choose Standard &rarr;</span></div>';
+      grid.appendChild(a);
+    });
+  }
+
+  /* Four clear standards for both Bridal and Groom Make Over. */
+  function renderMakeOverStandards(grid, audience) {
+    if (!grid) return;
+    grid.innerHTML = '';
+    grid.classList.add('chenda-grid');
+    var isBridal = audience === 'bridal';
+    var prices = isBridal ? [12000, 18000, 25000, 35000] : [6000, 9000, 13000, 18000];
+    var descriptions = isBridal ? [
+      'Essential bridal makeup, hair styling and saree draping for one event.',
+      'HD bridal makeup with enhanced hair styling, draping and touch-up support.',
+      'Premium bridal artistry with advanced skin preparation, styling and accessories support.',
+      'Complete luxury bridal transformation with trial consultation and extended touch-up support.'
+    ] : [
+      'Essential groom grooming, hair styling and event-ready finishing.',
+      'Enhanced groom styling with skin preparation, hair and beard finishing.',
+      'Premium groom transformation with consultation and long-wear camera-ready finish.',
+      'Complete luxury groom styling with trial consultation and extended touch-up support.'
+    ];
+    ['Silver','Gold','Platinum','Diamond'].forEach(function(tier, index) {
+      var a = document.createElement('a');
+      a.className = 'service-card chenda-pkg-card';
+      a.href = appPath('services/make-over/' + audience + '/' + tier.toLowerCase() + '/');
+      a.setAttribute('aria-label', tier + ' ' + (isBridal ? 'Bridal' : 'Groom') + ' Make Over');
+      a.innerHTML = '<div class="card-image"><img src="../uploads/services/bridal.webp" alt="' + esc(tier + ' ' + audience + ' make over') + '" loading="lazy"/>' +
+        '<div class="price-badge">' + esc(fmt(prices[index])) + '</div></div>' +
+        '<div class="card-body"><h3 class="card-title">' + esc(tier + ' Standard') + '</h3>' +
+        '<p class="card-desc">' + esc(descriptions[index]) + '</p><span class="card-view-btn">View Details &rarr;</span></div>';
       grid.appendChild(a);
     });
   }

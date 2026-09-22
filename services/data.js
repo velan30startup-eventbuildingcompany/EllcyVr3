@@ -385,7 +385,10 @@ const LABEL_MAP = {
   'fake-jewellery':           'Fake Jewellery',
   'car-entry':                'Car Entry',
   'aarthi-plate':             'Aarthi Plate',
-  'bridal-groom-styling':     'Bridal & Groom Make Up',
+  'bridal-groom-styling':     'Make Over',
+  'make-over':                'Make Over',
+  'make-over-bridal':         'Make Over — Bridal',
+  'make-over-groom':          'Make Over — Groom',
   'mehandi':                  'Mehndi',
   'cake-decoration':          'Cake & Decoration',
   'wedding':                  'Wedding Events',
@@ -432,7 +435,7 @@ const MUSICAL_BAND_SUBTYPES = [
 /* ── Home circles ───────────────────────────────────────────── */
 const HOME_CATEGORIES = [
   { id:'dj',                    name:'DJ',                              image:'uploads/services/dj.webp',           hidden:false },
-  { id:'bridal-groom-styling',  name:'Bridal & Groom Make Up',         image:'uploads/services/bridal.webp',       hidden:false },
+  { id:'bridal-groom-styling',  name:'Make Over',                      image:'uploads/services/bridal.webp',       hidden:false },
   { id:'decoration',            name:'Decoration',                  image:'uploads/services/decoration-stage-indoor.webp', hidden:false, slug:'decoration' },
   { id:'catering-boys',         name:'Catering Boys / Welcome Girls',   image:'uploads/services/catering-boys.webp', hidden:false },
   { id:'entertainment-activities', name:'Entertainment Activities',     image:'uploads/services/entertainment-mascots.webp', hidden:false },
@@ -471,7 +474,7 @@ const CATEGORY_MAPPINGS = {
     { name:'Real Flowers',                  slug:'real-flowers',             img:'../uploads/services/flowers-decoration-1.webp' },
     { name:'Fake Jewellery',                slug:'fake-jewellery',           img:'../uploads/services/jewellery-gold.webp' },
     { name:'Car Entry',                     slug:'car-entry',                img:'../uploads/services/car-entry-luxury.webp' },
-    { name:'Bridal & Groom Make Up',        slug:'bridal-groom-styling',     img:'../uploads/services/bridal.webp' },
+    { name:'Make Over',                     slug:'bridal-groom-styling',     img:'../uploads/services/bridal.webp' },
     { name:'Plates Decoration',             slug:'plates-decoration',        img:'../uploads/services/decoration-stage-hotel.webp' },
   ],
   birthday: [],
@@ -481,7 +484,7 @@ const CATEGORY_MAPPINGS = {
 
 /* ── Enquiry services ───────────────────────────────────────── */
 const ENQUIRY_SERVICES = {
-  wedding:  ['Photography','Stage Decoration','Light Decoration','DJ','Bridal & Groom Make Up','Music Performers','Chenda Melam','Nadhaswaram & Thavil','Band Set','Melam Set','Food','Entertainment Activities','Snacks & Stalls','Enter Show Down','Catering Boys / Welcome Girls','Dancers','Invitation','Real Flowers','Fake Jewellery','Car Entry','Aarthi Plate','Plates Decoration',"Bouncer's"],
+  wedding:  ['Photography','Stage Decoration','Light Decoration','DJ','Make Over','Music Performers','Chenda Melam','Nadhaswaram & Thavil','Band Set','Melam Set','Food','Entertainment Activities','Snacks & Stalls','Enter Show Down','Catering Boys / Welcome Girls','Dancers','Invitation','Real Flowers','Fake Jewellery','Car Entry','Aarthi Plate','Plates Decoration',"Bouncer's"],
   birthday: ['Photography','Stage Decoration','DJ','Food','Musical Band','Light Decoration','Snacks & Stalls'],
   college:  ['Stage Decoration','DJ','Photography',"Bouncer's",'Snacks & Stalls'],
   temple:   ['Photography','Chenda Melam','DJ','Stage Decoration',"Bouncer's"],

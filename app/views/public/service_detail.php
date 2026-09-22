@@ -174,36 +174,74 @@ if ($serviceRoute === 'enter-show-down') {
         'overviewHtml'=>'<div class="sd-rich-overview"><h2>A fresh floral welcome for your celebration</h2><p>Choose the rangoli size that best suits your entrance, courtyard or celebration space. Our decorators coordinate the colours and flower selection, then prepare the complete design at your venue.</p><div class="sd-feature-list"><span><i class="fa-solid fa-seedling"></i> Fresh flowers</span><span><i class="fa-solid fa-palette"></i> Coordinated colours</span><span><i class="fa-solid fa-circle-check"></i> On-site setup</span></div></div>',
         'packages'=>$rangoliPackages,
     ]);
-} elseif ($serviceRoute === 'real-flowers') {
-    $categoryLabel = 'Flowers';
+} elseif ($serviceRoute === 'real-flowers' || preg_match('#^real-flowers/(reception|marriage)$#', $serviceRoute, $flowerRouteMatch)) {
+    $categoryLabel = 'Real Flowers';
     $categorySlug = 'real-flowers';
-    $flowerOverview = '<div class="sd-rich-overview"><h2>Fresh floral styling for every celebration</h2><p>Choose fresh or premium artificial flowers for your reception or marriage ceremony. Our decorators coordinate the stage, entry, mandapam and focal arrangements as one polished event look.</p><div class="sd-feature-list"><span><i class="fa-solid fa-seedling"></i> Event-ready blooms</span><span><i class="fa-solid fa-palette"></i> Coordinated colours</span><span><i class="fa-solid fa-people-group"></i> Professional setup crew</span></div></div>';
-    $flowerGroup = Security::sanitizeString($_GET['group'] ?? 'reception', 20);
+    $flowerGroup = $flowerRouteMatch[1] ?? Security::sanitizeString($_GET['group'] ?? 'reception', 20);
     if (!in_array($flowerGroup, ['reception', 'marriage'], true)) $flowerGroup = 'reception';
+    $occasionName = $flowerGroup === 'reception' ? 'Reception' : 'Marriage';
+    $flowerOverview = '<div class="sd-rich-overview"><h2>'.$occasionName.' flower styling, planned as one complete look</h2><p>Choose fresh or premium artificial flowers for your '.$occasionName.' celebration. Our decorators coordinate the stage, entrance and focal arrangements into a polished, venue-ready design.</p><div class="sd-feature-list"><span><i class="fa-solid fa-seedling"></i> Event-ready blooms</span><span><i class="fa-solid fa-palette"></i> Coordinated colours</span><span><i class="fa-solid fa-people-group"></i> Professional setup crew</span></div></div>';
     $flowerDefaultPkg = Security::sanitizeString($_GET['pkg'] ?? ($flowerGroup === 'reception' ? '103' : '113'), 10);
     $allowedFlowerPackages = $flowerGroup === 'reception' ? ['103', '104'] : ['113', '114'];
     if (!in_array($flowerDefaultPkg, $allowedFlowerPackages, true)) $flowerDefaultPkg = $allowedFlowerPackages[0];
     $flowerHero = in_array($flowerDefaultPkg, ['104', '114'], true)
         ? 'flowers-decoration-2.webp' : 'flowers-decoration-1.webp';
+    $flowerPackages = $flowerGroup === 'reception' ? [
+        ['key'=>'103','label'=>'Fresh Real Flowers','price'=>5000,'img'=>$asset('flowers-decoration-1.webp'),'desc'=>'Fresh rose, jasmine and marigold styling for the reception stage, entry and guest areas.'],
+        ['key'=>'104','label'=>'Artificial Flowers','price'=>6000,'img'=>$asset('flowers-decoration-2.webp'),'desc'=>'Premium lifelike blooms that stay camera-ready throughout the reception.'],
+    ] : [
+        ['key'=>'113','label'=>'Fresh Real Flowers','price'=>5000,'img'=>$asset('flowers-decoration-1.webp'),'desc'=>'Traditional fresh floral styling for the mandapam, garlands and ceremony spaces.'],
+        ['key'=>'114','label'=>'Artificial Flowers','price'=>6000,'img'=>$asset('flowers-decoration-2.webp'),'desc'=>'Colour-coordinated artificial flowers for a lasting marriage ceremony setup.'],
+    ];
     $cfg = array_replace($common, [
-        'serviceKey'=>'real-flowers','adminSlug'=>'real-flowers','serviceName'=>'Flower Decoration','slug'=>'real-flowers',
+        'serviceKey'=>'real-flowers-'.$flowerGroup,'adminSlug'=>'real-flowers','serviceName'=>$occasionName.' Flower Decoration','slug'=>'real-flowers-'.$flowerGroup,
         'img'=>$asset($flowerHero),'rating'=>'4.8','availability'=>'Available for Weddings, Receptions & Celebrations',
         'subtags'=>'Rose | Jasmine | Marigold | Orchid | Artificial Flowers','priceMeta'=>'Fresh | Elegant | Venue Ready',
-        'showGroupPills'=>true,'groupLabel'=>'Select Occasion','pillLabel'=>'Select Flower Type','overviewHtml'=>$flowerOverview,
-        'defaultGroup'=>$flowerGroup,'defaultPkg'=>$flowerDefaultPkg,
+        'showGroupPills'=>false,'pillLabel'=>'Select Flower Type','overviewHtml'=>$flowerOverview,
+        'defaultPkg'=>$flowerDefaultPkg,
         'syncHeroWithPackage'=>true,
         'showQty'=>true,'qtyLabel'=>'Number of Plates','minQty'=>1,'defaultQty'=>1,'maxQty'=>50,
         'catalogCards'=>false,'hideCards'=>true,
-        'groups'=>[
-            ['key'=>'reception','label'=>'Reception','packages'=>[
-                ['key'=>'103','label'=>'Fresh Real Flowers','price'=>5000,'img'=>$asset('flowers-decoration-1.webp'),'desc'=>'Fresh rose, jasmine and marigold styling for the reception stage, entry and guest areas.'],
-                ['key'=>'104','label'=>'Artificial Flowers','price'=>6000,'img'=>$asset('flowers-decoration-2.webp'),'desc'=>'Premium lifelike blooms that stay camera-ready throughout the reception.'],
-            ]],
-            ['key'=>'marriage','label'=>'Marriage','packages'=>[
-                ['key'=>'113','label'=>'Fresh Real Flowers','price'=>5000,'img'=>$asset('flowers-decoration-1.webp'),'desc'=>'Traditional fresh floral styling for the mandapam, garlands and ceremony spaces.'],
-                ['key'=>'114','label'=>'Artificial Flowers','price'=>6000,'img'=>$asset('flowers-decoration-2.webp'),'desc'=>'Colour-coordinated artificial flowers for a lasting marriage ceremony setup.'],
-            ]],
-        ],
+        'packages'=>$flowerPackages,
+    ]);
+} elseif (preg_match('#^make-over/(bridal|groom)/(silver|gold|platinum|diamond)$#', $serviceRoute, $makeOverMatch)) {
+    $audience = $makeOverMatch[1];
+    $tierKey = $makeOverMatch[2];
+    $categoryLabel = 'Make Over';
+    $categorySlug = 'bridal-groom-styling';
+    $isBridal = $audience === 'bridal';
+    $audienceLabel = $isBridal ? 'Bridal' : 'Groom';
+    $tiers = $isBridal ? [
+        'silver'=>['Silver',12000,'Essential makeup, hair styling and saree draping for one event.'],
+        'gold'=>['Gold',18000,'HD makeup with enhanced hair styling, draping and touch-up support.'],
+        'platinum'=>['Platinum',25000,'Premium artistry with advanced skin preparation, styling and accessories support.'],
+        'diamond'=>['Diamond',35000,'A complete luxury transformation with trial consultation and extended touch-up support.'],
+    ] : [
+        'silver'=>['Silver',6000,'Essential grooming, hair styling and event-ready finishing.'],
+        'gold'=>['Gold',9000,'Enhanced styling with skin preparation, hair and beard finishing.'],
+        'platinum'=>['Platinum',13000,'Premium transformation with consultation and a long-wear camera-ready finish.'],
+        'diamond'=>['Diamond',18000,'Complete luxury styling with trial consultation and extended touch-up support.'],
+    ];
+    $tier = $tiers[$tierKey];
+    $serviceName = $audienceLabel.' Make Over — '.$tier[0].' Standard';
+    $cfg = array_replace($common, [
+        'serviceKey'=>'make-over-'.$audience.'-'.$tierKey,
+        'adminSlug'=>'bridal-groom-styling',
+        'serviceName'=>$serviceName,
+        'slug'=>'make-over-'.$audience.'-'.$tierKey,
+        'img'=>$asset('bridal.webp'),
+        'rating'=>'4.8',
+        'availability'=>'Trials and event bookings available all year',
+        'subtags'=>$audienceLabel.' Styling | Premium Products | Camera Ready',
+        'priceMeta'=>'Consultation | Trial | Event Styling',
+        'showPkgPills'=>false,
+        'catalogCards'=>false,
+        'hideCards'=>true,
+        'makeOverActions'=>true,
+        'brochureType'=>$audience,
+        'brochureTier'=>$tierKey,
+        'overviewHtml'=>'<div class="sd-rich-overview"><h2>A polished '.$audienceLabel.' look designed around you</h2><p>'.$tier[2].' Your artist will coordinate the look with your outfit, venue and photography requirements before the event.</p><div class="sd-feature-list"><span><i class="fa-solid fa-wand-magic-sparkles"></i> Professional artist</span><span><i class="fa-solid fa-palette"></i> Personalised look</span><span><i class="fa-solid fa-camera"></i> Camera-ready finish</span></div></div>',
+        'packages'=>[['key'=>$tierKey,'label'=>$tier[0].' Standard','price'=>$tier[1],'img'=>$asset('bridal.webp'),'desc'=>$tier[2]]],
     ]);
 } elseif (preg_match('#^car-entry/luxury-cars/bmw/(series|x-m-models)$#', $serviceRoute, $bmwMatch)) {
     $categoryLabel = 'BMW Car Entry';
@@ -341,6 +379,11 @@ if (empty($cfg['serviceKey'])) {
 
 $fallbackImage = (string)$cfg['img'];
 $adminSlug = (string)($cfg['adminSlug'] ?? '');
+$isMakeOver = !empty($cfg['makeOverActions']);
+$makeOverQuery = $isMakeOver ? http_build_query([
+    'type' => (string)($cfg['brochureType'] ?? ''),
+    'tier' => (string)($cfg['brochureTier'] ?? ''),
+]) : '';
 $metaDescription = strip_tags((string)($cfg['overviewHtml'] ?? 'Book professional event services from ELLCY in Chennai.'));
 $metaDescription = mb_substr(preg_replace('/\s+/', ' ', $metaDescription) ?? '', 0, 155);
 ?>
@@ -361,7 +404,7 @@ $metaDescription = mb_substr(preg_replace('/\s+/', ' ', $metaDescription) ?? '',
   <script type="application/ld+json"><?= json_encode(['@context'=>'https://schema.org','@type'=>'Service','name'=>(string)$cfg['serviceName'],'description'=>$metaDescription,'image'=>$fallbackImage,'areaServed'=>['@type'=>'City','name'=>'Chennai'],'provider'=>['@type'=>'Organization','name'=>'ELLCY','url'=>$base],'offers'=>['@type'=>'Offer','priceCurrency'=>'INR','price'=>(float)($cfg['packages'][0]['price'] ?? 0),'availability'=>'https://schema.org/InStock','url'=>$base.'/services/'.trim($serviceRoute,'/').'/']], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_HEX_TAG) ?></script>
   <script type="application/ld+json"><?= json_encode(['@context'=>'https://schema.org','@type'=>'BreadcrumbList','itemListElement'=>[['@type'=>'ListItem','position'=>1,'name'=>'Home','item'=>$base.'/'],['@type'=>'ListItem','position'=>2,'name'=>$categoryLabel,'item'=>$base.'/services?type='.$categorySlug],['@type'=>'ListItem','position'=>3,'name'=>(string)$cfg['serviceName'],'item'=>$base.'/services/'.trim($serviceRoute,'/').'/']]], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_HEX_TAG) ?></script>
   <link rel="stylesheet" href="<?= $e($base) ?>/css/style.css"/>
-  <link rel="stylesheet" href="<?= $e($base) ?>/css/service-desc.css?v=20260908.2"/>
+  <link rel="stylesheet" href="<?= $e($base) ?>/css/service-desc.css?v=20260922.1"/>
   <link rel="stylesheet" href="<?= $e($base) ?>/css/media-gallery.css?v=20260831.1"/>
   <link rel="stylesheet" href="<?= $e($base) ?>/css/detail-single-media.css?v=20260831.1"/>
   <link rel="stylesheet" href="<?= $e($base) ?>/css/cart.css?v=20260903.2"/>
@@ -370,7 +413,7 @@ $metaDescription = mb_substr(preg_replace('/\s+/', ' ', $metaDescription) ?? '',
   <link rel="stylesheet" href="<?= $e(PUBLIC_URL) ?>/css/brand.css?v=20260908.5"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" defer></script>
 </head>
-<body class="sd-body <?= $portfolio ? 'photo-detail-page' : '' ?> <?= !empty($cfg['catalogCards']) ? 'catalog-card-detail-page' : '' ?>">
+<body class="sd-body <?= $portfolio ? 'photo-detail-page' : '' ?> <?= !empty($cfg['catalogCards']) ? 'catalog-card-detail-page' : '' ?> <?= $isMakeOver ? 'make-over-detail-page' : '' ?>">
 <header class="sd-topbar sd-mob" role="banner">
   <a class="sd-mobile-context" href="<?= $e($base) ?>/services?type=<?= $e($categorySlug) ?>"><?= $e((string)$cfg['serviceName']) ?></a>
   <a href="<?= $e($base) ?>/cart" class="sd-cart-mob" aria-label="View cart"><i class="fa-solid fa-cart-shopping"></i><span>Cart</span><span class="cart-badge" style="display:none">0</span></a>
@@ -402,7 +445,7 @@ $metaDescription = mb_substr(preg_replace('/\s+/', ' ', $metaDescription) ?? '',
     <div class="sd-pkg-section"><div class="sd-pkg-label">Select Package</div><div class="sd-pkg-pills" id="sdPkgPillsD"></div></div>
     <div class="sd-option-groups" id="sdOptionGroupsD"></div>
     <div class="sd-slot-section"><div class="sd-slot-label">Preferred Time Slot</div><div class="sd-slot-pills"><button class="sd-slot-pill active" data-slot="Morning">Morning</button><button class="sd-slot-pill" data-slot="Evening">Evening</button><button class="sd-slot-pill" data-slot="Both">Both</button></div></div>
-    <div class="sd-dsk-price-block"><div class="sd-dsk-price-line"><span class="sd-price-val" id="sdPriceD">0</span><span class="sd-price-meta-d"></span></div><div class="sd-dsk-ctas"><button class="sd-btn-cart" id="btnCartD" type="button"><i class="fa-solid fa-cart-shopping"></i> Add to Cart</button><a class="sd-btn-call" href="<?= $e($base) ?>/request-for-call"><i class="fa-solid fa-phone"></i> Request for Call</a></div></div>
+    <div class="sd-dsk-price-block"><div class="sd-dsk-price-line"><span class="sd-price-val" id="sdPriceD">0</span><span class="sd-price-meta-d"></span></div><div class="sd-dsk-ctas"><?php if ($isMakeOver): ?><a class="sd-btn-cart" href="<?= $e($base) ?>/request-for-call?service=<?= $e((string)$cfg['slug']) ?>"><i class="fa-solid fa-calendar-check"></i> Book Trial</a><a class="sd-btn-call sd-btn-phone" href="tel:+919361011717"><i class="fa-solid fa-phone"></i> Call Us</a><a class="sd-btn-brochure" href="<?= $e($base) ?>/pages/make-over-brochure.html?<?= $e($makeOverQuery) ?>"><i class="fa-solid fa-book-open"></i> Explore Brochure</a><?php else: ?><button class="sd-btn-cart" id="btnCartD" type="button"><i class="fa-solid fa-cart-shopping"></i> Add to Cart</button><a class="sd-btn-call" href="<?= $e($base) ?>/request-for-call"><i class="fa-solid fa-phone"></i> Request for Call</a><?php endif; ?></div></div>
   </div>
 </div>
 
@@ -415,7 +458,7 @@ $metaDescription = mb_substr(preg_replace('/\s+/', ' ', $metaDescription) ?? '',
     <div class="sd-option-groups" id="sdOptionGroupsM"></div>
     <div class="sd-slot-section"><div class="sd-slot-label">Preferred Time Slot</div><div class="sd-slot-pills"><button class="sd-slot-pill active" data-slot="Morning">Morning</button><button class="sd-slot-pill" data-slot="Evening">Evening</button><button class="sd-slot-pill" data-slot="Both">Both</button></div></div>
     <div class="sd-price-block"><span class="sd-price-val" id="sdPrice">0</span><span class="sd-price-meta"></span></div>
-    <div class="sd-cta-row"><button class="sd-btn-cart" id="btnCartM" type="button"><i class="fa-solid fa-cart-shopping"></i> Add to Cart</button><a class="sd-btn-call" href="<?= $e($base) ?>/request-for-call"><i class="fa-solid fa-phone"></i> Request for Call</a></div>
+    <div class="sd-cta-row"><?php if ($isMakeOver): ?><a class="sd-btn-cart" href="<?= $e($base) ?>/request-for-call?service=<?= $e((string)$cfg['slug']) ?>"><i class="fa-solid fa-calendar-check"></i> Book Trial</a><a class="sd-btn-call sd-btn-phone" href="tel:+919361011717"><i class="fa-solid fa-phone"></i> Call Us</a><a class="sd-btn-brochure" href="<?= $e($base) ?>/pages/make-over-brochure.html?<?= $e($makeOverQuery) ?>"><i class="fa-solid fa-book-open"></i> Explore Brochure</a><?php else: ?><button class="sd-btn-cart" id="btnCartM" type="button"><i class="fa-solid fa-cart-shopping"></i> Add to Cart</button><a class="sd-btn-call" href="<?= $e($base) ?>/request-for-call"><i class="fa-solid fa-phone"></i> Request for Call</a><?php endif; ?></div>
   </div>
 
   <div class="sd-tabs" role="tablist">
@@ -456,6 +499,6 @@ $metaDescription = mb_substr(preg_replace('/\s+/', ' ', $metaDescription) ?? '',
 <script src="<?= $e($base) ?>/js/cart.js"></script>
 <?php if ($showReferenceUpload): ?><script>window.ELLCY_JEWELLERY_SERVICE = <?= json_encode((string)$cfg['serviceKey']) ?>;</script><script src="<?= $e($base) ?>/js/jewellery-reference.js?v=20260811.2"></script><?php endif; ?>
 <script src="<?= $e($base) ?>/js/media-gallery.js?v=20260831.1"></script>
-<script src="<?= $e($base) ?>/js/service-desc.js?v=20260908.2"></script>
+  <script src="<?= $e($base) ?>/js/service-desc.js?v=20260922.1"></script>
 </body>
 </html>

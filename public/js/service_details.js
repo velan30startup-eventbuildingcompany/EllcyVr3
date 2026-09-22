@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Redirect map: slug → correct description page
   const REDIRECT_MAP = {
     'dj':                  'dj-description.html',
-    'bridal-groom-styling':'bridal-description.html',
+    'bridal-groom-styling':'services.html?type=bridal-groom-styling',
     'mehandi':             'mehendi-description.html',
     'cake-decoration':     'cake-description.html',
     'catering-boys':       'catering-description.html',

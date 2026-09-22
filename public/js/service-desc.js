@@ -529,6 +529,7 @@
   /* ── Request for Call ────────────────────────────────────────── */
   /* Update text and route all call buttons to the request-for-call page */
   document.querySelectorAll('.sd-btn-call').forEach(function(el) {
+    if (el.classList.contains('sd-btn-phone')) return;
     var callUrl = publicRoot() + 'request-for-call?service=' + encodeURIComponent(C.slug || C.serviceKey || '');
     if (window.ELLCY_JEWELLERY_REFERENCE_TOKEN) {
       callUrl += '&reference_token=' + encodeURIComponent(window.ELLCY_JEWELLERY_REFERENCE_TOKEN);

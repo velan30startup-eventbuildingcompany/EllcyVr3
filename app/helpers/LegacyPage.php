@@ -67,6 +67,8 @@ final class LegacyPage
                 '#^plates-decoration/(?:aarti|seer)-plates/(?:9|11|15|21)-plates$#',
                 $serviceRoute
             ) || preg_match('#^flower-rangoli/(?:3x3|4x4|5x5|6x6)-feet$#', $serviceRoute)
+              || preg_match('#^real-flowers/(?:reception|marriage)$#', $serviceRoute)
+              || preg_match('#^make-over/(?:bridal|groom)/(?:silver|gold|platinum|diamond)$#', $serviceRoute)
               || preg_match('#^photography/pre-wedding/(?:raj-photography|photo-ventures|moments-studio|lenscraft-chennai)$#', $serviceRoute)
               || preg_match('#^photography/post-wedding/(?:raj-photography|photo-ventures|moments-studio|lenscraft-chennai)$#', $serviceRoute)
               || preg_match('#^photography/reception-marriage/(?:traditional-photo-video|traditional-candid-photo|traditional-candid-drone|complete-candid-drone)$#', $serviceRoute)
