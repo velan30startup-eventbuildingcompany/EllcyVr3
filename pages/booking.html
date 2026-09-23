@@ -803,7 +803,7 @@
             minDate.setDate(minDate.getDate() + 2);
             minDate.setHours(0, 0, 0, 0);
             var dateInput = document.getElementById('bkDate');
-            dateInput.setAttribute('min', minDate.toISOString().split('T')[0]);
+            dateInput.setAttribute('min', isoLocal(minDate));
             var calendarMonth = new Date(minDate.getFullYear(), minDate.getMonth(), 1);
             var selectedDate = null;
             var calTitle = document.getElementById('bkCalTitle');

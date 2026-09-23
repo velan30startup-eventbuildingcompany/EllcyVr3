@@ -240,7 +240,6 @@ if ($serviceRoute === 'enter-show-down') {
         'hideCards'=>true,
         'makeOverActions'=>true,
         'brochureType'=>$audience,
-        'brochureTier'=>$tierKey,
         'seoDescription'=>'Book a '.$audienceLabel.' make over trial in Chennai for Tamil weddings and receptions. Compare '.$tier[0].' styling inclusions, pricing and event-ready services.',
         'overviewHtml'=>'<div class="sd-rich-overview"><h2>A polished '.$audienceLabel.' look designed around you</h2><p>'.$tier[2].' Your artist will coordinate the look with your outfit, venue and photography requirements before the event.</p><div class="sd-feature-list"><span><i class="fa-solid fa-wand-magic-sparkles"></i> Professional artist</span><span><i class="fa-solid fa-palette"></i> Personalised look</span><span><i class="fa-solid fa-camera"></i> Camera-ready finish</span></div></div>',
         'packages'=>[['key'=>$tierKey,'label'=>$tier[0].' Standard','price'=>$tier[1],'img'=>$asset('bridal.webp'),'desc'=>$tier[2]]],
@@ -384,7 +383,6 @@ $adminSlug = (string)($cfg['adminSlug'] ?? '');
 $isMakeOver = !empty($cfg['makeOverActions']);
 $makeOverQuery = $isMakeOver ? http_build_query([
     'type' => (string)($cfg['brochureType'] ?? ''),
-    'tier' => (string)($cfg['brochureTier'] ?? ''),
 ]) : '';
 $metaDescription = (string)($cfg['seoDescription'] ?? strip_tags((string)($cfg['overviewHtml'] ?? 'Book professional event services from ELLCY in Chennai.')));
 $metaDescription = mb_substr(preg_replace('/\s+/', ' ', $metaDescription) ?? '', 0, 155);
@@ -409,7 +407,7 @@ $canonicalUrl = $base . '/services/' . trim($serviceRoute, '/') . '/';
   <script type="application/ld+json"><?= json_encode(['@context'=>'https://schema.org','@type'=>'Service','name'=>(string)$cfg['serviceName'],'serviceType'=>(string)$categoryLabel,'description'=>$metaDescription,'image'=>$fallbackImage,'areaServed'=>['@type'=>'AdministrativeArea','name'=>'Chennai, Tamil Nadu, India'],'audience'=>['@type'=>'Audience','audienceType'=>'Tamil wedding and event customers'],'provider'=>['@type'=>'LocalBusiness','name'=>'ELLCY','url'=>$base,'telephone'=>'+919361011717','areaServed'=>'Chennai'],'offers'=>['@type'=>'Offer','priceCurrency'=>'INR','price'=>(float)($cfg['packages'][0]['price'] ?? 0),'availability'=>'https://schema.org/InStock','url'=>$canonicalUrl]], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_HEX_TAG) ?></script>
   <script type="application/ld+json"><?= json_encode(['@context'=>'https://schema.org','@type'=>'BreadcrumbList','itemListElement'=>[['@type'=>'ListItem','position'=>1,'name'=>'Home','item'=>$base.'/'],['@type'=>'ListItem','position'=>2,'name'=>$categoryLabel,'item'=>$base.'/services?type='.$categorySlug],['@type'=>'ListItem','position'=>3,'name'=>(string)$cfg['serviceName'],'item'=>$base.'/services/'.trim($serviceRoute,'/').'/']]], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_HEX_TAG) ?></script>
   <link rel="stylesheet" href="<?= $e(PUBLIC_URL) ?>/css/style.css"/>
-  <link rel="stylesheet" href="<?= $e(PUBLIC_URL) ?>/css/service-desc.css?v=20260922.2"/>
+  <link rel="stylesheet" href="<?= $e(PUBLIC_URL) ?>/css/service-desc.css?v=20260924.1"/>
   <link rel="stylesheet" href="<?= $e(PUBLIC_URL) ?>/css/media-gallery.css?v=20260831.1"/>
   <link rel="stylesheet" href="<?= $e(PUBLIC_URL) ?>/css/detail-single-media.css?v=20260831.1"/>
   <link rel="stylesheet" href="<?= $e(PUBLIC_URL) ?>/css/cart.css?v=20260903.2"/>
@@ -451,7 +449,7 @@ $canonicalUrl = $base . '/services/' . trim($serviceRoute, '/') . '/';
     <div class="sd-pkg-section"><div class="sd-pkg-label">Select Package</div><div class="sd-pkg-pills" id="sdPkgPillsD"></div></div>
     <div class="sd-option-groups" id="sdOptionGroupsD"></div>
     <div class="sd-slot-section"><div class="sd-slot-label">Preferred Time Slot</div><div class="sd-slot-pills"><button class="sd-slot-pill active" data-slot="Morning">Morning</button><button class="sd-slot-pill" data-slot="Evening">Evening</button><button class="sd-slot-pill" data-slot="Both">Both</button></div></div>
-    <div class="sd-dsk-price-block"><div class="sd-dsk-price-line"><span class="sd-price-val" id="sdPriceD">0</span><span class="sd-price-meta-d"></span></div><div class="sd-dsk-ctas"><?php if ($isMakeOver): ?><a class="sd-btn-cart" href="<?= $e($base) ?>/request-for-call?service=<?= $e((string)$cfg['slug']) ?>"><i class="fa-solid fa-calendar-check"></i> Book Trial</a><a class="sd-btn-call sd-btn-phone" href="tel:+919361011717"><i class="fa-solid fa-phone"></i> Call Us</a><a class="sd-btn-brochure" href="<?= $e($base) ?>/pages/make-over-brochure.html?<?= $e($makeOverQuery) ?>"><i class="fa-solid fa-book-open"></i> Explore Brochure</a><?php else: ?><button class="sd-btn-cart" id="btnCartD" type="button"><i class="fa-solid fa-cart-shopping"></i> Add to Cart</button><a class="sd-btn-call" href="<?= $e($base) ?>/request-for-call"><i class="fa-solid fa-phone"></i> Request for Call</a><?php endif; ?></div></div>
+    <div class="sd-dsk-price-block"><div class="sd-dsk-price-line"><span class="sd-price-val" id="sdPriceD">0</span><span class="sd-price-meta-d"></span></div><div class="sd-dsk-ctas"><?php if ($isMakeOver): ?><a class="sd-btn-cart" href="<?= $e($base) ?>/request-for-call?service=<?= $e((string)$cfg['slug']) ?>"><i class="fa-solid fa-calendar-check"></i> Book Trial</a><button class="sd-btn-buynow sd-makeover-book" type="button"><i class="fa-solid fa-bolt"></i> Book Now</button><a class="sd-btn-call sd-btn-phone" href="tel:+919361011717"><i class="fa-solid fa-phone"></i> Call Us</a><a class="sd-btn-brochure" href="<?= $e($base) ?>/pages/make-over-brochure.html?<?= $e($makeOverQuery) ?>"><i class="fa-solid fa-book-open"></i> Explore Brochure</a><?php else: ?><button class="sd-btn-cart" id="btnCartD" type="button"><i class="fa-solid fa-cart-shopping"></i> Add to Cart</button><a class="sd-btn-call" href="<?= $e($base) ?>/request-for-call"><i class="fa-solid fa-phone"></i> Request for Call</a><?php endif; ?></div></div>
   </div>
 </div>
 
@@ -464,7 +462,7 @@ $canonicalUrl = $base . '/services/' . trim($serviceRoute, '/') . '/';
     <div class="sd-option-groups" id="sdOptionGroupsM"></div>
     <div class="sd-slot-section"><div class="sd-slot-label">Preferred Time Slot</div><div class="sd-slot-pills"><button class="sd-slot-pill active" data-slot="Morning">Morning</button><button class="sd-slot-pill" data-slot="Evening">Evening</button><button class="sd-slot-pill" data-slot="Both">Both</button></div></div>
     <div class="sd-price-block"><span class="sd-price-val" id="sdPrice">0</span><span class="sd-price-meta"></span></div>
-    <div class="sd-cta-row"><?php if ($isMakeOver): ?><a class="sd-btn-cart" href="<?= $e($base) ?>/request-for-call?service=<?= $e((string)$cfg['slug']) ?>"><i class="fa-solid fa-calendar-check"></i> Book Trial</a><a class="sd-btn-call sd-btn-phone" href="tel:+919361011717"><i class="fa-solid fa-phone"></i> Call Us</a><a class="sd-btn-brochure" href="<?= $e($base) ?>/pages/make-over-brochure.html?<?= $e($makeOverQuery) ?>"><i class="fa-solid fa-book-open"></i> Explore Brochure</a><?php else: ?><button class="sd-btn-cart" id="btnCartM" type="button"><i class="fa-solid fa-cart-shopping"></i> Add to Cart</button><a class="sd-btn-call" href="<?= $e($base) ?>/request-for-call"><i class="fa-solid fa-phone"></i> Request for Call</a><?php endif; ?></div>
+    <div class="sd-cta-row"><?php if ($isMakeOver): ?><a class="sd-btn-cart" href="<?= $e($base) ?>/request-for-call?service=<?= $e((string)$cfg['slug']) ?>"><i class="fa-solid fa-calendar-check"></i> Book Trial</a><button class="sd-btn-buynow sd-makeover-book" type="button"><i class="fa-solid fa-bolt"></i> Book Now</button><a class="sd-btn-call sd-btn-phone" href="tel:+919361011717"><i class="fa-solid fa-phone"></i> Call Us</a><a class="sd-btn-brochure" href="<?= $e($base) ?>/pages/make-over-brochure.html?<?= $e($makeOverQuery) ?>"><i class="fa-solid fa-book-open"></i> Explore Brochure</a><?php else: ?><button class="sd-btn-cart" id="btnCartM" type="button"><i class="fa-solid fa-cart-shopping"></i> Add to Cart</button><a class="sd-btn-call" href="<?= $e($base) ?>/request-for-call"><i class="fa-solid fa-phone"></i> Request for Call</a><?php endif; ?></div>
   </div>
 
   <div class="sd-tabs" role="tablist">
@@ -505,6 +503,6 @@ $canonicalUrl = $base . '/services/' . trim($serviceRoute, '/') . '/';
 <script src="<?= $e(PUBLIC_URL) ?>/js/cart.js"></script>
 <?php if ($showReferenceUpload): ?><script>window.ELLCY_JEWELLERY_SERVICE = <?= json_encode((string)$cfg['serviceKey']) ?>;</script><script src="<?= $e(PUBLIC_URL) ?>/js/jewellery-reference.js?v=20260811.2"></script><?php endif; ?>
 <script src="<?= $e(PUBLIC_URL) ?>/js/media-gallery.js?v=20260831.1"></script>
-<script src="<?= $e(PUBLIC_URL) ?>/js/service-desc.js?v=20260922.1"></script>
+<script src="<?= $e(PUBLIC_URL) ?>/js/service-desc.js?v=20260924.1"></script>
 </body>
 </html>

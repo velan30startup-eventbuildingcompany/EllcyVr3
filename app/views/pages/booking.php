@@ -2,6 +2,7 @@
 $page_title       = 'ELLCY | Complete Your Booking';
 $meta_description = 'Complete your event service booking with ELLCY.';
 $extra_css        = ['header2.css','booking.css'];
+$minimumBookingDate = Security::minimumBookingDate();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Content-Type: application/json');
@@ -13,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email     = Security::sanitizeEmail($_POST['email'] ?? '') ?: '';
     $phone     = Security::sanitizePhone($_POST['phone'] ?? '');
     $eventType = Security::sanitizeString($_POST['event_type'] ?? '', 100);
-    $eventDate = $_POST['event_date'] ?? '';
+    $eventDate = Security::sanitizeString($_POST['event_date'] ?? '', 10);
     $eventVenue= Security::sanitizeString($_POST['venue'] ?? '', 300);
     $eventTime = Security::sanitizeString($_POST['event_time'] ?? '', 50);
     $guests    = Security::sanitizeInt($_POST['guest_count'] ?? 0, 0, 100000);
@@ -32,6 +33,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!$name || !Security::validatePhone($phone)) {
         echo json_encode(['success'=>false,'message'=>'Please fill all required fields correctly.']); exit;
+    }
+    if (!Security::isBookableEventDate($eventDate)) {
+        http_response_code(422);
+        echo json_encode(['success'=>false,'message'=>'Choose an event date from ' . date('d M Y', strtotime($minimumBookingDate)) . ' onwards.']); exit;
     }
 
     $items    = json_decode($itemsJson, true) ?: [];
@@ -120,8 +125,9 @@ require VIEWS_PATH . '/layouts/header.php';
               </select>
             </div>
             <div class="bk-field">
-              <label class="bk-label" for="bkDate">Event Date</label>
-              <input type="date" id="bkDate" name="event_date" class="bk-input"/>
+              <label class="bk-label" for="bkDate">Event Date <span class="bk-req">*</span></label>
+              <input type="date" id="bkDate" name="event_date" class="bk-input" min="<?= Security::e($minimumBookingDate) ?>" required/>
+              <small style="display:block;margin-top:6px;color:#6d6475">Available from <?= Security::e(date('d M Y', strtotime($minimumBookingDate))) ?>.</small>
             </div>
           </div>
           <div class="bk-row-2">
@@ -219,9 +225,12 @@ document.getElementById('bkForm').addEventListener('submit',function(e){
   var name=document.getElementById('bkName').value.trim();
   var phone=document.getElementById('bkPhone').value.trim();
   var etype=document.getElementById('bkEventType').value;
+  var eventDate=document.getElementById('bkDate').value;
+  var minimumDate='<?= Security::e($minimumBookingDate) ?>';
   if(!name){err.textContent='Please enter your name.';err.style.display='';return;}
   if(!/^[6-9][0-9]{9}$/.test(phone)){err.textContent='Please enter a valid 10-digit mobile number.';err.style.display='';return;}
   if(!etype){err.textContent='Please select the event type.';err.style.display='';return;}
+  if(!eventDate || eventDate < minimumDate){err.textContent='Please choose an event date from <?= Security::e(date('d M Y', strtotime($minimumBookingDate))) ?> onwards.';err.style.display='';document.getElementById('bkDate').focus();return;}
 
   var btn=document.getElementById('bkSubmitBtn');
   btn.disabled=true;

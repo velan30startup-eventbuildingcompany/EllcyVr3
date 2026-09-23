@@ -108,7 +108,7 @@ class EnquiryController {
         $phone    = Security::sanitizePhone($_POST['phone'] ?? '');
         $emailRaw = trim($_POST['email'] ?? '');
         $email    = $emailRaw !== '' ? Security::sanitizeEmail($emailRaw) : '';
-        $eventDate    = $_POST['event_date'] ?? '';
+        $eventDate    = Security::sanitizeString($_POST['event_date'] ?? '', 10);
         $budgetRange  = Security::sanitizeString($_POST['budget_range'] ?? '', 40);
         $location     = Security::sanitizeString($_POST['location'] ?? '', 255);
 
@@ -127,13 +127,13 @@ class EnquiryController {
         if ($budgetRange && !in_array($budgetRange, self::BUDGET_RANGES, true)) {
             $budgetRange = null;
         }
-        // Validate/normalise date (YYYY-MM-DD from <input type=date>)
+        // Validate/normalise date and enforce the same lead time as checkout.
         $validDate = null;
         if ($eventDate) {
-            $d = DateTime::createFromFormat('Y-m-d', $eventDate);
-            if ($d && $d->format('Y-m-d') === $eventDate) {
-                $validDate = $eventDate;
+            if (!Security::isBookableEventDate($eventDate)) {
+                return [[], 'Choose an event date from ' . date('d M Y', strtotime(Security::minimumBookingDate())) . ' onwards.'];
             }
+            $validDate = $eventDate;
         }
 
         return [[

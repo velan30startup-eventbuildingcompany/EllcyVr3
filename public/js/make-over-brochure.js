@@ -2,60 +2,27 @@
   'use strict';
   var params = new URLSearchParams(window.location.search);
   var type = params.get('type');
-  var tier = params.get('tier');
   var allowedTypes = ['bridal', 'groom'];
-  var allowedTiers = ['silver', 'gold', 'platinum', 'diamond'];
   if (!allowedTypes.includes(type)) type = 'bridal';
-  if (!allowedTiers.includes(tier)) tier = 'silver';
 
   var isBridal = type === 'bridal';
   var title = (isBridal ? 'Bridal' : 'Groom') + ' Make Over Brochure';
   document.title = 'ELLCY | ' + title;
   document.getElementById('brochureTitle').textContent = title;
   document.getElementById('brochureIntro').textContent = isBridal
-    ? 'Compare bridal make over standards, from essential event styling to a complete luxury transformation.'
-    : 'Compare groom make over standards, from essential grooming to a complete luxury event-ready finish.';
-
-  var prices = isBridal ? [12000, 18000, 25000, 35000] : [6000, 9000, 13000, 18000];
-  var inclusions = isBridal ? [
-    ['Professional makeup','Hair styling','Saree draping'],
-    ['HD makeup','Enhanced hair styling','Draping and touch-up'],
-    ['Premium skin preparation','Advanced makeup and hair','Accessories coordination'],
-    ['Trial consultation','Luxury makeup and styling','Extended touch-up support']
-  ] : [
-    ['Professional grooming','Hair styling','Event-ready finish'],
-    ['Skin preparation','Hair and beard styling','Camera-ready finish'],
-    ['Personal consultation','Premium groom styling','Long-wear finish'],
-    ['Trial consultation','Luxury groom styling','Extended touch-up support']
-  ];
-  var names = ['Silver','Gold','Platinum','Diamond'];
-  var grid = document.getElementById('standardsGrid');
-  names.forEach(function (name, index) {
-    var key = name.toLowerCase();
-    var article = document.createElement('article');
-    article.className = 'standard-card' + (tier === key ? ' selected' : '');
-    if (tier === key) {
-      var badge = document.createElement('span');
-      badge.className = 'selected-label';
-      badge.textContent = 'Selected';
-      article.appendChild(badge);
-    }
-    var heading = document.createElement('h3');
-    heading.textContent = name + ' Standard';
-    var price = document.createElement('p');
-    price.className = 'standard-price';
-    price.textContent = '₹' + prices[index].toLocaleString('en-IN');
-    var list = document.createElement('ul');
-    inclusions[index].forEach(function (item) {
-      var li = document.createElement('li'); li.textContent = item; list.appendChild(li);
-    });
-    var link = document.createElement('a');
-    link.className = 'standard-link';
-    link.href = '../services/make-over/' + type + '/' + key + '/';
-    link.textContent = 'View ' + name + ' details →';
-    article.appendChild(heading); article.appendChild(price); article.appendChild(list); article.appendChild(link);
-    grid.appendChild(article);
-  });
-  document.getElementById('trialLink').href = '../request-for-call?service=' + encodeURIComponent('make-over-' + type + '-' + tier);
+    ? 'Discover our consultation-led bridal styling journey for weddings, receptions and traditional Tamil ceremonies.'
+    : 'Discover our consultation-led groom styling journey for weddings, receptions and traditional Tamil ceremonies.';
+  var inclusions = isBridal
+    ? ['Look consultation matched to your outfit and jewellery', 'Skin preparation, professional makeup and hair styling', 'Saree or outfit draping with finishing support', 'Event-ready touch-up guidance for a confident, lasting look']
+    : ['Look consultation matched to your outfit and celebration', 'Skin preparation with professional grooming', 'Hair and beard styling for a camera-ready finish', 'Event-day finishing support for a polished, lasting look'];
+  document.getElementById('coverTitle').textContent = isBridal ? 'Bridal Make Over' : 'Groom Make Over';
+  document.getElementById('coverSubtitle').textContent = isBridal ? 'A timeless look for every Tamil wedding moment.' : 'A refined look for every Tamil wedding moment.';
+  document.getElementById('experienceTitle').textContent = isBridal ? 'The Bridal Experience' : 'The Groom Experience';
+  document.getElementById('experienceCopy').textContent = isBridal
+    ? 'From Muhurtham to reception, your look is planned around your features, attire, jewellery and photography lighting.'
+    : 'From ceremony to reception, your look is planned around your features, attire, venue and photography lighting.';
+  var list = document.getElementById('brochureInclusions');
+  inclusions.forEach(function (item) { var li = document.createElement('li'); li.textContent = item; list.appendChild(li); });
+  document.getElementById('trialLink').href = '../request-for-call?service=' + encodeURIComponent('make-over-' + type);
   document.getElementById('year').textContent = new Date().getFullYear();
 })();

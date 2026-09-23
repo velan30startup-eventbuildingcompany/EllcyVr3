@@ -504,6 +504,13 @@
     });
   }
 
+  document.querySelectorAll('.sd-makeover-book').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      buyNow();
+    });
+  });
+
   /* ── Wire Add to Cart buttons (hero CTAs) ──────────────────── */
   ['btnCartM', 'btnCartD'].forEach(function(id) {
     var btn = $(id);

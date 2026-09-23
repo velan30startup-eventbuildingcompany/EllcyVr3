@@ -46,6 +46,7 @@
 <?php if (empty($skip_data_js)): ?><script src="<?= PUBLIC_URL ?>/js/data.js?v=20260922.1"></script><?php endif; ?>
   <script src="<?= PUBLIC_URL ?>/js/auth.js?v=20260812.1"></script>
 <script src="<?= PUBLIC_URL ?>/js/cart.js"></script>
+<script src="<?= PUBLIC_URL ?>/js/booking-date-policy.js?v=20260924.1"></script>
 <?php if (!empty($extra_js)): ?>
   <?php foreach ((array)$extra_js as $js): ?>
   <script src="<?= PUBLIC_URL ?>/js/<?= Security::e($js) ?>"></script>

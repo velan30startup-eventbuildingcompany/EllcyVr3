@@ -42,7 +42,7 @@ class BookingController {
             $email      = Security::sanitizeEmail($_POST['email'] ?? '') ?: '';
             $phone      = Security::sanitizePhone($_POST['phone'] ?? '');
             $eventType  = Security::sanitizeString($_POST['event_type'] ?? '', 100);
-            $eventDate  = $_POST['event_date'] ?? '';
+            $eventDate  = Security::sanitizeString($_POST['event_date'] ?? '', 10);
             $eventVenue = Security::sanitizeString($_POST['venue'] ?? '', 300);
             $eventTime  = Security::sanitizeString($_POST['event_time'] ?? '', 50);
             $guests     = Security::sanitizeInt($_POST['guest_count'] ?? 0, 0, 100000);
@@ -52,16 +52,9 @@ class BookingController {
             if (!$name || !Security::validatePhone($phone) || (($_POST['email'] ?? '') !== '' && !$email)) {
                 echo json_encode(['success'=>false,'message'=>'Please fill all required fields.']); exit;
             }
-            if ($eventDate !== '') {
-                $parsed = DateTime::createFromFormat('Y-m-d', $eventDate);
-                if (!$parsed || $parsed->format('Y-m-d') !== $eventDate) {
-                    echo json_encode(['success'=>false,'message'=>'Choose a valid event date.']); exit;
-                }
-                $minimumDate = new DateTime('today +2 days');
-                $parsed->setTime(0, 0);
-                if ($parsed < $minimumDate) {
-                    echo json_encode(['success'=>false,'message'=>'Event dates must be at least two days from today.']); exit;
-                }
+            if (!Security::isBookableEventDate($eventDate)) {
+                http_response_code(422);
+                echo json_encode(['success'=>false,'message'=>'Choose an event date from ' . date('d M Y', strtotime(Security::minimumBookingDate())) . ' onwards.']); exit;
             }
 
             [$venueImages, $uploadError] = $this->handleVenueImages();

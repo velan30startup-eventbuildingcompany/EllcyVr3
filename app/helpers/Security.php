@@ -92,6 +92,26 @@ class Security {
         return self::normalizePhone($phone) !== '';
     }
 
+    // ── Booking date policy ─────────────────────────────────────────
+    // ELLCY operates in Chennai. Keeping the policy here ensures every
+    // booking and enquiry endpoint enforces the same local-calendar rule.
+    public static function minimumBookingDate(int $leadDays = 2): string {
+        $zone = new DateTimeZone('Asia/Kolkata');
+        return (new DateTimeImmutable('today', $zone))
+            ->modify('+' . max(0, $leadDays) . ' days')
+            ->format('Y-m-d');
+    }
+
+    public static function isBookableEventDate(string $value, int $leadDays = 2): bool {
+        $value = trim($value);
+        if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $value)) return false;
+        $zone = new DateTimeZone('Asia/Kolkata');
+        $date = DateTimeImmutable::createFromFormat('!Y-m-d', $value, $zone);
+        $errors = DateTimeImmutable::getLastErrors();
+        if (!$date || ($errors !== false && ($errors['warning_count'] > 0 || $errors['error_count'] > 0))) return false;
+        return $date->format('Y-m-d') === $value && $value >= self::minimumBookingDate($leadDays);
+    }
+
     // ── Rate limiting ───────────────────────────────────────────────
     public static function checkRateLimit(string $action, string $ip = ''): bool {
         if (!$ip) $ip = self::getIp();

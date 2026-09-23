@@ -300,6 +300,16 @@
   box-shadow: 0 4px 14px rgba(107,33,168,.28);
 }
 .sd-btn-cart:hover { background: var(--pri-dark); transform: translateY(-1px); }
+.sd-btn-buynow {
+  flex: 1; padding: 13px;
+  background: #f5a623; color: #171126; border: 2px solid #f5a623;
+  border-radius: 999px; font-family: inherit; font-size: .92rem;
+  font-weight: 900; cursor: pointer; text-decoration: none;
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  transition: background .18s, transform .14s, box-shadow .18s;
+  box-shadow: 0 4px 14px rgba(245,166,35,.25);
+}
+.sd-btn-buynow:hover { background: #ffb733; transform: translateY(-1px); }
 .make-over-detail-page a.sd-btn-cart,
 .make-over-detail-page a.sd-btn-cart:visited,
 .make-over-detail-page a.sd-btn-cart:hover,
@@ -584,6 +594,10 @@
     flex-wrap: nowrap;
     align-items: stretch;
     margin-top: 4px;
+  }
+  .make-over-detail-page .sd-dsk-ctas {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .sd-dsk-ctas .sd-btn-cart,
   .sd-dsk-ctas .sd-btn-buynow,

@@ -154,6 +154,13 @@ final class LegacyPage
             $html = preg_replace('/<head(\s[^>]*)?>/i', '$0' . $baseTag, $html, 1) ?? $html;
         }
 
+        /* Apply the two-day lead-time rule to every legacy booking or
+           service enquiry date field, including decoration pages. */
+        if (!preg_match('/booking-date-policy\.js/i', $html)) {
+            $datePolicy = '<script src="' . Security::e(PUBLIC_URL . '/js/booking-date-policy.js?v=20260924.1') . '"></script>';
+            $html = preg_replace('/<\/body>/i', $datePolicy . '</body>', $html, 1) ?? $html;
+        }
+
         header('Content-Type: text/html; charset=UTF-8');
         echo $html;
         return true;
