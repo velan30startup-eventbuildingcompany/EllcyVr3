@@ -499,7 +499,7 @@ $canonicalUrl = $base . '/services/' . trim($serviceRoute, '/') . '/';
 
 <script>window.SD_CONFIG = <?= json_encode($cfg, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?>;</script>
 <script src="<?= $e(PUBLIC_URL) ?>/js/data.js?v=20260922.1"></script>
-<script src="<?= $e(PUBLIC_URL) ?>/js/auth.js?v=20260812.1"></script>
+<script src="<?= $e(PUBLIC_URL) ?>/js/auth.js?v=20261006.1"></script>
 <script src="<?= $e(PUBLIC_URL) ?>/js/cart.js"></script>
 <?php if ($showReferenceUpload): ?><script>window.ELLCY_JEWELLERY_SERVICE = <?= json_encode((string)$cfg['serviceKey']) ?>;</script><script src="<?= $e(PUBLIC_URL) ?>/js/jewellery-reference.js?v=20260811.2"></script><?php endif; ?>
 <script src="<?= $e(PUBLIC_URL) ?>/js/media-gallery.js?v=20260831.1"></script>

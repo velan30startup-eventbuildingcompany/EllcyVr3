@@ -41,13 +41,19 @@
   </div>
   <?php endif; ?>
 
+  <?php if (!empty($databaseUnavailable)): ?>
+  <div class="setup-note">
+    The admin page is online, but its database connection is not configured. Add the production database environment variables to enable sign-in and media management.
+  </div>
+  <?php endif; ?>
+
   <form method="POST" action="">
     <input type="hidden" name="csrf_token" value="<?= Security::csrfToken() ?>">
     <div class="login-field">
-      <label class="login-label" for="email">Email Address</label>
-      <input type="email" id="email" name="email" class="login-input"
-             placeholder="admin@ellcy.in" required autocomplete="email"
-             value="<?= htmlspecialchars($_POST['email'] ?? '') ?>"/>
+      <label class="login-label" for="identity">Username or Email</label>
+      <input type="text" id="identity" name="identity" class="login-input"
+             placeholder="Username or admin@ellcy.in" required autocomplete="username"
+             value="<?= htmlspecialchars($_POST['identity'] ?? $_POST['email'] ?? '') ?>"/>
     </div>
     <div class="login-field">
       <label class="login-label" for="password">Password</label>

@@ -4,6 +4,11 @@ $page_title  = $is_edit ? 'Edit Service' : 'Add New Service';
 $active_page = 'services';
 require VIEWS_PATH . '/admin/layout_start.php';
 $s = $service ?? [];
+$adminMediaUrl = static function (?string $path): string {
+    $path = (string)$path;
+    return preg_match('#^https://#i', $path) ? $path : APP_URL . $path;
+};
+$isVercelRuntime = getenv('VERCEL') === '1';
 ?>
 
 <div class="service-form-shell">
@@ -209,10 +214,10 @@ $s = $service ?? [];
                       <span style="font-size:.65rem;font-weight:700"><?= ucfirst($slot['item']['video_provider']) ?></span>
                     </div>
                   <?php else: ?>
-                    <video src="<?= htmlspecialchars(APP_URL . $slot['item']['path']) ?>" style="width:100%;height:100%;object-fit:cover" controls></video>
+                    <video src="<?= htmlspecialchars($adminMediaUrl($slot['item']['path'])) ?>" style="width:100%;height:100%;object-fit:cover" controls></video>
                   <?php endif; ?>
                 <?php else: ?>
-                  <img src="<?= htmlspecialchars(APP_URL . $slot['item']['path']) ?>" alt="" style="width:100%;height:100%;object-fit:cover"/>
+                  <img src="<?= htmlspecialchars($adminMediaUrl($slot['item']['path'])) ?>" alt="" style="width:100%;height:100%;object-fit:cover"/>
                 <?php endif; ?>
               <?php else: ?>
                 <div style="color:#c9b8e0;display:flex;flex-direction:column;align-items:center;gap:4px">
@@ -262,11 +267,11 @@ $s = $service ?? [];
                 <span style="font-size:.65rem;font-weight:700"><?= ucfirst($g['video_provider']) ?></span>
               </div>
               <?php else: ?>
-              <video src="<?= htmlspecialchars(APP_URL . $g['path']) ?>" style="width:100%;height:100%;object-fit:cover" muted></video>
+              <video src="<?= htmlspecialchars($adminMediaUrl($g['path'])) ?>" style="width:100%;height:100%;object-fit:cover" muted></video>
               <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.2)"><i class="fa-solid fa-play" style="color:#fff"></i></div>
               <?php endif; ?>
             <?php else: ?>
-              <img src="<?= htmlspecialchars(APP_URL . $g['path']) ?>" alt="" style="width:100%;height:100%;object-fit:cover"/>
+              <img src="<?= htmlspecialchars($adminMediaUrl($g['path'])) ?>" alt="" style="width:100%;height:100%;object-fit:cover"/>
             <?php endif; ?>
             <button type="button" class="gallery-primary-btn" data-img-id="<?= (int)$g['id'] ?>"
                     title="<?= !empty($g['is_primary']) ? 'Currently primary' : 'Set as primary' ?>"
@@ -290,12 +295,22 @@ $s = $service ?? [];
 
         <div class="gallery-mode-row">
           <button type="button" class="btn btn-sm btn-outline gallery-mode-btn active" data-mode="image">Add Photo</button>
+          <button type="button" class="btn btn-sm btn-outline gallery-mode-btn" data-mode="image_url">Photo URL</button>
           <button type="button" class="btn btn-sm btn-outline gallery-mode-btn" data-mode="video_url">Add Video (YouTube/Vimeo)</button>
           <button type="button" class="btn btn-sm btn-outline gallery-mode-btn" data-mode="video_upload">Upload Video</button>
         </div>
 
+        <?php if ($isVercelRuntime): ?>
+        <div style="margin:10px 0;padding:10px 12px;border-radius:9px;background:#fff8dc;border:1px solid #efd774;color:#765b00;font-size:.76rem;line-height:1.45">
+          Vercel function storage is temporary. For permanent production media, use <strong>Photo URL</strong> or a YouTube/Vimeo link backed by persistent cloud storage.
+        </div>
+        <?php endif; ?>
+
         <div id="galleryModeImage" class="gallery-mode-panel">
           <input type="file" id="galleryFileImage" class="form-input" accept="image/jpeg,image/png,image/webp,image/gif" style="padding:8px;margin-bottom:8px"/>
+        </div>
+        <div id="galleryModeImage_url" class="gallery-mode-panel" style="display:none">
+          <input type="url" id="galleryImageUrl" class="form-input" placeholder="https://cdn.example.com/service-photo.webp" maxlength="300" style="margin-bottom:8px"/>
         </div>
         <div id="galleryModeVideo_url" class="gallery-mode-panel" style="display:none">
           <input type="url" id="galleryVideoUrl" class="form-input" placeholder="https://youtube.com/watch?v=… or vimeo.com/…" style="margin-bottom:8px"/>
@@ -363,7 +378,7 @@ document.getElementById('slugField').addEventListener('input', function(){
       currentMode = btn.dataset.mode;
       document.querySelectorAll('.gallery-mode-panel').forEach(function(p){ p.style.display = 'none'; });
       document.getElementById('galleryMode' + currentMode.charAt(0).toUpperCase() + currentMode.slice(1)).style.display = 'block';
-      document.getElementById('galleryThumbnailWrap').style.display = currentMode === 'image' ? 'none' : 'block';
+      document.getElementById('galleryThumbnailWrap').style.display = currentMode.indexOf('video') === 0 ? 'block' : 'none';
     });
   });
 
@@ -376,6 +391,10 @@ document.getElementById('slugField').addEventListener('input', function(){
       var f = document.getElementById('galleryFileImage').files[0];
       if (!f) return showGalleryMsg('Choose a photo first.', false);
       fd.append('media', f);
+    } else if (currentMode === 'image_url') {
+      var imageUrl = document.getElementById('galleryImageUrl').value.trim();
+      if (!imageUrl) return showGalleryMsg('Paste an HTTPS image URL first.', false);
+      fd.append('image_url', imageUrl);
     } else if (currentMode === 'video_url') {
       var url = document.getElementById('galleryVideoUrl').value.trim();
       if (!url) return showGalleryMsg('Paste a YouTube or Vimeo link first.', false);
@@ -386,7 +405,7 @@ document.getElementById('slugField').addEventListener('input', function(){
       fd.append('media', vf);
     }
     var thumbnail = document.getElementById('galleryThumbnail').files[0];
-    if (currentMode !== 'image' && thumbnail) fd.append('thumbnail', thumbnail);
+    if (currentMode.indexOf('video') === 0 && thumbnail) fd.append('thumbnail', thumbnail);
 
     addBtn.disabled = true;
     fetch(window.ELLCY_BASE + '/admin/services/gallery/add/' + serviceId, { method:'POST', body: fd })

@@ -10,20 +10,29 @@ class AdminController {
         if (!empty($_SESSION['admin_id'])) {
             Router::redirect('admin');
         }
-        $needsSetup = !Database::fetchOne(
-            "SELECT id FROM users WHERE role IN ('admin','superadmin') AND status='active' LIMIT 1"
-        );
+        $databaseUnavailable = false;
+        try {
+            $needsSetup = !Database::fetchOne(
+                "SELECT id FROM users WHERE role IN ('admin','superadmin') AND status='active' LIMIT 1"
+            );
+        } catch (Throwable $e) {
+            $needsSetup = false;
+            $databaseUnavailable = true;
+            error_log('[ELLCY] Admin database unavailable: ' . $e->getMessage());
+        }
         $error = '';
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             Security::requireCsrf();
-            if (!Security::checkRateLimit('admin_login', Security::getIp())) {
+            if ($databaseUnavailable) {
+                $error = 'The admin database is temporarily unavailable. Please check the production database configuration.';
+            } elseif (!Security::checkRateLimit('admin_login', Security::getIp())) {
                 $error = 'Too many login attempts. Please wait 60 seconds.';
             } else {
-                $email    = Security::sanitizeString($_POST['email'] ?? '', 150);
+                $identity = Security::sanitizeString($_POST['identity'] ?? $_POST['email'] ?? '', 150);
                 $password = $_POST['password'] ?? '';
                 $user     = Database::fetchOne(
-                    "SELECT * FROM users WHERE email = ? AND role IN ('admin','superadmin') AND status = 'active'",
-                    [$email]
+                    "SELECT * FROM users WHERE (email = ? OR name = ?) AND role IN ('admin','superadmin') AND status = 'active' ORDER BY id LIMIT 1",
+                    [$identity, $identity]
                 );
                 if ($user && Security::verifyPassword($password, $user['password_hash'])) {
                     session_regenerate_id(true);
@@ -309,13 +318,13 @@ class AdminController {
             $service = Service::getById($serviceId);
             if (!$service) { echo json_encode(['success'=>false,'message'=>'Service not found']); return; }
 
-            $mode = $_POST['media_mode'] ?? 'image'; // 'image' | 'video_url' | 'video_upload'
+            $mode = $_POST['media_mode'] ?? 'image'; // image | image_url | video_url | video_upload
             $replaceId = Security::sanitizeInt($_POST['replace_id'] ?? 0);
             $replaceRow = $replaceId ? Database::fetchOne(
                 'SELECT * FROM service_images WHERE id=? AND service_id=?', [$replaceId, $serviceId]
             ) : null;
             $isDecoration = in_array($service['category_slug'] ?? '', ['stage-decoration','light-decoration'], true);
-            if ($mode === 'image' && $isDecoration) {
+            if (in_array($mode, ['image','image_url'], true) && $isDecoration) {
                 $imageCount = (int)(Database::fetchOne(
                     "SELECT COUNT(*) AS c FROM service_images WHERE service_id=? AND media_type='image' AND status='active'",
                     [$serviceId]
@@ -330,6 +339,22 @@ class AdminController {
             // First item added for a service becomes primary automatically —
             // so a brand-new service shows something without an extra step.
             $isFirstItem = $replaceRow ? !empty($replaceRow['is_primary']) : $nextSort === 1;
+
+            if ($mode === 'image_url') {
+                $url = trim((string)($_POST['image_url'] ?? ''));
+                $parts = parse_url($url);
+                if (!filter_var($url, FILTER_VALIDATE_URL) || strtolower((string)($parts['scheme'] ?? '')) !== 'https' || strlen($url) > 300) {
+                    echo json_encode(['success'=>false,'message'=>'Paste a valid HTTPS image URL (maximum 300 characters).']); return;
+                }
+                Database::query(
+                    'INSERT INTO service_images (service_id, path, media_type, alt, sort_order, is_primary) VALUES (?,?,?,?,?,?)',
+                    [$serviceId, $url, 'image', Security::sanitizeString($_POST['alt'] ?? '', 200), $nextSort, $isFirstItem ? 1 : 0]
+                );
+                if ($replaceRow) $this->removeServiceMediaRow($replaceRow);
+                $this->log('gallery_add_image_url', 'service_images', "service $serviceId");
+                echo json_encode(['success' => true]);
+                return;
+            }
 
             if ($mode === 'video_url') {
                 $url = trim($_POST['video_url'] ?? '');
