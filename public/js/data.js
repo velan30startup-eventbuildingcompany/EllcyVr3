@@ -499,14 +499,10 @@ const ENQUIRY_SERVICES = {
 };
 
 /* ============================================================
-   LIVE DATA LOADER — fetches the real catalog from MySQL via
-   the /api/services endpoint and replaces the static fallback
-   data above. Runs synchronously so every script loaded after
-   this one (services.js, category.js, script.js, booking.js,
-   service-desc.js, service_details.js) can keep using
-   SERVICES_DATA / PHOTOGRAPHY_PACKAGE / PHOTOGRAPHY_FILTERS /
-   PHOTOGRAPHY_BASE_PRICE / ALL_SERVICES exactly as before, with
-   zero changes to those files.
+   LIVE DATA LOADER — renders the bundled catalogue immediately,
+   then refreshes the database-backed catalogue in the background.
+   The old synchronous request could hold the whole page for several
+   seconds whenever the production database was unavailable.
    ============================================================ */
 (function () {
   var API_BASE = '../'; // resolved relative to this file's own folder
@@ -521,18 +517,6 @@ const ENQUIRY_SERVICES = {
     } catch (e) {
       return rel;
     }
-  }
-
-  function loadJSONSync(url) {
-    try {
-      var xhr = new XMLHttpRequest();
-      xhr.open('GET', url, false); // synchronous by design — see README note
-      xhr.send(null);
-      if (xhr.status >= 200 && xhr.status < 300) {
-        return JSON.parse(xhr.responseText);
-      }
-    } catch (e) { /* API/DB not available yet — silently fall back below */ }
-    return null;
   }
 
   function parseTags(tagStr) {
@@ -581,9 +565,8 @@ const ENQUIRY_SERVICES = {
     window.PHOTOGRAPHY_BASE_PRICE = STATIC_PHOTOGRAPHY_BASE_PRICE;
   }
 
-  var servicesResp = loadJSONSync(resolveUrl(API_BASE + 'api/services'));
-
-  if (servicesResp && Array.isArray(servicesResp.services) && servicesResp.services.length) {
+  function applyServicesResponse(servicesResp) {
+    if (!servicesResp || !Array.isArray(servicesResp.services) || !servicesResp.services.length) return false;
     var grouped = {};
     var photoService = null;
     servicesResp.services.forEach(function (row) {
@@ -623,11 +606,54 @@ const ENQUIRY_SERVICES = {
       window.PHOTOGRAPHY_FILTERS    = STATIC_PHOTOGRAPHY_FILTERS;
       window.PHOTOGRAPHY_BASE_PRICE = STATIC_PHOTOGRAPHY_BASE_PRICE;
     }
-  } else {
-    // API unreachable or DB not seeded yet (e.g. setup.php not run) —
-    // use the bundled static catalog so the site keeps working.
-    useStaticFallback();
+    window.ALL_SERVICES = Object.values(window.SERVICES_DATA).flat();
+    return true;
   }
 
+  var cacheKey = 'ellcy_catalog_v1';
+  var retryKey = 'ellcy_catalog_retry_after';
+  var cached = null;
+  try { cached = JSON.parse(sessionStorage.getItem(cacheKey) || 'null'); } catch (e) { cached = null; }
+  if (!applyServicesResponse(cached)) useStaticFallback();
   window.ALL_SERVICES = Object.values(window.SERVICES_DATA).flat();
+
+  function refreshCatalog() {
+    var retryAfter = 0;
+    try { retryAfter = parseInt(sessionStorage.getItem(retryKey) || '0', 10); } catch (e) {}
+    if (retryAfter > Date.now()) return;
+
+    var controller = typeof AbortController === 'function' ? new AbortController() : null;
+    var timer = controller ? setTimeout(function () { controller.abort(); }, 1500) : null;
+    fetch(resolveUrl(API_BASE + 'api/services'), {
+      credentials: 'same-origin',
+      signal: controller ? controller.signal : undefined,
+      headers: { 'Accept': 'application/json' }
+    })
+      .then(function (response) {
+        if (!response.ok) throw new Error('Catalog API unavailable');
+        return response.json();
+      })
+      .then(function (payload) {
+        if (!applyServicesResponse(payload)) throw new Error('Empty catalogue');
+        try {
+          sessionStorage.setItem(cacheKey, JSON.stringify(payload));
+          sessionStorage.removeItem(retryKey);
+        } catch (e) {}
+        window.dispatchEvent(new CustomEvent('ellcy:catalog-loaded'));
+      })
+      .catch(function () {
+        try { sessionStorage.setItem(retryKey, String(Date.now() + 10 * 60 * 1000)); } catch (e) {}
+      })
+      .finally(function () { if (timer) clearTimeout(timer); });
+  }
+
+  function scheduleCatalogRefresh() {
+    if ('requestIdleCallback' in window) {
+      window.requestIdleCallback(refreshCatalog, { timeout: 2000 });
+    } else {
+      setTimeout(refreshCatalog, 0);
+    }
+  }
+  if (document.readyState === 'complete') scheduleCatalogRefresh();
+  else window.addEventListener('load', scheduleCatalogRefresh, { once: true });
 })();

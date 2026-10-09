@@ -40,7 +40,7 @@
     <link rel="stylesheet" href="<?= PUBLIC_URL ?>/css/<?= Security::e($css) ?>"/>
     <?php endforeach; ?>
   <?php endif; ?>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <script type="application/ld+json"><?= json_encode([
     '@context'=>'https://schema.org','@type'=>'LocalBusiness','name'=>'ELLCY',
     'description'=>'Tamil wedding and event services marketplace for customers in Chennai.',

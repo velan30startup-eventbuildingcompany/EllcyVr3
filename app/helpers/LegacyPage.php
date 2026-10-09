@@ -101,14 +101,23 @@ final class LegacyPage
 
         /* Force the latest shared responsive and calculator assets after an
            update; several legacy templates otherwise reuse a stale browser copy. */
-        foreach (['brand.css', 'cart.css', 'header2.css', 'category.css', 'category.js', 'auth.js', 'bouncer.css', 'catering-admin-data.js', 'catering-staff-calc.js', 'detail-single-media.css', 'media-gallery.css', 'media-gallery.js', 'rfc-shared.css', 'services.css', 'services.js', 'service-desc.css', 'service-desc.js'] as $assetName) {
+        foreach (['brand.css', 'cart.css', 'header2.css', 'category.css', 'category.js', 'data.js', 'auth.js', 'bouncer.css', 'catering-admin-data.js', 'catering-staff-calc.js', 'detail-single-media.css', 'media-gallery.css', 'media-gallery.js', 'rfc-shared.css', 'services.css', 'services.js', 'service-desc.css', 'service-desc.js'] as $assetName) {
             $assetPattern = preg_quote($assetName, '/');
             $html = preg_replace_callback(
                 '/(?<url>[^"\']*\/' . $assetPattern . ')(?:\?[^"\']*)?/i',
-                static fn(array $match): string => $match['url'] . '?v=20261006.1',
+                static fn(array $match): string => $match['url'] . '?v=20261010.1',
                 $html
             ) ?? $html;
         }
+
+        /* Font Awesome's JavaScript build transfers and parses more than a
+           megabyte before DOMContentLoaded. The CSS build renders the same
+           icon markup without blocking page interactivity. */
+        $html = preg_replace(
+            '#<script\s+src=["\']https://cdnjs\.cloudflare\.com/ajax/libs/font-awesome/6\.5\.0/js/all\.min\.js["\']\s*(?:defer)?\s*></script>#i',
+            '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>',
+            $html
+        ) ?? $html;
 
         /* Every service template receives the shared account/header styles.
            Older templates load auth.js but omit cart.css, which leaves the

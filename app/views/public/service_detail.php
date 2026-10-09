@@ -415,7 +415,7 @@ $canonicalUrl = $base . '/services/' . trim($serviceRoute, '/') . '/';
   <link rel="alternate icon" type="image/png" sizes="32x32" href="<?= $e(PUBLIC_URL) ?>/uploads/branding/favicon-32.png"/>
   <link rel="apple-touch-icon" sizes="180x180" href="<?= $e(PUBLIC_URL) ?>/uploads/branding/apple-touch-icon.png"/>
   <link rel="stylesheet" href="<?= $e(PUBLIC_URL) ?>/css/brand.css?v=20260908.5"/>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
 <body class="sd-body <?= $portfolio ? 'photo-detail-page' : '' ?> <?= !empty($cfg['catalogCards']) ? 'catalog-card-detail-page' : '' ?> <?= $isMakeOver ? 'make-over-detail-page' : '' ?>">
 <header class="sd-topbar sd-mob" role="banner">
@@ -498,8 +498,8 @@ $canonicalUrl = $base . '/services/' . trim($serviceRoute, '/') . '/';
 <footer class="site-footer" role="contentinfo"><div class="footer-inner"><div class="footer-brand"><div class="footer-logo">ELLCY</div><p class="footer-text">Creating unforgettable moments across Chennai.</p></div><div class="footer-col"><h4>Quick Links</h4><ul><li><a href="<?= $e($base) ?>/">Home</a></li><li><a href="<?= $e($base) ?>/services">Event Services</a></li><li><a href="<?= $e($base) ?>/booking">Book Now</a></li></ul></div><div class="footer-col"><h4>Contact</h4><p class="footer-contact-item">+91 123-456-789</p><p class="footer-contact-item">info@ellcy.in</p><p class="footer-contact-item">Chennai, Tamil Nadu</p></div><div class="footer-col"><h4>Book Your Event</h4><a class="footer-enquiry-btn" href="<?= $e($base) ?>/booking"><i class="fa-solid fa-calendar-check"></i> Book Now</a></div></div><div class="footer-divider"></div><div class="footer-bottom"><p><span id="year"></span> &copy; ELLCY — All Rights Reserved.</p></div></footer>
 
 <script>window.SD_CONFIG = <?= json_encode($cfg, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?>;</script>
-<script src="<?= $e(PUBLIC_URL) ?>/js/data.js?v=20260922.1"></script>
-<script src="<?= $e(PUBLIC_URL) ?>/js/auth.js?v=20261006.1"></script>
+<script src="<?= $e(PUBLIC_URL) ?>/js/data.js?v=20261010.1"></script>
+<script src="<?= $e(PUBLIC_URL) ?>/js/auth.js?v=20261010.1"></script>
 <script src="<?= $e(PUBLIC_URL) ?>/js/cart.js"></script>
 <?php if ($showReferenceUpload): ?><script>window.ELLCY_JEWELLERY_SERVICE = <?= json_encode((string)$cfg['serviceKey']) ?>;</script><script src="<?= $e(PUBLIC_URL) ?>/js/jewellery-reference.js?v=20260811.2"></script><?php endif; ?>
 <script src="<?= $e(PUBLIC_URL) ?>/js/media-gallery.js?v=20260831.1"></script>

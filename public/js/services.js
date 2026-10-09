@@ -46,6 +46,9 @@
     const ph              = document.getElementById('page-heading');
     const filterContainer = document.getElementById('filtersContainer');
     const grid            = document.getElementById('servicesGrid');
+    const mobileTitle     = document.querySelector('header .hdr-mobile-title');
+
+    if (mobileTitle) mobileTitle.textContent = label || 'Services';
 
     /* ── Breadcrumb ─────────────────────────────────────── */
     if (bc) {
@@ -78,6 +81,7 @@
     ════════════════════════════════════════════════════ */
     if (!type) {
       if (ph) ph.textContent = 'Our Event Services';
+      if (mobileTitle) mobileTitle.textContent = 'Services';
       if (bc) bc.textContent = 'All Services';
       if (filterContainer) filterContainer.style.display = 'none';
       renderAllServicesGrid(grid);

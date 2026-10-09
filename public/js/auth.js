@@ -48,6 +48,13 @@
     }
   })();
 
+  function isHomePage() {
+    var rootPath = ROOT_PREFIX.replace(/\/+$/, '');
+    var currentPath = window.location.pathname.replace(/\/+$/, '');
+    if (!rootPath) return currentPath === '' || currentPath === '/';
+    return currentPath === rootPath || currentPath === rootPath + '/index.html';
+  }
+
   function getCartPath()     { return ROOT_PREFIX + 'cart'; }
   function getBookingPath()  { return ROOT_PREFIX + 'booking'; }
   /* "My Bookings" nav links (header ribbon, hamburger drawer, account
@@ -151,6 +158,7 @@
 
   function ensureResponsiveHeaderStyles() {
     if (document.getElementById('ellcyResponsiveHeaderPatch')) return;
+    document.documentElement.classList.add(isHomePage() ? 'ellcy-mobile-home' : 'ellcy-mobile-inner');
     var style = document.createElement('style');
     style.id = 'ellcyResponsiveHeaderPatch';
     style.textContent =
@@ -176,6 +184,9 @@
       'header .ellcy-mobile-brand-wrap{display:block!important;position:static!important;order:1!important;flex:0 0 auto!important;min-width:0!important;margin:0 2px!important;text-align:left!important}' +
       'header .ellcy-mobile-brand{display:block!important;position:static!important;inset:auto!important;transform:none!important;order:1!important;flex:0 0 auto!important;min-width:0!important;max-width:none!important;margin:0 4px 0 2px!important;padding:0!important;color:#fff!important;text-decoration:none!important;text-align:left!important;font-size:1.02rem!important;font-weight:900!important;letter-spacing:.02em!important;white-space:nowrap!important;pointer-events:auto!important}' +
       'header .ellcy-mobile-context,header .sd-mobile-context{display:block!important;position:static!important;inset:auto!important;transform:none!important;order:2!important;flex:1 1 auto!important;min-width:0!important;max-width:none!important;margin:0 52px 0 4px!important;padding:0!important;color:#fff!important;text-decoration:none!important;text-align:left!important;font-size:.82rem!important;font-weight:700!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;pointer-events:auto!important}' +
+      'html.ellcy-mobile-home header .ellcy-mobile-context,html.ellcy-mobile-home header .sd-mobile-context{display:none!important}' +
+      'html.ellcy-mobile-inner header .ellcy-mobile-brand,html.ellcy-mobile-inner header .ellcy-mobile-brand-wrap{display:none!important}' +
+      'html.ellcy-mobile-inner header .ellcy-mobile-context,html.ellcy-mobile-inner header .sd-mobile-context{order:1!important;margin:0 52px 0 4px!important;font-size:1.02rem!important;font-weight:800!important}' +
       '.ellcy-drawer-signin,.ellcy-drawer-createacct,.ellcy-drawer-account a{color:#fff!important}' +
       '.ellcy-drawer-nav a,.ellcy-drawer-nav a i{color:#1a1a2e!important}' +
       '}';
@@ -297,7 +308,7 @@
           nativeBrand.parentElement.classList.add('ellcy-mobile-brand-wrap');
         }
       }
-      if (!pageContext && !headerEl.querySelector('.sd-mobile-context, .ellcy-mobile-context')) {
+      if (!isHomePage() && !pageContext && !headerEl.querySelector('.sd-mobile-context, .ellcy-mobile-context')) {
         var oldBack = headerEl.querySelector('button[class*="back-btn"], a[class*="back-btn"]');
         var labelNode = oldBack && oldBack.querySelector('span');
         var label = labelNode ? labelNode.textContent.trim() : '';

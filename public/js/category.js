@@ -60,6 +60,8 @@
     if (bc) bc.textContent = label;
     const ph = document.getElementById('page-heading');
     if (ph) ph.textContent = label;
+    const mobileTitle = document.querySelector('header .hdr-mobile-title');
+    if (mobileTitle) mobileTitle.textContent = label;
 
     const grid = document.getElementById('categoryGrid');
     if (!grid) return;
