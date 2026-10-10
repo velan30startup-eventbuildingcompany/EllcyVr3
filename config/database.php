@@ -13,11 +13,13 @@
  */
 // 127.0.0.1 avoids Windows resolving `localhost` to IPv6 first and waiting
 // before falling back to the XAMPP MySQL listener.
-define('DB_HOST', (string)(getenv('ELLCY_DB_HOST') ?: '127.0.0.1'));
-define('DB_PORT', (string)(getenv('ELLCY_DB_PORT') ?: '3306'));
-define('DB_NAME', (string)(getenv('ELLCY_DB_NAME') ?: 'ellcy_db'));
-define('DB_USER', (string)(getenv('ELLCY_DB_USER') ?: (APP_ENV === 'production' ? 'ellcy_user' : 'root')));
-define('DB_PASS', (string)(getenv('ELLCY_DB_PASS') ?: ''));
+// Prefer ELLCY_* so the application can be moved between providers. Vercel's
+// TiDB integration supplies the TIDB_* aliases automatically.
+define('DB_HOST', (string)(getenv('ELLCY_DB_HOST') ?: getenv('TIDB_HOST') ?: '127.0.0.1'));
+define('DB_PORT', (string)(getenv('ELLCY_DB_PORT') ?: getenv('TIDB_PORT') ?: '3306'));
+define('DB_NAME', (string)(getenv('ELLCY_DB_NAME') ?: getenv('TIDB_DATABASE') ?: 'ellcy_db'));
+define('DB_USER', (string)(getenv('ELLCY_DB_USER') ?: getenv('TIDB_USER') ?: (APP_ENV === 'production' ? 'ellcy_user' : 'root')));
+define('DB_PASS', (string)(getenv('ELLCY_DB_PASS') ?: getenv('TIDB_PASSWORD') ?: ''));
 define('DB_CHARSET', 'utf8mb4');
 
 class Database {
@@ -36,7 +38,8 @@ class Database {
             // before the bundled catalogue fallback can render.
             $probeError = 0;
             $probeMessage = '';
-            $probe = @fsockopen(DB_HOST, (int)DB_PORT, $probeError, $probeMessage, 0.25);
+            $probeTimeout = APP_ENV === 'production' ? 2.0 : 0.25;
+            $probe = @fsockopen(DB_HOST, (int)DB_PORT, $probeError, $probeMessage, $probeTimeout);
             if ($probe === false) {
                 throw new RuntimeException('Database temporarily unavailable.');
             }
@@ -46,15 +49,29 @@ class Database {
                 DB_HOST, DB_PORT, DB_CHARSET
             );
             try {
+                $pdoOptions = [
+                    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                    PDO::ATTR_EMULATE_PREPARES   => false,
+                    PDO::ATTR_TIMEOUT            => 5,
+                ];
+                // Managed MySQL providers require TLS. TiDB uses a publicly
+                // trusted certificate; Vercel's Linux runtime includes this CA
+                // bundle. A custom provider can override the path.
+                $managedTls = getenv('TIDB_HOST') !== false || getenv('ELLCY_DB_SSL') === '1';
+                if ($managedTls && defined('PDO::MYSQL_ATTR_SSL_CA')) {
+                    $caPath = (string)(getenv('ELLCY_DB_SSL_CA') ?: '/etc/ssl/certs/ca-certificates.crt');
+                    if (is_file($caPath)) {
+                        $pdoOptions[PDO::MYSQL_ATTR_SSL_CA] = $caPath;
+                    }
+                    if (defined('PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT')) {
+                        $pdoOptions[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = true;
+                    }
+                }
                 // Local setup may create the database. Production credentials
                 // should be scoped to the already-created application DB.
                 if (APP_ENV !== 'production') {
-                    $pdo = new PDO($dsn, DB_USER, DB_PASS, [
-                        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-                        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                        PDO::ATTR_EMULATE_PREPARES   => false,
-                        PDO::ATTR_TIMEOUT            => 2,
-                    ]);
+                    $pdo = new PDO($dsn, DB_USER, DB_PASS, $pdoOptions);
                     $pdo->exec(sprintf(
                         "CREATE DATABASE IF NOT EXISTS `%s` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci",
                         str_replace('`', '``', DB_NAME)
@@ -66,13 +83,8 @@ class Database {
                     'mysql:host=%s;port=%s;dbname=%s;charset=%s',
                     DB_HOST, DB_PORT, DB_NAME, DB_CHARSET
                 );
-                self::$instance = new PDO($dsnWithDb, DB_USER, DB_PASS, [
-                    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                    PDO::ATTR_EMULATE_PREPARES   => false,
-                    PDO::ATTR_TIMEOUT            => 2,
-                    PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci",
-                ]);
+                $pdoOptions[PDO::MYSQL_ATTR_INIT_COMMAND] = "SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci";
+                self::$instance = new PDO($dsnWithDb, DB_USER, DB_PASS, $pdoOptions);
             } catch (PDOException $e) {
                 error_log('DB Connection failed: ' . $e->getMessage());
                 // Let controllers with bundled/static fallbacks recover. A

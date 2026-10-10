@@ -12,6 +12,7 @@ class AdminController {
         }
         $databaseUnavailable = false;
         try {
+            ProductionBootstrap::runIfConfigured();
             $needsSetup = !Database::fetchOne(
                 "SELECT id FROM users WHERE role IN ('admin','superadmin') AND status='active' LIMIT 1"
             );
