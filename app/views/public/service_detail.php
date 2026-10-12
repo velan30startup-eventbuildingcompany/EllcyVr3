@@ -227,7 +227,7 @@ if ($serviceRoute === 'enter-show-down') {
     $serviceName = $audienceLabel.' Make Over — '.$tier[0].' Standard';
     $cfg = array_replace($common, [
         'serviceKey'=>'make-over-'.$audience.'-'.$tierKey,
-        'adminSlug'=>'bridal-groom-styling',
+        'adminSlug'=>'make-over-'.$audience.'-'.$tierKey,
         'serviceName'=>$serviceName,
         'slug'=>'make-over-'.$audience.'-'.$tierKey,
         'img'=>$asset('bridal.webp'),

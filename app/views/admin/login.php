@@ -23,6 +23,8 @@
     .login-footer{text-align:center;margin-top:24px;font-size:.8rem;color:#aaa}
     .setup-note{background:#fff8dc;border:1px solid #efd774;color:#765b00;border-radius:10px;padding:12px 14px;font-size:.84rem;line-height:1.45;margin-bottom:18px}
     .setup-note a{display:inline-block;margin-top:7px;color:#6a1b9a;font-weight:800;text-decoration:none}
+    #clerk-sign-in{min-height:360px;display:flex;justify-content:center}
+    .clerk-loading{text-align:center;color:#777;font-size:.9rem;padding:36px 0}
   </style>
 </head>
 <body>
@@ -34,7 +36,7 @@
   <div class="login-error show"><?= htmlspecialchars($error) ?></div>
   <?php endif; ?>
 
-  <?php if (!empty($needsSetup)): ?>
+  <?php if (!$clerkEnabled && !empty($needsSetup)): ?>
   <div class="setup-note">
     No admin account exists yet. Create the first administrator locally, then return here to manage prices, images and videos.
     <br><a href="<?= APP_URL ?>/setup.php?step=4">Create admin account</a>
@@ -47,6 +49,33 @@
   </div>
   <?php endif; ?>
 
+  <?php if ($clerkEnabled && $clerkConfigured): ?>
+  <div id="clerk-sign-in"><div class="clerk-loading">Loading secure sign in…</div></div>
+  <script>
+    window.ellcyMountClerk = async function () {
+      await window.Clerk.load();
+      if (window.Clerk.user) {
+        location.replace(<?= json_encode(APP_URL . '/admin') ?>);
+        return;
+      }
+      var target = document.getElementById('clerk-sign-in');
+      target.textContent = '';
+      window.Clerk.mountSignIn(target, {
+        fallbackRedirectUrl: <?= json_encode(APP_URL . '/admin') ?>,
+        signUpFallbackRedirectUrl: <?= json_encode(APP_URL . '/admin') ?>
+      });
+      window.Clerk.addListener(function (state) {
+        if (state && state.user) location.replace(<?= json_encode(APP_URL . '/admin') ?>);
+      });
+    };
+  </script>
+  <script
+    async
+    crossorigin="anonymous"
+    data-clerk-publishable-key="<?= Security::e($clerkPublishableKey) ?>"
+    src="<?= Security::e($clerkScriptUrl) ?>"
+    onload="window.ellcyMountClerk()"></script>
+  <?php elseif (!$clerkEnabled): ?>
   <form method="POST" action="">
     <input type="hidden" name="csrf_token" value="<?= Security::csrfToken() ?>">
     <div class="login-field">
@@ -62,6 +91,7 @@
     </div>
     <button type="submit" class="login-btn">Sign In</button>
   </form>
+  <?php endif; ?>
   <div class="login-footer">ELLCY Admin Panel &copy; <?= date('Y') ?></div>
 </div>
 </body>

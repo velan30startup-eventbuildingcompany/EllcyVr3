@@ -26,6 +26,7 @@ INSERT INTO site_settings (setting_key, setting_val) VALUES
 -- 2. USERS
 CREATE TABLE users (
   id            INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  clerk_user_id VARCHAR(80),
   name          VARCHAR(100) NOT NULL,
   email         VARCHAR(150) NOT NULL UNIQUE,
   phone         VARCHAR(20),
@@ -35,6 +36,7 @@ CREATE TABLE users (
   last_login    DATETIME,
   created_at    DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated_at    DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  UNIQUE KEY uq_users_clerk_user_id (clerk_user_id),
   INDEX idx_email (email), INDEX idx_role (role), INDEX idx_status (status)
 ) ENGINE=InnoDB;
 
@@ -105,6 +107,12 @@ CREATE TABLE service_images (
   id         INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   service_id INT UNSIGNED NOT NULL,
   path       VARCHAR(300) NOT NULL,
+  media_type ENUM('image','video') NOT NULL DEFAULT 'image',
+  video_provider ENUM('upload','youtube','vimeo') NULL,
+  thumbnail VARCHAR(300) NULL,
+  storage_provider VARCHAR(30) NULL,
+  storage_key VARCHAR(255) NULL,
+  thumbnail_storage_key VARCHAR(255) NULL,
   alt        VARCHAR(200),
   is_primary TINYINT(1) DEFAULT 0,
   sort_order INT DEFAULT 0,

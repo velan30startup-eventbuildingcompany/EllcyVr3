@@ -175,6 +175,11 @@ $isVercelRuntime = getenv('VERCEL') === '1';
           Every service description page shows up to 2 images and 1 video. Manage them here —
           no need to touch the database directly. "Replace" swaps the file in place; "Delete" clears the slot.
         </div>
+        <?php if (APP_ENV === 'production' && !CloudMediaStorage::isConfigured()): ?>
+        <div class="notif-warning" style="display:block;background:#fff8dc;border:1px solid #efd774;color:#765b00;border-radius:9px;padding:10px 12px;margin-bottom:14px;font-size:.8rem">
+          Production uploads are locked until persistent cloud media storage is configured. Existing HTTPS image URLs and YouTube/Vimeo links can still be used safely.
+        </div>
+        <?php endif; ?>
 
         <?php
           // Derive Image 1 / Image 2 / Video slots from the same $gallery

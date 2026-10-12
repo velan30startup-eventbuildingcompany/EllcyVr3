@@ -8,7 +8,7 @@
  */
 final class ProductionBootstrap {
     private const MARKER = 'production_schema_version';
-    private const VERSION = '2026-10-10.1';
+    private const VERSION = '2026-10-13.2';
 
     public static function runIfConfigured(): void {
         if (APP_ENV !== 'production' || getenv('ELLCY_AUTO_BOOTSTRAP') !== '1') {
@@ -75,6 +75,8 @@ final class ProductionBootstrap {
             'production_update_v8_requested_changes.sql',
             'production_update_v9_vendor_vr2.sql',
             'production_update_v10_catering_admin.sql',
+            'production_update_v11_clerk_cloud_media.sql',
+            'production_update_v12_admin_catalog.sql',
         ];
 
         foreach ($files as $file) {
@@ -137,6 +139,9 @@ final class ProductionBootstrap {
     }
 
     private static function ensureAdmin(PDO $db): void {
+        // Clerk user IDs are explicitly allow-listed in the deployment
+        // environment, so no duplicate password account is required.
+        if (ClerkAuth::isEnabled()) return;
         $name = trim((string)getenv('ELLCY_ADMIN_USER'));
         $hash = trim((string)getenv('ELLCY_ADMIN_PASSWORD_HASH'));
         $email = trim((string)(getenv('ELLCY_ADMIN_EMAIL') ?: 'admin@ellcy.local'));

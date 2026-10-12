@@ -7,13 +7,21 @@ class AdminController {
 
     // ── Authentication ───────────────────────────────────────────────
     public function loginPage(): void {
-        if (!empty($_SESSION['admin_id'])) {
+        $clerkEnabled = ClerkAuth::isEnabled();
+        $clerkConfigured = ClerkAuth::isConfigured();
+        $clerkPublishableKey = $clerkConfigured ? ClerkAuth::publishableKey() : '';
+        $clerkScriptUrl = $clerkConfigured ? ClerkAuth::scriptUrl() : '';
+        $clerkClaims = $clerkConfigured ? ClerkAuth::verifyRequest() : null;
+        if ($clerkClaims && ClerkAuth::isAdmin($clerkClaims)) {
+            ClerkAuth::establishAdminSession($clerkClaims);
             Router::redirect('admin');
         }
+        if (!$clerkEnabled && !empty($_SESSION['admin_id'])) Router::redirect('admin');
+
         $databaseUnavailable = false;
         try {
             ProductionBootstrap::runIfConfigured();
-            $needsSetup = !Database::fetchOne(
+            $needsSetup = !$clerkEnabled && !Database::fetchOne(
                 "SELECT id FROM users WHERE role IN ('admin','superadmin') AND status='active' LIMIT 1"
             );
         } catch (Throwable $e) {
@@ -21,8 +29,12 @@ class AdminController {
             $databaseUnavailable = true;
             error_log('[ELLCY] Admin database unavailable: ' . $e->getMessage());
         }
-        $error = '';
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $error = $clerkEnabled && !$clerkConfigured
+            ? 'Clerk authentication is enabled but its production keys or admin user allow-list are incomplete.'
+            : (($clerkClaims && !ClerkAuth::isAdmin($clerkClaims))
+                ? 'This Clerk account is signed in but is not authorised for the ELLCY admin panel.'
+                : '');
+        if (!$clerkEnabled && $_SERVER['REQUEST_METHOD'] === 'POST') {
             Security::requireCsrf();
             if ($databaseUnavailable) {
                 $error = 'The admin database is temporarily unavailable. Please check the production database configuration.';
@@ -59,11 +71,33 @@ class AdminController {
             setcookie(session_name(), '', time() - 42000, $params['path'], $params['domain'], $params['secure'], $params['httponly']);
         }
         session_destroy();
+        if (ClerkAuth::isConfigured()) {
+            $clerkPublishableKey = ClerkAuth::publishableKey();
+            $clerkScriptUrl = ClerkAuth::scriptUrl();
+            require VIEWS_PATH . '/admin/clerk_logout.php';
+            return;
+        }
         Router::redirect('admin/login');
     }
 
     // ── Middleware ───────────────────────────────────────────────────
     private function requireAuth(): void {
+        if (ClerkAuth::isEnabled()) {
+            if (!ClerkAuth::isConfigured()) {
+                http_response_code(503);
+                echo 'Clerk authentication is not completely configured.';
+                exit;
+            }
+            $claims = ClerkAuth::verifyRequest();
+            if (!$claims) Router::redirect('admin/login');
+            if (!ClerkAuth::isAdmin($claims)) {
+                http_response_code(403);
+                echo 'Forbidden: this Clerk account is not an ELLCY administrator.';
+                exit;
+            }
+            ClerkAuth::establishAdminSession($claims);
+            return;
+        }
         if (empty($_SESSION['admin_id'])) {
             Router::redirect('admin/login');
         }
@@ -262,6 +296,10 @@ class AdminController {
         if (empty($_FILES['image']['tmp_name'])) return null;
         $inspection = Security::inspectImageUpload($_FILES['image']);
         if ($inspection['errors']) return null;
+        if (CloudMediaStorage::isConfigured()) {
+            return CloudMediaStorage::upload($_FILES['image']['tmp_name'], 'image', 'ellcy/categories')['url'];
+        }
+        if (APP_ENV === 'production') throw new RuntimeException('Persistent media storage is not configured for production.');
         $ext      = $inspection['extension'];
         $filename = 'cat_' . bin2hex(random_bytes(8)) . '.' . $ext;
         $dest     = ROOT_PATH . '/uploads/category/' . $filename;
@@ -363,11 +401,11 @@ class AdminController {
                 if (!$provider || !filter_var($url, FILTER_VALIDATE_URL)) {
                     echo json_encode(['success'=>false,'message'=>'Please paste a valid YouTube or Vimeo URL.']); return;
                 }
-                [$thumbnail, $thumbnailError] = $this->handleOptionalMediaThumbnail();
+                [$thumbnail, $thumbnailError, $thumbnailKey] = $this->handleOptionalMediaThumbnail();
                 if ($thumbnailError) { echo json_encode(['success'=>false,'message'=>$thumbnailError]); return; }
                 Database::query(
-                    'INSERT INTO service_images (service_id, path, media_type, video_provider, thumbnail, alt, sort_order, is_primary) VALUES (?,?,?,?,?,?,?,?)',
-                    [$serviceId, $url, 'video', $provider, $thumbnail, Security::sanitizeString($_POST['alt'] ?? '', 200), $nextSort, $isFirstItem ? 1 : 0]
+                    'INSERT INTO service_images (service_id, path, media_type, video_provider, thumbnail, thumbnail_storage_key, alt, sort_order, is_primary) VALUES (?,?,?,?,?,?,?,?,?)',
+                    [$serviceId, $url, 'video', $provider, $thumbnail, $thumbnailKey, Security::sanitizeString($_POST['alt'] ?? '', 200), $nextSort, $isFirstItem ? 1 : 0]
                 );
                 if ($replaceRow) $this->removeServiceMediaRow($replaceRow);
                 $this->log('gallery_add_video', 'service_images', "service $serviceId: $url");
@@ -406,29 +444,44 @@ class AdminController {
                 echo json_encode(['success'=>false,'message'=> $isVideo ? 'Only MP4, WebM or MOV videos are allowed.' : 'Only JPG, PNG, WebP or GIF images are allowed.']); return;
             }
 
-            if (!is_dir(UPLOAD_DIR)) mkdir(UPLOAD_DIR, 0755, true);
             $filename = ($isVideo ? 'video_' : 'gallery_') . bin2hex(random_bytes(10)) . '.' . $ext;
-            $dest = UPLOAD_DIR . $filename;
-            if (!move_uploaded_file($file['tmp_name'], $dest)) {
-                echo json_encode(['success'=>false,'message'=>'Could not save the file.']); return;
+            $storageProvider = 'local';
+            $storageKey = null;
+            $savedLocalPath = null;
+            if (CloudMediaStorage::isConfigured()) {
+                $stored = CloudMediaStorage::upload($file['tmp_name'], $isVideo ? 'video' : 'image');
+                $mediaPath = $stored['url'];
+                $storageProvider = $stored['provider'];
+                $storageKey = $stored['key'];
+            } else {
+                if (APP_ENV === 'production') {
+                    echo json_encode(['success'=>false,'message'=>'Persistent media storage is not configured for production. Add the Cloudinary environment variables first.']); return;
+                }
+                if (!is_dir(UPLOAD_DIR)) mkdir(UPLOAD_DIR, 0755, true);
+                $savedLocalPath = UPLOAD_DIR . $filename;
+                if (!move_uploaded_file($file['tmp_name'], $savedLocalPath)) {
+                    echo json_encode(['success'=>false,'message'=>'Could not save the file.']); return;
+                }
+                $mediaPath = '/uploads/services/' . $filename;
             }
 
-            [$thumbnail, $thumbnailError] = $isVideo ? $this->handleOptionalMediaThumbnail() : [null, null];
-            if ($thumbnailError) { @unlink($dest); echo json_encode(['success'=>false,'message'=>$thumbnailError]); return; }
+            [$thumbnail, $thumbnailError, $thumbnailKey] = $isVideo ? $this->handleOptionalMediaThumbnail() : [null, null, null];
+            if ($thumbnailError) {
+                if ($savedLocalPath) @unlink($savedLocalPath);
+                if ($storageKey) CloudMediaStorage::delete($storageKey, $isVideo ? 'video' : 'image');
+                echo json_encode(['success'=>false,'message'=>$thumbnailError]); return;
+            }
             Database::query(
-                'INSERT INTO service_images (service_id, path, media_type, thumbnail, alt, sort_order, is_primary) VALUES (?,?,?,?,?,?,?)',
-                [$serviceId, '/uploads/services/' . $filename, $isVideo ? 'video' : 'image', $thumbnail, Security::sanitizeString($_POST['alt'] ?? '', 200), $nextSort, $isFirstItem ? 1 : 0]
+                'INSERT INTO service_images (service_id, path, media_type, thumbnail, storage_provider, storage_key, thumbnail_storage_key, alt, sort_order, is_primary) VALUES (?,?,?,?,?,?,?,?,?,?)',
+                [$serviceId, $mediaPath, $isVideo ? 'video' : 'image', $thumbnail, $storageProvider, $storageKey, $thumbnailKey, Security::sanitizeString($_POST['alt'] ?? '', 200), $nextSort, $isFirstItem ? 1 : 0]
             );
             if ($replaceRow) $this->removeServiceMediaRow($replaceRow);
             $this->log('gallery_add_' . ($isVideo?'video':'image'), 'service_images', "service $serviceId: $filename");
             echo json_encode(['success' => true]);
         } catch (\Throwable $e) {
-            // Most likely cause: sql/media_gallery_migration.sql (adds the
-            // media_type/video_provider columns) hasn't been run yet, so
-            // the INSERT above fails with an "unknown column" error.
             error_log('[ELLCY] serviceGalleryAdd failed: ' . $e->getMessage());
             http_response_code(500);
-            echo json_encode(['success'=>false,'message'=>'Could not save this media. If this keeps happening, make sure sql/media_gallery_migration.sql has been run against the database.']);
+            echo json_encode(['success'=>false,'message'=>'Could not save this media. Check the cloud media configuration and database migrations, then try again.']);
         }
     }
 
@@ -677,17 +730,27 @@ class AdminController {
 
     // ── Helpers ──────────────────────────────────────────────────────
     private function handleOptionalMediaThumbnail(): array {
-        if (empty($_FILES['thumbnail']['name'])) return [null, null];
+        if (empty($_FILES['thumbnail']['name'])) return [null, null, null];
         $inspection = Security::inspectImageUpload($_FILES['thumbnail'], UPLOAD_MAX_SIZE, ['image/jpeg','image/png','image/webp']);
-        if ($inspection['errors']) return [null, implode(' ', $inspection['errors'])];
+        if ($inspection['errors']) return [null, implode(' ', $inspection['errors']), null];
+        if (CloudMediaStorage::isConfigured()) {
+            try {
+                $stored = CloudMediaStorage::upload($_FILES['thumbnail']['tmp_name'], 'image');
+                return [$stored['url'], null, $stored['key']];
+            } catch (Throwable $e) {
+                error_log('[ELLCY] Thumbnail cloud upload failed: ' . $e->getMessage());
+                return [null, 'Could not save the video thumbnail.', null];
+            }
+        }
+        if (APP_ENV === 'production') return [null, 'Persistent media storage is not configured for production.', null];
         if (!is_dir(UPLOAD_DIR) && !mkdir(UPLOAD_DIR, 0755, true) && !is_dir(UPLOAD_DIR)) {
-            return [null, 'The media upload directory is unavailable.'];
+            return [null, 'The media upload directory is unavailable.', null];
         }
         $filename = 'thumb_' . bin2hex(random_bytes(10)) . '.' . $inspection['extension'];
         if (!move_uploaded_file($_FILES['thumbnail']['tmp_name'], UPLOAD_DIR . $filename)) {
-            return [null, 'Could not save the video thumbnail.'];
+            return [null, 'Could not save the video thumbnail.', null];
         }
-        return ['/uploads/services/' . $filename, null];
+        return ['/uploads/services/' . $filename, null, null];
     }
 
     private function saveServicePackages(int $serviceId, array $rows): void {
@@ -715,9 +778,14 @@ class AdminController {
 
     private function removeServiceMediaRow(array $row): void {
         $path = (string)($row['path'] ?? '');
-        if (($row['media_type'] ?? 'image') !== 'video' || empty($row['video_provider'])) {
+        if (($row['storage_provider'] ?? '') === 'cloudinary' && !empty($row['storage_key'])) {
+            CloudMediaStorage::delete((string)$row['storage_key'], ($row['media_type'] ?? 'image') === 'video' ? 'video' : 'image');
+        } elseif (($row['media_type'] ?? 'image') !== 'video' || empty($row['video_provider'])) {
             $filePath = ROOT_PATH . $path;
             if (str_starts_with($path, '/uploads/services/') && is_file($filePath)) @unlink($filePath);
+        }
+        if (!empty($row['thumbnail_storage_key'])) {
+            CloudMediaStorage::delete((string)$row['thumbnail_storage_key'], 'image');
         }
         $thumbnail = (string)($row['thumbnail'] ?? '');
         if (str_starts_with($thumbnail, '/uploads/services/')) {
@@ -752,9 +820,14 @@ class AdminController {
         if (empty($_FILES['image']['tmp_name'])) return null;
         $inspection = Security::inspectImageUpload($_FILES['image']);
         if ($inspection['errors']) return null;
+        if (CloudMediaStorage::isConfigured()) {
+            return CloudMediaStorage::upload($_FILES['image']['tmp_name'], 'image')['url'];
+        }
+        if (APP_ENV === 'production') throw new RuntimeException('Persistent media storage is not configured for production.');
         $ext      = $inspection['extension'];
         $filename = 'svc_' . bin2hex(random_bytes(8)) . '.' . $ext;
         $dest     = UPLOAD_DIR . $filename;
+        if (!is_dir(UPLOAD_DIR)) mkdir(UPLOAD_DIR, 0755, true);
         if (move_uploaded_file($_FILES['image']['tmp_name'], $dest)) {
             // Must match UPLOAD_DIR (config/app.php), which is /uploads/services/
             return '/uploads/services/' . $filename;
@@ -764,9 +837,12 @@ class AdminController {
 
     private function log(string $action, string $target, string $detail = ''): void {
         try {
+            if (!empty($_SESSION['admin_clerk_user_id'])) {
+                $detail = 'Clerk ' . $_SESSION['admin_clerk_user_id'] . ($detail !== '' ? ' — ' . $detail : '');
+            }
             Database::query(
                 'INSERT INTO activity_logs (user_id,action,target,detail,ip_address) VALUES (?,?,?,?,?)',
-                [$_SESSION['admin_id'] ?? null, $action, $target, $detail, Security::getIp()]
+                [is_int($_SESSION['admin_id'] ?? null) ? $_SESSION['admin_id'] : null, $action, $target, $detail, Security::getIp()]
             );
         } catch (Exception $e) {}
     }

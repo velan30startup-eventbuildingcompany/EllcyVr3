@@ -169,13 +169,13 @@ class Security {
         header('Cross-Origin-Opener-Policy: same-origin');
         header('Cross-Origin-Resource-Policy: same-site');
         header("Content-Security-Policy: default-src 'self'; "
-            . "script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; "
+            . "script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://*.clerk.accounts.dev https://*.clerk.com; "
             . "style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; "
             . "img-src 'self' data: blob: https:; "
             . "font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com data:; "
-            . "connect-src 'self'; "
-            . "media-src 'self' blob:; "
-            . "frame-src https://www.youtube-nocookie.com https://www.youtube.com https://player.vimeo.com; "
+            . "connect-src 'self' https://*.clerk.accounts.dev https://*.clerk.com; "
+            . "media-src 'self' blob: https://res.cloudinary.com; "
+            . "frame-src https://www.youtube-nocookie.com https://www.youtube.com https://player.vimeo.com https://*.clerk.accounts.dev https://*.clerk.com; "
             . "frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'");
         if (HTTPS_ACTIVE) {
             header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
