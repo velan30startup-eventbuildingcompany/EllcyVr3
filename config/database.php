@@ -55,6 +55,9 @@ class Database {
                     PDO::ATTR_EMULATE_PREPARES   => false,
                     PDO::ATTR_TIMEOUT            => 5,
                 ];
+                if (defined('PDO::MYSQL_ATTR_USE_BUFFERED_QUERY')) {
+                    $pdoOptions[PDO::MYSQL_ATTR_USE_BUFFERED_QUERY] = true;
+                }
                 // Managed MySQL providers require TLS. TiDB uses a publicly
                 // trusted certificate; Vercel's Linux runtime includes this CA
                 // bundle. A custom provider can override the path.

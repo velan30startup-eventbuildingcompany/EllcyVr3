@@ -96,9 +96,90 @@ final class ProductionBootstrap {
                 $sql = preg_replace('/\bINSERT\s+INTO\s+/i', 'INSERT IGNORE INTO ', $sql) ?? $sql;
             }
             foreach (self::splitStatements($sql) as $statement) {
-                $db->exec($statement);
+                self::executeCompatibleStatement($db, $statement);
             }
         }
+    }
+
+    /**
+     * MariaDB accepts `ADD COLUMN IF NOT EXISTS`, while upstream MySQL 8.4
+     * does not. The local XAMPP schema uses that idempotent form, so managed
+     * MySQL deployments check INFORMATION_SCHEMA before applying each column.
+     */
+    private static function executeCompatibleStatement(PDO $db, string $statement): void {
+        // EXECUTE may resolve to the migrations' no-op `SELECT 1`. PDO::exec()
+        // leaves that result set unread on MySQL, blocking the following
+        // DEALLOCATE. Query and exhaust every rowset explicitly instead.
+        if (preg_match('/^\s*(?:SELECT|SHOW|EXECUTE)\b/i', $statement)) {
+            $cursor = $db->query($statement);
+            do {
+                if ($cursor->columnCount() > 0) $cursor->fetchAll();
+            } while ($cursor->nextRowset());
+            $cursor->closeCursor();
+            return;
+        }
+
+        if (!preg_match('/^\s*ALTER\s+TABLE\s+`?([A-Za-z0-9_]+)`?\s+(.+)$/is', $statement, $matches)) {
+            $db->exec($statement);
+            return;
+        }
+
+        $table = $matches[1];
+        $clauses = self::splitTopLevelCommas($matches[2]);
+        if (!$clauses) {
+            $db->exec($statement);
+            return;
+        }
+
+        foreach ($clauses as $clause) {
+            if (!preg_match('/^\s*ADD\s+COLUMN\s+IF\s+NOT\s+EXISTS\s+`?([A-Za-z0-9_]+)`?\s+(.+)$/is', $clause, $columnMatch)) {
+                $db->exec($statement);
+                return;
+            }
+            $column = $columnMatch[1];
+            $exists = $db->prepare(
+                'SELECT 1 FROM information_schema.columns '
+                . 'WHERE table_schema=DATABASE() AND table_name=? AND column_name=? LIMIT 1'
+            );
+            $exists->execute([$table, $column]);
+            $columnExists = (bool)$exists->fetchColumn();
+            $exists->closeCursor();
+            if ($columnExists) continue;
+
+            $db->exec(sprintf(
+                'ALTER TABLE `%s` ADD COLUMN `%s` %s',
+                str_replace('`', '``', $table),
+                str_replace('`', '``', $column),
+                $columnMatch[2]
+            ));
+        }
+    }
+
+    /** @return list<string> */
+    private static function splitTopLevelCommas(string $sql): array {
+        $parts = [];
+        $buffer = '';
+        $quote = null;
+        $depth = 0;
+        $length = strlen($sql);
+        for ($i = 0; $i < $length; $i++) {
+            $char = $sql[$i];
+            if (($char === "'" || $char === '"' || $char === '`') && ($i === 0 || $sql[$i - 1] !== '\\')) {
+                if ($quote === null) $quote = $char;
+                elseif ($quote === $char) $quote = null;
+            } elseif ($quote === null) {
+                if ($char === '(') $depth++;
+                elseif ($char === ')' && $depth > 0) $depth--;
+                elseif ($char === ',' && $depth === 0) {
+                    $parts[] = trim($buffer);
+                    $buffer = '';
+                    continue;
+                }
+            }
+            $buffer .= $char;
+        }
+        if (trim($buffer) !== '') $parts[] = trim($buffer);
+        return $parts;
     }
 
     /** @return list<string> */
