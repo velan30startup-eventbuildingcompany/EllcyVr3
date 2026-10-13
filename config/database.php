@@ -61,6 +61,9 @@ class Database {
                 $managedTls = getenv('TIDB_HOST') !== false || getenv('ELLCY_DB_SSL') === '1';
                 if ($managedTls && defined('PDO::MYSQL_ATTR_SSL_CA')) {
                     $caPath = (string)(getenv('ELLCY_DB_SSL_CA') ?: '/etc/ssl/certs/ca-certificates.crt');
+                    if ($caPath !== '' && !self::isAbsolutePath($caPath)) {
+                        $caPath = ROOT_PATH . '/' . ltrim(str_replace('\\', '/', $caPath), '/');
+                    }
                     if (is_file($caPath)) {
                         $pdoOptions[PDO::MYSQL_ATTR_SSL_CA] = $caPath;
                     }
@@ -95,6 +98,12 @@ class Database {
             }
         }
         return self::$instance;
+    }
+
+    private static function isAbsolutePath(string $path): bool {
+        return str_starts_with($path, '/')
+            || str_starts_with($path, '\\')
+            || (bool)preg_match('/^[A-Za-z]:[\\\\\/]/', $path);
     }
 
     public static function query(string $sql, array $params = []): PDOStatement {
