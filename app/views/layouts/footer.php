@@ -43,13 +43,19 @@
 </footer>
 
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-<?php if (empty($skip_data_js)): ?><script src="<?= PUBLIC_URL ?>/js/data.js?v=20261010.1"></script><?php endif; ?>
-  <script src="<?= PUBLIC_URL ?>/js/auth.js?v=20261010.1"></script>
-<script src="<?= PUBLIC_URL ?>/js/cart.js"></script>
-<script src="<?= PUBLIC_URL ?>/js/booking-date-policy.js?v=20260924.1"></script>
+<?php if (empty($skip_data_js)): ?><script src="<?= PUBLIC_URL ?>/js/data.js?v=20261014.1" defer></script><?php endif; ?>
+<?php if (empty($minimal_home_scripts)): ?>
+<script src="<?= PUBLIC_URL ?>/js/auth.js?v=20261010.1" defer></script>
+<script src="<?= PUBLIC_URL ?>/js/cart.js" defer></script>
+<script src="<?= PUBLIC_URL ?>/js/booking-date-policy.js?v=20260924.1" defer></script>
+<?php else: ?>
+<script>
+try{var c=JSON.parse(localStorage.getItem('ellcy_cart')||'[]');var n=Array.isArray(c)?c.reduce(function(t,i){return t+Math.max(1,Number(i.quantity)||1)},0):0;document.querySelectorAll('.cart-badge').forEach(function(b){b.textContent=String(n);b.style.display=n?'inline-flex':'none'})}catch(e){}
+</script>
+<?php endif; ?>
 <?php if (!empty($extra_js)): ?>
   <?php foreach ((array)$extra_js as $js): ?>
-  <script src="<?= PUBLIC_URL ?>/js/<?= Security::e($js) ?>"></script>
+  <script src="<?= PUBLIC_URL ?>/js/<?= Security::e($js) ?>?v=20261014.1" defer></script>
   <?php endforeach; ?>
 <?php endif; ?>
 <?php if (!empty($inline_js)): ?>

@@ -14,7 +14,19 @@ require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/app/helpers/Security.php';
 require_once __DIR__ . '/app/helpers/Router.php';
 
-Security::startSession();
+$earlyPath = (string)(parse_url((string)($_SERVER['REQUEST_URI'] ?? '/'), PHP_URL_PATH) ?: '/');
+$isCacheablePublicGet = getenv('VERCEL') === '1'
+    && ($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'GET'
+    && (bool)preg_match('#^/(?:$|index\.html$|services(?:/|$)|category(?:/|$)|categories(?:/|$))#', $earlyPath);
+
+if ($isCacheablePublicGet) {
+    // PHP's default file session sends no-cache headers and is not shared
+    // across Vercel functions. Public catalogue pages do not need it.
+    $_SESSION ??= [];
+    header('Cache-Control: public, max-age=0, s-maxage=600, stale-while-revalidate=86400');
+} else {
+    Security::startSession();
+}
 Security::setHeaders();
 header('X-ELLCY-Front-Controller: index.php');
 

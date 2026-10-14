@@ -5,7 +5,7 @@
    Mobile-first | Urbanist | Purple design system
    ================================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900&display=swap');
+@font-face{font-family:'Urbanist';font-style:normal;font-weight:400 900;font-display:swap;src:url('../fonts/urbanist-latin.woff2') format('woff2')}
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 

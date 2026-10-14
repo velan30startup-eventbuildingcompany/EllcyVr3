@@ -437,25 +437,25 @@ const MUSICAL_BAND_SUBTYPES = [
 
 /* ── Home circles ───────────────────────────────────────────── */
 const HOME_CATEGORIES = [
-  { id:'dj',                    name:'DJ',                              image:'uploads/services/dj.webp',           hidden:false },
-  { id:'bridal-groom-styling',  name:'Make Over',                      image:'uploads/services/bridal.webp',       hidden:false },
-  { id:'decoration',            name:'Decoration',                  image:'uploads/services/decoration-stage-indoor.webp', hidden:false, slug:'decoration' },
-  { id:'catering-boys',         name:'Catering Boys / Welcome Girls',   image:'uploads/services/catering-boys.webp', hidden:false },
-  { id:'entertainment-activities', name:'Entertainment Activities',     image:'uploads/services/entertainment-mascots.webp', hidden:false },
-  { id:'snacks-stalls',         name:"Snacks & Stalls",                 image:'uploads/services/snacks-popcorn.webp', hidden:false },
-  { id:'photography',           name:'Photography',                     image:'uploads/services/photography.webp', hidden:true },
-  { id:'music-performers',      name:'Music Performers',                image:'uploads/services/music-band-set.webp', hidden:true, slug:'musical-band' },
-  { id:'bouncers',              name:"Bouncer's",                       image:'uploads/services/bouncers.webp', hidden:true },
-  { id:'dancers',               name:'Dancers',                         image:'uploads/services/dancers-coed.webp', hidden:true },
-  { id:'food',                  name:'Food',                            image:'uploads/services/catering.webp',         hidden:true },
+  { id:'dj',                    name:'DJ',                              image:'uploads/home/service-dj.webp',           hidden:false },
+  { id:'bridal-groom-styling',  name:'Make Over',                      image:'uploads/home/service-bridal.webp',       hidden:false },
+  { id:'decoration',            name:'Decoration',                     image:'uploads/home/service-decoration-stage-indoor.webp', hidden:false, slug:'decoration' },
+  { id:'catering-boys',         name:'Catering Boys / Welcome Girls',  image:'uploads/home/service-catering-boys.webp', hidden:false },
+  { id:'entertainment-activities', name:'Entertainment Activities',    image:'uploads/home/service-entertainment-mascots.webp', hidden:false },
+  { id:'snacks-stalls',         name:"Snacks & Stalls",               image:'uploads/home/service-snacks-popcorn.webp', hidden:false },
+  { id:'photography',           name:'Photography',                    image:'uploads/home/service-photography.webp', hidden:true },
+  { id:'music-performers',      name:'Music Performers',               image:'uploads/home/service-music-band-set.webp', hidden:true, slug:'musical-band' },
+  { id:'bouncers',              name:"Bouncer's",                      image:'uploads/home/service-bouncers.webp', hidden:true },
+  { id:'dancers',               name:'Dancers',                        image:'uploads/home/service-dancers-coed.webp', hidden:true },
+  { id:'food',                  name:'Food',                           image:'uploads/home/service-catering.webp', hidden:true },
 ];
 
 /* ── Home event tiles ───────────────────────────────────────── */
 const HOME_EVENTS = [
-  { id:'wedding',  title:'Wedding Events',  desc:'Elegant wedding arrangements and full event management.',  image:'uploads/category/wedding/service1.webp',  comingSoon:false },
-  { id:'birthday', title:'Birthday Events', desc:'Fun and colourful birthday party setups for all ages.',    image:'uploads/category/birthday/service2.webp', comingSoon:true  },
-  { id:'college',  title:'College Events',  desc:'Full-stage setup and sound systems for college fests.',   image:'uploads/category/college/service3.webp',   comingSoon:true  },
-  { id:'temple',   title:'Temple Events',   desc:'Traditional temple decorations and sound systems.',       image:'uploads/category/temple/service4.webp',    comingSoon:true  },
+  { id:'wedding',  title:'Wedding Events',  desc:'Elegant wedding arrangements and full event management.', image:'uploads/home/event-wedding.webp',  comingSoon:false },
+  { id:'birthday', title:'Birthday Events', desc:'Fun and colourful birthday party setups for all ages.',   image:'uploads/home/event-birthday.webp', comingSoon:true  },
+  { id:'college',  title:'College Events',  desc:'Full-stage setup and sound systems for college fests.',    image:'uploads/home/event-college.webp',  comingSoon:true  },
+  { id:'temple',   title:'Temple Events',   desc:'Traditional temple decorations and sound systems.',       image:'uploads/home/event-temple.webp',   comingSoon:true  },
 ];
 
 /* ── Category page mappings ─────────────────────────────────── */

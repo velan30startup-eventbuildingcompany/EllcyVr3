@@ -29,9 +29,9 @@
   <link rel="icon" type="image/svg+xml" href="<?= PUBLIC_URL ?>/uploads/branding/favicon.svg?v=20260922.1"/>
   <link rel="alternate icon" type="image/png" sizes="32x32" href="<?= PUBLIC_URL ?>/uploads/branding/favicon-32.png"/>
   <link rel="apple-touch-icon" sizes="180x180" href="<?= PUBLIC_URL ?>/uploads/branding/apple-touch-icon.png"/>
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin/>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <?php if (!empty($preload_image)): ?>
+  <link rel="preload" as="image" href="<?= Security::e($preload_image) ?>" type="image/webp" fetchpriority="high"/>
+  <?php endif; ?>
   <link rel="stylesheet" href="<?= PUBLIC_URL ?>/css/style.css"/>
   <link rel="stylesheet" href="<?= PUBLIC_URL ?>/css/cart.css?v=20260903.2"/>
   <link rel="stylesheet" href="<?= PUBLIC_URL ?>/css/brand.css?v=20260908.5"/>
@@ -40,7 +40,7 @@
     <link rel="stylesheet" href="<?= PUBLIC_URL ?>/css/<?= Security::e($css) ?>"/>
     <?php endforeach; ?>
   <?php endif; ?>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="<?= PUBLIC_URL ?>/vendor/fontawesome/css/all.min.css?v=6.5.0"/>
   <script type="application/ld+json"><?= json_encode([
     '@context'=>'https://schema.org','@type'=>'LocalBusiness','name'=>'ELLCY',
     'description'=>'Tamil wedding and event services marketplace for customers in Chennai.',

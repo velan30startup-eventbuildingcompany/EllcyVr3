@@ -3,6 +3,8 @@ $page_title       = 'ELLCY | Tamil Wedding & Event Services in Chennai';
 $meta_description = 'Plan a Tamil wedding or celebration in Chennai with ELLCY. Compare photography, catering, decoration, chenda melam, DJ, bridal make over and more.';
 $meta_title       = 'ELLCY — Tamil Wedding & Event Services in Chennai';
 $extra_css        = [];
+$preload_image    = PUBLIC_URL . '/uploads/home/service-dj.webp';
+$minimal_home_scripts = true;
 require VIEWS_PATH . '/layouts/header.php';
 ?>
 
