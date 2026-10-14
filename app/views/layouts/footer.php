@@ -45,7 +45,7 @@
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 <?php if (empty($skip_data_js)): ?><script src="<?= PUBLIC_URL ?>/js/data.js?v=20261014.1" defer></script><?php endif; ?>
 <?php if (empty($minimal_home_scripts)): ?>
-<script src="<?= PUBLIC_URL ?>/js/auth.js?v=20261010.1" defer></script>
+<script src="<?= PUBLIC_URL ?>/js/auth.js?v=20261014.2" defer></script>
 <script src="<?= PUBLIC_URL ?>/js/cart.js" defer></script>
 <script src="<?= PUBLIC_URL ?>/js/booking-date-policy.js?v=20260924.1" defer></script>
 <?php else: ?>

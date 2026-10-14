@@ -188,7 +188,8 @@
       'html.ellcy-mobile-inner header .ellcy-mobile-brand,html.ellcy-mobile-inner header .ellcy-mobile-brand-wrap{display:none!important}' +
       'html.ellcy-mobile-inner header .ellcy-mobile-context,html.ellcy-mobile-inner header .sd-mobile-context{order:1!important;margin:0 52px 0 4px!important;font-size:1.02rem!important;font-weight:800!important}' +
       '.ellcy-drawer-signin,.ellcy-drawer-createacct,.ellcy-drawer-account a{color:#fff!important}' +
-      '.ellcy-drawer-nav a,.ellcy-drawer-nav a i{color:#1a1a2e!important}' +
+      '.ellcy-drawer-nav a{color:#1a1a2e!important}' +
+      '.ellcy-drawer-nav a i{color:#6a1b9a!important}' +
       '}';
     document.head.appendChild(style);
   }
