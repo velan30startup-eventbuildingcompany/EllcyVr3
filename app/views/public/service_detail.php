@@ -410,7 +410,7 @@ $canonicalUrl = $base . '/services/' . trim($serviceRoute, '/') . '/';
   <link rel="stylesheet" href="<?= $e(PUBLIC_URL) ?>/css/service-desc.css?v=20260924.1"/>
   <link rel="stylesheet" href="<?= $e(PUBLIC_URL) ?>/css/media-gallery.css?v=20260831.1"/>
   <link rel="stylesheet" href="<?= $e(PUBLIC_URL) ?>/css/detail-single-media.css?v=20260831.1"/>
-  <link rel="stylesheet" href="<?= $e(PUBLIC_URL) ?>/css/cart.css?v=20260903.2"/>
+  <link rel="stylesheet" href="<?= $e(PUBLIC_URL) ?>/css/cart.css?v=20261014.2"/>
   <link rel="icon" type="image/svg+xml" href="<?= $e(PUBLIC_URL) ?>/uploads/branding/favicon.svg?v=20260922.1"/>
   <link rel="alternate icon" type="image/png" sizes="32x32" href="<?= $e(PUBLIC_URL) ?>/uploads/branding/favicon-32.png"/>
   <link rel="apple-touch-icon" sizes="180x180" href="<?= $e(PUBLIC_URL) ?>/uploads/branding/apple-touch-icon.png"/>
@@ -499,7 +499,7 @@ $canonicalUrl = $base . '/services/' . trim($serviceRoute, '/') . '/';
 
 <script>window.SD_CONFIG = <?= json_encode($cfg, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?>;</script>
 <script src="<?= $e(PUBLIC_URL) ?>/js/data.js?v=20261010.1"></script>
-<script src="<?= $e(PUBLIC_URL) ?>/js/auth.js?v=20261010.1"></script>
+<script src="<?= $e(PUBLIC_URL) ?>/js/auth.js?v=20261014.2"></script>
 <script src="<?= $e(PUBLIC_URL) ?>/js/cart.js"></script>
 <?php if ($showReferenceUpload): ?><script>window.ELLCY_JEWELLERY_SERVICE = <?= json_encode((string)$cfg['serviceKey']) ?>;</script><script src="<?= $e(PUBLIC_URL) ?>/js/jewellery-reference.js?v=20260811.2"></script><?php endif; ?>
 <script src="<?= $e(PUBLIC_URL) ?>/js/media-gallery.js?v=20260831.1"></script>
