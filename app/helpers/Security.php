@@ -12,6 +12,15 @@ class Security {
 
     // ── CSRF token ──────────────────────────────────────────────────
     public static function csrfToken(): string {
+        // Vercel PHP functions do not share session files between instances.
+        // Use a short-lived signed token there so a form rendered by one
+        // instance can be safely submitted to another instance.
+        if (self::isServerless()) {
+            $expires = time() + 7200;
+            $nonce = self::base64UrlEncode(random_bytes(24));
+            $payload = 'csrf.v1.' . $expires . '.' . $nonce;
+            return $payload . '.' . self::sign($payload);
+        }
         if (empty($_SESSION['csrf_token'])) {
             $_SESSION['csrf_token'] = bin2hex(random_bytes(CSRF_TOKEN_LENGTH));
         }
@@ -24,7 +33,16 @@ class Security {
 
     public static function verifyCsrf(): bool {
         $token = $_POST['csrf_token'] ?? $_SERVER['HTTP_X_CSRF_TOKEN'] ?? '';
-        if (empty($token) || empty($_SESSION['csrf_token'])) return false;
+        if (!is_string($token) || $token === '') return false;
+        if (self::isServerless()) {
+            $parts = explode('.', $token);
+            if (count($parts) !== 5 || $parts[0] !== 'csrf' || $parts[1] !== 'v1') return false;
+            $expires = filter_var($parts[2], FILTER_VALIDATE_INT);
+            if ($expires === false || $expires < time() || $expires > time() + 7500) return false;
+            $payload = implode('.', array_slice($parts, 0, 4));
+            return hash_equals(self::sign($payload), $parts[4]);
+        }
+        if (empty($_SESSION['csrf_token'])) return false;
         return hash_equals($_SESSION['csrf_token'], $token);
     }
 
@@ -33,6 +51,86 @@ class Security {
             http_response_code(403);
             die(json_encode(['success' => false, 'message' => 'Invalid request token.']));
         }
+    }
+
+    // ── Stateless admin authentication for serverless hosting ──────
+    public static function issueAdminCookie(array $user): void {
+        if (!self::isServerless() || headers_sent()) return;
+        $payload = self::base64UrlEncode(json_encode([
+            'id'   => (int)$user['id'],
+            'name' => (string)$user['name'],
+            'role' => (string)$user['role'],
+            'exp'  => time() + SESSION_LIFETIME,
+        ], JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR));
+        $value = 'v1.' . $payload . '.' . self::sign('admin.v1.' . $payload);
+        setcookie('ELLCYADMIN', $value, [
+            'expires'  => time() + SESSION_LIFETIME,
+            'path'     => APP_BASE !== '' ? APP_BASE . '/' : '/',
+            'secure'   => true,
+            'httponly' => true,
+            'samesite' => 'Lax',
+        ]);
+    }
+
+    public static function restoreAdminCookie(): bool {
+        if (!self::isServerless()) return !empty($_SESSION['admin_id']);
+        $token = $_COOKIE['ELLCYADMIN'] ?? '';
+        if (!is_string($token) || $token === '') return false;
+        $parts = explode('.', $token);
+        if (count($parts) !== 3 || $parts[0] !== 'v1') return false;
+        if (!hash_equals(self::sign('admin.v1.' . $parts[1]), $parts[2])) return false;
+        $decoded = self::base64UrlDecode($parts[1]);
+        if ($decoded === false) return false;
+        $claims = json_decode($decoded, true);
+        if (!is_array($claims)
+            || empty($claims['id'])
+            || !in_array($claims['role'] ?? '', ['admin', 'superadmin'], true)
+            || (int)($claims['exp'] ?? 0) < time()) {
+            return false;
+        }
+        $_SESSION['admin_id'] = (int)$claims['id'];
+        $_SESSION['admin_name'] = (string)($claims['name'] ?? 'Admin');
+        $_SESSION['admin_role'] = (string)$claims['role'];
+        return true;
+    }
+
+    public static function clearAdminCookie(): void {
+        if (headers_sent()) return;
+        setcookie('ELLCYADMIN', '', [
+            'expires'  => time() - 3600,
+            'path'     => APP_BASE !== '' ? APP_BASE . '/' : '/',
+            'secure'   => HTTPS_ACTIVE,
+            'httponly' => true,
+            'samesite' => 'Lax',
+        ]);
+    }
+
+    private static function isServerless(): bool {
+        return getenv('VERCEL') === '1' || getenv('ELLCY_STATELESS_SESSIONS') === '1';
+    }
+
+    private static function signingKey(): string {
+        $explicit = trim((string)getenv('ELLCY_SESSION_SECRET'));
+        if ($explicit !== '') return $explicit;
+        // Existing production secrets provide a stable, non-public fallback.
+        $material = (string)getenv('ELLCY_ADMIN_PASSWORD_HASH')
+            . '|' . (string)getenv('ELLCY_DB_PASS')
+            . '|' . (string)getenv('ELLCY_APP_ORIGIN');
+        return hash('sha256', 'ellcy-serverless-session-v1|' . $material, true);
+    }
+
+    private static function sign(string $payload): string {
+        return self::base64UrlEncode(hash_hmac('sha256', $payload, self::signingKey(), true));
+    }
+
+    private static function base64UrlEncode(string $value): string {
+        return rtrim(strtr(base64_encode($value), '+/', '-_'), '=');
+    }
+
+    private static function base64UrlDecode(string $value): string|false {
+        $padding = strlen($value) % 4;
+        if ($padding) $value .= str_repeat('=', 4 - $padding);
+        return base64_decode(strtr($value, '-_', '+/'), true);
     }
 
     // ── Input sanitization ──────────────────────────────────────────

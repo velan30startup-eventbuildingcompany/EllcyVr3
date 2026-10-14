@@ -16,7 +16,7 @@ class AdminController {
             ClerkAuth::establishAdminSession($clerkClaims);
             Router::redirect('admin');
         }
-        if (!$clerkEnabled && !empty($_SESSION['admin_id'])) Router::redirect('admin');
+        if (!$clerkEnabled && (!empty($_SESSION['admin_id']) || Security::restoreAdminCookie())) Router::redirect('admin');
 
         $databaseUnavailable = false;
         try {
@@ -52,6 +52,7 @@ class AdminController {
                     $_SESSION['admin_id']   = $user['id'];
                     $_SESSION['admin_name'] = $user['name'];
                     $_SESSION['admin_role'] = $user['role'];
+                    Security::issueAdminCookie($user);
                     Database::query('UPDATE users SET last_login=NOW() WHERE id=?', [$user['id']]);
                     $this->log('admin_login', 'users', 'Login from ' . Security::getIp());
                     Router::redirect('admin');
@@ -65,6 +66,7 @@ class AdminController {
     }
 
     public function logout(): void {
+        Security::clearAdminCookie();
         $_SESSION = [];
         if (ini_get('session.use_cookies')) {
             $params = session_get_cookie_params();
@@ -98,7 +100,7 @@ class AdminController {
             ClerkAuth::establishAdminSession($claims);
             return;
         }
-        if (empty($_SESSION['admin_id'])) {
+        if (empty($_SESSION['admin_id']) && !Security::restoreAdminCookie()) {
             Router::redirect('admin/login');
         }
     }
