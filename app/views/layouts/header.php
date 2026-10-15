@@ -40,7 +40,7 @@
   <?php if (!empty($preload_image)): ?>
   <link rel="preload" as="image" href="<?= Security::e($preload_image) ?>" type="image/webp" fetchpriority="high"/>
   <?php endif; ?>
-  <link rel="stylesheet" href="<?= PUBLIC_URL ?>/css/style.css?v=20261015.1"/>
+  <link rel="stylesheet" href="<?= PUBLIC_URL ?>/css/style.css?v=20261015.2"/>
   <link rel="stylesheet" href="<?= PUBLIC_URL ?>/css/cart.css?v=20261014.2"/>
   <link rel="stylesheet" href="<?= PUBLIC_URL ?>/css/brand.css?v=20260908.5"/>
   <?php if (!empty($extra_css)): ?>

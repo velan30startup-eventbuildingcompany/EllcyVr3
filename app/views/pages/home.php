@@ -44,19 +44,6 @@ require VIEWS_PATH . '/layouts/header.php';
 </div>
 
 <main>
-<section class="ellcy-seo-hero" aria-labelledby="ellcy-home-title">
-  <div class="ellcy-seo-hero__inner">
-    <p class="ellcy-seo-kicker">ELLCY — Event Services &amp; Celebration Experiences</p>
-    <h1 id="ellcy-home-title">Wedding &amp; Event Services in Chennai</h1>
-    <p class="ellcy-seo-tagline">Celebrate Beyond Ordinary.</p>
-    <p class="ellcy-seo-lead">Discover trusted professionals and thoughtfully curated experiences for Tamil weddings, receptions and special occasions—from Chenda Melam and brass bands to décor, photography, DJ entertainment, bridal styling and catering.</p>
-    <div class="ellcy-seo-actions">
-      <a href="<?= APP_URL ?>/services">Explore All Services</a>
-      <a class="secondary" href="<?= APP_URL ?>/request-for-call">Plan Your Celebration</a>
-    </div>
-  </div>
-</section>
-
 <!-- SMART SEARCH PANEL -->
 <div class="search-panel" id="searchPanel" role="dialog" aria-modal="true" aria-label="Search" aria-hidden="true">
   <div class="search-header">
@@ -105,20 +92,16 @@ require VIEWS_PATH . '/layouts/header.php';
   <div class="service-grid" id="servicesContainer"></div>
 </section>
 
-<section class="ellcy-experiences" aria-labelledby="experience-heading">
-  <div class="ellcy-experiences__inner">
-    <p class="ellcy-seo-kicker">Curated for meaningful celebrations</p>
-    <h2 id="experience-heading">Discover Experiences for Every Celebration</h2>
-    <p class="ellcy-experiences__intro">Compare genuine service options, understand what is included and choose an experience that fits your celebration.</p>
-    <div class="ellcy-experience-grid">
-      <a href="<?= APP_URL ?>/services/music-performers/chenda-melam/"><h3>Traditional Music &amp; Grand Entrances</h3><p>Celebrate culture with Chenda Melam and wedding brass bands in ensemble sizes suited to your occasion.</p><span>Explore traditional music →</span></a>
-      <a href="<?= APP_URL ?>/services/dj/"><h3>DJ &amp; Live Entertainment</h3><p>Set the mood for weddings, receptions and parties with celebration-ready music experiences.</p><span>Explore DJ experiences →</span></a>
-      <a href="<?= APP_URL ?>/services/decoration/"><h3>Wedding Stage &amp; Event Décor</h3><p>Transform your venue with elegant stage settings, lighting and memorable celebration backdrops.</p><span>Explore decoration →</span></a>
-      <a href="<?= APP_URL ?>/services/photography/"><h3>Photography &amp; Wedding Memories</h3><p>Capture the emotions and stories of your wedding through photography and visual storytelling.</p><span>Explore photography →</span></a>
-      <a href="<?= APP_URL ?>/services/bridal-groom-styling/"><h3>Bridal Styling &amp; Make Over</h3><p>Discover bridal and groom styling experiences designed around individual preferences.</p><span>Explore make over →</span></a>
-      <a href="<?= APP_URL ?>/services/food/"><h3>Catering &amp; Celebration Dining</h3><p>Bring guests together with food and hospitality for weddings, receptions and family celebrations.</p><span>Explore catering →</span></a>
+<section class="ellcy-seo-hero ellcy-seo-hero--bottom" aria-labelledby="ellcy-home-title">
+  <div class="ellcy-seo-hero__inner">
+    <p class="ellcy-seo-kicker">ELLCY — Event Services &amp; Celebration Experiences</p>
+    <h1 id="ellcy-home-title">Wedding &amp; Event Services in Chennai</h1>
+    <p class="ellcy-seo-tagline">Celebrate Beyond Ordinary.</p>
+    <p class="ellcy-seo-lead">Discover trusted professionals and thoughtfully curated experiences for Tamil weddings, receptions and special occasions—from Chenda Melam and brass bands to décor, photography, DJ entertainment, bridal styling and catering.</p>
+    <div class="ellcy-seo-actions">
+      <a href="<?= APP_URL ?>/services">Explore All Services</a>
+      <a class="secondary" href="<?= APP_URL ?>/request-for-call">Plan Your Celebration</a>
     </div>
-    <div class="ellcy-final-cta"><h2>Make Your Next Celebration Extraordinary</h2><p>Beautiful moments begin with thoughtful planning.</p><div class="ellcy-seo-actions"><a href="<?= APP_URL ?>/services">Explore All Services</a><a class="secondary" href="<?= APP_URL ?>/request-for-call">Enquire Now</a></div></div>
   </div>
 </section>
 </main>
