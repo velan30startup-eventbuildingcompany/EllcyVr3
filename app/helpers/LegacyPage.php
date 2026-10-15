@@ -199,7 +199,7 @@ final class LegacyPage
             $assetPattern = preg_quote($assetName, '/');
             $html = preg_replace_callback(
                 '/(?<url>[^"\']*\/' . $assetPattern . ')(?:\?[^"\']*)?/i',
-                static fn(array $match): string => $match['url'] . '?v=20261015.2',
+                static fn(array $match): string => $match['url'] . '?v=20261015.3',
                 $html
             ) ?? $html;
         }

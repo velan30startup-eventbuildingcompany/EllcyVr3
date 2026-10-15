@@ -94,13 +94,18 @@ require VIEWS_PATH . '/layouts/header.php';
 
 <section class="ellcy-seo-hero ellcy-seo-hero--bottom" aria-labelledby="ellcy-home-title">
   <div class="ellcy-seo-hero__inner">
-    <p class="ellcy-seo-kicker">ELLCY — Event Services &amp; Celebration Experiences</p>
-    <h1 id="ellcy-home-title">Wedding &amp; Event Services in Chennai</h1>
-    <p class="ellcy-seo-tagline">Celebrate Beyond Ordinary.</p>
-    <p class="ellcy-seo-lead">Discover trusted professionals and thoughtfully curated experiences for Tamil weddings, receptions and special occasions—from Chenda Melam and brass bands to décor, photography, DJ entertainment, bridal styling and catering.</p>
-    <div class="ellcy-seo-actions">
-      <a href="<?= APP_URL ?>/services">Explore All Services</a>
-      <a class="secondary" href="<?= APP_URL ?>/request-for-call">Plan Your Celebration</a>
+    <div class="ellcy-seo-visual">
+      <img src="<?= PUBLIC_URL ?>/uploads/branding/ellcy-celebrate-wedding.webp" width="1200" height="630" loading="lazy" decoding="async" alt="Tamil wedding celebration with Chenda Melam performers and ELLCY branding"/>
+    </div>
+    <div class="ellcy-seo-copy">
+      <p class="ellcy-seo-kicker">ELLCY — Event Services &amp; Celebration Experiences</p>
+      <h1 id="ellcy-home-title">Wedding &amp; Event Services in Chennai</h1>
+      <p class="ellcy-seo-tagline">Celebrate Beyond Ordinary.</p>
+      <p class="ellcy-seo-lead">Discover trusted professionals and thoughtfully curated experiences for Tamil weddings, receptions and special occasions—from Chenda Melam and brass bands to décor, photography, DJ entertainment, bridal styling and catering.</p>
+      <div class="ellcy-seo-actions">
+        <a href="<?= APP_URL ?>/services">Explore All Services</a>
+        <a class="secondary" href="<?= APP_URL ?>/request-for-call">Plan Your Celebration</a>
+      </div>
     </div>
   </div>
 </section>
