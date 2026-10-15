@@ -372,6 +372,10 @@
   line-height: 1.7; margin-bottom: 24px;
 }
 .sd-tab-body p + p { margin-top: 10px; }
+.sd-tab-body h2 { color: var(--txt-1); font-size: 1.35rem; line-height: 1.25; margin: 0 0 10px; }
+.sd-tab-body h3 { color: var(--txt-1); font-size: 1rem; margin: 20px 0 8px; }
+.sd-tab-body ul { margin: 8px 0 14px 20px; padding: 0; }
+.sd-tab-body li { margin-bottom: 7px; }
 .sd-tab-body.hidden { display: none; }
 
 /* Photography detail layout — mirrors the single-image service reference. */

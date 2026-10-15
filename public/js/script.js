@@ -116,13 +116,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 3. Chenda Melam member packages
     const CHENDA_PACKAGES = [
-      { key:'6m',  label:'6 Members',  price:11994, desc:'Small performance. Best for pooja / home events.' },
-      { key:'8m',  label:'8 Members',  price:15992, desc:'Medium sound impact. Suitable for small functions.' },
-      { key:'10m', label:'10 Members', price:19990, desc:'Balanced performance. Ideal for weddings.' },
-      { key:'12m', label:'12 Members', price:23988, desc:'Medium-large performance. Ideal for weddings & special occasions.' },
-      { key:'15m', label:'15 Members', price:29985, desc:'High energy performance. Temple & grand events.' },
-      { key:'18m', label:'18 Members', price:35982, desc:'Powerful traditional setup. Large celebrations.' },
-      { key:'20m', label:'20 Members', price:39980, desc:'Grand Chenda Melam. Festival-level performance.' },
+      { key:'6m',  label:'Signature Chenda Melam – 6 Members',  price:11994, desc:'Traditional six-member ensemble for intimate weddings and auspicious welcomes.' },
+      { key:'8m',  label:'Elevated Chenda Melam – 8 Members',  price:15992, desc:'Fuller traditional rhythms for family functions and wedding entrances.' },
+      { key:'10m', label:'Grand Chenda Melam – 10 Members', price:19990, desc:'Balanced high-energy ensemble for weddings and ceremonial processions.' },
+      { key:'12m', label:'Royal Chenda Melam – 12 Members', price:23988, desc:'Expanded percussion experience for weddings and special occasions.' },
+      { key:'15m', label:'Majestic Chenda Melam – 15 Members', price:29985, desc:'Powerful cultural performance for grand events and temple celebrations.' },
+      { key:'18m', label:'Imperial Chenda Melam – 18 Members', price:35982, desc:'Immersive wall of traditional rhythm for large celebrations.' },
+      { key:'20m', label:'Ultimate Grand Chenda Melam – 20 Members', price:39980, desc:'ELLCY’s largest festival-scale Chenda Melam ensemble.' },
     ];
     CHENDA_PACKAGES.forEach(p => {
       index.push({

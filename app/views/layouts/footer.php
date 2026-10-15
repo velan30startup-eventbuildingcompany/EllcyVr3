@@ -43,7 +43,7 @@
 </footer>
 
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-<?php if (empty($skip_data_js)): ?><script src="<?= PUBLIC_URL ?>/js/data.js?v=20261014.1" defer></script><?php endif; ?>
+<?php if (empty($skip_data_js)): ?><script src="<?= PUBLIC_URL ?>/js/data.js?v=20261015.1" defer></script><?php endif; ?>
 <?php if (empty($minimal_home_scripts)): ?>
 <script src="<?= PUBLIC_URL ?>/js/auth.js?v=20261014.2" defer></script>
 <script src="<?= PUBLIC_URL ?>/js/cart.js" defer></script>
@@ -55,7 +55,7 @@ try{var c=JSON.parse(localStorage.getItem('ellcy_cart')||'[]');var n=Array.isArr
 <?php endif; ?>
 <?php if (!empty($extra_js)): ?>
   <?php foreach ((array)$extra_js as $js): ?>
-  <script src="<?= PUBLIC_URL ?>/js/<?= Security::e($js) ?>?v=20261014.1" defer></script>
+  <script src="<?= PUBLIC_URL ?>/js/<?= Security::e($js) ?>?v=20261015.1" defer></script>
   <?php endforeach; ?>
 <?php endif; ?>
 <?php if (!empty($inline_js)): ?>

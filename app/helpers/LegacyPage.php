@@ -99,13 +99,107 @@ final class LegacyPage
             return false;
         }
 
+        /* Canonical and page-specific SEO metadata must reflect the routed
+           public URL, not the historical .html file path embedded in older
+           templates. This keeps every service independently indexable. */
+        $requestPath = (string)(parse_url((string)($_SERVER['REQUEST_URI'] ?? '/'), PHP_URL_PATH) ?: '/');
+        if (APP_BASE !== '' && str_starts_with($requestPath, APP_BASE)) {
+            $requestPath = substr($requestPath, strlen(APP_BASE)) ?: '/';
+        }
+        $canonicalUrl = rtrim(APP_URL, '/') . '/' . ltrim($requestPath, '/');
+        $canonicalTag = '<link rel="canonical" href="' . Security::e($canonicalUrl) . '"/>';
+        if (preg_match('#<link\s+rel=["\']canonical["\'][^>]*>#i', $html)) {
+            $html = preg_replace('#<link\s+rel=["\']canonical["\'][^>]*>#i', $canonicalTag, $html, 1) ?? $html;
+        } else {
+            $html = preg_replace('/<\/head>/i', $canonicalTag . '</head>', $html, 1) ?? $html;
+        }
+
+        $seoPages = [
+            '/services/music-performers/chenda-melam/' => ['Chenda Melam for Weddings in Chennai | ELLCY', 'Explore traditional Chenda Melam for weddings in Chennai, including morning, evening and full-celebration experiences with skilled percussion ensembles.'],
+            '/services/music-performers/band-set/' => ['Wedding Brass Band Experiences in Chennai | ELLCY', 'Compare ELLCY wedding brass band experiences in Chennai, from compact six-member bands to flagship twenty-member ceremonial ensembles.'],
+            '/services/dj/' => ['Wedding DJ Services in Chennai | ELLCY', 'Explore ELLCY DJ entertainment and lighting experiences for weddings, receptions and celebrations in Chennai.'],
+            '/services/decoration/' => ['Wedding Decoration Services in Chennai | ELLCY', 'Discover wedding stage décor, venue decoration and lighting experiences for celebrations in Chennai.'],
+            '/services/stage-decoration/' => ['Wedding Stage Decoration in Chennai | ELLCY', 'Plan an elegant wedding stage with floral styling, backdrops and venue-ready decoration experiences in Chennai.'],
+            '/services/photography/' => ['Wedding Photography Services in Chennai | ELLCY', 'Explore wedding photography and video experiences for pre-wedding, reception and marriage celebrations in Chennai.'],
+            '/services/bridal-groom-styling/' => ['Bridal & Groom Make Over in Chennai | ELLCY', 'Discover bridal and groom make over experiences, trial bookings and celebration-ready styling in Chennai.'],
+            '/services/food/' => ['Wedding Catering Services in Chennai | ELLCY', 'Explore wedding catering, meal styles and celebration dining options for events in Chennai.'],
+        ];
+        if (isset($seoPages[$requestPath])) {
+            [$seoTitle, $seoDescription] = $seoPages[$requestPath];
+            $safeTitle = Security::e($seoTitle);
+            $safeDescription = Security::e($seoDescription);
+            $html = preg_replace('#<title>.*?</title>#is', '<title>' . $safeTitle . '</title>', $html, 1) ?? $html;
+            if (preg_match('#<meta\s+name=["\']description["\'][^>]*>#i', $html)) {
+                $html = preg_replace('#<meta\s+name=["\']description["\'][^>]*>#i', '<meta name="description" content="' . $safeDescription . '"/>', $html, 1) ?? $html;
+            }
+            $ogTags = '<meta property="og:title" content="' . $safeTitle . '"/>'
+                . '<meta property="og:description" content="' . $safeDescription . '"/>'
+                . '<meta property="og:type" content="website"/>'
+                . '<meta property="og:url" content="' . Security::e($canonicalUrl) . '"/>'
+                . '<meta property="og:image" content="' . Security::e(rtrim(PUBLIC_URL, '/') . '/uploads/branding/ellcy-og-2026.jpg') . '"/>'
+                . '<meta property="og:image:width" content="1200"/>'
+                . '<meta property="og:image:height" content="630"/>'
+                . '<meta property="og:locale" content="en_IN"/>'
+                . '<meta property="og:site_name" content="ELLCY"/>'
+                . '<meta name="twitter:card" content="summary_large_image"/>';
+            $html = preg_replace('/<\/head>/i', $ogTags . '</head>', $html, 1) ?? $html;
+
+            $serviceNames = [
+                '/services/music-performers/chenda-melam/' => 'Traditional Chenda Melam',
+                '/services/music-performers/band-set/' => 'Wedding Brass Band',
+                '/services/dj/' => 'Wedding DJ Entertainment',
+                '/services/decoration/' => 'Wedding Decoration',
+                '/services/stage-decoration/' => 'Wedding Stage Decoration',
+                '/services/photography/' => 'Wedding Photography',
+                '/services/bridal-groom-styling/' => 'Bridal & Groom Make Over',
+                '/services/food/' => 'Wedding Catering',
+            ];
+            $serviceName = $serviceNames[$requestPath];
+            $structuredData = [
+                '@context' => 'https://schema.org',
+                '@graph' => [
+                    [
+                        '@type' => 'Service',
+                        '@id' => $canonicalUrl . '#service',
+                        'name' => $serviceName,
+                        'description' => $seoDescription,
+                        'url' => $canonicalUrl,
+                        'provider' => [
+                            '@type' => 'Organization',
+                            '@id' => rtrim(APP_URL, '/') . '/#organization',
+                            'name' => 'ELLCY',
+                            'url' => APP_URL,
+                        ],
+                        'areaServed' => ['@type' => 'City', 'name' => 'Chennai'],
+                        'serviceType' => $serviceName,
+                    ],
+                    [
+                        '@type' => 'BreadcrumbList',
+                        'itemListElement' => [
+                            ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => rtrim(APP_URL, '/') . '/'],
+                            ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => rtrim(APP_URL, '/') . '/services'],
+                            ['@type' => 'ListItem', 'position' => 3, 'name' => $serviceName, 'item' => $canonicalUrl],
+                        ],
+                    ],
+                ],
+            ];
+            $jsonLd = json_encode($structuredData, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG);
+            if (is_string($jsonLd)) {
+                $html = preg_replace('/<\/head>/i', '<script type="application/ld+json">' . $jsonLd . '</script></head>', $html, 1) ?? $html;
+            }
+        }
+
+        if (preg_match('#^/(?:cart|booking|account|login|register|forgot-password|reset-password)(?:/|$)#', $requestPath)) {
+            $html = preg_replace('#<meta\s+name=["\']robots["\'][^>]*>#i', '<meta name="robots" content="noindex, nofollow"/>', $html, 1) ?? $html;
+        }
+
         /* Force the latest shared responsive and calculator assets after an
            update; several legacy templates otherwise reuse a stale browser copy. */
-        foreach (['brand.css', 'cart.css', 'header2.css', 'category.css', 'category.js', 'data.js', 'auth.js', 'bouncer.css', 'catering-admin-data.js', 'catering-staff-calc.js', 'detail-single-media.css', 'media-gallery.css', 'media-gallery.js', 'rfc-shared.css', 'services.css', 'services.js', 'service-desc.css', 'service-desc.js'] as $assetName) {
+        foreach (['style.css', 'brand.css', 'cart.css', 'header2.css', 'category.css', 'category.js', 'data.js', 'auth.js', 'bouncer.css', 'catering-admin-data.js', 'catering-staff-calc.js', 'chenda-melam.css', 'detail-single-media.css', 'media-gallery.css', 'media-gallery.js', 'rfc-shared.css', 'services.css', 'services.js', 'service-desc.css', 'service-desc.js'] as $assetName) {
             $assetPattern = preg_quote($assetName, '/');
             $html = preg_replace_callback(
                 '/(?<url>[^"\']*\/' . $assetPattern . ')(?:\?[^"\']*)?/i',
-                static fn(array $match): string => $match['url'] . '?v=20261014.2',
+                static fn(array $match): string => $match['url'] . '?v=20261015.1',
                 $html
             ) ?? $html;
         }

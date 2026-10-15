@@ -67,7 +67,7 @@
     <div class="eg-gallery" data-eg-category="music-performers" data-eg-fallback="../../../uploads/services/bandset.webp" data-eg-api-base="../../../"></div>
     <div class="sd-info">
       <div class="sd-title-row">
-        <h1 class="sd-title"></h1>
+        <div class="sd-title" role="heading" aria-level="2"></div>
         <span class="sd-rating-chip sd-rating-val"></span>
       </div>
       <div class="sd-chips">
@@ -135,7 +135,19 @@
       <button type="button" class="sd-tab active" data-tab="overview" role="tab" aria-selected="true">Overview</button>
       <button type="button" class="sd-tab" data-tab="reviews"  role="tab" aria-selected="false">Reviews</button>
     </div>
-    <div class="sd-tab-body"        id="tabOverview" role="tabpanel"><p>Loading...</p></div>
+    <div class="sd-tab-body" id="tabOverview" role="tabpanel">
+      <h2>Wedding Brass Band Experiences in Chennai</h2>
+      <p><strong>Make Every Entrance Unforgettable.</strong> ELLCY's wedding brass band experiences combine trumpet melodies, traditional drum rhythms, hand cymbals and ceremonial presentation for memorable processions and special welcomes.</p>
+      <h3>Explore Our Brass Band Experiences</h3>
+      <ul>
+        <li><strong>Classic Brass Band – 6 Members:</strong> a lively compact arrangement for intimate celebrations.</li>
+        <li><strong>Signature Brass Band – 8 Members:</strong> an energetic performance with a fuller instrumental ensemble.</li>
+        <li><strong>Grand Brass Band – 10 Members:</strong> a striking wedding entrance with ceremonial energy.</li>
+        <li><strong>Royal Brass Band – 12 Members:</strong> an expanded ensemble for larger processions.</li>
+        <li><strong>Majestic, Imperial and Ultimate Grand:</strong> 15, 18 and 20-member experiences for ELLCY's largest celebrations.</li>
+      </ul>
+      <p>Choose the ensemble that complements your occasion and review the current package pricing below.</p>
+    </div>
     <div class="sd-tab-body hidden" id="tabReviews"  role="tabpanel"><p>No reviews yet.</p></div>
 
     <div class="sd-cards-section">
@@ -190,7 +202,7 @@
   window.SD_CONFIG = {
     "serviceKey"   : "band-set",
     "categorySlug" : "band-set",
-    "serviceName"  : "Band Set",
+    "serviceName"  : "Wedding Brass Band",
     "rating"       : "4.6",
     "img"          : "../../../uploads/services/musical_band.webp",
     "availability" : "Available for Weddings, Processions & Grand Entry Ceremonies",
@@ -198,7 +210,7 @@
     "priceMeta"    : "Majestic | Grand | Electrifying",
     "showPkgPills" : false,
     "showSlotPills": false,
-    "overviewHtml" : "<p>ELLCY Band Set delivers a magnificent brass band experience that transforms every wedding procession and grand entry into a spectacular celebration. Our uniformed performers bring energy, precision and showmanship that leaves every guest in awe.</p><p>Choose the ensemble size that fits your event — from a compact 6-member brass band to a grand 20-member procession. Each Band Set includes uniformed performers, a wide repertoire of wedding and film songs, and the showmanship that makes every entry unforgettable.</p>",
+    "overviewHtml" : "<h2>Wedding Brass Band Experiences in Chennai</h2><p><strong>Make Every Entrance Unforgettable.</strong> ELLCY's wedding brass band experiences combine trumpet melodies, traditional drum rhythms, hand cymbals and ceremonial presentation for memorable processions and special welcomes.</p><h3>Explore Our Brass Band Experiences</h3><ul><li><strong>Classic Brass Band – 6 Members:</strong> a lively compact arrangement for intimate celebrations.</li><li><strong>Signature Brass Band – 8 Members:</strong> an energetic performance with a fuller instrumental ensemble.</li><li><strong>Grand Brass Band – 10 Members:</strong> a striking wedding entrance with ceremonial energy.</li><li><strong>Royal Brass Band – 12 Members:</strong> an expanded ensemble for larger processions.</li><li><strong>Majestic, Imperial and Ultimate Grand:</strong> 15, 18 and 20-member experiences for ELLCY's largest celebrations.</li></ul><p>Choose the ensemble that complements your occasion and review the current package pricing below.</p>",
     "reviews": [
       { "name": "Arjun Krishnan",   "stars": 5, "text": "The brass band for our baraat was absolutely spectacular. Every guest was energised and dancing!" },
       { "name": "Divya Nair",       "stars": 5, "text": "LED costumes in the premium package looked stunning at night. Perfect grand entry for our wedding." },
@@ -206,13 +218,13 @@
       { "name": "Lakshmi Rajan",    "stars": 5, "text": "Outstanding performance. The drum major's choreography added so much drama and excitement." }
     ],
     "packages": [
-      { "key": "bs-6",  "label": "6 Members",  "price": 11994, "priceB": 0, "desc": "" },
-      { "key": "bs-8",  "label": "8 Members",  "price": 15992, "priceB": 0, "desc": "" },
-      { "key": "bs-10", "label": "10 Members", "price": 19990, "priceB": 0, "desc": "" },
-      { "key": "bs-12", "label": "12 Members", "price": 23988, "priceB": 0, "desc": "" },
-      { "key": "bs-15", "label": "15 Members", "price": 29985, "priceB": 0, "desc": "" },
-      { "key": "bs-18", "label": "18 Members", "price": 35982, "priceB": 0, "desc": "" },
-      { "key": "bs-20", "label": "20 Members", "price": 39980, "priceB": 0, "desc": "" }
+      { "key": "bs-6",  "label": "Classic – 6 Members",  "price": 11994, "priceB": 0, "desc": "Lively compact arrangement for intimate celebrations." },
+      { "key": "bs-8",  "label": "Signature – 8 Members",  "price": 15992, "priceB": 0, "desc": "Fuller instrumental ensemble for energetic processions." },
+      { "key": "bs-10", "label": "Grand – 10 Members", "price": 19990, "priceB": 0, "desc": "Striking wedding entrance with ceremonial energy." },
+      { "key": "bs-12", "label": "Royal – 12 Members", "price": 23988, "priceB": 0, "desc": "Expanded uniformed ensemble for larger processions." },
+      { "key": "bs-15", "label": "Majestic – 15 Members", "price": 29985, "priceB": 0, "desc": "Premium musical procession for grand celebrations." },
+      { "key": "bs-18", "label": "Imperial – 18 Members", "price": 35982, "priceB": 0, "desc": "Powerful brass and percussion for impressive entrances." },
+      { "key": "bs-20", "label": "Ultimate Grand – 20 Members", "price": 39980, "priceB": 0, "desc": "ELLCY's flagship twenty-member grand-entry experience." }
     ],
     "phone": "+919876543210"
   };

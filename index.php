@@ -17,7 +17,7 @@ require_once __DIR__ . '/app/helpers/Router.php';
 $earlyPath = (string)(parse_url((string)($_SERVER['REQUEST_URI'] ?? '/'), PHP_URL_PATH) ?: '/');
 $isCacheablePublicGet = getenv('VERCEL') === '1'
     && ($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'GET'
-    && (bool)preg_match('#^/(?:$|index\.html$|services(?:/|$)|category(?:/|$)|categories(?:/|$))#', $earlyPath);
+    && (bool)preg_match('#^/(?:$|index\.html$|robots\.txt$|sitemap\.xml$|services(?:/|$)|category(?:/|$)|categories(?:/|$))#', $earlyPath);
 
 if ($isCacheablePublicGet) {
     // PHP's default file session sends no-cache headers and is not shared
@@ -64,6 +64,53 @@ if ($maintenance === '1' && !str_contains($_SERVER['REQUEST_URI'] ?? '', '/admin
 
 // ── Router ──────────────────────────────────────────────────────────
 $router = new Router(APP_BASE);
+
+// ── SEARCH ENGINE DISCOVERY ────────────────────────────────────────
+$router->get('/robots.txt', static function (): void {
+    header('Content-Type: text/plain; charset=UTF-8');
+    header('Cache-Control: public, max-age=3600, s-maxage=86400');
+    echo "User-agent: *\n";
+    echo "Allow: /\n";
+    echo "Disallow: /admin/\n";
+    echo "Disallow: /account\n";
+    echo "Disallow: /cart\n";
+    echo "Disallow: /booking\n";
+    echo "Disallow: /api/\n\n";
+    echo 'Sitemap: ' . rtrim(APP_URL, '/') . "/sitemap.xml\n";
+    echo 'Host: ' . rtrim(APP_URL, '/') . "\n";
+});
+
+$router->get('/sitemap.xml', static function (): void {
+    header('Content-Type: application/xml; charset=UTF-8');
+    header('Cache-Control: public, max-age=3600, s-maxage=86400');
+    $base = rtrim(APP_URL, '/');
+    $routes = [
+        ['/', '1.0'],
+        ['/services', '0.9'],
+        ['/services/music-performers/chenda-melam/', '0.9'],
+        ['/services/music-performers/band-set/', '0.9'],
+        ['/services/dj/', '0.8'],
+        ['/services/decoration/', '0.8'],
+        ['/services/stage-decoration/', '0.8'],
+        ['/services/photography/', '0.8'],
+        ['/services/bridal-groom-styling/', '0.8'],
+        ['/services/food/', '0.8'],
+        ['/services/catering-boys/', '0.7'],
+        ['/services/real-flowers/', '0.7'],
+        ['/services/snacks-stalls/', '0.7'],
+        ['/services/entertainment-activities/', '0.7'],
+        ['/services/bouncers/', '0.7'],
+        ['/vendor-signup', '0.5'],
+    ];
+    $lastmod = gmdate('Y-m-d');
+    echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+    echo "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n";
+    foreach ($routes as [$path, $priority]) {
+        $loc = htmlspecialchars($base . $path, ENT_XML1 | ENT_QUOTES, 'UTF-8');
+        echo "  <url><loc>{$loc}</loc><lastmod>{$lastmod}</lastmod><changefreq>monthly</changefreq><priority>{$priority}</priority></url>\n";
+    }
+    echo "</urlset>\n";
+});
 
 // ── HOME: serve index.html directly ─────────────────────────────────
 $renderPhpHome = static fn() => (new HomeController())->index();
