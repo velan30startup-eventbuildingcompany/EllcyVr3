@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <meta name="robots" content="noindex, nofollow"/>
   <title>ELLCY | My Account</title>
-  <link rel="icon" type="image/svg+xml" href="<?= htmlspecialchars(PUBLIC_URL) ?>/uploads/branding/favicon.svg?v=20261016.1"/>
+  <link rel="icon" type="image/svg+xml" href="<?= htmlspecialchars(PUBLIC_URL) ?>/uploads/branding/favicon.svg?v=20261016.2"/>
   <link rel="alternate icon" type="image/png" sizes="32x32" href="<?= htmlspecialchars(PUBLIC_URL) ?>/uploads/branding/favicon-32.png"/>
   <link rel="apple-touch-icon" sizes="180x180" href="<?= htmlspecialchars(PUBLIC_URL) ?>/uploads/branding/apple-touch-icon.png"/>
   <link rel="stylesheet" href="<?= htmlspecialchars(APP_BASE) ?>/css/style.css"/>
   <link rel="stylesheet" href="<?= htmlspecialchars(APP_BASE) ?>/css/cart.css"/>
-  <link rel="stylesheet" href="<?= htmlspecialchars(PUBLIC_URL) ?>/css/brand.css?v=20261016.1"/>
+  <link rel="stylesheet" href="<?= htmlspecialchars(PUBLIC_URL) ?>/css/brand.css?v=20261016.2"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" defer></script>
   <style>
     body{background:#f8f6fb;font-family:'Segoe UI',system-ui,sans-serif;margin:0;color:#1a1a2e}

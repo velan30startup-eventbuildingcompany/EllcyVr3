@@ -30,7 +30,7 @@ class BookingNotifier {
         };
         $html = '<!doctype html><html><body style="margin:0;background:#f5efff;font-family:Arial,sans-serif;color:#181120">'
             . '<div style="max-width:680px;margin:24px auto;background:#fff;border-radius:14px;overflow:hidden;border:1px solid #eadcff">'
-            . '<div style="padding:22px 26px;background:linear-gradient(110deg,#350078,#7000e8,#b820ef);color:#fff"><h1 style="margin:0;font-size:24px">New ELLCY Enquiry</h1><p style="margin:7px 0 0">Booking reference: ' . $escape($reference) . '</p></div>'
+            . '<div style="padding:22px 26px;background:linear-gradient(110deg,#4e0d7a,#6a1b9a,#9c3ed6);color:#fff"><h1 style="margin:0;font-size:24px">New ELLCY Enquiry</h1><p style="margin:7px 0 0">Booking reference: ' . $escape($reference) . '</p></div>'
             . '<div style="padding:22px 26px"><table style="width:100%;border-collapse:collapse">'
             . $field('Customer', $name) . $field('Mobile', $booking['phone'] ?? '') . $field('Email', $booking['email'] ?? '')
             . $field('Event', $booking['event_type'] ?? '') . $field('Event date', $booking['event_date'] ?? '')

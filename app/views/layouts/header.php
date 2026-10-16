@@ -34,15 +34,15 @@
   <meta name="twitter:image" content="<?= Security::e($socialImage) ?>"/>
   <?php endif; ?>
   <title><?= Security::e($page_title ?? 'ELLCY | Event Services') ?></title>
-  <link rel="icon" type="image/svg+xml" href="<?= PUBLIC_URL ?>/uploads/branding/favicon.svg?v=20261016.1"/>
+  <link rel="icon" type="image/svg+xml" href="<?= PUBLIC_URL ?>/uploads/branding/favicon.svg?v=20261016.2"/>
   <link rel="alternate icon" type="image/png" sizes="32x32" href="<?= PUBLIC_URL ?>/uploads/branding/favicon-32.png"/>
   <link rel="apple-touch-icon" sizes="180x180" href="<?= PUBLIC_URL ?>/uploads/branding/apple-touch-icon.png"/>
   <?php if (!empty($preload_image)): ?>
   <link rel="preload" as="image" href="<?= Security::e($preload_image) ?>" type="image/webp" fetchpriority="high"/>
   <?php endif; ?>
-  <link rel="stylesheet" href="<?= PUBLIC_URL ?>/css/style.css?v=20261016.1"/>
+  <link rel="stylesheet" href="<?= PUBLIC_URL ?>/css/style.css?v=20261016.2"/>
   <link rel="stylesheet" href="<?= PUBLIC_URL ?>/css/cart.css?v=20261014.2"/>
-  <link rel="stylesheet" href="<?= PUBLIC_URL ?>/css/brand.css?v=20261016.1"/>
+  <link rel="stylesheet" href="<?= PUBLIC_URL ?>/css/brand.css?v=20261016.2"/>
   <?php if (!empty($extra_css)): ?>
     <?php foreach ((array)$extra_css as $css): ?>
     <link rel="stylesheet" href="<?= PUBLIC_URL ?>/css/<?= Security::e($css) ?>"/>

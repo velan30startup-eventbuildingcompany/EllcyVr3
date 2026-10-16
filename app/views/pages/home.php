@@ -95,7 +95,7 @@ require VIEWS_PATH . '/layouts/header.php';
 <section class="ellcy-seo-hero ellcy-seo-hero--bottom" aria-labelledby="ellcy-home-title">
   <div class="ellcy-seo-hero__inner">
     <div class="ellcy-seo-visual">
-      <img src="<?= PUBLIC_URL ?>/uploads/branding/ellcy-celebrate-wedding.webp" width="1200" height="630" loading="lazy" decoding="async" alt="Tamil wedding celebration with Chenda Melam performers and ELLCY branding"/>
+      <img src="<?= PUBLIC_URL ?>/uploads/branding/ellcy-celebrate-wedding.webp?v=20261016.2" width="1200" height="630" loading="lazy" decoding="async" alt="Tamil wedding celebration with Chenda Melam performers and ELLCY branding"/>
     </div>
     <div class="ellcy-seo-copy">
       <p class="ellcy-seo-kicker">ELLCY — Event Services &amp; Celebration Experiences</p>
