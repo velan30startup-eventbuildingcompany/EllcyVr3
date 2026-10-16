@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <meta name="robots" content="noindex, nofollow"/>
   <title>ELLCY | Forgot Password</title>
-  <link rel="icon" type="image/svg+xml" href="<?= htmlspecialchars(PUBLIC_URL) ?>/uploads/branding/favicon.svg?v=20260922.1"/>
+  <link rel="icon" type="image/svg+xml" href="<?= htmlspecialchars(PUBLIC_URL) ?>/uploads/branding/favicon.svg?v=20261016.1"/>
   <link rel="alternate icon" type="image/png" sizes="32x32" href="<?= htmlspecialchars(PUBLIC_URL) ?>/uploads/branding/favicon-32.png"/>
   <link rel="apple-touch-icon" sizes="180x180" href="<?= htmlspecialchars(PUBLIC_URL) ?>/uploads/branding/apple-touch-icon.png"/>
   <link rel="stylesheet" href="<?= htmlspecialchars(APP_BASE) ?>/css/style.css"/>
-  <link rel="stylesheet" href="<?= htmlspecialchars(PUBLIC_URL) ?>/css/brand.css?v=20260908.5"/>
+  <link rel="stylesheet" href="<?= htmlspecialchars(PUBLIC_URL) ?>/css/brand.css?v=20261016.1"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" defer></script>
   <style>
     body{background:#f4e9ff;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;font-family:'Segoe UI',system-ui,sans-serif;margin:0}

@@ -83,6 +83,14 @@ class BookingController {
             ]);
             Upload::attachToOrder($referenceTokens, $id, (int)$_SESSION['user_id']);
             $ref = Database::fetchOne('SELECT order_ref FROM orders WHERE id=?',[$id])['order_ref'] ?? '';
+            BookingNotifier::send([
+                'order_ref' => $ref, 'name' => $name, 'email' => $email,
+                'phone' => '+91'.preg_replace('/[^0-9]/','',$phone),
+                'event_type' => $eventType, 'event_date' => $eventDate,
+                'event_venue' => $eventVenue, 'event_time' => $eventTime,
+                'guest_count' => $guests, 'note' => $note,
+                'items' => $items, 'total' => $subtotal,
+            ]);
             echo json_encode(['success'=>true,'order_ref'=>$ref,'message'=>'Booking confirmed!']); exit;
         }
         // Serve existing HTML page

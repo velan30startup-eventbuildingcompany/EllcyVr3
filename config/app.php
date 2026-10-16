@@ -82,6 +82,7 @@ define('RATE_LIMIT_REQUESTS', 30);
 // ── Mail (used by Forgot Password) ───────────────────────────────────
 define('MAIL_FROM',      'no-reply@ellcy.in');
 define('MAIL_FROM_NAME', 'ELLCY');
+define('BOOKING_ENQUIRY_EMAIL', (string)(getenv('BOOKING_ENQUIRY_EMAIL') ?: 'velan30.startup@gmail.com'));
 
 // ── Pagination ──────────────────────────────────────────────────────
 define('ITEMS_PER_PAGE', 20);

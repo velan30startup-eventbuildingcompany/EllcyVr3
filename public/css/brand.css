@@ -1,6 +1,26 @@
 /* Shared ELLCY brand treatment.
-   The supplied wordmark is kept as a real, cached image asset and applied
-   consistently to every customer-facing header and footer variant. */
+   The supplied gradient wordmark is kept as a real, cached image asset and
+   applied consistently to every customer-facing header and footer variant. */
+
+:root {
+  --primary: #7000e8;
+  --primary-dark: #350078;
+  --primary-light: #f4eaff;
+  --accent: #b820ef;
+  --accent-dark: #4b008f;
+  --brand-magenta: #d33cff;
+  --pri: #7000e8;
+  --pri-dark: #350078;
+  --pri-light: #f4eaff;
+  --pri-mid: #a72cf0;
+  --hdr-bg: #7000e8;
+  --hdr-dark: #350078;
+  --violet: #7000e8;
+}
+
+:where(.header,.new-header,.sd-dsk-hdr,.snk-dsk-hdr,.cm-desktop-hdr,.pd-dsk-hdr,.bnc-dsk-hdr) {
+  background: linear-gradient(105deg,#350078 0%,#7000e8 58%,#b820ef 100%) !important;
+}
 
 :where(
   header .logo,
@@ -12,28 +32,31 @@
   header a[aria-label="ELLCY Home"]
 ) {
   display: inline-block !important;
-  width: 100px !important;
-  min-width: 100px !important;
-  height: 28px !important;
-  padding: 0 !important;
+  width: 122px !important;
+  min-width: 122px !important;
+  height: 38px !important;
+  padding: 6px 9px !important;
+  border-radius: 8px !important;
   overflow: hidden !important;
   color: transparent !important;
   font-size: 0 !important;
   line-height: 0 !important;
   text-indent: -9999px !important;
-  background: url('../uploads/branding/ellcy-logo-white.png') left center / contain no-repeat !important;
+  background: #fff url('../uploads/branding/ellcy-logo-gradient.webp') center / calc(100% - 18px) auto no-repeat !important;
+  box-shadow: 0 4px 14px rgba(24,0,62,.18) !important;
 }
 
 .footer-logo {
   display: block !important;
-  width: 124px !important;
-  height: 34px !important;
+  width: 148px !important;
+  height: 44px !important;
   overflow: hidden !important;
   color: transparent !important;
   font-size: 0 !important;
   line-height: 0 !important;
   text-indent: -9999px !important;
-  background: url('../uploads/branding/ellcy-logo-white.png') left center / contain no-repeat !important;
+  border-radius: 8px !important;
+  background: #fff url('../uploads/branding/ellcy-logo-gradient.webp') center / calc(100% - 18px) auto no-repeat !important;
 }
 
 /* Authentication and account pages place the wordmark on white. */
@@ -47,7 +70,7 @@
   font-size: 0 !important;
   line-height: 0 !important;
   text-indent: -9999px !important;
-  background: url('../uploads/branding/ellcy-logo-violet.png') center / contain no-repeat !important;
+  background: url('../uploads/branding/ellcy-logo-gradient.webp') center / contain no-repeat !important;
 }
 
 .auth-logo {
@@ -58,7 +81,7 @@
 /* Brand-colour section titles replace the previous generic black headings. */
 #svc-heading,
 #evt-heading {
-  color: #6a1b9a !important;
+  color: #7000e8 !important;
 }
 
 /* Mobile header controls sit on the violet ribbon and must stay white. */
@@ -96,8 +119,25 @@
     header .bnc-logo,
     header a[aria-label="ELLCY Home"]
   ) {
-    width: 88px !important;
-    min-width: 88px !important;
-    height: 25px !important;
+    width: 101px !important;
+    min-width: 101px !important;
+    height: 34px !important;
+    padding: 5px 7px !important;
   }
+}
+
+@media (max-width: 768px) {
+  /* Inner pages keep the service/category title as their single mobile label;
+     the homepage still shows the full new ELLCY wordmark. */
+  .new-header .logo { display: none !important; }
+  .new-header .hdr-mobile-title { color: #fff !important; }
+}
+
+/* Keep common customer forms fluid on tablets and phones. */
+@media (max-width: 760px) {
+  .container { width: 100% !important; padding-inline: 14px !important; }
+  .bk-layout, .enquiry-layout, .quote-layout { grid-template-columns: minmax(0,1fr) !important; }
+  .bk-row-2, .form-row-2 { grid-template-columns: minmax(0,1fr) !important; }
+  .bk-page, .service-detail, .detail-wrap { max-width: 100% !important; overflow-x: clip !important; }
+  .bk-section-card { padding: 18px 15px !important; }
 }

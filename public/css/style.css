@@ -4,10 +4,10 @@
    ROOT TOKENS
    ════════════════════════════════════════════════════════════ */
 :root {
-  --primary:       #6a1b9a;
-  --primary-dark:  #4e0d7a;
-  --primary-light: #f4e9ff;
-  --accent:        #6b21a8;
+  --primary:       #7000e8;
+  --primary-dark:  #350078;
+  --primary-light: #f4eaff;
+  --accent:        #b820ef;
   --text:          #111;
   --text-light:    #666;
   --bg:            #fff;
@@ -40,7 +40,7 @@ button:focus-visible, a:focus-visible { outline:3px solid var(--primary); outlin
    ════════════════════════════════════════════════════════════ */
 .header {
   width:100%; height:var(--header-h);
-  background:var(--primary);
+  background:linear-gradient(105deg,var(--primary-dark) 0%,var(--primary) 58%,var(--accent) 100%);
   display:flex; align-items:center; justify-content:space-between;
   padding:0 24px; position:sticky; top:0; z-index:200;
   box-shadow:0 2px 0 rgba(0,0,0,.08);

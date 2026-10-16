@@ -411,10 +411,10 @@ $canonicalUrl = $base . '/services/' . trim($serviceRoute, '/') . '/';
   <link rel="stylesheet" href="<?= $e(PUBLIC_URL) ?>/css/media-gallery.css?v=20260831.1"/>
   <link rel="stylesheet" href="<?= $e(PUBLIC_URL) ?>/css/detail-single-media.css?v=20260831.1"/>
   <link rel="stylesheet" href="<?= $e(PUBLIC_URL) ?>/css/cart.css?v=20261014.2"/>
-  <link rel="icon" type="image/svg+xml" href="<?= $e(PUBLIC_URL) ?>/uploads/branding/favicon.svg?v=20260922.1"/>
+  <link rel="icon" type="image/svg+xml" href="<?= $e(PUBLIC_URL) ?>/uploads/branding/favicon.svg?v=20261016.1"/>
   <link rel="alternate icon" type="image/png" sizes="32x32" href="<?= $e(PUBLIC_URL) ?>/uploads/branding/favicon-32.png"/>
   <link rel="apple-touch-icon" sizes="180x180" href="<?= $e(PUBLIC_URL) ?>/uploads/branding/apple-touch-icon.png"/>
-  <link rel="stylesheet" href="<?= $e(PUBLIC_URL) ?>/css/brand.css?v=20260908.5"/>
+  <link rel="stylesheet" href="<?= $e(PUBLIC_URL) ?>/css/brand.css?v=20261016.1"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
 <body class="sd-body <?= $portfolio ? 'photo-detail-page' : '' ?> <?= !empty($cfg['catalogCards']) ? 'catalog-card-detail-page' : '' ?> <?= $isMakeOver ? 'make-over-detail-page' : '' ?>">
