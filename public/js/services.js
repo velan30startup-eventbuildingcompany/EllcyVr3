@@ -32,7 +32,7 @@
 
   document.addEventListener('DOMContentLoaded', () => {
     const params = new URLSearchParams(window.location.search);
-    const type   = params.get('type') || '';
+    const type   = window.ELLCY_CATEGORY_TYPE || params.get('type') || '';
 
     /* Slug allowlist — reject malformed input */
     if (type && !/^[a-z0-9\-]+$/.test(type)) {

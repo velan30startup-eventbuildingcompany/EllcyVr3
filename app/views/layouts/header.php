@@ -7,7 +7,7 @@
   <?php
     $requestPath = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
     $canonicalPath = APP_BASE !== '' && str_starts_with($requestPath, APP_BASE) ? substr($requestPath, strlen(APP_BASE)) : $requestPath;
-    $canonicalUrl = rtrim(APP_URL, '/') . '/' . ltrim($canonicalPath, '/');
+    $canonicalUrl = $canonical_url ?? (rtrim(APP_URL, '/') . '/' . ltrim($canonicalPath, '/'));
     $isPrivatePage = (bool)preg_match('#^/(admin|account|login|register|forgot-password|reset-password|cart|booking)(/|$)#', $canonicalPath);
     $robotsValue = $robots ?? ($isPrivatePage ? 'noindex, nofollow' : 'index, follow');
     $socialImage = $og_image ?? (rtrim(PUBLIC_URL, '/') . '/uploads/branding/ellcy-og-2026.jpg');

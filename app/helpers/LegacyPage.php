@@ -114,6 +114,47 @@ final class LegacyPage
             $html = preg_replace('/<\/head>/i', $canonicalTag . '</head>', $html, 1) ?? $html;
         }
 
+        /* The existing JS-driven category pages keep their design and booking
+           behavior. This server-side layer makes each category independently
+           crawlable with unique metadata, useful copy and structured data. */
+        $categorySeo = null;
+        $categorySlug = '';
+        if ($directory === 'pages' && $relativeFile === 'services.html') {
+            $categorySlug = Security::sanitizeString($_GET['type'] ?? '', 80);
+            $categorySeo = CategorySeo::forSlug($categorySlug);
+        }
+        if (is_array($categorySeo)) {
+            $canonicalUrl = rtrim(APP_URL, '/') . CategorySeo::canonicalPath($categorySlug);
+            $canonicalTag = '<link rel="canonical" href="' . Security::e($canonicalUrl) . '"/>';
+            $html = preg_replace('#<link\s+rel=["\']canonical["\'][^>]*>#i', $canonicalTag, $html, 1) ?? $html;
+
+            $safeTitle = Security::e($categorySeo['title']);
+            $safeDescription = Security::e($categorySeo['description']);
+            $safeHeading = Security::e($categorySeo['heading']);
+            $html = preg_replace('#<title>.*?</title>#is', '<title>' . $safeTitle . '</title>', $html, 1) ?? $html;
+            $html = preg_replace('#(<h1\s+class=["\']page-heading["\']\s+id=["\']page-heading["\']>).*?(</h1>)#is', '$1' . $safeHeading . '$2', $html, 1) ?? $html;
+            $html = preg_replace('#(<span\s+id=["\']breadcrumb-label["\']>).*?(</span>)#is', '$1' . $safeHeading . '$2', $html, 1) ?? $html;
+            if (preg_match('#<meta\s+name=["\']description["\'][^>]*>#i', $html)) {
+                $html = preg_replace('#<meta\s+name=["\']description["\'][^>]*>#i', '<meta name="description" content="' . $safeDescription . '"/>', $html, 1) ?? $html;
+            } else {
+                $html = preg_replace('/<\/head>/i', '<meta name="description" content="' . $safeDescription . '"/></head>', $html, 1) ?? $html;
+            }
+            $html = preg_replace('#<meta\s+property=["\']og:title["\'][^>]*>#i', '', $html) ?? $html;
+            $html = preg_replace('#<meta\s+property=["\']og:description["\'][^>]*>#i', '', $html) ?? $html;
+            $ogTags = '<meta property="og:title" content="' . $safeTitle . '"/>'
+                . '<meta property="og:description" content="' . $safeDescription . '"/>'
+                . '<meta property="og:type" content="website"/>'
+                . '<meta property="og:url" content="' . Security::e($canonicalUrl) . '"/>'
+                . '<meta property="og:image" content="' . Security::e(rtrim(PUBLIC_URL, '/') . '/uploads/branding/ellcy-og-2026.jpg') . '"/>'
+                . '<meta name="twitter:card" content="summary_large_image"/>'
+                . '<link rel="stylesheet" href="' . Security::e(PUBLIC_URL . '/css/seo-content.css?v=20261118.1') . '"/>'
+                . '<script>window.ELLCY_CATEGORY_TYPE=' . json_encode($categorySlug, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) . ';</script>'
+                . '<script type="application/ld+json">' . CategorySeo::jsonLd($categorySeo, $canonicalUrl) . '</script>';
+            $html = preg_replace('/<\/head>/i', $ogTags . '</head>', $html, 1) ?? $html;
+            $seoSection = CategorySeo::renderSection($categorySeo);
+            $html = preg_replace('/<footer\s+class=["\']site-footer["\']/i', $seoSection . '<footer class="site-footer"', $html, 1) ?? $html;
+        }
+
         $seoPages = [
             '/services/music-performers/chenda-melam/' => ['Chenda Melam for Weddings in Chennai | ELLCY', 'Explore traditional Chenda Melam for weddings in Chennai, including morning, evening and full-celebration experiences with skilled percussion ensembles.'],
             '/services/music-performers/band-set/' => ['Wedding Brass Band Experiences in Chennai | ELLCY', 'Compare ELLCY wedding brass band experiences in Chennai, from compact six-member bands to flagship twenty-member ceremonial ensembles.'],

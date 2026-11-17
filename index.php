@@ -17,7 +17,7 @@ require_once __DIR__ . '/app/helpers/Router.php';
 $earlyPath = (string)(parse_url((string)($_SERVER['REQUEST_URI'] ?? '/'), PHP_URL_PATH) ?: '/');
 $isCacheablePublicGet = getenv('VERCEL') === '1'
     && ($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'GET'
-    && (bool)preg_match('#^/(?:$|index\.html$|robots\.txt$|sitemap\.xml$|services(?:/|$)|category(?:/|$)|categories(?:/|$))#', $earlyPath);
+    && (bool)preg_match('#^/(?:$|index\.html$|robots\.txt$|sitemap\.xml$|services(?:/|$)|category(?:/|$)|categories(?:/|$)|blog(?:/|$))#', $earlyPath);
 
 if ($isCacheablePublicGet) {
     // PHP's default file session sends no-cache headers and is not shared
@@ -42,6 +42,7 @@ require_once __DIR__ . '/app/helpers/Sms.php';
 require_once __DIR__ . '/app/models/CateringStaffCalculator.php';
 require_once __DIR__ . '/app/controllers/HomeController.php';
 require_once __DIR__ . '/app/controllers/ServiceController.php';
+require_once __DIR__ . '/app/controllers/BlogController.php';
 require_once __DIR__ . '/app/controllers/BookingController.php';
 require_once __DIR__ . '/app/controllers/AdminController.php';
 require_once __DIR__ . '/app/controllers/EnquiryController.php';
@@ -100,6 +101,27 @@ $router->get('/sitemap.xml', static function (): void {
         ['/services/snacks-stalls/', '0.7'],
         ['/services/entertainment-activities/', '0.7'],
         ['/services/bouncers/', '0.7'],
+        ['/services/category/dj/', '0.8'],
+        ['/services/category/decoration/', '0.8'],
+        ['/services/category/photography/', '0.8'],
+        ['/services/category/food/', '0.8'],
+        ['/services/category/musical-band/', '0.8'],
+        ['/services/category/chenda-melam/', '0.8'],
+        ['/services/category/band-set/', '0.8'],
+        ['/services/category/bridal-groom-styling/', '0.8'],
+        ['/services/category/catering-boys/', '0.7'],
+        ['/services/category/entertainment-activities/', '0.7'],
+        ['/services/category/snacks-stalls/', '0.7'],
+        ['/services/category/bouncers/', '0.7'],
+        ['/services/category/dancers/', '0.7'],
+        ['/services/category/real-flowers/', '0.7'],
+        ['/services/category/flower-rangoli/', '0.7'],
+        ['/services/category/car-entry/', '0.7'],
+        ['/services/category/fake-jewellery/', '0.7'],
+        ['/services/category/plates-decoration/', '0.7'],
+        ['/services/category/enter-show-down/', '0.7'],
+        ['/blog', '0.8'],
+        ['/blog/complete-wedding-event-planning-chennai', '0.8'],
         ['/vendor-signup', '0.5'],
     ];
     $lastmod = gmdate('Y-m-d');
@@ -198,6 +220,27 @@ $router->get('/services', function () use ($serveLegacyHtml) {
         (new ServiceController())->listing();
     }
 });
+
+// Crawlable category URLs. Existing ?type= links continue to work unchanged.
+$router->get('/services/category/:slug', function (string $slug) use ($serveLegacyHtml): void {
+    $slug = Security::sanitizeString($slug, 80);
+    if (!CategorySeo::forSlug($slug)) {
+        http_response_code(404);
+        require VIEWS_PATH . '/pages/404.php';
+        return;
+    }
+    $_GET['type'] = $slug;
+    if (in_array($slug, ['musical-band', 'chenda-melam', 'band-set'], true)) {
+        (new ServiceController())->listing();
+        return;
+    }
+    if (!$serveLegacyHtml('pages', 'services.html')) {
+        (new ServiceController())->listing();
+    }
+});
+
+$router->get('/blog', fn() => (new BlogController())->index());
+$router->get('/blog/complete-wedding-event-planning-chennai', fn() => (new BlogController())->article());
 
 // Clean service-detail routes are resolved by PHP. Legacy /index.html URLs
 // redirect to the equivalent canonical directory URL.

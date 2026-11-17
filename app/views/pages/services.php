@@ -139,10 +139,12 @@ if (empty($page['parent'])) {
     }
 }
 
-$page_title = 'ELLCY | ' . $page['title'];
+$categorySeo = CategorySeo::forSlug($type);
+$page_title = $categorySeo['title'] ?? ('ELLCY | ' . $page['title']);
 $meta_title = $page_title;
-$meta_description = 'Browse ' . $page['title'] . ' packages and prices from ELLCY event services in Chennai.';
-$extra_css = ['header2.css', 'services.css'];
+$meta_description = $categorySeo['description'] ?? ('Browse ' . $page['title'] . ' packages and prices from ELLCY event services in Chennai.');
+$canonical_url = $categorySeo ? (rtrim(APP_URL, '/') . CategorySeo::canonicalPath($type)) : null;
+$extra_css = ['header2.css', 'services.css', 'seo-content.css'];
 $skip_data_js = true;
 require VIEWS_PATH . '/layouts/header.php';
 
@@ -261,6 +263,11 @@ $renderCard = static function (array $card): void {
     <?php endforeach; ?>
   </div>
 </main>
+
+<?php if ($categorySeo): ?>
+  <?= CategorySeo::renderSection($categorySeo) ?>
+  <script type="application/ld+json"><?= CategorySeo::jsonLd($categorySeo, $canonical_url) ?></script>
+<?php endif; ?>
 
 <?php
 $extra_js = [];
