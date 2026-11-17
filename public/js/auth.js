@@ -228,6 +228,7 @@
       '</div>' +
       '<nav class="ellcy-drawer-nav">' +
         '<a href="' + ROOT_PREFIX + '"><i class="fa-solid fa-house"></i> Home</a>' +
+        '<a href="' + ROOT_PREFIX + 'blog"><i class="fa-solid fa-newspaper"></i> Wedding Planning Blog</a>' +
         '<a href="' + getMyBookingsPath() + '"><i class="fa-solid fa-calendar-check"></i> My Bookings</a>' +
         '<a href="' + getCartPath() + '"><i class="fa-solid fa-cart-shopping"></i> My Orders / Cart</a>' +
         (auth.loggedIn ? '<a href="' + getAccountPath() + '#settings"><i class="fa-solid fa-gear"></i> Account Settings</a>' : '') +
@@ -415,6 +416,7 @@
         menu.className = 'ellcy-acct-menu';
         menu.innerHTML =
           '<a href="' + getAccountPath() + '"><i class="fa-solid fa-id-card"></i> My Profile</a>' +
+          '<a href="' + ROOT_PREFIX + 'blog"><i class="fa-solid fa-newspaper"></i> Wedding Planning Blog</a>' +
           '<a href="' + getMyBookingsPath() + '"><i class="fa-solid fa-calendar-check"></i> My Bookings</a>' +
           '<a href="' + getCartPath() + '"><i class="fa-solid fa-cart-shopping"></i> My Orders / Cart</a>' +
           '<a href="' + getAccountPath() + '#settings"><i class="fa-solid fa-gear"></i> Account Settings</a>' +

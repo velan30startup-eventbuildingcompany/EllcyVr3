@@ -9,6 +9,7 @@
       <ul>
         <li><a href="<?= APP_URL ?>/">Home</a></li>
         <li><a href="<?= APP_URL ?>/services">Event Services</a></li>
+        <li><a href="<?= APP_URL ?>/blog">Wedding Planning Blog</a></li>
         <li><a href="<?= APP_URL ?>/booking">Book Now</a></li>
         <li><a href="<?= APP_URL ?>/cart">My Cart</a></li>
       </ul>
@@ -45,7 +46,7 @@
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 <?php if (empty($skip_data_js)): ?><script src="<?= PUBLIC_URL ?>/js/data.js?v=20261015.3" defer></script><?php endif; ?>
 <?php if (empty($minimal_home_scripts)): ?>
-<script src="<?= PUBLIC_URL ?>/js/auth.js?v=20261014.2" defer></script>
+<script src="<?= PUBLIC_URL ?>/js/auth.js?v=20261118.1" defer></script>
 <script src="<?= PUBLIC_URL ?>/js/cart.js" defer></script>
 <script src="<?= PUBLIC_URL ?>/js/booking-date-policy.js?v=20260924.1" defer></script>
 <?php else: ?>

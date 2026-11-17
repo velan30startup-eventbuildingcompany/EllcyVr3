@@ -244,6 +244,19 @@ final class LegacyPage
                 $html
             ) ?? $html;
         }
+        $html = str_replace('auth.js?v=20261016.2', 'auth.js?v=20261118.1', $html);
+
+        /* Make the planning journal discoverable from every routed legacy
+           page while preserving the existing footer structure. */
+        if (!preg_match('#href=["\'][^"\']*/blog(?:["\'/])#i', $html)) {
+            $blogLink = '<li><a href="' . Security::e(APP_URL . '/blog') . '">Wedding Planning Blog</a></li>';
+            $html = preg_replace(
+                '#(<h4>\s*Quick Links\s*</h4>\s*<ul>)#i',
+                '$1' . $blogLink,
+                $html,
+                1
+            ) ?? $html;
+        }
 
         /* Font Awesome's JavaScript build transfers and parses more than a
            megabyte before DOMContentLoaded. The CSS build renders the same
